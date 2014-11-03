@@ -352,6 +352,8 @@
                             <constraint firstItem="kgX-E3-2Uh" firstAttribute="top" secondItem="Ypg-7Z-22A" secondAttribute="bottom" constant="53" id="zVz-SF-bbP"/>
                         </constraints>
                     </view>
+                    <toolbarItems/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vvj-2Q-1Bo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
