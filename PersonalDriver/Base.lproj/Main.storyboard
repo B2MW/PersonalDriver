@@ -93,7 +93,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <segue destination="qZ2-9T-qqd" kind="presentation" id="lbj-aN-uMa"/>
+                        <segue destination="qZ2-9T-qqd" kind="presentation" identifier="showSignup" id="lbj-aN-uMa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
