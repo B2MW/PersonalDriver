@@ -15,6 +15,7 @@
 		4C7175251A081334002AC734 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C7175241A081334002AC734 /* Images.xcassets */; };
 		4C7175281A081334002AC734 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C7175261A081334002AC734 /* LaunchScreen.xib */; };
 		4C7175341A081334002AC734 /* PersonalDriverTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7175331A081334002AC734 /* PersonalDriverTests.m */; };
+		CE19D8481A081E5D00874F56 /* SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE19D8471A081E5D00874F56 /* SignupViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +43,8 @@
 		4C71752D1A081334002AC734 /* PersonalDriverTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PersonalDriverTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C7175321A081334002AC734 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4C7175331A081334002AC734 /* PersonalDriverTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PersonalDriverTests.m; sourceTree = "<group>"; };
+		CE19D8461A081E5D00874F56 /* SignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignupViewController.h; sourceTree = "<group>"; };
+		CE19D8471A081E5D00874F56 /* SignupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignupViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,11 +86,13 @@
 		4C7175131A081334002AC734 /* PersonalDriver */ = {
 			isa = PBXGroup;
 			children = (
+				4C7175211A081334002AC734 /* Main.storyboard */,
+				CE19D8461A081E5D00874F56 /* SignupViewController.h */,
+				CE19D8471A081E5D00874F56 /* SignupViewController.m */,
 				4C7175181A081334002AC734 /* AppDelegate.h */,
 				4C7175191A081334002AC734 /* AppDelegate.m */,
 				4C71751E1A081334002AC734 /* ViewController.h */,
 				4C71751F1A081334002AC734 /* ViewController.m */,
-				4C7175211A081334002AC734 /* Main.storyboard */,
 				4C7175241A081334002AC734 /* Images.xcassets */,
 				4C7175261A081334002AC734 /* LaunchScreen.xib */,
 				4C71751B1A081334002AC734 /* PersonalDriver.xcdatamodeld */,
@@ -226,6 +231,7 @@
 				4C7175171A081334002AC734 /* main.m in Sources */,
 				4C7175201A081334002AC734 /* ViewController.m in Sources */,
 				4C71751D1A081334002AC734 /* PersonalDriver.xcdatamodeld in Sources */,
+				CE19D8481A081E5D00874F56 /* SignupViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -416,6 +422,7 @@
 				4C7175391A081334002AC734 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4C71753A1A081334002AC734 /* Build configuration list for PBXNativeTarget "PersonalDriverTests" */ = {
 			isa = XCConfigurationList;
@@ -424,6 +431,7 @@
 				4C71753C1A081334002AC734 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
