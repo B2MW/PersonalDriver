@@ -6,32 +6,30 @@
 //  Copyright (c) 2014 TeamPersonalDriver. All rights reserved.
 //
 
-#import "UserProfileViewController.h"
+#import "PassengerProfileViewController.h"
 
-@interface UserProfileViewController ()
+@interface PassengerProfileViewController ()
+@property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
+@property (weak, nonatomic) IBOutlet UILabel *profileNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *profileEmailLabel;
+@property (weak, nonatomic) IBOutlet UILabel *profilePhoneLabel;
+
 
 @end
 
-@implementation UserProfileViewController
+@implementation PassengerProfileViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (IBAction)onSettingsButtonTapped:(id)sender {
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (IBAction)onLogoutButtonTapped:(id)sender {
 }
-*/
+
+
 
 @end
