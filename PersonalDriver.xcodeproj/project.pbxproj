@@ -32,6 +32,8 @@
 		4C71757E1A08FAAF002AC734 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C71757C1A08FAAF002AC734 /* Parse.framework */; };
 		4C7175811A08FDB6002AC734 /* AvailableRidesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7175801A08FDB6002AC734 /* AvailableRidesTableViewController.m */; };
 		4C7175841A08FDCC002AC734 /* AvailableRidesDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7175831A08FDCC002AC734 /* AvailableRidesDetailViewController.m */; };
+		4C7175881A0928A2002AC734 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7175861A0928A2002AC734 /* Bolts.framework */; };
+		4C7175891A0928A2002AC734 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7175871A0928A2002AC734 /* Parse.framework */; };
 		CE19D8481A081E5D00874F56 /* SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE19D8471A081E5D00874F56 /* SignupViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -81,6 +83,8 @@
 		4C7175801A08FDB6002AC734 /* AvailableRidesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvailableRidesTableViewController.m; sourceTree = "<group>"; };
 		4C7175821A08FDCC002AC734 /* AvailableRidesDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvailableRidesDetailViewController.h; sourceTree = "<group>"; };
 		4C7175831A08FDCC002AC734 /* AvailableRidesDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvailableRidesDetailViewController.m; sourceTree = "<group>"; };
+		4C7175861A0928A2002AC734 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		4C7175871A0928A2002AC734 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		CE19D8461A081E5D00874F56 /* SignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignupViewController.h; sourceTree = "<group>"; };
 		CE19D8471A081E5D00874F56 /* SignupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignupViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -94,6 +98,7 @@
 				4C71757E1A08FAAF002AC734 /* Parse.framework in Frameworks */,
 				4C7175711A08FAA0002AC734 /* Accounts.framework in Frameworks */,
 				4C7175721A08FAA0002AC734 /* AdSupport.framework in Frameworks */,
+				4C7175891A0928A2002AC734 /* Parse.framework in Frameworks */,
 				4C7175731A08FAA0002AC734 /* AudioToolbox.framework in Frameworks */,
 				4C7175741A08FAA0002AC734 /* CFNetwork.framework in Frameworks */,
 				4C7175751A08FAA0002AC734 /* CoreGraphics.framework in Frameworks */,
@@ -103,6 +108,7 @@
 				4C7175791A08FAA0002AC734 /* Security.framework in Frameworks */,
 				4C71757A1A08FAA0002AC734 /* SystemConfiguration.framework in Frameworks */,
 				4C7175661A08FA6B002AC734 /* libz.dylib in Frameworks */,
+				4C7175881A0928A2002AC734 /* Bolts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -160,6 +166,8 @@
 		4C7175141A081334002AC734 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4C7175861A0928A2002AC734 /* Bolts.framework */,
+				4C7175871A0928A2002AC734 /* Parse.framework */,
 				4C71757B1A08FAAF002AC734 /* Bolts.framework */,
 				4C71757C1A08FAAF002AC734 /* Parse.framework */,
 				4C7175671A08FAA0002AC734 /* Accounts.framework */,
@@ -440,6 +448,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/P5/Downloads/parse-library-1.4.2",
+					"$(PROJECT_DIR)/PersonalDriver",
 				);
 				INFOPLIST_FILE = PersonalDriver/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -454,6 +463,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/P5/Downloads/parse-library-1.4.2",
+					"$(PROJECT_DIR)/PersonalDriver",
 				);
 				INFOPLIST_FILE = PersonalDriver/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
