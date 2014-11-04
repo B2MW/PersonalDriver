@@ -20,20 +20,23 @@
 {
     [super viewDidLoad];
 
-    
+    [self refreshDisplay];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 0;
+    return self.availableRides.count;
 }
 
 - (AvailableRideTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Ride *ride =
+    Ride *ride = [self.availableRides objectAtIndex:indexPath.row];
     AvailableRideTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RideCell"];
-    cell.passengerName = ;
-    cell.fareEstimate = ;
+    cell.pickupDateTimeLabel.text = ride.rideDateTime;
+    cell.rideOrigin.text = @"my ride origin";
+    cell.rideDestination.text = @"my ride destination";
+    cell.fareEstimate.text = @"$100";
+    cell.userImage.image = [UIImage imageNamed:@"profilePicPlaceholder"];
     return cell;
 }
 

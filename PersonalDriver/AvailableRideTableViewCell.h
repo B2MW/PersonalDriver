@@ -12,5 +12,8 @@
 @interface AvailableRideTableViewCell : UITableViewCell
 @property Ride *ride;
 @property IBOutlet UIImageView *userImage;
-
+@property (strong, nonatomic) IBOutlet UILabel *pickupDateTimeLabel;
+@property (strong, nonatomic) IBOutlet UILabel *rideOrigin;
+@property (strong, nonatomic) IBOutlet UILabel *rideDestination;
+@property (strong, nonatomic) IBOutlet UILabel *fareEstimate;
 @end
