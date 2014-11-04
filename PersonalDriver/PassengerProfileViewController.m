@@ -24,11 +24,7 @@
     // Do any additional setup after loading the view.
 }
 
-- (IBAction)onSettingsButtonTapped:(id)sender {
-}
 
-- (IBAction)onLogoutButtonTapped:(id)sender {
-}
 
 
 
