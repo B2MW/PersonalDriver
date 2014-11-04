@@ -27,7 +27,7 @@
 		4C7175781A08FAA0002AC734 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C71756E1A08FAA0002AC734 /* QuartzCore.framework */; };
 		4C7175791A08FAA0002AC734 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C71756F1A08FAA0002AC734 /* Security.framework */; };
 		4C71757A1A08FAA0002AC734 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7175701A08FAA0002AC734 /* SystemConfiguration.framework */; };
-		4C7175811A08FDB6002AC734 /* AvailableRidesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7175801A08FDB6002AC734 /* AvailableRidesTableViewController.m */; };
+		4C7175811A08FDB6002AC734 /* AvailableRidesTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7175801A08FDB6002AC734 /* AvailableRidesTableView.m */; };
 		4C7175841A08FDCC002AC734 /* AvailableRidesDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7175831A08FDCC002AC734 /* AvailableRidesDetailViewController.m */; };
 		4C7175881A0928A2002AC734 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7175861A0928A2002AC734 /* Bolts.framework */; };
 		4C7175891A0928A2002AC734 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7175871A0928A2002AC734 /* Parse.framework */; };
@@ -94,8 +94,8 @@
 		4C71756E1A08FAA0002AC734 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		4C71756F1A08FAA0002AC734 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		4C7175701A08FAA0002AC734 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		4C71757F1A08FDB6002AC734 /* AvailableRidesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvailableRidesTableViewController.h; sourceTree = "<group>"; };
-		4C7175801A08FDB6002AC734 /* AvailableRidesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvailableRidesTableViewController.m; sourceTree = "<group>"; };
+		4C71757F1A08FDB6002AC734 /* AvailableRidesTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvailableRidesTableView.h; sourceTree = "<group>"; };
+		4C7175801A08FDB6002AC734 /* AvailableRidesTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvailableRidesTableView.m; sourceTree = "<group>"; };
 		4C7175821A08FDCC002AC734 /* AvailableRidesDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvailableRidesDetailViewController.h; sourceTree = "<group>"; };
 		4C7175831A08FDCC002AC734 /* AvailableRidesDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvailableRidesDetailViewController.m; sourceTree = "<group>"; };
 		4C7175861A0928A2002AC734 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
@@ -267,8 +267,8 @@
 		4C7175851A08FDE4002AC734 /* Driver UX */ = {
 			isa = PBXGroup;
 			children = (
-				4C71757F1A08FDB6002AC734 /* AvailableRidesTableViewController.h */,
-				4C7175801A08FDB6002AC734 /* AvailableRidesTableViewController.m */,
+				4C71757F1A08FDB6002AC734 /* AvailableRidesTableView.h */,
+				4C7175801A08FDB6002AC734 /* AvailableRidesTableView.m */,
 				4C7175821A08FDCC002AC734 /* AvailableRidesDetailViewController.h */,
 				4C7175831A08FDCC002AC734 /* AvailableRidesDetailViewController.m */,
 			);
@@ -469,7 +469,7 @@
 				CE19D97D1A092D2700874F56 /* NXOAuth2Client.m in Sources */,
 				CE19D97C1A092D2700874F56 /* NXOAuth2AccountStore.m in Sources */,
 				2236D93E1A08234B00F19EA5 /* PassengerProfileViewController.m in Sources */,
-				4C7175811A08FDB6002AC734 /* AvailableRidesTableViewController.m in Sources */,
+				4C7175811A08FDB6002AC734 /* AvailableRidesTableView.m in Sources */,
 				4C71758D1A0931D2002AC734 /* Ride.m in Sources */,
 				CE19D9841A092D2700874F56 /* UberKit.m in Sources */,
 				CE19D97F1A092D2700874F56 /* NXOAuth2Constants.m in Sources */,
