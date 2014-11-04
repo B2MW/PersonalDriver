@@ -12,12 +12,14 @@
 @interface Ride : PFObject <PFSubclassing>
 @property PFUser *driver;
 @property PFUser *passenger;
-@property NSNumber *passengerCount;
+@property NSString *passengerCount;
 @property PFGeoPoint *pickupGeoPoint;
 @property PFGeoPoint *dropoffGeoPoint;
 @property NSDate *rideDateTime;
 @property NSString *specialInstructions;
 @property BOOL *driverConfirmed;
 @property BOOL *driverEnRoute;
+@property NSString *pickUpLocation;
+@property NSString *destination;
 
 @end
