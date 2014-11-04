@@ -9,9 +9,7 @@
 #import "LoginViewController.h"
 #import "UberKit.h"
 
-@interface LoginViewController ()<CLLocationManagerDelegate>
-@property CLLocationManager *locationManager;
-@property CLLocation *userLocation;
+@interface LoginViewController ()
 
 @end
 
@@ -20,35 +18,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.locationManager = [[CLLocationManager alloc] init];
-    self.locationManager.delegate = self;
-    [self.locationManager requestWhenInUseAuthorization];
-}
-
-- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
-{
-
-    [self.locationManager startUpdatingLocation];
-    self.userLocation = [[CLLocation alloc]init];
-    self.userLocation = self.locationManager.location;
-
-    UberKit *uberKit = [[UberKit alloc] initWithServerToken:@"5VvEv7zOK6lEmQf0qRjPBA8ie7P8IIHb0X8pAF2r"];
-
-
-    [uberKit getTimeForProductArrivalWithLocation:self.userLocation withCompletionHandler:^(NSArray *resultsArray, NSURLResponse *response, NSError *error)
-     {
-         if (!error) {
-             UberTime *timeEstimate = [[UberTime alloc]init];
-             timeEstimate = [resultsArray firstObject];
-             NSLog(@"%f",timeEstimate.estimate);
-         } else
-         {
-             NSLog(@"Error:%@",[error description]);
-         }
-
-     }];
 
 }
+
 
 
 - (IBAction)onLoginButtonPressed:(UIButton *)sender {
