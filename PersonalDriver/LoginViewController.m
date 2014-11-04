@@ -10,6 +10,9 @@
 #import "UberKit.h"
 
 @interface LoginViewController ()
+@property UberProfile *uberProfile;
+@property UberActivity *uberActivity;
+ 
 
 @end
 
@@ -19,7 +22,11 @@
 {
     [super viewDidLoad];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(performActionsWithToken) name:UBER_ACCESS_TOKEN_AVAILABLE object:nil];
+
 }
+
+
 
 
 
@@ -30,8 +37,55 @@
     [[UberKit sharedInstance] setRedirectURL:@"personaldriver://localhost"]; //Add your redirect url
     [[UberKit sharedInstance] setApplicationName:@"Personal Driver"]; //Add your application name
     [[UberKit sharedInstance] startLogin];
+
 }
 
+- (IBAction)getUserActivityPressed:(UIButton *)sender {
+
+    [self performActionsWithToken];
+
+}
+
+- (void) performActionsWithToken
+{
+    NSString *authToken = [[UberKit sharedInstance] getStoredAuthToken];
+    if(authToken)
+    {
+        [[UberKit sharedInstance] getUserActivityWithCompletionHandler:^(NSArray *activities, NSURLResponse *response, NSError *error)
+         {
+             if(!error)
+             {
+                 NSLog(@"User activity %@", activities);
+                 UberActivity *activity = [activities objectAtIndex:0];
+                 NSLog(@"Last trip distance %f", activity.distance);
+             }
+             else
+             {
+                 NSLog(@"Error %@", error);
+             }
+         }];
+
+        [[UberKit sharedInstance] getUserProfileWithCompletionHandler:^(UberProfile *profile, NSURLResponse *response, NSError *error)
+         {
+             if(!error)
+             {
+                 NSLog(@"User's full name %@ %@", profile.first_name, profile.last_name);
+             }
+             else
+             {
+                 NSLog(@"Error %@", error);
+             }
+         }];
+    }
+    else
+    {
+        NSLog(@"No auth token yo, try again");
+    }
+}
+
+- (void)checkForToken {
+    NSLog(@"Check For token");
+}
 
 
 

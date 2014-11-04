@@ -18,7 +18,12 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-[Parse setApplicationId:@"TDRpDZRx0OnPYjIE2DPP5F78k7ykFa0njA9yyl6p" clientKey:@"dBZx7BTBidkeR2cUM32DFEJYwCMTUM1Wiy5SYUv5"];    return YES;
+    //setup Parse
+    [Parse setApplicationId:@"TDRpDZRx0OnPYjIE2DPP5F78k7ykFa0njA9yyl6p" clientKey:@"dBZx7BTBidkeR2cUM32DFEJYwCMTUM1Wiy5SYUv5"];
+
+    return YES;
+
+
 }
 
 //Allow redirect from Safari back to App after oauth authentication
@@ -26,6 +31,7 @@
 {
     if([[UberKit sharedInstance] handleLoginRedirectFromUrl:url sourceApplication:sourceApplication])
     {
+        NSLog(@"%@",[[UberKit sharedInstance] getStoredAuthToken]);
         return YES;
     }
     else
