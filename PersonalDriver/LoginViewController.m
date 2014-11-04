@@ -8,10 +8,12 @@
 
 #import "LoginViewController.h"
 #import "UberKit.h"
+#import <Parse/Parse.h>
 
 @interface LoginViewController ()
 @property UberProfile *uberProfile;
 @property UberActivity *uberActivity;
+
  
 
 @end
@@ -47,6 +49,7 @@
          {
              if(!error)
              {
+                 [self createAccountwithUser:profile.email password:[[UberKit sharedInstance] getStoredAuthToken] email:profile.email];
                  NSLog(@"User's full name %@ %@", profile.first_name, profile.last_name);
                  NSLog(@"User's email: %@", profile.email);
                  NSLog(@"Profile picture: %@", profile.picture);
@@ -64,13 +67,19 @@
 
 }
 
-- (void) performActionsWithToken
-{
+- (void)createAccountwithUser:(NSString *)newUser password:(NSString *)password email:(NSString *)email {
+    PFUser *user = [PFUser user];
+    user.username = newUser;
+    user.password = password;
+    user.email = email;
 
-}
-
-- (void)checkForToken {
-    NSLog(@"Check For token");
+    [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (!error) {
+            NSLog(@"Created New User");
+        } else {
+            NSLog(@"Error Saving User");
+        }
+    }];
 }
 
 
