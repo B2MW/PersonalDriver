@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A388a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="bsz-fR-BCl">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="bsz-fR-BCl">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -46,20 +46,42 @@
         <scene sceneID="ufC-wZ-h7g">
             <objects>
                 <viewController id="vXZ-lx-hvc" customClass="ViewController" sceneMemberID="viewController">
-                    <button key="view" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="1ef-Cb-Dvu">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="YlW-zg-iPr"/>
+                        <viewControllerLayoutGuide type="bottom" id="NIa-yE-zln"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="MLe-v0-4wD">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <state key="normal" title="Passenger">
-                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
-                        <connections>
-                            <segue destination="P1u-y9-US2" kind="show" id="1tD-4C-hK8"/>
-                        </connections>
-                    </button>
-                    <navigationItem key="navigationItem" id="fp9-Du-9XA">
-                        <barButtonItem key="rightBarButtonItem" title="Login" id="C8y-1O-7zr">
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qtE-KE-7Uf">
+                                <rect key="frame" x="264" y="256" width="73" height="30"/>
+                                <state key="normal" title="Passenger">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="P1u-y9-US2" kind="show" id="p48-0h-6T6"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iB8-Cq-0jW">
+                                <rect key="frame" x="280" y="313" width="41" height="30"/>
+                                <state key="normal" title="Driver">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerY" secondItem="qtE-KE-7Uf" secondAttribute="centerY" constant="29" id="7xS-dG-BTK"/>
+                            <constraint firstAttribute="centerY" secondItem="iB8-Cq-0jW" secondAttribute="centerY" constant="-28" id="DN5-ld-L4g"/>
+                            <constraint firstAttribute="centerX" secondItem="iB8-Cq-0jW" secondAttribute="centerX" constant="-0.5" id="bNA-x4-3XK"/>
+                            <constraint firstAttribute="centerX" secondItem="qtE-KE-7Uf" secondAttribute="centerX" id="wTF-53-fAm"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="PvN-Zi-68I">
+                        <barButtonItem key="rightBarButtonItem" title="Login" id="AmW-ui-H3G">
                             <connections>
-                                <segue destination="qZ2-9T-qqd" kind="presentation" id="wrj-pS-Is3"/>
+                                <segue destination="qZ2-9T-qqd" kind="presentation" id="qpv-Y4-0ae"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
