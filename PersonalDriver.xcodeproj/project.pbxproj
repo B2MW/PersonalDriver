@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2236D93E1A08234B00F19EA5 /* PassengerProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2236D93D1A08234B00F19EA5 /* PassengerProfileViewController.m */; };
 		2236D9441A082A4200F19EA5 /* NewRideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2236D9431A082A4200F19EA5 /* NewRideViewController.m */; };
+		22FCE3FD1A096B6B00360672 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FCE3FC1A096B6B00360672 /* MapKit.framework */; };
 		4C7175171A081334002AC734 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7175161A081334002AC734 /* main.m */; };
 		4C71751A1A081334002AC734 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7175191A081334002AC734 /* AppDelegate.m */; };
 		4C71751D1A081334002AC734 /* PersonalDriver.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4C71751B1A081334002AC734 /* PersonalDriver.xcdatamodeld */; };
@@ -72,6 +73,7 @@
 		2236D93D1A08234B00F19EA5 /* PassengerProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassengerProfileViewController.m; sourceTree = "<group>"; };
 		2236D9421A082A4200F19EA5 /* NewRideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewRideViewController.h; path = ../NewRideViewController.h; sourceTree = "<group>"; };
 		2236D9431A082A4200F19EA5 /* NewRideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewRideViewController.m; path = ../NewRideViewController.m; sourceTree = "<group>"; };
+		22FCE3FC1A096B6B00360672 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		4C7175111A081334002AC734 /* PersonalDriver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PersonalDriver.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C7175151A081334002AC734 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4C7175161A081334002AC734 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22FCE3FD1A096B6B00360672 /* MapKit.framework in Frameworks */,
 				4C7175711A08FAA0002AC734 /* Accounts.framework in Frameworks */,
 				4C7175721A08FAA0002AC734 /* AdSupport.framework in Frameworks */,
 				4C7175891A0928A2002AC734 /* Parse.framework in Frameworks */,
@@ -249,6 +252,7 @@
 				4C7175651A08FA6B002AC734 /* libz.dylib */,
 				4C7175151A081334002AC734 /* Info.plist */,
 				4C7175161A081334002AC734 /* main.m */,
+				22FCE3FC1A096B6B00360672 /* MapKit.framework */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";

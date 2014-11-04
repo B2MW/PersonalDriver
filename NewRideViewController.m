@@ -10,8 +10,8 @@
 
 
 #import "NewRideViewController.h"
-#import <Parse/Parse.h>
 #import "Ride.h"
+
 
 @interface NewRideViewController ()
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
