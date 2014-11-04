@@ -20,6 +20,8 @@
 @dynamic driverEnRoute;
 @dynamic fareEstimateMin;
 @dynamic fareEstimateMax;
+@dynamic pickUpLocation;
+@dynamic destination;
 
 +(void)load
 {
