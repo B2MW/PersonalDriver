@@ -351,14 +351,14 @@
                                     <action selector="onRequestRideButtonPressed:" destination="cfi-RL-R0p" eventType="touchUpInside" id="qag-d4-vo6"/>
                                 </connections>
                             </button>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="BzQ-K5-HKd">
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="4" translatesAutoresizingMaskIntoConstraints="NO" id="BzQ-K5-HKd">
                                 <rect key="frame" x="241" y="334" width="118" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="114" id="CTm-Wk-lnu"/>
                                     <constraint firstAttribute="height" constant="30" id="TMZ-5G-Lz5"/>
                                 </constraints>
                                 <connections>
-                                    <action selector="onMultiplierUpdateSliderMoved:" destination="cfi-RL-R0p" eventType="valueChanged" id="aQd-mW-lo7"/>
+                                    <action selector="onPassengerUpdateSliderMoved:" destination="cfi-RL-R0p" eventType="valueChanged" id="0eo-kN-cHO"/>
                                 </connections>
                             </slider>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="laf-bc-pdy">
