@@ -27,8 +27,6 @@
 		4C7175781A08FAA0002AC734 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C71756E1A08FAA0002AC734 /* QuartzCore.framework */; };
 		4C7175791A08FAA0002AC734 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C71756F1A08FAA0002AC734 /* Security.framework */; };
 		4C71757A1A08FAA0002AC734 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7175701A08FAA0002AC734 /* SystemConfiguration.framework */; };
-		4C71757D1A08FAAF002AC734 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C71757B1A08FAAF002AC734 /* Bolts.framework */; };
-		4C71757E1A08FAAF002AC734 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C71757C1A08FAAF002AC734 /* Parse.framework */; };
 		4C7175811A08FDB6002AC734 /* AvailableRidesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7175801A08FDB6002AC734 /* AvailableRidesTableViewController.m */; };
 		4C7175841A08FDCC002AC734 /* AvailableRidesDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7175831A08FDCC002AC734 /* AvailableRidesDetailViewController.m */; };
 		4C7175881A0928A2002AC734 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7175861A0928A2002AC734 /* Bolts.framework */; };
@@ -95,8 +93,6 @@
 		4C71756E1A08FAA0002AC734 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		4C71756F1A08FAA0002AC734 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		4C7175701A08FAA0002AC734 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		4C71757B1A08FAAF002AC734 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = "../../../Downloads/parse-library-1.4.2/Bolts.framework"; sourceTree = "<group>"; };
-		4C71757C1A08FAAF002AC734 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = "../../../Downloads/parse-library-1.4.2/Parse.framework"; sourceTree = "<group>"; };
 		4C71757F1A08FDB6002AC734 /* AvailableRidesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvailableRidesTableViewController.h; sourceTree = "<group>"; };
 		4C7175801A08FDB6002AC734 /* AvailableRidesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvailableRidesTableViewController.m; sourceTree = "<group>"; };
 		4C7175821A08FDCC002AC734 /* AvailableRidesDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvailableRidesDetailViewController.h; sourceTree = "<group>"; };
@@ -157,8 +153,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C71757D1A08FAAF002AC734 /* Bolts.framework in Frameworks */,
-				4C71757E1A08FAAF002AC734 /* Parse.framework in Frameworks */,
 				4C7175711A08FAA0002AC734 /* Accounts.framework in Frameworks */,
 				4C7175721A08FAA0002AC734 /* AdSupport.framework in Frameworks */,
 				4C7175891A0928A2002AC734 /* Parse.framework in Frameworks */,
@@ -232,8 +226,6 @@
 				CE19D9431A092D2700874F56 /* UberKit */,
 				4C7175861A0928A2002AC734 /* Bolts.framework */,
 				4C7175871A0928A2002AC734 /* Parse.framework */,
-				4C71757B1A08FAAF002AC734 /* Bolts.framework */,
-				4C71757C1A08FAAF002AC734 /* Parse.framework */,
 				4C7175671A08FAA0002AC734 /* Accounts.framework */,
 				4C7175681A08FAA0002AC734 /* AdSupport.framework */,
 				4C7175691A08FAA0002AC734 /* AudioToolbox.framework */,
