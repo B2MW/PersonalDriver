@@ -1,5 +1,5 @@
 //
-//  AvailableRidesTableView.h
+//  AvailableRidesViewController.h
 //  PersonalDriver
 //
 //  Created by Bradley Walker on 11/4/14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AvailableRidesTableView : UITableView
+@interface AvailableRidesViewController : UIViewController
 
 @end
