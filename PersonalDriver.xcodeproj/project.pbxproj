@@ -34,6 +34,7 @@
 		4C7175901A0945E9002AC734 /* AvailableRidesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C71758F1A0945E9002AC734 /* AvailableRidesViewController.m */; };
 		4C7175931A0953A8002AC734 /* AvailableRideTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7175921A0953A8002AC734 /* AvailableRideTableViewCell.m */; };
 		4C7175961A095972002AC734 /* RideManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7175951A095972002AC734 /* RideManager.m */; };
+		4C7175981A098B51002AC734 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7175971A098B51002AC734 /* MapKit.framework */; };
 		CE19D9721A092D2700874F56 /* UberActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = CE19D9461A092D2700874F56 /* UberActivity.m */; };
 		CE19D9731A092D2700874F56 /* UberPrice.m in Sources */ = {isa = PBXBuildFile; fileRef = CE19D9481A092D2700874F56 /* UberPrice.m */; };
 		CE19D9741A092D2700874F56 /* UberProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = CE19D94A1A092D2700874F56 /* UberProduct.m */; };
@@ -108,6 +109,7 @@
 		4C7175921A0953A8002AC734 /* AvailableRideTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvailableRideTableViewCell.m; sourceTree = "<group>"; };
 		4C7175941A095972002AC734 /* RideManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RideManager.h; sourceTree = "<group>"; };
 		4C7175951A095972002AC734 /* RideManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RideManager.m; sourceTree = "<group>"; };
+		4C7175971A098B51002AC734 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		CE19D9451A092D2700874F56 /* UberActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UberActivity.h; sourceTree = "<group>"; };
 		CE19D9461A092D2700874F56 /* UberActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UberActivity.m; sourceTree = "<group>"; };
 		CE19D9471A092D2700874F56 /* UberPrice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UberPrice.h; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C7175981A098B51002AC734 /* MapKit.framework in Frameworks */,
 				4C7175711A08FAA0002AC734 /* Accounts.framework in Frameworks */,
 				4C7175721A08FAA0002AC734 /* AdSupport.framework in Frameworks */,
 				4C7175891A0928A2002AC734 /* Parse.framework in Frameworks */,
@@ -191,6 +194,7 @@
 		4C7175081A081334002AC734 = {
 			isa = PBXGroup;
 			children = (
+				4C7175971A098B51002AC734 /* MapKit.framework */,
 				4C7175131A081334002AC734 /* PersonalDriver */,
 				4C7175301A081334002AC734 /* PersonalDriverTests */,
 				4C7175121A081334002AC734 /* Products */,

@@ -128,7 +128,7 @@
                                                         <constraint firstAttribute="height" constant="58" id="dkQ-VM-TEO"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6hw-by-ChO">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6hw-by-ChO">
                                                     <rect key="frame" x="76" y="33" width="37" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="37" id="v8M-ii-Mff"/>
@@ -138,7 +138,7 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fan-5a-Vme">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fan-5a-Vme">
                                                     <rect key="frame" x="76" y="52" width="37" height="19"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="19" id="2xv-Ev-F8l"/>
@@ -175,7 +175,7 @@
                                                         <constraint firstAttribute="height" constant="58" id="XNh-eW-cQg"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="26"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.21057840094109662" green="0.73959772099447507" blue="0.12685070275811608" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="On:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LzO-kZ-a7T">
@@ -234,6 +234,7 @@
                                             <outlet property="rideDestination" destination="JXx-MM-TK6" id="wCa-x8-HoK"/>
                                             <outlet property="rideOrigin" destination="qPq-d6-pvq" id="rke-nP-bDX"/>
                                             <outlet property="userImage" destination="ZiY-d0-VYz" id="a51-ZC-zBq"/>
+                                            <segue destination="uzA-uz-0YH" kind="show" id="GjV-JG-Dbi"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -265,6 +266,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZpP-dN-0d7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1929" y="1803"/>
+        </scene>
+        <!--Available Rides Detail View Controller-->
+        <scene sceneID="kgn-yl-maN">
+            <objects>
+                <viewController id="uzA-uz-0YH" customClass="AvailableRidesDetailViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="mM6-ci-JU2"/>
+                        <viewControllerLayoutGuide type="bottom" id="NeU-sY-HPX"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="XES-NX-cJd">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="G4Q-kC-YQ8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2639" y="1803"/>
         </scene>
         <!--Passenger Profile View Controller-->
         <scene sceneID="Sfo-Mz-ufs">
