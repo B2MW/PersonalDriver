@@ -31,6 +31,7 @@
 		4C7175841A08FDCC002AC734 /* AvailableRidesDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7175831A08FDCC002AC734 /* AvailableRidesDetailViewController.m */; };
 		4C7175881A0928A2002AC734 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7175861A0928A2002AC734 /* Bolts.framework */; };
 		4C7175891A0928A2002AC734 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7175871A0928A2002AC734 /* Parse.framework */; };
+		4C71758D1A0931D2002AC734 /* Ride.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C71758C1A0931D2002AC734 /* Ride.m */; };
 		CE19D9721A092D2700874F56 /* UberActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = CE19D9461A092D2700874F56 /* UberActivity.m */; };
 		CE19D9731A092D2700874F56 /* UberPrice.m in Sources */ = {isa = PBXBuildFile; fileRef = CE19D9481A092D2700874F56 /* UberPrice.m */; };
 		CE19D9741A092D2700874F56 /* UberProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = CE19D94A1A092D2700874F56 /* UberProduct.m */; };
@@ -99,6 +100,8 @@
 		4C7175831A08FDCC002AC734 /* AvailableRidesDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvailableRidesDetailViewController.m; sourceTree = "<group>"; };
 		4C7175861A0928A2002AC734 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		4C7175871A0928A2002AC734 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		4C71758B1A0931D2002AC734 /* Ride.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ride.h; sourceTree = "<group>"; };
+		4C71758C1A0931D2002AC734 /* Ride.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ride.m; sourceTree = "<group>"; };
 		CE19D9451A092D2700874F56 /* UberActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UberActivity.h; sourceTree = "<group>"; };
 		CE19D9461A092D2700874F56 /* UberActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UberActivity.m; sourceTree = "<group>"; };
 		CE19D9471A092D2700874F56 /* UberPrice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UberPrice.h; sourceTree = "<group>"; };
@@ -211,11 +214,12 @@
 				2236D93D1A08234B00F19EA5 /* PassengerProfileViewController.m */,
 				2236D9421A082A4200F19EA5 /* NewRideViewController.h */,
 				2236D9431A082A4200F19EA5 /* NewRideViewController.m */,
+				4C71758A1A0931B1002AC734 /* Data Model */,
 				4C7175851A08FDE4002AC734 /* Driver UX */,
+				4C7175141A081334002AC734 /* Supporting Files */,
 				4C7175241A081334002AC734 /* Images.xcassets */,
 				4C7175261A081334002AC734 /* LaunchScreen.xib */,
 				4C71751B1A081334002AC734 /* PersonalDriver.xcdatamodeld */,
-				4C7175141A081334002AC734 /* Supporting Files */,
 			);
 			path = PersonalDriver;
 			sourceTree = "<group>";
@@ -269,6 +273,15 @@
 				4C7175831A08FDCC002AC734 /* AvailableRidesDetailViewController.m */,
 			);
 			name = "Driver UX";
+			sourceTree = "<group>";
+		};
+		4C71758A1A0931B1002AC734 /* Data Model */ = {
+			isa = PBXGroup;
+			children = (
+				4C71758B1A0931D2002AC734 /* Ride.h */,
+				4C71758C1A0931D2002AC734 /* Ride.m */,
+			);
+			name = "Data Model";
 			sourceTree = "<group>";
 		};
 		CE19D9431A092D2700874F56 /* UberKit */ = {
@@ -457,6 +470,7 @@
 				CE19D97C1A092D2700874F56 /* NXOAuth2AccountStore.m in Sources */,
 				2236D93E1A08234B00F19EA5 /* PassengerProfileViewController.m in Sources */,
 				4C7175811A08FDB6002AC734 /* AvailableRidesTableViewController.m in Sources */,
+				4C71758D1A0931D2002AC734 /* Ride.m in Sources */,
 				CE19D9841A092D2700874F56 /* UberKit.m in Sources */,
 				CE19D97F1A092D2700874F56 /* NXOAuth2Constants.m in Sources */,
 				4C7175841A08FDCC002AC734 /* AvailableRidesDetailViewController.m in Sources */,
