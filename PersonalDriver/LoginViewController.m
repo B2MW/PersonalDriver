@@ -27,9 +27,6 @@
 }
 
 
-
-
-
 - (IBAction)onLoginButtonPressed:(UIButton *)sender {
 
     [[UberKit sharedInstance] setClientID:@"pVt5YyjIQIB5gcZHzz_SgyG2Z6lcJRWT"]; //Add your client id
@@ -42,34 +39,17 @@
 
 - (IBAction)getUserActivityPressed:(UIButton *)sender {
 
-    [self performActionsWithToken];
-
-}
-
-- (void) performActionsWithToken
-{
     NSString *authToken = [[UberKit sharedInstance] getStoredAuthToken];
     if(authToken)
     {
-        [[UberKit sharedInstance] getUserActivityWithCompletionHandler:^(NSArray *activities, NSURLResponse *response, NSError *error)
-         {
-             if(!error)
-             {
-                 NSLog(@"User activity %@", activities);
-                 UberActivity *activity = [activities objectAtIndex:0];
-                 NSLog(@"Last trip distance %f", activity.distance);
-             }
-             else
-             {
-                 NSLog(@"Error %@", error);
-             }
-         }];
 
         [[UberKit sharedInstance] getUserProfileWithCompletionHandler:^(UberProfile *profile, NSURLResponse *response, NSError *error)
          {
              if(!error)
              {
                  NSLog(@"User's full name %@ %@", profile.first_name, profile.last_name);
+                 NSLog(@"User's email: %@", profile.email);
+                 NSLog(@"Profile picture: %@", profile.picture);
              }
              else
              {
@@ -81,6 +61,12 @@
     {
         NSLog(@"No auth token yo, try again");
     }
+
+}
+
+- (void) performActionsWithToken
+{
+
 }
 
 - (void)checkForToken {
