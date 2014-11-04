@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UISlider *passengerSlider;
 @property (weak, nonatomic) IBOutlet UILabel *passengerTotalLabel;
 
+
 @end
 
 @implementation NewRideViewController
@@ -56,17 +57,24 @@
     //ride.pickupGeoPoint;
     //ride.dropoffGeoPoint;
 
+    CLGeocoder *geocoder = [[CLGeocoder alloc]init];
+    [geocoder geocodeAddressString:self.pickupLocationText.text completionHandler:^(NSArray *placemarks, NSError *error) {
 
-
+    }];
 
     [ride saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
     }];
+
+    
 
 }
 
 - (IBAction)onPassengerUpdateSliderMoved:(id)sender {
     self.passengerTotalLabel.text = [NSString stringWithFormat:@"%.0f", self.passengerSlider.value];
 }
+
+
+
 
 
 

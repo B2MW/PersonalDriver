@@ -28,14 +28,15 @@
     return 0;
 }
 
-- (AvailableRideTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+/*- (AvailableRideTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Ride *ride =
+   // Ride *ride =
     AvailableRideTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RideCell"];
     cell.passengerName = ;
     cell.fareEstimate = ;
-    return cell;
+   return cell;
 }
+ */
 
 -(void)refreshDisplay
 {
