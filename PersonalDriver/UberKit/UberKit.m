@@ -28,6 +28,7 @@
 
 static const NSString *baseURL = @"https://api.uber.com";
 NSString * const mobile_safari_string = @"com.apple.mobilesafari";
+NSString * const UBER_ACCESS_TOKEN_AVAILABLE = @"AccessTokenAvailable";
 
 @interface UberKit()
 

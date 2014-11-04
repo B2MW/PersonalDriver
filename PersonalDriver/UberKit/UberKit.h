@@ -35,7 +35,7 @@
 typedef void (^CompletionHandler) (NSArray *resultsArray, NSURLResponse *response, NSError *error);
 typedef void (^ProfileHandler) (UberProfile *profile, NSURLResponse *response, NSError *error);
 
-NSString * const UBER_ACCESS_TOKEN_AVAILABLE = @"AccessTokenAvailable";
+extern NSString * const UBER_ACCESS_TOKEN_AVAILABLE;
 
 @interface UberKit : NSObject
 
