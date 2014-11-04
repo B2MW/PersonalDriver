@@ -10,12 +10,14 @@
 
 @interface AvailableRidesViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property NSArray *availableRides;
 
 @end
 
 @implementation AvailableRidesViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
 
     
@@ -26,10 +28,23 @@
     return 0;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (AvailableRideTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RideCell"];
+    Ride *ride =
+    AvailableRideTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RideCell"];
+    cell.passengerName = ;
+    cell.fareEstimate = ;
     return cell;
+}
+
+-(void)refreshDisplay
+{
+    RideManager *rideManager = [[RideManager alloc] init];
+    [rideManager getAvailableRides:^(NSArray *rideResults)
+    {
+        self.availableRides = rideResults;
+        [self.tableView reloadData];
+    }];
 }
 
 @end

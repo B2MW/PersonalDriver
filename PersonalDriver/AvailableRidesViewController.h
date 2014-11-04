@@ -7,6 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Parse/Parse.h>
+#import "AvailableRideTableViewCell.h"
+#import "RideManager.h"
 
 @interface AvailableRidesViewController : UIViewController
 

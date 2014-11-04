@@ -21,5 +21,7 @@
 @property BOOL *driverEnRoute;
 @property NSString *pickUpLocation;
 @property NSString *destination;
+@property NSNumber *fareEstimateMin;
+@property NSNumber *fareEstimateMax;
 
 @end

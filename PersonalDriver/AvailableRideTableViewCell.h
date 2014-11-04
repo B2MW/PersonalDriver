@@ -1,5 +1,5 @@
 //
-//  AvailableRidesDetailViewController.h
+//  AvailableRideTableViewCell.h
 //  PersonalDriver
 //
 //  Created by Bradley Walker on 11/4/14.
@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "Ride.h"
 
-@interface AvailableRidesDetailViewController : UIViewController
+@interface AvailableRideTableViewCell : UITableViewCell
 @property Ride *ride;
+@property IBOutlet UIImageView *userImage;
+
 @end

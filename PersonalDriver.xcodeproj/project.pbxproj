@@ -32,6 +32,8 @@
 		4C7175891A0928A2002AC734 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7175871A0928A2002AC734 /* Parse.framework */; };
 		4C71758D1A0931D2002AC734 /* Ride.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C71758C1A0931D2002AC734 /* Ride.m */; };
 		4C7175901A0945E9002AC734 /* AvailableRidesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C71758F1A0945E9002AC734 /* AvailableRidesViewController.m */; };
+		4C7175931A0953A8002AC734 /* AvailableRideTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7175921A0953A8002AC734 /* AvailableRideTableViewCell.m */; };
+		4C7175961A095972002AC734 /* RideManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7175951A095972002AC734 /* RideManager.m */; };
 		CE19D9721A092D2700874F56 /* UberActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = CE19D9461A092D2700874F56 /* UberActivity.m */; };
 		CE19D9731A092D2700874F56 /* UberPrice.m in Sources */ = {isa = PBXBuildFile; fileRef = CE19D9481A092D2700874F56 /* UberPrice.m */; };
 		CE19D9741A092D2700874F56 /* UberProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = CE19D94A1A092D2700874F56 /* UberProduct.m */; };
@@ -102,6 +104,10 @@
 		4C71758C1A0931D2002AC734 /* Ride.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ride.m; sourceTree = "<group>"; };
 		4C71758E1A0945E9002AC734 /* AvailableRidesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvailableRidesViewController.h; sourceTree = "<group>"; };
 		4C71758F1A0945E9002AC734 /* AvailableRidesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvailableRidesViewController.m; sourceTree = "<group>"; };
+		4C7175911A0953A8002AC734 /* AvailableRideTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvailableRideTableViewCell.h; sourceTree = "<group>"; };
+		4C7175921A0953A8002AC734 /* AvailableRideTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvailableRideTableViewCell.m; sourceTree = "<group>"; };
+		4C7175941A095972002AC734 /* RideManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RideManager.h; sourceTree = "<group>"; };
+		4C7175951A095972002AC734 /* RideManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RideManager.m; sourceTree = "<group>"; };
 		CE19D9451A092D2700874F56 /* UberActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UberActivity.h; sourceTree = "<group>"; };
 		CE19D9461A092D2700874F56 /* UberActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UberActivity.m; sourceTree = "<group>"; };
 		CE19D9471A092D2700874F56 /* UberPrice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UberPrice.h; sourceTree = "<group>"; };
@@ -267,6 +273,8 @@
 		4C7175851A08FDE4002AC734 /* Driver UX */ = {
 			isa = PBXGroup;
 			children = (
+				4C7175911A0953A8002AC734 /* AvailableRideTableViewCell.h */,
+				4C7175921A0953A8002AC734 /* AvailableRideTableViewCell.m */,
 				4C71758E1A0945E9002AC734 /* AvailableRidesViewController.h */,
 				4C71758F1A0945E9002AC734 /* AvailableRidesViewController.m */,
 				4C7175821A08FDCC002AC734 /* AvailableRidesDetailViewController.h */,
@@ -280,6 +288,8 @@
 			children = (
 				4C71758B1A0931D2002AC734 /* Ride.h */,
 				4C71758C1A0931D2002AC734 /* Ride.m */,
+				4C7175941A095972002AC734 /* RideManager.h */,
+				4C7175951A095972002AC734 /* RideManager.m */,
 			);
 			name = "Data Model";
 			sourceTree = "<group>";
@@ -458,6 +468,7 @@
 				CE19D9741A092D2700874F56 /* UberProduct.m in Sources */,
 				CE19D97E1A092D2700874F56 /* NXOAuth2Connection.m in Sources */,
 				CE19D9731A092D2700874F56 /* UberPrice.m in Sources */,
+				4C7175931A0953A8002AC734 /* AvailableRideTableViewCell.m in Sources */,
 				CE19D9771A092D2700874F56 /* NSData+NXOAuth2.m in Sources */,
 				CE19D9751A092D2700874F56 /* UberProfile.m in Sources */,
 				2236D9441A082A4200F19EA5 /* NewRideViewController.m in Sources */,
@@ -474,6 +485,7 @@
 				CE19D97F1A092D2700874F56 /* NXOAuth2Constants.m in Sources */,
 				4C7175841A08FDCC002AC734 /* AvailableRidesDetailViewController.m in Sources */,
 				CE19D9831A092D2700874F56 /* NXOAuth2Request.m in Sources */,
+				4C7175961A095972002AC734 /* RideManager.m in Sources */,
 				4C71751D1A081334002AC734 /* PersonalDriver.xcdatamodeld in Sources */,
 				CE19D9801A092D2700874F56 /* NXOAuth2FileStreamWrapper.m in Sources */,
 				CE19D97B1A092D2700874F56 /* NXOAuth2Account.m in Sources */,

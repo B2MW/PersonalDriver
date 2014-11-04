@@ -18,6 +18,8 @@
 @dynamic specialInstructions;
 @dynamic driverConfirmed;
 @dynamic driverEnRoute;
+@dynamic fareEstimateMin;
+@dynamic fareEstimateMax;
 
 +(void)load
 {
