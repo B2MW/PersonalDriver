@@ -12,6 +12,8 @@
 
 @interface LoginViewController ()
 
+@property NSString *token;
+
 
 @end
 
@@ -33,18 +35,18 @@
 
 - (IBAction)saveUserToKeychain:(UIButton *)sender {
 
-    NSString *authToken = [[UberKit sharedInstance] getStoredAuthToken];
-    if(authToken)
+    self.token = [[UberKit sharedInstance] getStoredAuthToken];
+    if(self.token)
     {
 
         [[UberKit sharedInstance] getUserProfileWithCompletionHandler:^(UberProfile *profile, NSURLResponse *response, NSError *error)
          {
              if(!error)
              {
-                 [SSKeychain setPassword:authToken forService:@"Personal Driver" account:profile.email];
+                 [SSKeychain setPassword:self.token forService:@"personaldriver" account:profile.email];
                  NSLog(@"User's full name %@ %@", profile.first_name, profile.last_name);
                  NSLog(@"User's email: %@", profile.email);
-                 NSLog(@"Token: %@", authToken);
+                 NSLog(@"Token: %@", self.token);
              }
              else
              {
@@ -59,6 +61,9 @@
 
 }
 
+- (IBAction)test:(id)sender {
+    
+}
 
 
 

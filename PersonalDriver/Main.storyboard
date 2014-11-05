@@ -43,12 +43,28 @@
                                     <action selector="saveUserToKeychain:" destination="qZ2-9T-qqd" eventType="touchUpInside" id="5hd-bd-RMO"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NaI-tg-C2C">
+                                <rect key="frame" x="285" y="480" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="25V-If-Xag"/>
+                                    <constraint firstAttribute="height" constant="30" id="I4g-XP-4Vq"/>
+                                </constraints>
+                                <state key="normal" title="Test">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="test:" destination="qZ2-9T-qqd" eventType="touchUpInside" id="Nrl-mg-zNh"/>
+                                    <segue destination="zoH-D6-ej2" kind="show" id="1Fh-KW-KAG"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="8dp-iv-CmV" firstAttribute="top" secondItem="D9d-Ud-byX" secondAttribute="bottom" constant="85" id="1ci-DY-WMz"/>
+                            <constraint firstItem="NaI-tg-C2C" firstAttribute="top" secondItem="8dp-iv-CmV" secondAttribute="bottom" constant="44" id="BDk-yf-yJj"/>
                             <constraint firstAttribute="centerX" secondItem="D9d-Ud-byX" secondAttribute="centerX" id="EAX-yK-lYI"/>
                             <constraint firstAttribute="centerY" secondItem="D9d-Ud-byX" secondAttribute="centerY" id="LIX-fc-q77"/>
+                            <constraint firstItem="8dp-iv-CmV" firstAttribute="centerX" secondItem="NaI-tg-C2C" secondAttribute="centerX" id="aUZ-Lg-7Sj"/>
                             <constraint firstItem="8dp-iv-CmV" firstAttribute="centerX" secondItem="D9d-Ud-byX" secondAttribute="centerX" id="nqd-cp-Nd2"/>
                         </constraints>
                     </view>
@@ -56,6 +72,58 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="63q-QX-cAC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1929" y="364"/>
+        </scene>
+        <!--Test View Controller-->
+        <scene sceneID="HtB-dn-XGm">
+            <objects>
+                <viewController title="Test View Controller" id="zoH-D6-ej2" customClass="TestViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qoK-9W-Vuo"/>
+                        <viewControllerLayoutGuide type="bottom" id="sAx-4F-2SY"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bIh-fh-gUk">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zwk-cv-gq2">
+                                <rect key="frame" x="261" y="285" width="78" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="78" id="CFK-iO-Afd"/>
+                                    <constraint firstAttribute="height" constant="30" id="o0G-UN-gl0"/>
+                                </constraints>
+                                <state key="normal" title="Query User">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="queryUser:" destination="zoH-D6-ej2" eventType="touchUpInside" id="QIR-RD-2XJ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RAW-Fi-gcK">
+                                <rect key="frame" x="252" y="388" width="96" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Sc6-YA-iVp"/>
+                                    <constraint firstAttribute="width" constant="96" id="i31-wj-buu"/>
+                                </constraints>
+                                <state key="normal" title="Query Activity">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="queryActivity:" destination="zoH-D6-ej2" eventType="touchUpInside" id="Cz2-Uq-TOZ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="Zwk-cv-gq2" secondAttribute="centerX" id="ALo-WC-XTe"/>
+                            <constraint firstItem="Zwk-cv-gq2" firstAttribute="centerX" secondItem="RAW-Fi-gcK" secondAttribute="centerX" id="Pe0-ho-vcL"/>
+                            <constraint firstItem="RAW-Fi-gcK" firstAttribute="top" secondItem="Zwk-cv-gq2" secondAttribute="bottom" constant="73" id="Uwh-uM-lCV"/>
+                            <constraint firstAttribute="centerY" secondItem="Zwk-cv-gq2" secondAttribute="centerY" id="yiQ-Vz-cWH"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OxM-br-d8l" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2585" y="364"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="ufC-wZ-h7g">
