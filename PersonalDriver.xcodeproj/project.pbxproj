@@ -29,7 +29,7 @@
 		4C71757A1A08FAA0002AC734 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7175701A08FAA0002AC734 /* SystemConfiguration.framework */; };
 		4C7175841A08FDCC002AC734 /* AvailableRidesDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7175831A08FDCC002AC734 /* AvailableRidesDetailViewController.m */; };
 		4C7175881A0928A2002AC734 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7175861A0928A2002AC734 /* Bolts.framework */; };
-		4C7175891A0928A2002AC734 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7175871A0928A2002AC734 /* Parse.framework */; };
+		4C71759A1A0AB068002AC734 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7175991A0AB068002AC734 /* Parse.framework */; };
 		CE19D9721A092D2700874F56 /* UberActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = CE19D9461A092D2700874F56 /* UberActivity.m */; };
 		CE19D9731A092D2700874F56 /* UberPrice.m in Sources */ = {isa = PBXBuildFile; fileRef = CE19D9481A092D2700874F56 /* UberPrice.m */; };
 		CE19D9741A092D2700874F56 /* UberProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = CE19D94A1A092D2700874F56 /* UberProduct.m */; };
@@ -106,7 +106,7 @@
 		4C7175821A08FDCC002AC734 /* AvailableRidesDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvailableRidesDetailViewController.h; sourceTree = "<group>"; };
 		4C7175831A08FDCC002AC734 /* AvailableRidesDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvailableRidesDetailViewController.m; sourceTree = "<group>"; };
 		4C7175861A0928A2002AC734 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
-		4C7175871A0928A2002AC734 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		4C7175991A0AB068002AC734 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		53761B501441D0844B94902B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FA98B5EB640F8B16A99CBF9 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		CE19D9451A092D2700874F56 /* UberActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UberActivity.h; sourceTree = "<group>"; };
@@ -182,8 +182,8 @@
 				CEB8D1BB1A0A7D3B00A74FA6 /* MapKit.framework in Frameworks */,
 				4C7175711A08FAA0002AC734 /* Accounts.framework in Frameworks */,
 				4C7175721A08FAA0002AC734 /* AdSupport.framework in Frameworks */,
-				4C7175891A0928A2002AC734 /* Parse.framework in Frameworks */,
 				4C7175731A08FAA0002AC734 /* AudioToolbox.framework in Frameworks */,
+				4C71759A1A0AB068002AC734 /* Parse.framework in Frameworks */,
 				4C7175741A08FAA0002AC734 /* CFNetwork.framework in Frameworks */,
 				4C7175751A08FAA0002AC734 /* CoreGraphics.framework in Frameworks */,
 				4C7175761A08FAA0002AC734 /* CoreLocation.framework in Frameworks */,
@@ -270,9 +270,9 @@
 		4C7175141A081334002AC734 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4C7175991A0AB068002AC734 /* Parse.framework */,
 				CE19D9431A092D2700874F56 /* UberKit */,
 				4C7175861A0928A2002AC734 /* Bolts.framework */,
-				4C7175871A0928A2002AC734 /* Parse.framework */,
 				4C7175671A08FAA0002AC734 /* Accounts.framework */,
 				4C7175681A08FAA0002AC734 /* AdSupport.framework */,
 				4C7175691A08FAA0002AC734 /* AudioToolbox.framework */,
@@ -691,11 +691,7 @@
 			baseConfigurationReference = 7FA98B5EB640F8B16A99CBF9 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/P5/Downloads/parse-library-1.4.2",
-					"$(PROJECT_DIR)/PersonalDriver",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/PersonalDriver";
 				INFOPLIST_FILE = PersonalDriver/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -707,11 +703,7 @@
 			baseConfigurationReference = 2173130ED3E5D01E966E8968 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/P5/Downloads/parse-library-1.4.2",
-					"$(PROJECT_DIR)/PersonalDriver",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/PersonalDriver";
 				INFOPLIST_FILE = PersonalDriver/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
