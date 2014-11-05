@@ -10,16 +10,17 @@
 
 
 #import "NewRideViewController.h"
-#import <Parse/Parse.h>
 #import "Ride.h"
+
 
 @interface NewRideViewController ()
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
 @property (weak, nonatomic) IBOutlet UITextView *specialComments;
-@property (weak, nonatomic) IBOutlet UITextField *pickupLocationText;
-@property (weak, nonatomic) IBOutlet UITextField *destinationText;
 @property (weak, nonatomic) IBOutlet UISlider *passengerSlider;
 @property (weak, nonatomic) IBOutlet UILabel *passengerTotalLabel;
+@property (weak, nonatomic) IBOutlet UILabel *pickupLabel;
+@property (weak, nonatomic) IBOutlet UILabel *destinationLabel;
+
 
 @end
 
@@ -48,25 +49,27 @@
     ride.passenger = user;
     ride.rideDateTime = self.datePicker.date;
     ride.specialInstructions = self.specialComments.text;
-    ride.destination = self.destinationText.text;
-    ride.pickUpLocation = self.pickupLocationText.text;
+    ride.destination = self.destinationLabel.text;
+    ride.pickUpLocation = self.pickupLabel.text;
     ride.passengerCount = [NSString stringWithFormat:@"%.0f", self.passengerSlider.value];
     //ride.driverConfirmed = NO;
     //ride.driverEnRoute = NO;
     //ride.pickupGeoPoint;
     //ride.dropoffGeoPoint;
 
-
-
-
     [ride saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
     }];
+
+    
 
 }
 
 - (IBAction)onPassengerUpdateSliderMoved:(id)sender {
     self.passengerTotalLabel.text = [NSString stringWithFormat:@"%.0f", self.passengerSlider.value];
 }
+
+
+
 
 
 

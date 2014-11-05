@@ -30,11 +30,6 @@
 		4C7175841A08FDCC002AC734 /* AvailableRidesDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7175831A08FDCC002AC734 /* AvailableRidesDetailViewController.m */; };
 		4C7175881A0928A2002AC734 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7175861A0928A2002AC734 /* Bolts.framework */; };
 		4C7175891A0928A2002AC734 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7175871A0928A2002AC734 /* Parse.framework */; };
-		4C71758D1A0931D2002AC734 /* Ride.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C71758C1A0931D2002AC734 /* Ride.m */; };
-		4C7175901A0945E9002AC734 /* AvailableRidesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C71758F1A0945E9002AC734 /* AvailableRidesViewController.m */; };
-		4C7175931A0953A8002AC734 /* AvailableRideTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7175921A0953A8002AC734 /* AvailableRideTableViewCell.m */; };
-		4C7175961A095972002AC734 /* RideManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7175951A095972002AC734 /* RideManager.m */; };
-		4C7175981A098B51002AC734 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7175971A098B51002AC734 /* MapKit.framework */; };
 		CE19D9721A092D2700874F56 /* UberActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = CE19D9461A092D2700874F56 /* UberActivity.m */; };
 		CE19D9731A092D2700874F56 /* UberPrice.m in Sources */ = {isa = PBXBuildFile; fileRef = CE19D9481A092D2700874F56 /* UberPrice.m */; };
 		CE19D9741A092D2700874F56 /* UberProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = CE19D94A1A092D2700874F56 /* UberProduct.m */; };
@@ -56,6 +51,16 @@
 		CE19D9841A092D2700874F56 /* UberKit.m in Sources */ = {isa = PBXBuildFile; fileRef = CE19D9711A092D2700874F56 /* UberKit.m */; };
 		CE19D9861A092D8400874F56 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE19D9851A092D8400874F56 /* Main.storyboard */; };
 		CE19D9891A092EB000874F56 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE19D9881A092EB000874F56 /* LoginViewController.m */; };
+		CE19D9E51A09BAE900874F56 /* PodFile in Resources */ = {isa = PBXBuildFile; fileRef = CE19D9E41A09BAE900874F56 /* PodFile */; };
+		CE19D9E81A09BEF900874F56 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE19D9E71A09BEF900874F56 /* TestViewController.m */; };
+		CE19D9EE1A09E44700874F56 /* UberAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = CE19D9ED1A09E44700874F56 /* UberAPI.m */; };
+		CEB8D1BB1A0A7D3B00A74FA6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEB8D1BA1A0A7D3B00A74FA6 /* MapKit.framework */; };
+		CEB8D1BF1A0A7D7900A74FA6 /* Ride.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB8D1BE1A0A7D7900A74FA6 /* Ride.m */; };
+		CEB8D1C21A0A7D9100A74FA6 /* RideManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB8D1C11A0A7D9100A74FA6 /* RideManager.m */; };
+		CEB8D1C71A0A809E00A74FA6 /* AvailableRidesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB8D1C41A0A809E00A74FA6 /* AvailableRidesViewController.m */; };
+		CEB8D1C81A0A809E00A74FA6 /* AvailableRideTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB8D1C61A0A809E00A74FA6 /* AvailableRideTableViewCell.m */; };
+		CEB8D1CB1A0A83CB00A74FA6 /* SelectLocationForRideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB8D1CA1A0A83CB00A74FA6 /* SelectLocationForRideViewController.m */; };
+		FDD60E392AD01E939AF6F573 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 53761B501441D0844B94902B /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +74,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2173130ED3E5D01E966E8968 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		2236D93C1A08234B00F19EA5 /* PassengerProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassengerProfileViewController.h; sourceTree = "<group>"; };
 		2236D93D1A08234B00F19EA5 /* PassengerProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassengerProfileViewController.m; sourceTree = "<group>"; };
 		2236D9421A082A4200F19EA5 /* NewRideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewRideViewController.h; path = ../NewRideViewController.h; sourceTree = "<group>"; };
@@ -101,15 +107,8 @@
 		4C7175831A08FDCC002AC734 /* AvailableRidesDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvailableRidesDetailViewController.m; sourceTree = "<group>"; };
 		4C7175861A0928A2002AC734 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		4C7175871A0928A2002AC734 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
-		4C71758B1A0931D2002AC734 /* Ride.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ride.h; sourceTree = "<group>"; };
-		4C71758C1A0931D2002AC734 /* Ride.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ride.m; sourceTree = "<group>"; };
-		4C71758E1A0945E9002AC734 /* AvailableRidesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvailableRidesViewController.h; sourceTree = "<group>"; };
-		4C71758F1A0945E9002AC734 /* AvailableRidesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvailableRidesViewController.m; sourceTree = "<group>"; };
-		4C7175911A0953A8002AC734 /* AvailableRideTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvailableRideTableViewCell.h; sourceTree = "<group>"; };
-		4C7175921A0953A8002AC734 /* AvailableRideTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvailableRideTableViewCell.m; sourceTree = "<group>"; };
-		4C7175941A095972002AC734 /* RideManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RideManager.h; sourceTree = "<group>"; };
-		4C7175951A095972002AC734 /* RideManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RideManager.m; sourceTree = "<group>"; };
-		4C7175971A098B51002AC734 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		53761B501441D0844B94902B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		7FA98B5EB640F8B16A99CBF9 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		CE19D9451A092D2700874F56 /* UberActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UberActivity.h; sourceTree = "<group>"; };
 		CE19D9461A092D2700874F56 /* UberActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UberActivity.m; sourceTree = "<group>"; };
 		CE19D9471A092D2700874F56 /* UberPrice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UberPrice.h; sourceTree = "<group>"; };
@@ -157,6 +156,22 @@
 		CE19D9851A092D8400874F56 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		CE19D9871A092EB000874F56 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		CE19D9881A092EB000874F56 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		CE19D9E41A09BAE900874F56 /* PodFile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PodFile; sourceTree = "<group>"; };
+		CE19D9E61A09BEF900874F56 /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
+		CE19D9E71A09BEF900874F56 /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
+		CE19D9EC1A09E44700874F56 /* UberAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UberAPI.h; sourceTree = "<group>"; };
+		CE19D9ED1A09E44700874F56 /* UberAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UberAPI.m; sourceTree = "<group>"; };
+		CEB8D1BA1A0A7D3B00A74FA6 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		CEB8D1BD1A0A7D7900A74FA6 /* Ride.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ride.h; sourceTree = "<group>"; };
+		CEB8D1BE1A0A7D7900A74FA6 /* Ride.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ride.m; sourceTree = "<group>"; };
+		CEB8D1C01A0A7D9100A74FA6 /* RideManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RideManager.h; sourceTree = "<group>"; };
+		CEB8D1C11A0A7D9100A74FA6 /* RideManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RideManager.m; sourceTree = "<group>"; };
+		CEB8D1C31A0A809E00A74FA6 /* AvailableRidesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvailableRidesViewController.h; sourceTree = "<group>"; };
+		CEB8D1C41A0A809E00A74FA6 /* AvailableRidesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvailableRidesViewController.m; sourceTree = "<group>"; };
+		CEB8D1C51A0A809E00A74FA6 /* AvailableRideTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvailableRideTableViewCell.h; sourceTree = "<group>"; };
+		CEB8D1C61A0A809E00A74FA6 /* AvailableRideTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvailableRideTableViewCell.m; sourceTree = "<group>"; };
+		CEB8D1C91A0A83CB00A74FA6 /* SelectLocationForRideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectLocationForRideViewController.h; sourceTree = "<group>"; };
+		CEB8D1CA1A0A83CB00A74FA6 /* SelectLocationForRideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectLocationForRideViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,7 +179,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C7175981A098B51002AC734 /* MapKit.framework in Frameworks */,
+				CEB8D1BB1A0A7D3B00A74FA6 /* MapKit.framework in Frameworks */,
 				4C7175711A08FAA0002AC734 /* Accounts.framework in Frameworks */,
 				4C7175721A08FAA0002AC734 /* AdSupport.framework in Frameworks */,
 				4C7175891A0928A2002AC734 /* Parse.framework in Frameworks */,
@@ -178,6 +193,7 @@
 				4C71757A1A08FAA0002AC734 /* SystemConfiguration.framework in Frameworks */,
 				4C7175661A08FA6B002AC734 /* libz.dylib in Frameworks */,
 				4C7175881A0928A2002AC734 /* Bolts.framework in Frameworks */,
+				FDD60E392AD01E939AF6F573 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -191,13 +207,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		43EE249A26BE3CF0BBAA536E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CEB8D1BA1A0A7D3B00A74FA6 /* MapKit.framework */,
+				53761B501441D0844B94902B /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		4C7175081A081334002AC734 = {
 			isa = PBXGroup;
 			children = (
-				4C7175971A098B51002AC734 /* MapKit.framework */,
+				CE19D9E41A09BAE900874F56 /* PodFile */,
 				4C7175131A081334002AC734 /* PersonalDriver */,
 				4C7175301A081334002AC734 /* PersonalDriverTests */,
 				4C7175121A081334002AC734 /* Products */,
+				96D0403E51CAB8B099216168 /* Pods */,
+				43EE249A26BE3CF0BBAA536E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -214,22 +241,28 @@
 			isa = PBXGroup;
 			children = (
 				CE19D9851A092D8400874F56 /* Main.storyboard */,
-				CE19D9871A092EB000874F56 /* LoginViewController.h */,
-				CE19D9881A092EB000874F56 /* LoginViewController.m */,
+				CE19D9E61A09BEF900874F56 /* TestViewController.h */,
+				CE19D9E71A09BEF900874F56 /* TestViewController.m */,
 				4C7175181A081334002AC734 /* AppDelegate.h */,
 				4C7175191A081334002AC734 /* AppDelegate.m */,
+				CE19D9871A092EB000874F56 /* LoginViewController.h */,
+				CE19D9881A092EB000874F56 /* LoginViewController.m */,
+				CE19D9EC1A09E44700874F56 /* UberAPI.h */,
+				CE19D9ED1A09E44700874F56 /* UberAPI.m */,
 				4C71751E1A081334002AC734 /* ViewController.h */,
 				4C71751F1A081334002AC734 /* ViewController.m */,
 				2236D93C1A08234B00F19EA5 /* PassengerProfileViewController.h */,
 				2236D93D1A08234B00F19EA5 /* PassengerProfileViewController.m */,
+				CEB8D1C91A0A83CB00A74FA6 /* SelectLocationForRideViewController.h */,
+				CEB8D1CA1A0A83CB00A74FA6 /* SelectLocationForRideViewController.m */,
+				CEB8D1BC1A0A7D5C00A74FA6 /* Model */,
 				2236D9421A082A4200F19EA5 /* NewRideViewController.h */,
 				2236D9431A082A4200F19EA5 /* NewRideViewController.m */,
-				4C71758A1A0931B1002AC734 /* Data Model */,
 				4C7175851A08FDE4002AC734 /* Driver UX */,
-				4C7175141A081334002AC734 /* Supporting Files */,
 				4C7175241A081334002AC734 /* Images.xcassets */,
 				4C7175261A081334002AC734 /* LaunchScreen.xib */,
 				4C71751B1A081334002AC734 /* PersonalDriver.xcdatamodeld */,
+				4C7175141A081334002AC734 /* Supporting Files */,
 			);
 			path = PersonalDriver;
 			sourceTree = "<group>";
@@ -277,25 +310,23 @@
 		4C7175851A08FDE4002AC734 /* Driver UX */ = {
 			isa = PBXGroup;
 			children = (
-				4C7175911A0953A8002AC734 /* AvailableRideTableViewCell.h */,
-				4C7175921A0953A8002AC734 /* AvailableRideTableViewCell.m */,
-				4C71758E1A0945E9002AC734 /* AvailableRidesViewController.h */,
-				4C71758F1A0945E9002AC734 /* AvailableRidesViewController.m */,
+				CEB8D1C31A0A809E00A74FA6 /* AvailableRidesViewController.h */,
+				CEB8D1C41A0A809E00A74FA6 /* AvailableRidesViewController.m */,
+				CEB8D1C51A0A809E00A74FA6 /* AvailableRideTableViewCell.h */,
+				CEB8D1C61A0A809E00A74FA6 /* AvailableRideTableViewCell.m */,
 				4C7175821A08FDCC002AC734 /* AvailableRidesDetailViewController.h */,
 				4C7175831A08FDCC002AC734 /* AvailableRidesDetailViewController.m */,
 			);
 			name = "Driver UX";
 			sourceTree = "<group>";
 		};
-		4C71758A1A0931B1002AC734 /* Data Model */ = {
+		96D0403E51CAB8B099216168 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				4C71758B1A0931D2002AC734 /* Ride.h */,
-				4C71758C1A0931D2002AC734 /* Ride.m */,
-				4C7175941A095972002AC734 /* RideManager.h */,
-				4C7175951A095972002AC734 /* RideManager.m */,
+				7FA98B5EB640F8B16A99CBF9 /* Pods.debug.xcconfig */,
+				2173130ED3E5D01E966E8968 /* Pods.release.xcconfig */,
 			);
-			name = "Data Model";
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		CE19D9431A092D2700874F56 /* UberKit */ = {
@@ -365,6 +396,17 @@
 			path = OAuth2Client;
 			sourceTree = "<group>";
 		};
+		CEB8D1BC1A0A7D5C00A74FA6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CEB8D1C01A0A7D9100A74FA6 /* RideManager.h */,
+				CEB8D1C11A0A7D9100A74FA6 /* RideManager.m */,
+				CEB8D1BD1A0A7D7900A74FA6 /* Ride.h */,
+				CEB8D1BE1A0A7D7900A74FA6 /* Ride.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -372,9 +414,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4C7175371A081334002AC734 /* Build configuration list for PBXNativeTarget "PersonalDriver" */;
 			buildPhases = (
+				1FE5DC21F14CF3A9648ACA58 /* Check Pods Manifest.lock */,
 				4C71750D1A081334002AC734 /* Sources */,
 				4C71750E1A081334002AC734 /* Frameworks */,
 				4C71750F1A081334002AC734 /* Resources */,
+				518BE073C569EB6D5EED793C /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -447,6 +491,7 @@
 			files = (
 				CE19D9861A092D8400874F56 /* Main.storyboard in Resources */,
 				4C7175281A081334002AC734 /* LaunchScreen.xib in Resources */,
+				CE19D9E51A09BAE900874F56 /* PodFile in Resources */,
 				4C7175251A081334002AC734 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -460,40 +505,76 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1FE5DC21F14CF3A9648ACA58 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		518BE073C569EB6D5EED793C /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		4C71750D1A081334002AC734 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				CE19D9891A092EB000874F56 /* LoginViewController.m in Sources */,
+				CEB8D1C81A0A809E00A74FA6 /* AvailableRideTableViewCell.m in Sources */,
 				CE19D9721A092D2700874F56 /* UberActivity.m in Sources */,
 				4C71751A1A081334002AC734 /* AppDelegate.m in Sources */,
 				4C7175171A081334002AC734 /* main.m in Sources */,
 				CE19D9741A092D2700874F56 /* UberProduct.m in Sources */,
 				CE19D97E1A092D2700874F56 /* NXOAuth2Connection.m in Sources */,
 				CE19D9731A092D2700874F56 /* UberPrice.m in Sources */,
-				4C7175931A0953A8002AC734 /* AvailableRideTableViewCell.m in Sources */,
+				CEB8D1C21A0A7D9100A74FA6 /* RideManager.m in Sources */,
 				CE19D9771A092D2700874F56 /* NSData+NXOAuth2.m in Sources */,
 				CE19D9751A092D2700874F56 /* UberProfile.m in Sources */,
+				CEB8D1BF1A0A7D7900A74FA6 /* Ride.m in Sources */,
 				2236D9441A082A4200F19EA5 /* NewRideViewController.m in Sources */,
 				4C7175201A081334002AC734 /* ViewController.m in Sources */,
 				CE19D9761A092D2700874F56 /* UberTime.m in Sources */,
 				CE19D9781A092D2700874F56 /* NSString+NXOAuth2.m in Sources */,
 				CE19D9821A092D2700874F56 /* NXOAuth2PostBodyStream.m in Sources */,
+				CEB8D1C71A0A809E00A74FA6 /* AvailableRidesViewController.m in Sources */,
 				CE19D9791A092D2700874F56 /* NSURL+NXOAuth2.m in Sources */,
+				CEB8D1CB1A0A83CB00A74FA6 /* SelectLocationForRideViewController.m in Sources */,
 				CE19D97D1A092D2700874F56 /* NXOAuth2Client.m in Sources */,
 				CE19D97C1A092D2700874F56 /* NXOAuth2AccountStore.m in Sources */,
 				2236D93E1A08234B00F19EA5 /* PassengerProfileViewController.m in Sources */,
-				4C71758D1A0931D2002AC734 /* Ride.m in Sources */,
 				CE19D9841A092D2700874F56 /* UberKit.m in Sources */,
 				CE19D97F1A092D2700874F56 /* NXOAuth2Constants.m in Sources */,
 				4C7175841A08FDCC002AC734 /* AvailableRidesDetailViewController.m in Sources */,
+				CE19D9EE1A09E44700874F56 /* UberAPI.m in Sources */,
+				CE19D9E81A09BEF900874F56 /* TestViewController.m in Sources */,
 				CE19D9831A092D2700874F56 /* NXOAuth2Request.m in Sources */,
-				4C7175961A095972002AC734 /* RideManager.m in Sources */,
 				4C71751D1A081334002AC734 /* PersonalDriver.xcdatamodeld in Sources */,
 				CE19D9801A092D2700874F56 /* NXOAuth2FileStreamWrapper.m in Sources */,
 				CE19D97B1A092D2700874F56 /* NXOAuth2Account.m in Sources */,
-				4C7175901A0945E9002AC734 /* AvailableRidesViewController.m in Sources */,
 				CE19D9811A092D2700874F56 /* NXOAuth2PostBodyPart.m in Sources */,
 				CE19D97A1A092D2700874F56 /* NXOAuth2AccessToken.m in Sources */,
 			);
@@ -607,6 +688,7 @@
 		};
 		4C7175381A081334002AC734 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7FA98B5EB640F8B16A99CBF9 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -622,6 +704,7 @@
 		};
 		4C7175391A081334002AC734 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2173130ED3E5D01E966E8968 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				FRAMEWORK_SEARCH_PATHS = (

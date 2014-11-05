@@ -97,7 +97,7 @@ NSString * const UBER_ACCESS_TOKEN_AVAILABLE = @"AccessTokenAvailable";
 
 - (BOOL) handleLoginRedirectFromUrl:(NSURL *)url sourceApplication:(NSString *)sourceApplication
 {
-    if ([sourceApplication isEqualToString:mobile_safari_string] && [url.absoluteURL.host hasPrefix:_redirectURL])
+    if ([sourceApplication isEqualToString:mobile_safari_string])
     {
         NSString *code = nil;
         NSArray *urlParams = [[url query] componentsSeparatedByString:@"&"];
@@ -144,7 +144,7 @@ NSString * const UBER_ACCESS_TOKEN_AVAILABLE = @"AccessTokenAvailable";
         if(!jsonError)
         {
             _accessToken = [authDictionary objectForKey:@"access_token"];
-            [[NSNotificationCenter defaultCenter] postNotificationName:UBER_ACCESS_TOKEN_AVAILABLE object:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"UBER_ACCESS_TOKEN_AVAILABLE" object:nil];
         }
         else
         {
@@ -283,7 +283,7 @@ NSString * const UBER_ACCESS_TOKEN_AVAILABLE = @"AccessTokenAvailable";
 {
     //GET /v1/me
     
-    NSString *url = [NSString stringWithFormat:@"https://api.uber.com/v1.1/history?access_token=%@", _accessToken];
+    NSString *url = [NSString stringWithFormat:@"https://api.uber.com/v1/me?access_token=%@", _accessToken];
     [self performNetworkOperationWithURL:url completionHandler:^(NSDictionary *profileDictionary, NSURLResponse *response, NSError *error)
      {
          if(profileDictionary)
