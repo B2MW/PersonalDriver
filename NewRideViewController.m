@@ -34,7 +34,7 @@
     self.passengerTotalLabel.text = passengerTotal;
     self.pickupLabel.text = self.pickupAddress;
     self.destinationLabel.text = self.destinationAddress;
-    NSLog(@"pickup address = %@", self.pickupAddress);
+    NSLog(@"geo points = %@", self.pickupGeopoint);
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -55,10 +55,11 @@
     ride.destination = self.destinationLabel.text;
     ride.pickUpLocation = self.pickupLabel.text;
     ride.passengerCount = [NSString stringWithFormat:@"%.0f", self.passengerSlider.value];
+    ride.pickupGeoPoint = self.pickupGeopoint;
+    ride.dropoffGeoPoint = self.destinationGeopoint;
     //ride.driverConfirmed = NO;
     //ride.driverEnRoute = NO;
-    //ride.pickupGeoPoint;
-    //ride.dropoffGeoPoint;
+
 
     [ride saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
     }];

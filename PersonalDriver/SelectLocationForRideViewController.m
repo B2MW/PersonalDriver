@@ -51,7 +51,6 @@
     CLGeocoder *geocoder = [[CLGeocoder alloc]init];
     self.pickupAddress= self.pickupLocationTextField.text;
     [geocoder geocodeAddressString:self.pickupAddress completionHandler:^(NSArray *placemarks, NSError *error) {
-            PFGeoPoint *geoPoint = [[PFGeoPoint alloc]init];
             CLPlacemark *placemark = placemarks.firstObject;
             MKPointAnnotation *annotation = [[MKPointAnnotation alloc]init];
             annotation.coordinate = placemark.location.coordinate;
@@ -62,6 +61,8 @@
 
             MKPinAnnotationView *newAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"startpin"];
             newAnnotation.pinColor = MKPinAnnotationColorGreen;
+
+
 
             [self.mapView addAnnotation:annotation];
 
@@ -101,6 +102,7 @@
     newRideViewController.destinationGeopoint = self.destinationGeopoint;
     
 }
+
 
 
 
