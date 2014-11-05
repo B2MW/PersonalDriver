@@ -60,7 +60,7 @@
                                     <constraint firstAttribute="height" constant="235" id="4Ks-yA-kan"/>
                                     <constraint firstAttribute="width" constant="600" id="ZpD-xq-Jlx"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="71"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="65"/>
                                 <state key="normal" title="Passenger">
                                     <color key="titleColor" red="0.98530040890000004" green="0.9906451235" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" red="0.98530040890000004" green="0.9906451235" blue="1" alpha="1" colorSpace="calibratedRGB"/>
