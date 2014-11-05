@@ -32,10 +32,17 @@
 {
     Ride *ride = [self.availableRides objectAtIndex:indexPath.row];
     AvailableRideTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RideCell"];
-    cell.pickupDateTimeLabel.text = ride.rideDateTime;
+
+    //Format Date for presentation in Available Rides TableView
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"EEEE' at 'h:mm a"];
+    NSString *formattedRideDate = [formatter stringFromDate:ride.rideDateTime];
+
+
+    cell.pickupDateTimeLabel.text = formattedRideDate;
     cell.rideOrigin.text = @"my ride origin";
     cell.rideDestination.text = @"my ride destination";
-    cell.fareEstimate.text = @"$100";
+    cell.fareEstimate.text = [[ride.fareEstimateMin.stringValue stringByAppendingString:@" - "] stringByAppendingString:ride.fareEstimateMax.stringValue];
     cell.userImage.image = [UIImage imageNamed:@"profilePicPlaceholder"];
     return cell;
 }
