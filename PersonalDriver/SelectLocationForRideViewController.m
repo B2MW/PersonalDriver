@@ -8,9 +8,11 @@
 
 #import "SelectLocationForRideViewController.h"
 
-@interface SelectLocationForRideViewController ()
+@interface SelectLocationForRideViewController () <MKMapViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *pickupLocationTextField;
 @property (weak, nonatomic) IBOutlet UITextField *destinationTextField;
+@property (weak, nonatomic) IBOutlet MKMapView *mapView;
+
 
 @end
 
@@ -24,17 +26,50 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(void)addPickupPin{
 }
-*/
+
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
+
+}
+
+- (IBAction)onPickupAddTapped:(id)sender
+{
+
+    CLGeocoder *geocoder = [[CLGeocoder alloc]init];
+    [geocoder geocodeAddressString:self.pickupLocationTextField.text completionHandler:^(NSArray *placemarks, NSError *error) {
+        for (CLPlacemark *placemark in placemarks)
+        {
+            MKPointAnnotation *annotation = [[MKPointAnnotation alloc]init];
+            annotation.coordinate = placemark.location.coordinate;
+            [self.mapView addAnnotation:annotation];
+
+        }
+
+    }];
+}
+
+- (IBAction)onDestinationAddTapped:(id)sender
+{
+
+    CLGeocoder *geocoder = [[CLGeocoder alloc]init];
+    [geocoder geocodeAddressString:self.destinationTextField.text completionHandler:^(NSArray *placemarks, NSError *error) {
+        for (CLPlacemark *placemark in placemarks)
+        {
+            MKPointAnnotation *annotation = [[MKPointAnnotation alloc]init];
+            annotation.coordinate = placemark.location.coordinate;
+            [self.mapView addAnnotation:annotation];
+
+        }
+        
+    }];
+}
+
 
 @end

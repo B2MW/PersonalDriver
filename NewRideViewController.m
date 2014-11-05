@@ -57,11 +57,6 @@
     //ride.pickupGeoPoint;
     //ride.dropoffGeoPoint;
 
-    CLGeocoder *geocoder = [[CLGeocoder alloc]init];
-    [geocoder geocodeAddressString:self.pickupLabel.text completionHandler:^(NSArray *placemarks, NSError *error) {
-
-    }];
-
     [ride saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
     }];
 

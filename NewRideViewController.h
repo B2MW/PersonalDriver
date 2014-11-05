@@ -7,7 +7,6 @@
 //
 
 #import "ViewController.h"
-#import <MapKit/MapKit.h>
 #import <Parse/Parse.h>
 
 @interface NewRideViewController : ViewController

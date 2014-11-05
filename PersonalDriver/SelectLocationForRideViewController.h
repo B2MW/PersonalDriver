@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import <MapKit/MapKit.h>
 
 @interface SelectLocationForRideViewController : ViewController
 
