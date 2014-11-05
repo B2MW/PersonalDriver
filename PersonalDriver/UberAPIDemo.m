@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 TeamPersonalDriver. All rights reserved.
 //
 
-#import "TestViewController.h"
+#import "UberAPIDemo.h"
 #import "Token.h"
 #import "UberAPI.h"
 #import "UberProfile.h"
 #import "UberActivity.h"
 
-@interface TestViewController ()
+@interface UberAPIDemo ()
 
 @property NSDictionary *keychainDict;
 @property NSString *token;
@@ -21,7 +21,7 @@
 
 @end
 
-@implementation TestViewController
+@implementation UberAPIDemo
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -46,6 +46,9 @@
         NSLog(@"Activities:%@",self.activities);
     }];
 
+}
+- (IBAction)backToLogin:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 

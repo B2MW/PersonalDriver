@@ -19,23 +19,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     //Get Keychain info
-//    NSString *token = [Token getToken];
-//
-//    if (!token) {
-//        //perform login for Oauth
-//    }else if (![PFUser currentUser])
-//    {
-//        //Use the token to get profile info and login
-//    }else if ([PFUser currentUser].isDriver)
-//    {
-//        //log into Driver Screen
-//    }else if ([PFUser currentUser].isDriver == NO)
-//    {
-//         //log into Passenger Screen
-//    }else
-//    {
-//        //do nothing.  Have the user select Driver or Passenger from current screen.
-//    }
+    NSString *token = [Token getToken];
+    if (!token) {
+        [self performSegueWithIdentifier:@"showLogin" sender:self];
+    }else if (![PFUser currentUser])
+    {
+        //Use the token to get profile info and login
+    }else if ([[PFUser currentUser] objectForKey:@"isDriver"])
+    {
+        //log into Driver Screen
+    }else if ([[PFUser currentUser] objectForKey:@"isDriver"] == NO)
+    {
+         //log into Passenger Screen
+    }else
+    {
+        //do nothing.  Have the user select Driver or Passenger from current screen.
+    }
 }
 
 
