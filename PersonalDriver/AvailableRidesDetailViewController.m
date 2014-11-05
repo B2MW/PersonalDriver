@@ -9,6 +9,12 @@
 #import "AvailableRidesDetailViewController.h"
 
 @interface AvailableRidesDetailViewController ()
+@property (strong, nonatomic) IBOutlet UIImageView *passengerPicture;
+@property (strong, nonatomic) IBOutlet UILabel *passengerName;
+@property (strong, nonatomic) IBOutlet UILabel *estimatedFare;
+@property (strong, nonatomic) IBOutlet UITextView *pickupAddress;
+@property (strong, nonatomic) IBOutlet UITextView *dropoffAddress;
+@property (strong, nonatomic) IBOutlet UILabel *numberOfPassengers;
 
 @end
 
@@ -16,22 +22,23 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [self refreshDisplay];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(void)refreshDisplay
+{
+    RideManager *rideManager = [[RideManager alloc] init];
+    self.passengerPicture.image = [UIImage imageNamed:@"passengerPicPlaceholder"];
+    self.passengerName.text = @"Passenger's Name";
+    self.estimatedFare.text = [rideManager formatRideFareEstimate:self.ride.fareEstimateMin :self.ride.fareEstimateMax];
+    self.numberOfPassengers.text = self.ride.passengerCount;
+    self.pickupAddress.text = @"111 S Wacker Dr\nChicago, IL 60606";
+    self.dropoffAddress.text = @"848 W Montrose Ave\nChicago, IL 60616";
 }
 
-/*
-#pragma mark - Navigation
+- (IBAction)onScheduleRideButtonPressed:(id)sender
+{
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
 }
-*/
 
 @end

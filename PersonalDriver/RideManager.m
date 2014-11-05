@@ -20,4 +20,18 @@
     }];
 }
 
+-(NSString *)formatRideDate:(Ride *)ride
+{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"EEE' at 'h:mm a"];
+    NSString *formattedRideDate = [formatter stringFromDate:ride.rideDateTime];
+    return formattedRideDate;
+}
+
+-(NSString *)formatRideFareEstimate:(NSNumber *)fareEstimateMin:(NSNumber *)fareEstimateMax
+{
+    NSString *formattedRideEstimate = [NSString stringWithFormat:@"$%@-%@",fareEstimateMin, fareEstimateMax];
+    return formattedRideEstimate;
+}
+
 @end

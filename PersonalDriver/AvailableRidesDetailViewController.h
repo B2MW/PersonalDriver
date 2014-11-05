@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Ride.h"
+#import "RideManager.h"
 
 @interface AvailableRidesDetailViewController : UIViewController
 @property Ride *ride;
