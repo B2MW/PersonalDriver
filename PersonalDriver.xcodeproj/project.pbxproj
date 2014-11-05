@@ -57,6 +57,8 @@
 		CEB8D1BB1A0A7D3B00A74FA6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEB8D1BA1A0A7D3B00A74FA6 /* MapKit.framework */; };
 		CEB8D1BF1A0A7D7900A74FA6 /* Ride.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB8D1BE1A0A7D7900A74FA6 /* Ride.m */; };
 		CEB8D1C21A0A7D9100A74FA6 /* RideManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB8D1C11A0A7D9100A74FA6 /* RideManager.m */; };
+		CEB8D1C71A0A809E00A74FA6 /* AvailableRidesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB8D1C41A0A809E00A74FA6 /* AvailableRidesViewController.m */; };
+		CEB8D1C81A0A809E00A74FA6 /* AvailableRideTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB8D1C61A0A809E00A74FA6 /* AvailableRideTableViewCell.m */; };
 		FDD60E392AD01E939AF6F573 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 53761B501441D0844B94902B /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -163,6 +165,10 @@
 		CEB8D1BE1A0A7D7900A74FA6 /* Ride.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ride.m; sourceTree = "<group>"; };
 		CEB8D1C01A0A7D9100A74FA6 /* RideManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RideManager.h; sourceTree = "<group>"; };
 		CEB8D1C11A0A7D9100A74FA6 /* RideManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RideManager.m; sourceTree = "<group>"; };
+		CEB8D1C31A0A809E00A74FA6 /* AvailableRidesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvailableRidesViewController.h; sourceTree = "<group>"; };
+		CEB8D1C41A0A809E00A74FA6 /* AvailableRidesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvailableRidesViewController.m; sourceTree = "<group>"; };
+		CEB8D1C51A0A809E00A74FA6 /* AvailableRideTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvailableRideTableViewCell.h; sourceTree = "<group>"; };
+		CEB8D1C61A0A809E00A74FA6 /* AvailableRideTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvailableRideTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -299,6 +305,10 @@
 		4C7175851A08FDE4002AC734 /* Driver UX */ = {
 			isa = PBXGroup;
 			children = (
+				CEB8D1C31A0A809E00A74FA6 /* AvailableRidesViewController.h */,
+				CEB8D1C41A0A809E00A74FA6 /* AvailableRidesViewController.m */,
+				CEB8D1C51A0A809E00A74FA6 /* AvailableRideTableViewCell.h */,
+				CEB8D1C61A0A809E00A74FA6 /* AvailableRideTableViewCell.m */,
 				4C7175821A08FDCC002AC734 /* AvailableRidesDetailViewController.h */,
 				4C7175831A08FDCC002AC734 /* AvailableRidesDetailViewController.m */,
 			);
@@ -529,6 +539,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE19D9891A092EB000874F56 /* LoginViewController.m in Sources */,
+				CEB8D1C81A0A809E00A74FA6 /* AvailableRideTableViewCell.m in Sources */,
 				CE19D9721A092D2700874F56 /* UberActivity.m in Sources */,
 				4C71751A1A081334002AC734 /* AppDelegate.m in Sources */,
 				4C7175171A081334002AC734 /* main.m in Sources */,
@@ -544,6 +555,7 @@
 				CE19D9761A092D2700874F56 /* UberTime.m in Sources */,
 				CE19D9781A092D2700874F56 /* NSString+NXOAuth2.m in Sources */,
 				CE19D9821A092D2700874F56 /* NXOAuth2PostBodyStream.m in Sources */,
+				CEB8D1C71A0A809E00A74FA6 /* AvailableRidesViewController.m in Sources */,
 				CE19D9791A092D2700874F56 /* NSURL+NXOAuth2.m in Sources */,
 				CE19D97D1A092D2700874F56 /* NXOAuth2Client.m in Sources */,
 				CE19D97C1A092D2700874F56 /* NXOAuth2AccountStore.m in Sources */,
