@@ -36,11 +36,11 @@
                                     <constraint firstAttribute="width" constant="125" id="mKh-SD-FFL"/>
                                     <constraint firstAttribute="height" constant="30" id="pgY-s5-F4u"/>
                                 </constraints>
-                                <state key="normal" title="Get User Activity">
+                                <state key="normal" title="Save To KeyChain">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="getUserActivityPressed:" destination="qZ2-9T-qqd" eventType="touchUpInside" id="wye-Gl-WSd"/>
+                                    <action selector="saveUserToKeychain:" destination="qZ2-9T-qqd" eventType="touchUpInside" id="5hd-bd-RMO"/>
                                 </connections>
                             </button>
                         </subviews>
