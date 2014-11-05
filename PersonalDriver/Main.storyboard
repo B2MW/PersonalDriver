@@ -414,7 +414,7 @@
                                     <constraint firstAttribute="width" constant="240" id="HbC-dY-EXF"/>
                                     <constraint firstAttribute="height" constant="44" id="pby-DC-iY2"/>
                                 </constraints>
-                                <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <dataDetectorType key="dataDetectorTypes" address="YES"/>
@@ -481,7 +481,7 @@
                                     <action selector="onScheduleRideButtonPressed:" destination="uzA-uz-0YH" eventType="touchUpInside" id="3U6-7f-6uh"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Estimated Fare" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wtq-yJ-ScK" userLabel="Estimated Fare Label">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Estimated Fare" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wtq-yJ-ScK" userLabel="Estimated Fare Label">
                                 <rect key="frame" x="185" y="228" width="87" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="FrL-o1-6Sf"/>
@@ -494,12 +494,12 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="wtq-yJ-ScK" firstAttribute="top" secondItem="b4u-GY-v4r" secondAttribute="bottom" constant="1" id="5J5-Ap-mgj"/>
-                            <constraint firstItem="wtq-yJ-ScK" firstAttribute="top" secondItem="b4u-GY-v4r" secondAttribute="bottom" constant="1" id="5PD-P6-7xy"/>
+                            <constraint firstItem="wtq-yJ-ScK" firstAttribute="top" secondItem="b4u-GY-v4r" secondAttribute="bottom" constant="2" id="5J5-Ap-mgj"/>
+                            <constraint firstItem="wtq-yJ-ScK" firstAttribute="top" secondItem="b4u-GY-v4r" secondAttribute="bottom" constant="2" id="5PD-P6-7xy"/>
                             <constraint firstItem="b4u-GY-v4r" firstAttribute="leading" secondItem="wtq-yJ-ScK" secondAttribute="leading" id="6Bf-P2-NwT"/>
                             <constraint firstItem="wtq-yJ-ScK" firstAttribute="leading" secondItem="KSF-uF-jzk" secondAttribute="leading" id="78E-gD-5Yj"/>
                             <constraint firstAttribute="centerX" secondItem="oRF-x5-gvJ" secondAttribute="centerX" id="9Un-CR-FBi"/>
-                            <constraint firstItem="4ZQ-Uf-Xin" firstAttribute="top" secondItem="wtq-yJ-ScK" secondAttribute="bottom" constant="18" id="A9D-mz-9pV"/>
+                            <constraint firstItem="4ZQ-Uf-Xin" firstAttribute="top" secondItem="wtq-yJ-ScK" secondAttribute="bottom" constant="17" id="A9D-mz-9pV"/>
                             <constraint firstItem="Nnn-HU-XCr" firstAttribute="leading" secondItem="wtq-yJ-ScK" secondAttribute="trailing" constant="8" id="H2p-Eh-B6i"/>
                             <constraint firstItem="Nnn-HU-XCr" firstAttribute="top" secondItem="b4u-GY-v4r" secondAttribute="bottom" constant="2" id="Ie9-z7-HDa"/>
                             <constraint firstItem="tkW-s9-PK1" firstAttribute="top" secondItem="b4u-GY-v4r" secondAttribute="bottom" constant="48" id="Jao-ZJ-Dyh"/>
@@ -512,10 +512,10 @@
                             <constraint firstItem="I7I-N4-iJU" firstAttribute="leading" secondItem="QE6-7I-lal" secondAttribute="leading" id="Udi-Yr-ang"/>
                             <constraint firstItem="jHf-tZ-KSo" firstAttribute="top" secondItem="tkW-s9-PK1" secondAttribute="bottom" constant="8" id="VSo-UV-7UX"/>
                             <constraint firstItem="wtq-yJ-ScK" firstAttribute="leading" secondItem="4ZQ-Uf-Xin" secondAttribute="leading" id="WMg-3k-nvH"/>
-                            <constraint firstItem="wtq-yJ-ScK" firstAttribute="top" secondItem="b4u-GY-v4r" secondAttribute="bottom" constant="1" id="aBN-uw-Rgg"/>
+                            <constraint firstItem="wtq-yJ-ScK" firstAttribute="top" secondItem="b4u-GY-v4r" secondAttribute="bottom" constant="2" id="aBN-uw-Rgg"/>
                             <constraint firstAttribute="centerX" secondItem="tkW-s9-PK1" secondAttribute="centerX" id="d2w-Xw-FS6"/>
                             <constraint firstAttribute="centerX" secondItem="b4u-GY-v4r" secondAttribute="centerX" constant="-2.5" id="f0B-Pz-eWe"/>
-                            <constraint firstItem="4ZQ-Uf-Xin" firstAttribute="top" secondItem="wtq-yJ-ScK" secondAttribute="bottom" constant="18" id="fHH-ZF-xQa"/>
+                            <constraint firstItem="4ZQ-Uf-Xin" firstAttribute="top" secondItem="wtq-yJ-ScK" secondAttribute="bottom" constant="17" id="fHH-ZF-xQa"/>
                             <constraint firstItem="wUc-48-37F" firstAttribute="leading" secondItem="Nnn-HU-XCr" secondAttribute="leading" id="o9m-BF-z96"/>
                             <constraint firstItem="wUc-48-37F" firstAttribute="top" secondItem="b4u-GY-v4r" secondAttribute="bottom" constant="21" id="y6v-3o-IbO"/>
                             <constraint firstItem="b4u-GY-v4r" firstAttribute="top" secondItem="oRF-x5-gvJ" secondAttribute="bottom" constant="8" id="yMV-9u-sqk"/>
