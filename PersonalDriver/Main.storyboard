@@ -179,7 +179,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="PvN-Zi-68I">
-                        <barButtonItem key="rightBarButtonItem" title="Login" id="AmW-ui-H3G"/>
+                        <barButtonItem key="rightBarButtonItem" title="Login" id="AmW-ui-H3G">
+                            <connections>
+                                <segue destination="qZ2-9T-qqd" kind="show" id="0Ed-EH-8U3"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
@@ -928,7 +932,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vvj-2Q-1Bo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4064" y="1037"/>
+            <point key="canvasLocation" x="4043" y="1053"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="aeJ-xy-OP1">

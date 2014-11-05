@@ -17,8 +17,8 @@
 @property PFGeoPoint *dropoffGeoPoint;
 @property NSDate *rideDateTime;
 @property NSString *specialInstructions;
-@property BOOL *driverConfirmed;
-@property BOOL *driverEnRoute;
+@property BOOL driverConfirmed;
+@property BOOL driverEnRoute;
 @property NSString *pickUpLocation;
 @property NSString *destination;
 @property NSNumber *fareEstimateMin;

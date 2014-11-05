@@ -30,7 +30,7 @@
 
 -(NSString *)formatRideFareEstimate:(NSNumber *)fareEstimateMin:(NSNumber *)fareEstimateMax
 {
-    NSString *formattedRideEstimate = [NSString stringWithFormat:@"$%@-%@",fareEstimateMin, fareEstimateMax];
+    NSString *formattedRideEstimate = [NSString stringWithFormat:@"$%@-%@",fareEstimateMin.stringValue, fareEstimateMax.stringValue];
     return formattedRideEstimate;
 }
 

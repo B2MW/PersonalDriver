@@ -38,7 +38,7 @@
     cell.pickupDateTimeLabel.text = [rideManager formatRideDate:ride];
     cell.rideOrigin.text = ride.pickUpLocation;
     cell.rideDestination.text = ride.destination;
-    cell.fareEstimate.text = [NSString stringWithFormat:@"$%@-%@",ride.fareEstimateMin, ride.fareEstimateMax];
+    cell.fareEstimate.text = [rideManager formatRideFareEstimate:ride.fareEstimateMin :ride.fareEstimateMax];
     cell.userImage.image = [UIImage imageNamed:@"profilePicPlaceholder"];
     return cell;
 }
@@ -56,7 +56,7 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(AvailableRideTableViewCell *)cell
 {
     AvailableRidesDetailViewController *viewController = [segue destinationViewController];
-    viewController.ride = cell.ride;
+    viewController.ride = [self.availableRides objectAtIndex:[self.tableView indexPathForSelectedRow].row];
 }
 
 @end

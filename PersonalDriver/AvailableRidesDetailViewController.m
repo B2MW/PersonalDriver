@@ -30,6 +30,7 @@
     RideManager *rideManager = [[RideManager alloc] init];
     self.passengerPicture.image = [UIImage imageNamed:@"passengerPicPlaceholder"];
     self.passengerName.text = @"Passenger's Name";
+    self.numberOfPassengers.text = self.ride.passengerCount;
     self.estimatedFare.text = [rideManager formatRideFareEstimate:self.ride.fareEstimateMin :self.ride.fareEstimateMax];
     self.numberOfPassengers.text = self.ride.passengerCount;
     self.pickupAddress.text = @"111 S Wacker Dr\nChicago, IL 60606";
@@ -38,7 +39,12 @@
 
 - (IBAction)onScheduleRideButtonPressed:(id)sender
 {
-
+    Ride *ride = self.ride;
+//    ride.driver = [PFUser currentUser];
+    ride.driverConfirmed = YES;
+    [ride saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        [self refreshDisplay];
+    }];
 }
 
 @end

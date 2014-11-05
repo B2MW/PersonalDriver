@@ -255,13 +255,13 @@
 				2236D93D1A08234B00F19EA5 /* PassengerProfileViewController.m */,
 				CEB8D1C91A0A83CB00A74FA6 /* SelectLocationForRideViewController.h */,
 				CEB8D1CA1A0A83CB00A74FA6 /* SelectLocationForRideViewController.m */,
-				CEB8D1BC1A0A7D5C00A74FA6 /* Model */,
 				2236D9421A082A4200F19EA5 /* NewRideViewController.h */,
 				2236D9431A082A4200F19EA5 /* NewRideViewController.m */,
 				4C7175851A08FDE4002AC734 /* Driver UX */,
 				4C7175241A081334002AC734 /* Images.xcassets */,
 				4C7175261A081334002AC734 /* LaunchScreen.xib */,
 				4C71751B1A081334002AC734 /* PersonalDriver.xcdatamodeld */,
+				CEB8D1BC1A0A7D5C00A74FA6 /* Model */,
 				4C7175141A081334002AC734 /* Supporting Files */,
 			);
 			path = PersonalDriver;
@@ -310,10 +310,10 @@
 		4C7175851A08FDE4002AC734 /* Driver UX */ = {
 			isa = PBXGroup;
 			children = (
-				CEB8D1C31A0A809E00A74FA6 /* AvailableRidesViewController.h */,
-				CEB8D1C41A0A809E00A74FA6 /* AvailableRidesViewController.m */,
 				CEB8D1C51A0A809E00A74FA6 /* AvailableRideTableViewCell.h */,
 				CEB8D1C61A0A809E00A74FA6 /* AvailableRideTableViewCell.m */,
+				CEB8D1C31A0A809E00A74FA6 /* AvailableRidesViewController.h */,
+				CEB8D1C41A0A809E00A74FA6 /* AvailableRidesViewController.m */,
 				4C7175821A08FDCC002AC734 /* AvailableRidesDetailViewController.h */,
 				4C7175831A08FDCC002AC734 /* AvailableRidesDetailViewController.m */,
 			);
