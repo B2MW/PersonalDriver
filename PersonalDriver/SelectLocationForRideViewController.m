@@ -48,6 +48,8 @@
         {
             MKPointAnnotation *annotation = [[MKPointAnnotation alloc]init];
             annotation.coordinate = placemark.location.coordinate;
+            MKPinAnnotationView *newAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"startpin"];
+            newAnnotation.pinColor = MKPinAnnotationColorRed;
             [self.mapView addAnnotation:annotation];
 
         }
@@ -64,6 +66,8 @@
         {
             MKPointAnnotation *annotation = [[MKPointAnnotation alloc]init];
             annotation.coordinate = placemark.location.coordinate;
+            MKPinAnnotationView *newAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"endpin"];
+            newAnnotation.pinColor = MKPinAnnotationColorPurple;
             [self.mapView addAnnotation:annotation];
 
         }
