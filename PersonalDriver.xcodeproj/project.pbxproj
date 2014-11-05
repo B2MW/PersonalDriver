@@ -59,6 +59,7 @@
 		CEB8D1C21A0A7D9100A74FA6 /* RideManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB8D1C11A0A7D9100A74FA6 /* RideManager.m */; };
 		CEB8D1C71A0A809E00A74FA6 /* AvailableRidesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB8D1C41A0A809E00A74FA6 /* AvailableRidesViewController.m */; };
 		CEB8D1C81A0A809E00A74FA6 /* AvailableRideTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB8D1C61A0A809E00A74FA6 /* AvailableRideTableViewCell.m */; };
+		CEB8D1CB1A0A83CB00A74FA6 /* SelectLocationForRideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB8D1CA1A0A83CB00A74FA6 /* SelectLocationForRideViewController.m */; };
 		FDD60E392AD01E939AF6F573 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 53761B501441D0844B94902B /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -169,6 +170,8 @@
 		CEB8D1C41A0A809E00A74FA6 /* AvailableRidesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvailableRidesViewController.m; sourceTree = "<group>"; };
 		CEB8D1C51A0A809E00A74FA6 /* AvailableRideTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvailableRideTableViewCell.h; sourceTree = "<group>"; };
 		CEB8D1C61A0A809E00A74FA6 /* AvailableRideTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvailableRideTableViewCell.m; sourceTree = "<group>"; };
+		CEB8D1C91A0A83CB00A74FA6 /* SelectLocationForRideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectLocationForRideViewController.h; sourceTree = "<group>"; };
+		CEB8D1CA1A0A83CB00A74FA6 /* SelectLocationForRideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectLocationForRideViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -250,6 +253,8 @@
 				4C71751F1A081334002AC734 /* ViewController.m */,
 				2236D93C1A08234B00F19EA5 /* PassengerProfileViewController.h */,
 				2236D93D1A08234B00F19EA5 /* PassengerProfileViewController.m */,
+				CEB8D1C91A0A83CB00A74FA6 /* SelectLocationForRideViewController.h */,
+				CEB8D1CA1A0A83CB00A74FA6 /* SelectLocationForRideViewController.m */,
 				CEB8D1BC1A0A7D5C00A74FA6 /* Model */,
 				2236D9421A082A4200F19EA5 /* NewRideViewController.h */,
 				2236D9431A082A4200F19EA5 /* NewRideViewController.m */,
@@ -557,6 +562,7 @@
 				CE19D9821A092D2700874F56 /* NXOAuth2PostBodyStream.m in Sources */,
 				CEB8D1C71A0A809E00A74FA6 /* AvailableRidesViewController.m in Sources */,
 				CE19D9791A092D2700874F56 /* NSURL+NXOAuth2.m in Sources */,
+				CEB8D1CB1A0A83CB00A74FA6 /* SelectLocationForRideViewController.m in Sources */,
 				CE19D97D1A092D2700874F56 /* NXOAuth2Client.m in Sources */,
 				CE19D97C1A092D2700874F56 /* NXOAuth2AccountStore.m in Sources */,
 				2236D93E1A08234B00F19EA5 /* PassengerProfileViewController.m in Sources */,
