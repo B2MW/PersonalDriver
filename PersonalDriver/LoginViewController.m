@@ -8,12 +8,10 @@
 
 #import "LoginViewController.h"
 #import "UberKit.h"
+#import <SSKeychain.h>
 
 @interface LoginViewController ()
 
-
-
- 
 
 @end
 
@@ -43,9 +41,10 @@
          {
              if(!error)
              {
+                 [SSKeychain setPassword:authToken forService:@"Personal Driver" account:profile.email];
                  NSLog(@"User's full name %@ %@", profile.first_name, profile.last_name);
                  NSLog(@"User's email: %@", profile.email);
-                 NSLog(@"Profile picture: %@", profile.picture);
+                 NSLog(@"Token: %@", authToken);
              }
              else
              {
@@ -59,6 +58,8 @@
     }
 
 }
+
+
 
 
 
