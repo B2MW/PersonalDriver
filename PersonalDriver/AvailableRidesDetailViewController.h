@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Ride.h"
 
 @interface AvailableRidesDetailViewController : UIViewController
-
+@property Ride *ride;
 @end
