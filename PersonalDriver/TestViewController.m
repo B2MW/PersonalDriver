@@ -7,8 +7,7 @@
 //
 
 #import "TestViewController.h"
-#import <SSKeychain.h>
-#import <SSKeychainQuery.h>
+#import "Token.h"
 #import "UberAPI.h"
 #import "UberProfile.h"
 #import "UberActivity.h"
@@ -26,13 +25,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.token = @"";
-    NSString *service = @"personaldriver";
-    NSArray *keychainArray = [SSKeychain accountsForService:service];
-    NSDictionary *keychainDict = [keychainArray firstObject];
-    NSString *account = [keychainDict objectForKey:@"acct"];
-    self.token = @"";
-    self.token = [SSKeychain passwordForService:service account:account];
+    self.token = [Token getToken];
     NSLog(@"Token:%@",self.token);
 
 }
