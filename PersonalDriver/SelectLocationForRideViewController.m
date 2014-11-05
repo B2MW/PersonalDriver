@@ -7,12 +7,14 @@
 //
 
 #import "SelectLocationForRideViewController.h"
+#import "NewRideViewController.h"
 
 @interface SelectLocationForRideViewController () <MKMapViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *pickupLocationTextField;
 @property (weak, nonatomic) IBOutlet UITextField *destinationTextField;
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property CLLocationManager *locationManager;
+
 
 
 
@@ -47,16 +49,21 @@
 {
 
     CLGeocoder *geocoder = [[CLGeocoder alloc]init];
-    [geocoder geocodeAddressString:self.pickupLocationTextField.text completionHandler:^(NSArray *placemarks, NSError *error) {
-        for (CLPlacemark *placemark in placemarks)
-        {
+    self.pickupAddress= self.pickupLocationTextField.text;
+    [geocoder geocodeAddressString:self.pickupAddress completionHandler:^(NSArray *placemarks, NSError *error) {
+            PFGeoPoint *geoPoint = [[PFGeoPoint alloc]init];
+            CLPlacemark *placemark = placemarks.firstObject;
             MKPointAnnotation *annotation = [[MKPointAnnotation alloc]init];
             annotation.coordinate = placemark.location.coordinate;
+
+            self.pickupGeopoint.latitude = placemark.location.coordinate.latitude;
+            self.pickupGeopoint.longitude = placemark.location.coordinate.longitude;
+
+
             MKPinAnnotationView *newAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"startpin"];
             newAnnotation.pinColor = MKPinAnnotationColorGreen;
-            [self.mapView addAnnotation:annotation];
 
-        }
+            [self.mapView addAnnotation:annotation];
 
     }];
 }
@@ -65,39 +72,37 @@
 {
 
     CLGeocoder *geocoder = [[CLGeocoder alloc]init];
-    [geocoder geocodeAddressString:self.destinationTextField.text completionHandler:^(NSArray *placemarks, NSError *error) {
-        for (CLPlacemark *placemark in placemarks)
-        {
+    self.destinationAddress = self.destinationTextField.text;
+    [geocoder geocodeAddressString:self.destinationAddress completionHandler:^(NSArray *placemarks, NSError *error) {
+
+
+            CLPlacemark *placemark = placemarks.firstObject;
             MKPointAnnotation *annotation = [[MKPointAnnotation alloc]init];
             annotation.coordinate = placemark.location.coordinate;
+
+            self.destinationGeopoint.latitude = placemark.location.coordinate.latitude;
+            self.destinationGeopoint.longitude = placemark.location.coordinate.longitude;
+
+
             MKPinAnnotationView *newAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"endpin"];
             newAnnotation.pinColor = MKPinAnnotationColorPurple;
             newAnnotation.animatesDrop = YES;
             [self.mapView addAnnotation:annotation];
 
-        }
-        
     }];
 }
 
--(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(UIButton *)sender {
 
-{
-    CLLocationCoordinate2D center = view.annotation.coordinate;
-
-    MKCoordinateSpan span;
-    span.latitudeDelta = 0.01;
-    span.longitudeDelta = 0.01;
-
-    MKCoordinateRegion region;
-    region.center = center;
-    region.span = span;
-
-    [self.mapView setRegion:region animated:YES];
-    
-    
+    NewRideViewController *newRideViewController = segue.destinationViewController;
+    newRideViewController.pickupAddress = self.pickupAddress;
+    newRideViewController.destinationAddress = self.destinationAddress;
+    newRideViewController.pickupGeopoint = self.pickupGeopoint;
+    newRideViewController.destinationGeopoint = self.destinationGeopoint;
     
 }
+
+
 
 
 @end

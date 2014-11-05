@@ -32,6 +32,9 @@
     NSInteger value = self.passengerSlider.value;
     NSString *passengerTotal = [NSNumber numberWithInteger:value].description;
     self.passengerTotalLabel.text = passengerTotal;
+    self.pickupLabel.text = self.pickupAddress;
+    self.destinationLabel.text = self.destinationAddress;
+    NSLog(@"pickup address = %@", self.pickupAddress);
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
