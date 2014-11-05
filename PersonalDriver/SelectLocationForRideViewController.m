@@ -26,6 +26,8 @@
     [super viewDidLoad];
     self.locationManager = [[CLLocationManager alloc]init];
     [self.locationManager requestAlwaysAuthorization];
+    self.destinationGeopoint = [[PFGeoPoint alloc]init];
+    self.pickupGeopoint = [[PFGeoPoint alloc]init];
 
 
 }
@@ -66,6 +68,8 @@
 
             [self.mapView addAnnotation:annotation];
 
+            NSLog(@"pickup geo point = %@", self.pickupGeopoint);
+
     }];
 }
 
@@ -80,6 +84,7 @@
             CLPlacemark *placemark = placemarks.firstObject;
             MKPointAnnotation *annotation = [[MKPointAnnotation alloc]init];
             annotation.coordinate = placemark.location.coordinate;
+            NSLog(@"placemark stuff geo point = %f", placemark.location.coordinate.latitude);
 
             self.destinationGeopoint.latitude = placemark.location.coordinate.latitude;
             self.destinationGeopoint.longitude = placemark.location.coordinate.longitude;
@@ -89,6 +94,11 @@
             newAnnotation.pinColor = MKPinAnnotationColorPurple;
             newAnnotation.animatesDrop = YES;
             [self.mapView addAnnotation:annotation];
+
+            NSLog(@"destination geo point = %@", self.destinationGeopoint);
+            NSLog(@"destination lat = %f", self.destinationGeopoint.latitude);
+            NSLog(@"placemark %@", placemark);
+            NSLog(@"geocoder %@", geocoder);
 
     }];
 }
