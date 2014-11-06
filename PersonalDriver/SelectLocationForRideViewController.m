@@ -98,6 +98,9 @@
             [self.mapView addAnnotation:annotation];
 
     }];
+
+    self.navigationController.navigationBar.topItem.title = @"Fare Estimate: 34";
+
 }
 
 #pragma segue to next stage of request ride
