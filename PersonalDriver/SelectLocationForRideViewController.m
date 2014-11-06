@@ -32,6 +32,11 @@
     [self.locationManager requestWhenInUseAuthorization];
     self.locationManager.delegate = self;
     [self.locationManager startUpdatingLocation];
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    self.locationManager.distanceFilter = kCLLocationAccuracyKilometer;
+    self.currentLocation = [[CLLocation alloc]init];
+    self.currentLocation = [self.locationManager location];
+    self.mapView.region = MKCoordinateRegionMakeWithDistance(self.currentLocation.coordinate, 10000, 10000);
 }
 
 
@@ -110,7 +115,7 @@
 
 -(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-    NSLog(@"Error");
+    NSLog(@"Error, no connection");
 }
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
@@ -134,10 +139,13 @@
                              placemark.subThoroughfare,
                              placemark.thoroughfare,
                              placemark.locality];
-
+        NSLog(@"current location = %@", address);
+        NSLog(@"current placemark location = %@", placemark.location);
     }];
 
 }
+
+
 
 
 
