@@ -30,10 +30,10 @@
 
     }else if ([[PFUser currentUser] objectForKey:@"isDriver"])//Check if they are a Driver
     {
-        //[self performSegueWithIdentifier:@"showDriver" sender:self];
+        [self performSegueWithIdentifier:@"showDriver" sender:self];
     }else if ([[PFUser currentUser] objectForKey:@"isDriver"] == NO)//Check if they are a passenger
     {
-        //[self performSegueWithIdentifier:@"showPassenger" sender:self];
+        [self performSegueWithIdentifier:@"showPassenger" sender:self];
     }else
     {
         //do nothing.  Have the user select Driver or Passenger from current screen.
@@ -51,10 +51,10 @@
 
     }else if ([[PFUser currentUser] objectForKey:@"isDriver"])//Check if they are a Driver
     {
-        //[self performSegueWithIdentifier:@"showDriver" sender:self];
+        [self performSegueWithIdentifier:@"showDriver" sender:self];
     }else if ([[PFUser currentUser] objectForKey:@"isDriver"] == NO)//Check if they are a passenger
     {
-        //[self performSegueWithIdentifier:@"showPassenger" sender:self];
+        [self performSegueWithIdentifier:@"showPassenger" sender:self];
     }else
     {
         //do nothing.  Have the user select Driver or Passenger from current screen.
@@ -65,8 +65,8 @@
 - (IBAction)onPassengerPressed:(UIButton *)sender {
     PFUser *user = [PFUser currentUser];
     [user setObject:@NO forKey:@"isDriver"];
-
     [user saveInBackground];
+    NSLog(@"You are a Passenger");
 
 }
 
@@ -74,6 +74,7 @@
     PFUser *user = [PFUser currentUser];
     [user setObject:@YES forKey:@"isDriver"];
     [user saveInBackground];
+    NSLog(@"You are a Driver");
 }
 
 - (IBAction)login:(id)sender {

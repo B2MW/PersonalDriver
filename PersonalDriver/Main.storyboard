@@ -252,8 +252,8 @@
                     </navigationItem>
                     <connections>
                         <segue destination="qZ2-9T-qqd" kind="presentation" identifier="showLogin" id="HKK-hy-XFc"/>
-                        <segue destination="P1u-y9-US2" kind="show" identifier="isPassenger" id="kYK-FX-VSG"/>
-                        <segue destination="a6W-kI-Qp6" kind="show" identifier="isDriver" id="vEW-oa-Ypl"/>
+                        <segue destination="P1u-y9-US2" kind="show" identifier="showPassenger" id="kYK-FX-VSG"/>
+                        <segue destination="a6W-kI-Qp6" kind="show" identifier="showDriver" id="vEW-oa-Ypl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
