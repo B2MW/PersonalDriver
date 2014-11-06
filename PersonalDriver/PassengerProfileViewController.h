@@ -8,6 +8,6 @@
 
 #import "ViewController.h"
 
-@interface PassengerProfileViewController : ViewController
+@interface PassengerProfileViewController : UIViewController
 
 @end

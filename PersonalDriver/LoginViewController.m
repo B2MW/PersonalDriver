@@ -105,11 +105,10 @@
         NSString *name = [NSString stringWithFormat:@"%@ %@",profile.first_name, profile.last_name];
         user[@"name"] = name;
         //Save photo to Parse
-//        NSURL *url = [NSURL URLWithString:profile.picture];
-//        NSData *pictureData = [NSData dataWithContentsOfURL:url];
-//        PFFile *imageFile = [PFFile fileWithName:@"ProfilePic.jpg" data:pictureData];
-//        user[@"picture"] = imageFile;
-
+        NSURL *url = [NSURL URLWithString:profile.picture];
+        NSData *pictureData = [NSData dataWithContentsOfURL:url];
+        PFFile *imageFile = [PFFile fileWithName:@"ProfilePic.jpg" data:pictureData];
+        [user setObject:imageFile forKey:@"picture"];
         //Save to Parse
         [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (!error) {

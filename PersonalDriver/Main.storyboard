@@ -119,7 +119,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="63q-QX-cAC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1896" y="364"/>
+            <point key="canvasLocation" x="1896" y="371"/>
         </scene>
         <!--Test View Controller-->
         <scene sceneID="HtB-dn-XGm">
@@ -188,7 +188,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OxM-br-d8l" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2585" y="364"/>
+            <point key="canvasLocation" x="2637" y="364"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="ufC-wZ-h7g">
@@ -216,7 +216,6 @@
                                 </state>
                                 <connections>
                                     <action selector="onPassengerPressed:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="ak5-Uq-tFY"/>
-                                    <segue destination="P1u-y9-US2" kind="show" identifier="isPassenger" id="7pn-at-hJM"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iB8-Cq-0jW">
@@ -233,7 +232,6 @@
                                 </state>
                                 <connections>
                                     <action selector="onDriverPressed:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Be3-Le-C4W"/>
-                                    <segue destination="a6W-kI-Qp6" kind="show" identifier="showDriver" id="BSC-Et-v2P"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -248,12 +246,14 @@
                     <navigationItem key="navigationItem" id="PvN-Zi-68I">
                         <barButtonItem key="rightBarButtonItem" title="Login" id="S1X-Wn-FoN">
                             <connections>
-                                <segue destination="qZ2-9T-qqd" kind="presentation" id="79P-eT-lIx"/>
+                                <action selector="login:" destination="vXZ-lx-hvc" id="J6K-ja-Bnh"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <segue destination="qZ2-9T-qqd" kind="presentation" identifier="showLogin" id="HKK-hy-XFc"/>
+                        <segue destination="P1u-y9-US2" kind="show" identifier="showPassenger" id="kYK-FX-VSG"/>
+                        <segue destination="a6W-kI-Qp6" kind="show" identifier="showDriver" id="vEW-oa-Ypl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
@@ -432,7 +432,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZpP-dN-0d7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1929" y="1803"/>
+            <point key="canvasLocation" x="1896" y="1782"/>
         </scene>
         <!--Available Rides Detail View Controller-->
         <scene sceneID="kgn-yl-maN">
@@ -450,7 +450,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G4Q-kC-YQ8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2639" y="1803"/>
+            <point key="canvasLocation" x="2637" y="1782"/>
         </scene>
         <!--Passenger Story Board-->
         <scene sceneID="Sfo-Mz-ufs">
@@ -553,7 +553,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qNE-pg-mPq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2644" y="1059"/>
+            <point key="canvasLocation" x="2637" y="1070"/>
         </scene>
         <!--Select Location For Ride View Controller-->
         <scene sceneID="FaO-ZH-GIb">
@@ -680,7 +680,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cep-MG-EZw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3296" y="1053"/>
+            <point key="canvasLocation" x="3342" y="1070"/>
         </scene>
         <!--New Ride View Controller-->
         <scene sceneID="Ug9-9p-5tT">
@@ -845,7 +845,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vvj-2Q-1Bo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4064" y="1037"/>
+            <point key="canvasLocation" x="4064" y="1070"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="aeJ-xy-OP1">
@@ -866,7 +866,4 @@
             <point key="canvasLocation" x="1117" y="1059"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="79P-eT-lIx"/>
-    </inferredMetricsTieBreakers>
 </document>
