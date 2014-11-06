@@ -9,9 +9,10 @@
 #import "UberAPI.h"
 
 
+
 @implementation UberAPI
 
-+(void) getUberActivitiesWithToken:(NSString *)token completionHandler:(void(^)(NSMutableArray *))complete
++ (void)getUberActivitiesWithToken:(NSString *)token completionHandler:(void(^)(NSMutableArray *))complete
 {
     //GET /v1.1/history
 
@@ -32,7 +33,7 @@
     }];
 }
 
-+ (void) getUserProfileWithToken:(NSString *)token completionHandler:(void(^)(UberProfile *))complete
++ (void)getUserProfileWithToken:(NSString *)token completionHandler:(void(^)(UberProfile *))complete
 {
     //GET /v1/me
 

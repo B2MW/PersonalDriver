@@ -49,11 +49,12 @@
 		CE19D9821A092D2700874F56 /* NXOAuth2PostBodyStream.m in Sources */ = {isa = PBXBuildFile; fileRef = CE19D96B1A092D2700874F56 /* NXOAuth2PostBodyStream.m */; };
 		CE19D9831A092D2700874F56 /* NXOAuth2Request.m in Sources */ = {isa = PBXBuildFile; fileRef = CE19D96D1A092D2700874F56 /* NXOAuth2Request.m */; };
 		CE19D9841A092D2700874F56 /* UberKit.m in Sources */ = {isa = PBXBuildFile; fileRef = CE19D9711A092D2700874F56 /* UberKit.m */; };
-		CE19D9861A092D8400874F56 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE19D9851A092D8400874F56 /* Main.storyboard */; };
 		CE19D9891A092EB000874F56 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE19D9881A092EB000874F56 /* LoginViewController.m */; };
 		CE19D9E51A09BAE900874F56 /* PodFile in Resources */ = {isa = PBXBuildFile; fileRef = CE19D9E41A09BAE900874F56 /* PodFile */; };
-		CE19D9E81A09BEF900874F56 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE19D9E71A09BEF900874F56 /* TestViewController.m */; };
+		CE19D9E81A09BEF900874F56 /* UberAPIDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = CE19D9E71A09BEF900874F56 /* UberAPIDemo.m */; };
 		CE19D9EE1A09E44700874F56 /* UberAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = CE19D9ED1A09E44700874F56 /* UberAPI.m */; };
+		CE1A353C1A0AC339004A6CCC /* Token.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1A353B1A0AC339004A6CCC /* Token.m */; };
+		CE1A353E1A0AD473004A6CCC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE1A353D1A0AD473004A6CCC /* Main.storyboard */; };
 		CEB8D1BB1A0A7D3B00A74FA6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEB8D1BA1A0A7D3B00A74FA6 /* MapKit.framework */; };
 		CEB8D1BF1A0A7D7900A74FA6 /* Ride.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB8D1BE1A0A7D7900A74FA6 /* Ride.m */; };
 		CEB8D1C21A0A7D9100A74FA6 /* RideManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB8D1C11A0A7D9100A74FA6 /* RideManager.m */; };
@@ -153,14 +154,16 @@
 		CE19D96F1A092D2700874F56 /* OAuth2Client_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAuth2Client_Prefix.pch; sourceTree = "<group>"; };
 		CE19D9701A092D2700874F56 /* UberKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UberKit.h; sourceTree = "<group>"; };
 		CE19D9711A092D2700874F56 /* UberKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UberKit.m; sourceTree = "<group>"; };
-		CE19D9851A092D8400874F56 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		CE19D9871A092EB000874F56 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		CE19D9881A092EB000874F56 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		CE19D9E41A09BAE900874F56 /* PodFile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PodFile; sourceTree = "<group>"; };
-		CE19D9E61A09BEF900874F56 /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
-		CE19D9E71A09BEF900874F56 /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
+		CE19D9E61A09BEF900874F56 /* UberAPIDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UberAPIDemo.h; sourceTree = "<group>"; };
+		CE19D9E71A09BEF900874F56 /* UberAPIDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UberAPIDemo.m; sourceTree = "<group>"; };
 		CE19D9EC1A09E44700874F56 /* UberAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UberAPI.h; sourceTree = "<group>"; };
 		CE19D9ED1A09E44700874F56 /* UberAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UberAPI.m; sourceTree = "<group>"; };
+		CE1A353A1A0AC339004A6CCC /* Token.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Token.h; sourceTree = "<group>"; };
+		CE1A353B1A0AC339004A6CCC /* Token.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Token.m; sourceTree = "<group>"; };
+		CE1A353D1A0AD473004A6CCC /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		CEB8D1BA1A0A7D3B00A74FA6 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		CEB8D1BD1A0A7D7900A74FA6 /* Ride.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ride.h; sourceTree = "<group>"; };
 		CEB8D1BE1A0A7D7900A74FA6 /* Ride.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ride.m; sourceTree = "<group>"; };
@@ -240,21 +243,24 @@
 		4C7175131A081334002AC734 /* PersonalDriver */ = {
 			isa = PBXGroup;
 			children = (
-				CE19D9851A092D8400874F56 /* Main.storyboard */,
-				CE19D9E61A09BEF900874F56 /* TestViewController.h */,
-				CE19D9E71A09BEF900874F56 /* TestViewController.m */,
+				CE1A353D1A0AD473004A6CCC /* Main.storyboard */,
 				4C7175181A081334002AC734 /* AppDelegate.h */,
 				4C7175191A081334002AC734 /* AppDelegate.m */,
-				CE19D9871A092EB000874F56 /* LoginViewController.h */,
-				CE19D9881A092EB000874F56 /* LoginViewController.m */,
-				CE19D9EC1A09E44700874F56 /* UberAPI.h */,
-				CE19D9ED1A09E44700874F56 /* UberAPI.m */,
 				4C71751E1A081334002AC734 /* ViewController.h */,
 				4C71751F1A081334002AC734 /* ViewController.m */,
+				CE19D9871A092EB000874F56 /* LoginViewController.h */,
+				CE19D9881A092EB000874F56 /* LoginViewController.m */,
 				2236D93C1A08234B00F19EA5 /* PassengerProfileViewController.h */,
 				2236D93D1A08234B00F19EA5 /* PassengerProfileViewController.m */,
 				CEB8D1C91A0A83CB00A74FA6 /* SelectLocationForRideViewController.h */,
 				CEB8D1CA1A0A83CB00A74FA6 /* SelectLocationForRideViewController.m */,
+				CE19D9EC1A09E44700874F56 /* UberAPI.h */,
+				CE19D9ED1A09E44700874F56 /* UberAPI.m */,
+				CE19D9E61A09BEF900874F56 /* UberAPIDemo.h */,
+				CE19D9E71A09BEF900874F56 /* UberAPIDemo.m */,
+				CE1A353A1A0AC339004A6CCC /* Token.h */,
+				CE1A353B1A0AC339004A6CCC /* Token.m */,
+				CEB8D1BC1A0A7D5C00A74FA6 /* Model */,
 				2236D9421A082A4200F19EA5 /* NewRideViewController.h */,
 				2236D9431A082A4200F19EA5 /* NewRideViewController.m */,
 				CEB8D1BC1A0A7D5C00A74FA6 /* Model */,
@@ -490,10 +496,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE19D9861A092D8400874F56 /* Main.storyboard in Resources */,
 				4C7175281A081334002AC734 /* LaunchScreen.xib in Resources */,
 				CE19D9E51A09BAE900874F56 /* PodFile in Resources */,
 				4C7175251A081334002AC734 /* Images.xcassets in Resources */,
+				CE1A353E1A0AD473004A6CCC /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -564,6 +570,7 @@
 				CEB8D1C71A0A809E00A74FA6 /* AvailableRidesViewController.m in Sources */,
 				CE19D9791A092D2700874F56 /* NSURL+NXOAuth2.m in Sources */,
 				CEB8D1CB1A0A83CB00A74FA6 /* SelectLocationForRideViewController.m in Sources */,
+				CE1A353C1A0AC339004A6CCC /* Token.m in Sources */,
 				CE19D97D1A092D2700874F56 /* NXOAuth2Client.m in Sources */,
 				CE19D97C1A092D2700874F56 /* NXOAuth2AccountStore.m in Sources */,
 				2236D93E1A08234B00F19EA5 /* PassengerProfileViewController.m in Sources */,
@@ -571,7 +578,7 @@
 				CE19D97F1A092D2700874F56 /* NXOAuth2Constants.m in Sources */,
 				4C7175841A08FDCC002AC734 /* AvailableRidesDetailViewController.m in Sources */,
 				CE19D9EE1A09E44700874F56 /* UberAPI.m in Sources */,
-				CE19D9E81A09BEF900874F56 /* TestViewController.m in Sources */,
+				CE19D9E81A09BEF900874F56 /* UberAPIDemo.m in Sources */,
 				CE19D9831A092D2700874F56 /* NXOAuth2Request.m in Sources */,
 				4C71751D1A081334002AC734 /* PersonalDriver.xcdatamodeld in Sources */,
 				CE19D9801A092D2700874F56 /* NXOAuth2FileStreamWrapper.m in Sources */,
