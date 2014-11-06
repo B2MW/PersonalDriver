@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property CLLocationManager *locationManager;
 @property CLLocation *currentLocation;
+@property NSMutableArray *locations;
 
 @end
 
@@ -37,6 +38,7 @@
     self.currentLocation = [[CLLocation alloc]init];
     self.currentLocation = [self.locationManager location];
     self.mapView.region = MKCoordinateRegionMakeWithDistance(self.currentLocation.coordinate, 10000, 10000);
+    self.locations = [[NSMutableArray alloc]init];
 }
 
 
@@ -62,13 +64,15 @@
             self.pickupGeopoint.longitude = placemark.location.coordinate.longitude;
 
 
-            MKPinAnnotationView *newAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"startpin"];
-            newAnnotation.pinColor = MKPinAnnotationColorGreen;
+            MKPinAnnotationView *startAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"startpin"];
+            startAnnotation.pinColor = MKPinAnnotationColorGreen;
+            startAnnotation.animatesDrop = YES;
 
 
             self.mapView.region = MKCoordinateRegionMakeWithDistance(placemark.location.coordinate, 10000, 10000);
 
             [self.mapView addAnnotation:annotation];
+            [self.locations addObject:startAnnotation];
 
             NSLog(@"pickup geo point = %@", self.pickupGeopoint);
 
@@ -92,14 +96,16 @@
             self.destinationGeopoint.longitude = placemark.location.coordinate.longitude;
 
 
-            MKPinAnnotationView *newAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"endpin"];
-            newAnnotation.pinColor = MKPinAnnotationColorPurple;
-            newAnnotation.animatesDrop = YES;
+            MKPinAnnotationView *endAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"endpin"];
+            endAnnotation.pinColor = MKPinAnnotationColorPurple;
+            endAnnotation.animatesDrop = YES;
             [self.mapView addAnnotation:annotation];
+            [self.locations addObject:endAnnotation];
 
     }];
 
     self.navigationController.navigationBar.topItem.title = @"Fare Estimate: $34";
+    [self.mapView showAnnotations:self.locations animated:YES];
 
 }
 
