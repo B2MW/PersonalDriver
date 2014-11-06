@@ -12,9 +12,9 @@
 @property (strong, nonatomic) IBOutlet UIImageView *passengerPicture;
 @property (strong, nonatomic) IBOutlet UILabel *passengerName;
 @property (strong, nonatomic) IBOutlet UILabel *estimatedFare;
+@property (strong, nonatomic) IBOutlet UILabel *numberOfPassengers;
 @property (strong, nonatomic) IBOutlet UITextView *pickupAddress;
 @property (strong, nonatomic) IBOutlet UITextView *dropoffAddress;
-@property (strong, nonatomic) IBOutlet UILabel *numberOfPassengers;
 
 @end
 
@@ -43,7 +43,7 @@
 //    ride.driver = [PFUser currentUser];
     ride.driverConfirmed = YES;
     [ride saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        [self refreshDisplay];
+//        [self refreshDisplay];
     }];
 }
 
