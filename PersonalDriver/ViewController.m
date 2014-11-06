@@ -12,7 +12,7 @@
 #import "UberAPI.h"
 
 @interface ViewController ()
-@property PFUser *user;
+@property NSString *token;
 
 @end
 
@@ -20,40 +20,41 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.user = [PFUser currentUser];
-    if (self.user) {
-        NSLog(@"%@ is logged in",[self.user objectForKey:@"name"]);
-    }else
-    {
-        NSLog(@"No user logged in");
-    }
     //Get Keychain info
-    NSString *token = [Token getToken];
-    if (!token) {
+    self.token = [Token getToken];
+    if (!self.token) {
         [self performSegueWithIdentifier:@"showLogin" sender:self];
-    }else if (!self.user)
+    }else if (![PFUser currentUser])//Perform login if no current user
     {
+        [self loginPFUserWithUberProfile];
 
-    }else if ([self.user objectForKey:@"isDriver"])
+    }else if ([[PFUser currentUser] objectForKey:@"isDriver"])//Check if they are a Driver
     {
-        //log into Driver Screen
-    }else if ([self.user objectForKey:@"isDriver"] == NO)
+        //[self performSegueWithIdentifier:@"showDriver" sender:self];
+    }else if ([[PFUser currentUser] objectForKey:@"isDriver"] == NO)//Check if they are a passenger
     {
-         //log into Passenger Screen
+        //[self performSegueWithIdentifier:@"showPassenger" sender:self];
     }else
     {
         //do nothing.  Have the user select Driver or Passenger from current screen.
     }
 }
 
-#pragma marker - Helper Methods
 
--(void)loginUserToParse
-{
-    //get User Profile from Uber
-    [UberAPI getUserProfileWithToken:<#(NSString *)#> completionHandler:<#^(UberProfile *)complete#>]
+
+#pragma mark - Helper Methods
+
+-(void)loginPFUserWithUberProfile {
+
+    [UberAPI getUserProfileWithToken:self.token completionHandler:^(UberProfile *profile) {
+        NSString *name = [NSString stringWithFormat:@"%@ %@",profile.first_name,profile.last_name];
+        [PFUser logInWithUsername:name password:profile.promo_code];
+        NSLog(@"You are logged in");
+    }];
 
 }
+
+
 
 
 

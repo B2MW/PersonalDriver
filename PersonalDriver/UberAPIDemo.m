@@ -15,8 +15,8 @@
 @interface UberAPIDemo ()
 
 @property NSDictionary *keychainDict;
-@property NSString *token;
 @property NSArray *activities;
+@property NSString *token;
 
 
 @end

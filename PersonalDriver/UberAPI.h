@@ -12,8 +12,8 @@
 
 @interface UberAPI : NSObject
 
-+(void) getUberActivitiesWithToken:(NSString *)token completionHandler:(void(^)(NSMutableArray *))complete;
++ (void)getUberActivitiesWithToken:(NSString *)token completionHandler:(void(^)(NSMutableArray *))complete;
 
-+ (void) getUserProfileWithToken:(NSString *)token completionHandler:(void(^)(UberProfile *))complete;
++ (void)getUserProfileWithToken:(NSString *)token completionHandler:(void(^)(UberProfile *))complete;
 
 @end

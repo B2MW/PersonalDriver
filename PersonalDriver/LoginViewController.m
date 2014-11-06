@@ -45,11 +45,12 @@
                 [SSKeychain setPassword:self.token forService:@"personaldriver" account:profile.email];
                 if ([PFUser currentUser] == nil) //if there is not a PFUser create one
                 {
-                    [self createPFUserWithProfile:profile];
+                    [self signUpPFUserWithUberProfile];
 
                 }else {
                     [self dismissViewControllerAnimated:YES completion:nil];
                 }
+                
             }];
         } else {
             NSLog(@"No token yo!");
@@ -88,38 +89,40 @@
 }
 
 
-
 - (IBAction)goToUberAPIDemo:(id)sender {
 }
 
+-(void)signUpPFUserWithUberProfile
+{
+    [UberAPI getUserProfileWithToken:self.token completionHandler:^(UberProfile *profile) {
 
+        PFUser *user = [PFUser user];
+        NSString *name = [NSString stringWithFormat:@"%@ %@",profile.first_name, profile.last_name];
+        user.username = name;
+        user.password = profile.promo_code;
+        user.email = profile.email;
+        //TODO: Need to save image file to Parse
+        //                UIImage* myImage = [UIImage imageWithData:
+        //                                    [NSData dataWithContentsOfURL:
+        //                                     [NSURL URLWithString:profile.picture]]];
+        user[@"picture"] = profile.picture;
+        //Save to Parse
+        [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (!error) {
+                NSLog(@"Successfully created User");
+                [self dismissViewControllerAnimated:YES completion:nil];
+            } else {
+                NSString *errorString = [error userInfo][@"error"];
+                NSLog(@"Error: %@",errorString);
+                //TODO: Create an alertview message
+            }
+        }];
 
-#pragma mark - Helper Methods
-
--(void)createPFUserWithProfile:(UberProfile *)profile  {
-    PFUser *user = [PFUser user];
-    NSString *name = [NSString stringWithFormat:@"%@ %@",profile.first_name, profile.last_name];
-    user.username = name;
-    user.password = profile.promo_code;
-    user.email = profile.email;
-    //TODO: Need to save image file to Parse
-    //                UIImage* myImage = [UIImage imageWithData:
-    //                                    [NSData dataWithContentsOfURL:
-    //                                     [NSURL URLWithString:profile.picture]]];
-    user[@"picture"] = profile.picture;
-    //Save to Parse
-    [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (!error) {
-            NSLog(@"Successfully created User");
-            [self dismissViewControllerAnimated:YES completion:nil];
-        } else {
-            NSString *errorString = [error userInfo][@"error"];
-            NSLog(@"Error: %@",errorString);
-            //TODO: Create an alertview message
-        }
     }];
-
+    
 }
+
+
 
 
 

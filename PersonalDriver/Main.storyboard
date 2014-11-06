@@ -215,7 +215,7 @@
                                     <color key="titleShadowColor" red="0.98530040890000004" green="0.9906451235" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="P1u-y9-US2" kind="show" id="p48-0h-6T6"/>
+                                    <segue destination="P1u-y9-US2" kind="show" identifier="showPassenger" id="p48-0h-6T6"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iB8-Cq-0jW">
@@ -231,7 +231,7 @@
                                     <color key="titleShadowColor" red="0.98530040890000004" green="0.9906451235" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="a6W-kI-Qp6" kind="show" id="qNH-O2-1kR"/>
+                                    <segue destination="a6W-kI-Qp6" kind="show" identifier="showDriver" id="qNH-O2-1kR"/>
                                 </connections>
                             </button>
                         </subviews>
