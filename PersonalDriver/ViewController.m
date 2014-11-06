@@ -30,7 +30,7 @@
 
     }else if ([[PFUser currentUser] objectForKey:@"isDriver"])//Check if they are a Driver
     {
-        //[self performSegueWithIdentifier:@"showDriver" sender:self];
+        [self performSegueWithIdentifier:@"showDriver" sender:self];
     }else if ([[PFUser currentUser] objectForKey:@"isDriver"] == NO)//Check if they are a passenger
     {
         //[self performSegueWithIdentifier:@"showPassenger" sender:self];
@@ -40,6 +40,29 @@
     }
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.token = [Token getToken];
+    if (!self.token) {
+        [self performSegueWithIdentifier:@"showLogin" sender:self];
+    }else if (![PFUser currentUser])//Perform login if no current user
+    {
+        [self loginPFUserWithUberProfile];
+
+    }else if ([[PFUser currentUser] objectForKey:@"isDriver"])//Check if they are a Driver
+    {
+        [self performSegueWithIdentifier:@"showDriver" sender:self];
+    }else if ([[PFUser currentUser] objectForKey:@"isDriver"] == NO)//Check if they are a passenger
+    {
+        //[self performSegueWithIdentifier:@"showPassenger" sender:self];
+    }else
+    {
+        //do nothing.  Have the user select Driver or Passenger from current screen.
+    }
+    
+
+}
+
 
 
 #pragma mark - Helper Methods
@@ -47,8 +70,7 @@
 -(void)loginPFUserWithUberProfile {
 
     [UberAPI getUserProfileWithToken:self.token completionHandler:^(UberProfile *profile) {
-        NSString *name = [NSString stringWithFormat:@"%@ %@",profile.first_name,profile.last_name];
-        [PFUser logInWithUsername:name password:profile.promo_code];
+        [PFUser logInWithUsername:profile.email password:profile.promo_code];
         NSLog(@"You are logged in");
     }];
 
