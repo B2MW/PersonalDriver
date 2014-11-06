@@ -8,15 +8,15 @@
 
 #import "SelectLocationForRideViewController.h"
 #import "NewRideViewController.h"
+#import <CoreLocation/CoreLocation.h>
+#import <MapKit/MapKit.h>
 
-@interface SelectLocationForRideViewController () <MKMapViewDelegate>
+@interface SelectLocationForRideViewController () <MKMapViewDelegate, CLLocationManagerDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *pickupLocationTextField;
 @property (weak, nonatomic) IBOutlet UITextField *destinationTextField;
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property CLLocationManager *locationManager;
-
-
-
+@property CLLocation *currentLocation;
 
 @end
 
@@ -24,29 +24,24 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.locationManager = [[CLLocationManager alloc]init];
-    [self.locationManager requestAlwaysAuthorization];
+
     self.destinationGeopoint = [[PFGeoPoint alloc]init];
     self.pickupGeopoint = [[PFGeoPoint alloc]init];
 
-
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-
-}
-
--(void)addPickupPin{
+    self.locationManager = [[CLLocationManager alloc]init];
+    self.locationManager.delegate = self;
+    [self.locationManager startUpdatingLocation];
 }
 
 
+#pragma keyboard
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [self.view endEditing:YES];
 
 }
 
+#pragma adding locations
 - (IBAction)onPickupAddTapped:(id)sender
 {
 
@@ -98,6 +93,7 @@
     }];
 }
 
+#pragma segue to next stage of request ride
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(UIButton *)sender {
 
     NewRideViewController *newRideViewController = segue.destinationViewController;
@@ -105,9 +101,42 @@
     newRideViewController.destinationAddress = self.destinationAddress;
     newRideViewController.pickupGeopoint = self.pickupGeopoint;
     newRideViewController.destinationGeopoint = self.destinationGeopoint;
-    
+
 }
 
+
+#pragma device location
+
+-(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    NSLog(@"Error");
+}
+
+-(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    for(CLLocation *location in locations) {
+        if(location.verticalAccuracy < 1000 &&location.horizontalAccuracy <1000){
+            [self reverseGeocode:location];
+
+            [self.locationManager stopUpdatingLocation];
+            break;
+        }
+    }
+}
+
+-(void)reverseGeocode:(CLLocation *)location{
+    CLGeocoder *geocoder = [CLGeocoder new];
+
+    [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
+        CLPlacemark *placemark = placemarks.firstObject;
+        NSString *address = [NSString stringWithFormat:@"%@ %@ \n%@",
+                             placemark.subThoroughfare,
+                             placemark.thoroughfare,
+                             placemark.locality];
+
+    }];
+
+}
 
 
 
