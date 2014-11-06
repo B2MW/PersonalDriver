@@ -20,6 +20,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    PFUser *currentUser = [PFUser currentUser];
     //Get Keychain info
     self.token = [Token getToken];
     if (!self.token) {
@@ -28,10 +29,10 @@
     {
         [self loginPFUserWithUberProfile];
 
-    }else if ([[PFUser currentUser] objectForKey:@"isDriver"])//Check if they are a Driver
+    }else if (((NSNumber*)[currentUser objectForKey:@"isDriver"]).boolValue == YES)//Check if they are a Driver
     {
         [self performSegueWithIdentifier:@"showDriver" sender:self];
-    }else if ([[PFUser currentUser] objectForKey:@"isDriver"] == NO)//Check if they are a passenger
+    }else if (((NSNumber*)[currentUser objectForKey:@"isDriver"]).boolValue == NO)//Check if they are a passenger
     {
         [self performSegueWithIdentifier:@"showPassenger" sender:self];
     }else
@@ -42,6 +43,7 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    PFUser *currentUser = [PFUser currentUser];
     self.token = [Token getToken];
     if (!self.token) {
         [self performSegueWithIdentifier:@"showLogin" sender:self];
@@ -49,12 +51,12 @@
     {
         [self loginPFUserWithUberProfile];
 
-    }else if ([[PFUser currentUser] objectForKey:@"isDriver"])//Check if they are a Driver
+    }else if (((NSNumber*)[currentUser objectForKey:@"isDriver"]).boolValue == YES)//Check if they are a Driver
     {
-        [self performSegueWithIdentifier:@"showDriver" sender:self];
-    }else if ([[PFUser currentUser] objectForKey:@"isDriver"] == NO)//Check if they are a passenger
+        //[self performSegueWithIdentifier:@"showDriver" sender:self];
+    }else if (((NSNumber*)[currentUser objectForKey:@"isDriver"]).boolValue == NO)//Check if they are a passenger
     {
-        [self performSegueWithIdentifier:@"showPassenger" sender:self];
+        //[self performSegueWithIdentifier:@"showPassenger" sender:self];
     }else
     {
         //do nothing.  Have the user select Driver or Passenger from current screen.
@@ -66,6 +68,7 @@
     PFUser *user = [PFUser currentUser];
     [user setObject:@NO forKey:@"isDriver"];
     [user saveInBackground];
+    [self performSegueWithIdentifier:@"showPassenger" sender:self];
     NSLog(@"You are a Passenger");
 
 }
@@ -74,6 +77,7 @@
     PFUser *user = [PFUser currentUser];
     [user setObject:@YES forKey:@"isDriver"];
     [user saveInBackground];
+    [self performSegueWithIdentifier:@"showDriver" sender:self];
     NSLog(@"You are a Driver");
 }
 
