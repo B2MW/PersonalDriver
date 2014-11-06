@@ -56,25 +56,26 @@
     CLGeocoder *geocoder = [[CLGeocoder alloc]init];
     self.pickupAddress= self.pickupLocationTextField.text;
     [geocoder geocodeAddressString:self.pickupAddress completionHandler:^(NSArray *placemarks, NSError *error) {
-            CLPlacemark *placemark = placemarks.firstObject;
-            MKPointAnnotation *annotation = [[MKPointAnnotation alloc]init];
-            annotation.coordinate = placemark.location.coordinate;
+        CLPlacemark *placemark = placemarks.firstObject;
+        MKPointAnnotation *annotation = [[MKPointAnnotation alloc]init];
+        annotation.coordinate = placemark.location.coordinate;
 
-            self.pickupGeopoint.latitude = placemark.location.coordinate.latitude;
-            self.pickupGeopoint.longitude = placemark.location.coordinate.longitude;
-
-
-            MKPinAnnotationView *startAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"startpin"];
-            startAnnotation.pinColor = MKPinAnnotationColorGreen;
-            startAnnotation.animatesDrop = YES;
+        self.pickupGeopoint.latitude = placemark.location.coordinate.latitude;
+        self.pickupGeopoint.longitude = placemark.location.coordinate.longitude;
 
 
-            self.mapView.region = MKCoordinateRegionMakeWithDistance(placemark.location.coordinate, 10000, 10000);
+        MKPinAnnotationView *startAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"startpin"];
+        startAnnotation.pinColor = MKPinAnnotationColorGreen;
+        startAnnotation.animatesDrop = YES;
 
-            [self.mapView addAnnotation:annotation];
-            [self.locations addObject:startAnnotation];
 
-            NSLog(@"pickup geo point = %@", self.pickupGeopoint);
+        self.mapView.region = MKCoordinateRegionMakeWithDistance(placemark.location.coordinate, 10000, 10000);
+
+        [self.mapView addAnnotation:annotation];
+        [self.locations addObject:startAnnotation];
+
+        NSLog(@"pickup geo point = %@", self.pickupGeopoint);
+        NSLog(@"array check 1 = %@", self.locations);
 
     }];
 }
@@ -87,26 +88,24 @@
     [geocoder geocodeAddressString:self.destinationAddress completionHandler:^(NSArray *placemarks, NSError *error) {
 
 
-            CLPlacemark *placemark = placemarks.firstObject;
-            MKPointAnnotation *annotation = [[MKPointAnnotation alloc]init];
-            annotation.coordinate = placemark.location.coordinate;
-           
-
-            self.destinationGeopoint.latitude = placemark.location.coordinate.latitude;
-            self.destinationGeopoint.longitude = placemark.location.coordinate.longitude;
+        CLPlacemark *placemark = placemarks.firstObject;
+        MKPointAnnotation *annotation = [[MKPointAnnotation alloc]init];
+        annotation.coordinate = placemark.location.coordinate;
 
 
-            MKPinAnnotationView *endAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"endpin"];
-            endAnnotation.pinColor = MKPinAnnotationColorPurple;
-            endAnnotation.animatesDrop = YES;
-            [self.mapView addAnnotation:annotation];
-            [self.locations addObject:endAnnotation];
+        self.destinationGeopoint.latitude = placemark.location.coordinate.latitude;
+        self.destinationGeopoint.longitude = placemark.location.coordinate.longitude;
 
+
+        MKPinAnnotationView *endAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"endpin"];
+        endAnnotation.pinColor = MKPinAnnotationColorPurple;
+        endAnnotation.animatesDrop = YES;
+        [self.mapView addAnnotation:annotation];
+        [self.locations addObject:endAnnotation];
+        NSLog(@"array check 2 = %@", self.locations);
+        self.navigationController.navigationBar.topItem.title = @"Fare Estimate: $34";
+        [self.mapView showAnnotations:self.locations animated:YES];
     }];
-
-    self.navigationController.navigationBar.topItem.title = @"Fare Estimate: $34";
-    [self.mapView showAnnotations:self.locations animated:YES];
-
 }
 
 #pragma segue to next stage of request ride
@@ -152,7 +151,7 @@
         NSLog(@"current location = %@", address);
         NSLog(@"current placemark location = %@", placemark.location);
     }];
-
+    
 }
 
 
