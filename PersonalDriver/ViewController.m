@@ -62,6 +62,18 @@
     
 
 }
+- (IBAction)onPassengerPressed:(UIButton *)sender {
+    PFUser *user = [PFUser currentUser];
+    user[@"isDriver"] = @NO;
+    [user saveInBackground];
+
+}
+
+- (IBAction)onDriverPressed:(UIButton *)sender {
+    PFUser *user = [PFUser currentUser];
+    user[@"isDriver"] = @YES;
+    [user saveInBackground];
+}
 
 
 

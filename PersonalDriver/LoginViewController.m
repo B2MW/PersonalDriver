@@ -97,16 +97,19 @@
     [UberAPI getUserProfileWithToken:self.token completionHandler:^(UberProfile *profile) {
 
         PFUser *user = [PFUser user];
-        NSString *name = [NSString stringWithFormat:@"%@ %@",profile.first_name, profile.last_name];
+
         user.username = profile.email;
         user.password = profile.promo_code;
         user.email = profile.email;
-        //TODO: Need to save image file to Parse
-        //                UIImage* myImage = [UIImage imageWithData:
-        //                                    [NSData dataWithContentsOfURL:
-        //                                     [NSURL URLWithString:profile.picture]]];
-        user[@"picture"] = profile.picture;
+        //Save name
+        NSString *name = [NSString stringWithFormat:@"%@ %@",profile.first_name, profile.last_name];
         user[@"name"] = name;
+        //Save photo to Parse
+//        NSURL *url = [NSURL URLWithString:profile.picture];
+//        NSData *pictureData = [NSData dataWithContentsOfURL:url];
+//        PFFile *imageFile = [PFFile fileWithName:@"ProfilePic.jpg" data:pictureData];
+//        user[@"picture"] = imageFile;
+
         //Save to Parse
         [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (!error) {
@@ -122,6 +125,8 @@
     }];
     
 }
+
+
 
 
 

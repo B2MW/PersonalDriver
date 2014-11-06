@@ -215,7 +215,8 @@
                                     <color key="titleShadowColor" red="0.98530040890000004" green="0.9906451235" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="P1u-y9-US2" kind="show" identifier="showPassenger" id="s8i-o4-8hD"/>
+                                    <action selector="onPassengerPressed:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="ak5-Uq-tFY"/>
+                                    <segue destination="P1u-y9-US2" kind="show" identifier="isPassenger" id="7pn-at-hJM"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iB8-Cq-0jW">
@@ -231,7 +232,8 @@
                                     <color key="titleShadowColor" red="0.98530040890000004" green="0.9906451235" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="a6W-kI-Qp6" kind="show" identifier="showDriver" id="qNH-O2-1kR"/>
+                                    <action selector="onDriverPressed:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Be3-Le-C4W"/>
+                                    <segue destination="a6W-kI-Qp6" kind="show" identifier="showDriver" id="BSC-Et-v2P"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -256,7 +258,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1929" y="1059"/>
+            <point key="canvasLocation" x="1896" y="1070"/>
         </scene>
         <!--Available Rides View Controller-->
         <scene sceneID="YNI-vB-C5A">
