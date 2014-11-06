@@ -66,6 +66,7 @@
             newAnnotation.pinColor = MKPinAnnotationColorGreen;
 
 
+            self.mapView.region = MKCoordinateRegionMakeWithDistance(placemark.location.coordinate, 10000, 10000);
 
             [self.mapView addAnnotation:annotation];
 
