@@ -99,7 +99,7 @@
 
     }];
 
-    self.navigationController.navigationBar.topItem.title = @"Fare Estimate: 34";
+    self.navigationController.navigationBar.topItem.title = @"Fare Estimate: $34";
 
 }
 
