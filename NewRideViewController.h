@@ -10,5 +10,9 @@
 #import <Parse/Parse.h>
 
 @interface NewRideViewController : ViewController
+@property PFGeoPoint *pickupGeopoint;
+@property PFGeoPoint *destinationGeopoint;
+@property NSString *pickupAddress;
+@property NSString *destinationAddress;
 
 @end

@@ -42,7 +42,7 @@
 		</dict>
 	</array>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Please allow us to check your location.</string>
+	<string>We apologize, but Personal Driver can&apos;t schedule rides without your location. </string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

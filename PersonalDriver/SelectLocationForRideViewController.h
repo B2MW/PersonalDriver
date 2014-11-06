@@ -7,8 +7,14 @@
 //
 
 #import "ViewController.h"
-#import <MapKit/MapKit.h>
+#import <Parse/Parse.h>
+
 
 @interface SelectLocationForRideViewController : ViewController
+@property PFGeoPoint *pickupGeopoint;
+@property PFGeoPoint *destinationGeopoint;
+@property NSString *pickupAddress;
+@property NSString *destinationAddress;
+
 
 @end

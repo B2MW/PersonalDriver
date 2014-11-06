@@ -179,6 +179,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C7175761A08FAA0002AC734 /* CoreLocation.framework in Frameworks */,
 				CEB8D1BB1A0A7D3B00A74FA6 /* MapKit.framework in Frameworks */,
 				4C7175711A08FAA0002AC734 /* Accounts.framework in Frameworks */,
 				4C7175721A08FAA0002AC734 /* AdSupport.framework in Frameworks */,
@@ -186,7 +187,6 @@
 				4C71759A1A0AB068002AC734 /* Parse.framework in Frameworks */,
 				4C7175741A08FAA0002AC734 /* CFNetwork.framework in Frameworks */,
 				4C7175751A08FAA0002AC734 /* CoreGraphics.framework in Frameworks */,
-				4C7175761A08FAA0002AC734 /* CoreLocation.framework in Frameworks */,
 				4C7175771A08FAA0002AC734 /* MobileCoreServices.framework in Frameworks */,
 				4C7175781A08FAA0002AC734 /* QuartzCore.framework in Frameworks */,
 				4C7175791A08FAA0002AC734 /* Security.framework in Frameworks */,
@@ -257,6 +257,7 @@
 				CEB8D1CA1A0A83CB00A74FA6 /* SelectLocationForRideViewController.m */,
 				2236D9421A082A4200F19EA5 /* NewRideViewController.h */,
 				2236D9431A082A4200F19EA5 /* NewRideViewController.m */,
+				CEB8D1BC1A0A7D5C00A74FA6 /* Model */,
 				4C7175851A08FDE4002AC734 /* Driver UX */,
 				4C7175241A081334002AC734 /* Images.xcassets */,
 				4C7175261A081334002AC734 /* LaunchScreen.xib */,
