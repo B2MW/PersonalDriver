@@ -64,17 +64,21 @@
 }
 - (IBAction)onPassengerPressed:(UIButton *)sender {
     PFUser *user = [PFUser currentUser];
-    user[@"isDriver"] = @NO;
+    [user setObject:@NO forKey:@"isDriver"];
+
     [user saveInBackground];
 
 }
 
 - (IBAction)onDriverPressed:(UIButton *)sender {
     PFUser *user = [PFUser currentUser];
-    user[@"isDriver"] = @YES;
+    [user setObject:@YES forKey:@"isDriver"];
     [user saveInBackground];
 }
 
+- (IBAction)login:(id)sender {
+    [self performSegueWithIdentifier:@"showLogin" sender:self];
+}
 
 
 #pragma mark - Helper Methods
