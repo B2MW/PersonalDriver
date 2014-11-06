@@ -10,7 +10,7 @@
 #import <Parse/Parse.h>
 
 
-@interface SelectLocationForRideViewController : ViewController
+@interface SelectLocationForRideViewController : UIViewController
 @property PFGeoPoint *pickupGeopoint;
 @property PFGeoPoint *destinationGeopoint;
 @property NSString *pickupAddress;
