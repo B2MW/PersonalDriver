@@ -30,7 +30,7 @@
 
     }else if ([[PFUser currentUser] objectForKey:@"isDriver"])//Check if they are a Driver
     {
-        [self performSegueWithIdentifier:@"showDriver" sender:self];
+        //[self performSegueWithIdentifier:@"showDriver" sender:self];
     }else if ([[PFUser currentUser] objectForKey:@"isDriver"] == NO)//Check if they are a passenger
     {
         //[self performSegueWithIdentifier:@"showPassenger" sender:self];
@@ -51,7 +51,7 @@
 
     }else if ([[PFUser currentUser] objectForKey:@"isDriver"])//Check if they are a Driver
     {
-        [self performSegueWithIdentifier:@"showDriver" sender:self];
+        //[self performSegueWithIdentifier:@"showDriver" sender:self];
     }else if ([[PFUser currentUser] objectForKey:@"isDriver"] == NO)//Check if they are a passenger
     {
         //[self performSegueWithIdentifier:@"showPassenger" sender:self];
