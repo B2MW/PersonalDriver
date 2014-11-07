@@ -10,7 +10,6 @@
 
 @implementation RideManager
 
-//-(void)getAvailableRides:
 -(void)getAvailableRides:(void(^)(NSArray *))completionHandler
 {
     PFQuery *queryAvailableRides = [Ride query];
