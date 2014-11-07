@@ -19,6 +19,7 @@
 @property CLLocation *currentLocation;
 @property NSMutableArray *locations;
 
+
 @end
 
 @implementation SelectLocationForRideViewController
@@ -65,8 +66,7 @@
 
 
         MKPinAnnotationView *startAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"startpin"];
-        startAnnotation.pinColor = MKPinAnnotationColorGreen;
-        startAnnotation.animatesDrop = YES;
+
 
 
         self.mapView.region = MKCoordinateRegionMakeWithDistance(placemark.location.coordinate, 10000, 10000);
@@ -76,6 +76,8 @@
 
         NSLog(@"pickup geo point = %@", self.pickupGeopoint);
         NSLog(@"array check 1 = %@", self.locations);
+        NSLog(@"Destination Pin color = %lu", startAnnotation.pinColor);
+
 
     }];
 }
@@ -98,8 +100,11 @@
 
 
         MKPinAnnotationView *endAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"endpin"];
-        endAnnotation.pinColor = MKPinAnnotationColorPurple;
-        endAnnotation.animatesDrop = YES;
+        
+
+        NSLog(@"Destination Pin color = %lu", endAnnotation.pinColor);
+
+
         [self.mapView addAnnotation:annotation];
         [self.locations addObject:endAnnotation];
         NSLog(@"array check 2 = %@", self.locations);
@@ -154,6 +159,17 @@
     
 }
 
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
+{
+
+    MKPinAnnotationView *pin = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"MyPinID"];
+    pin.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+    pin.pinColor = MKPinAnnotationColorPurple;
+
+
+    return pin;
+}
 
 
 
