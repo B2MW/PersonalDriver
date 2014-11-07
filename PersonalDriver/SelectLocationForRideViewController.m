@@ -154,12 +154,12 @@
         [self.mapView addAnnotation:annotation];
         [self.locations addObject:endAnnotation];
         NSLog(@"array check 2 = %@", self.locations);
+        [self.mapView showAnnotations:self.locations animated:YES];
 
-       // [self.mapView showAnnotations:self.locations animated:YES];
 
         [UberAPI getPriceEstimateWithToken:self.token fromPickup:self.pickupLocation toDestination:self.destinationLocation completionHandler:^(UberPrice *price) {
             self.navigationController.navigationBar.topItem.title = [NSString stringWithFormat:@"Estimated Fare: $%d",price.avgEstimate];
-            [self.mapView showAnnotations:self.locations animated:YES];
+
        }];
 
     }];
@@ -214,28 +214,30 @@
 }
 
 
-- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
-{
-    MKPinAnnotationView *pin = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"MyPinID"];
-    if([annotation.title isEqualToString:@"pickup"])
-    {
-    pin.pinColor = MKPinAnnotationColorGreen;
-    }
+/*- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
+ {
+ MKPinAnnotationView *pin = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"MyPinID"];
+ if([annotation.title isEqualToString:@"pickup"])
+ {
+ pin.pinColor = MKPinAnnotationColorGreen;
+ self.pickup.title = nil;
 
-    else if([annotation.title isEqualToString:@"destination"])
-    {
-    pin.pinColor = MKPinAnnotationColorRed;
+ }
 
+ else if([annotation.title isEqualToString:@"destination"])
+ {
+ pin.pinColor = MKPinAnnotationColorRed;
+ self.destination.title = nil;
 
-    }
-
-
-    return pin;
-
-}
+ }
 
 
+ return pin;
 
+ } */
 
 
 @end
+
+
+
