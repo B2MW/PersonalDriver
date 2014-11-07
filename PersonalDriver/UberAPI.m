@@ -7,7 +7,7 @@
 //
 
 #import "UberAPI.h"
-#import <CoreLocation/CoreLocation.h>
+
 
 
 @implementation UberAPI
@@ -47,7 +47,8 @@
     }];
 }
 
-- (void)getPriceEstimateForUberXWithToken:(NSString *)token fromPickup:(CLLocation*)pickup toDestination:(CLLocation *)destination completionHandler:(void(^)(UberPrice *))complete {
++(void)getPriceEstimateWithToken:(NSString *)token fromPickup:(CLLocation *)pickup toDestination:(CLLocation *)destination completionHandler:(void(^)(UberPrice *))complete
+{
 
     NSString *urlString = [NSString stringWithFormat:@"https://api.uber.com/v1/estimates/price?access_token=%@&start_latitude=%f&start_longitude=%f&end_latitude=%f&end_longitude=%f", token, pickup.coordinate.latitude, pickup.coordinate.longitude, destination.coordinate.latitude, destination.coordinate.longitude];
     NSURL *url = [NSURL URLWithString:urlString];
@@ -55,7 +56,11 @@
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
         NSDictionary *estimatesDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
         NSArray *allEstimates = [estimatesDict objectForKey:@"prices"];
+        NSMutableArray *prices = [NSMutableArray new];
         for (NSDictionary *estimate in allEstimates) {
+
+            UberPrice *price = [[UberPrice alloc] initWithDictionary:estimate];
+            [prices addObject:price];
 
             if ([[estimate objectForKey:@"display_name"]  isEqualToString:@"uberX"]) {
                 UberPrice *uberPrice = [[UberPrice alloc] initWithDictionary:estimate];
@@ -63,7 +68,6 @@
             }
         }
     }];
-
 
 
 }
