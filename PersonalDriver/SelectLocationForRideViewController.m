@@ -242,6 +242,7 @@
 }
 
 
+#pragma adding in route line
 - (void)plotRouteOnMap:(MKRoute *)route
 {
     if(self.routeOverlay) {
@@ -263,6 +264,9 @@
     return  renderer;
 }
 
+
+
+#pragma pin color
 /*- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
  {
  MKPinAnnotationView *pin = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"MyPinID"];
