@@ -91,16 +91,25 @@
     CLGeocoder *geocoder = [[CLGeocoder alloc]init];
     self.pickupAddress= self.pickupLocationTextField.text;
     [geocoder geocodeAddressString:self.pickupAddress completionHandler:^(NSArray *placemarks, NSError *error) {
+<<<<<<< HEAD
         CLPlacemark *placemark = placemarks.firstObject;
         MKPointAnnotation *annotation = [[MKPointAnnotation alloc]init];
         annotation.coordinate = placemark.location.coordinate;
         annotation.title = @"pickup";
-        self.pickupLocation = placemark.location;
 
 
         self.pickupGeopoint.latitude = placemark.location.coordinate.latitude;
         self.pickupGeopoint.longitude = placemark.location.coordinate.longitude;
 
+=======
+            CLPlacemark *placemark = placemarks.firstObject;
+            MKPointAnnotation *annotation = [[MKPointAnnotation alloc]init];
+            annotation.coordinate = placemark.location.coordinate;
+            self.pickupLocation = placemark.location;
+
+      //      self.pickupGeopoint.latitude = placemark.location.coordinate.latitude;
+      //      self.pickupGeopoint.longitude = placemark.location.coordinate.longitude;
+>>>>>>> development
 
         MKPinAnnotationView *startAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"startpin"];
 
@@ -128,25 +137,26 @@
     [geocoder geocodeAddressString:self.destinationAddress completionHandler:^(NSArray *placemarks, NSError *error) {
 
 
+<<<<<<< HEAD
         CLPlacemark *placemark = placemarks.firstObject;
         MKPointAnnotation *annotation = [[MKPointAnnotation alloc]init];
         annotation.coordinate = placemark.location.coordinate;
         annotation.title = @"destination";
-        self.destinationLocation = placemark.location;
+=======
+            CLPlacemark *placemark = placemarks.firstObject;
+            MKPointAnnotation *annotation = [[MKPointAnnotation alloc]init];
+            annotation.coordinate = placemark.location.coordinate;
+            self.destinationLocation = placemark.location;
 
+>>>>>>> development
 
-            self.destinationGeopoint.latitude = placemark.location.coordinate.latitude;
-            self.destinationGeopoint.longitude = placemark.location.coordinate.longitude;
 
         self.destinationGeopoint.latitude = placemark.location.coordinate.latitude;
         self.destinationGeopoint.longitude = placemark.location.coordinate.longitude;
 
-            MKPinAnnotationView *endAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"endpin"];
-            endAnnotation.pinColor = MKPinAnnotationColorPurple;
-            endAnnotation.animatesDrop = YES;
-            [self.mapView addAnnotation:annotation];
-            [self.locations addObject:endAnnotation];
 
+<<<<<<< HEAD
+        MKPinAnnotationView *endAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"endpin"];
 
         NSLog(@"Destination Pin color = %lu", endAnnotation.pinColor);
 
@@ -157,6 +167,10 @@
 
        // [self.mapView showAnnotations:self.locations animated:YES];
 
+        self.navigationController.navigationBar.topItem.title = @"Fare Estimate: $34";
+
+    }];
+=======
         [UberAPI getPriceEstimateWithToken:self.token fromPickup:self.pickupLocation toDestination:self.destinationLocation completionHandler:^(UberPrice *price) {
             self.navigationController.navigationBar.topItem.title = [NSString stringWithFormat:@"Estimated Fare: $%d",price.avgEstimate];
             [self.mapView showAnnotations:self.locations animated:YES];
@@ -164,6 +178,7 @@
 
     }];
 
+>>>>>>> development
 
 }
 

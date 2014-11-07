@@ -26,7 +26,6 @@
 @property NSMutableArray *locations;
 @property NSString *token;
 
-
 @end
 
 @implementation SelectLocationForRideViewController
@@ -91,31 +90,26 @@
     CLGeocoder *geocoder = [[CLGeocoder alloc]init];
     self.pickupAddress= self.pickupLocationTextField.text;
     [geocoder geocodeAddressString:self.pickupAddress completionHandler:^(NSArray *placemarks, NSError *error) {
-        CLPlacemark *placemark = placemarks.firstObject;
-        MKPointAnnotation *annotation = [[MKPointAnnotation alloc]init];
-        annotation.coordinate = placemark.location.coordinate;
-        annotation.title = @"pickup";
-        self.pickupLocation = placemark.location;
+            CLPlacemark *placemark = placemarks.firstObject;
+            MKPointAnnotation *annotation = [[MKPointAnnotation alloc]init];
+            annotation.coordinate = placemark.location.coordinate;
+            self.pickupLocation = placemark.location;
+
+      //      self.pickupGeopoint.latitude = placemark.location.coordinate.latitude;
+      //      self.pickupGeopoint.longitude = placemark.location.coordinate.longitude;
 
 
-        self.pickupGeopoint.latitude = placemark.location.coordinate.latitude;
-        self.pickupGeopoint.longitude = placemark.location.coordinate.longitude;
+            MKPinAnnotationView *startAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"startpin"];
+            startAnnotation.pinColor = MKPinAnnotationColorGreen;
+            startAnnotation.animatesDrop = YES;
 
 
-        MKPinAnnotationView *startAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"startpin"];
+            self.mapView.region = MKCoordinateRegionMakeWithDistance(placemark.location.coordinate, 10000, 10000);
 
+            [self.mapView addAnnotation:annotation];
+            [self.locations addObject:startAnnotation];
 
-
-        self.mapView.region = MKCoordinateRegionMakeWithDistance(placemark.location.coordinate, 10000, 10000);
-
-        [self.mapView addAnnotation:annotation];
-        [self.locations addObject:startAnnotation];
-
-        NSLog(@"pickup geo point = %@", self.pickupGeopoint);
-        NSLog(@"array check 1 = %@", self.locations);
-        NSLog(@"Destination Pin color = %lu", startAnnotation.pinColor);
-
-
+            NSLog(@"pickup geo point = %@", self.pickupGeopoint);
 
     }];
 }
@@ -128,34 +122,21 @@
     [geocoder geocodeAddressString:self.destinationAddress completionHandler:^(NSArray *placemarks, NSError *error) {
 
 
-        CLPlacemark *placemark = placemarks.firstObject;
-        MKPointAnnotation *annotation = [[MKPointAnnotation alloc]init];
-        annotation.coordinate = placemark.location.coordinate;
-        annotation.title = @"destination";
-        self.destinationLocation = placemark.location;
+            CLPlacemark *placemark = placemarks.firstObject;
+            MKPointAnnotation *annotation = [[MKPointAnnotation alloc]init];
+            annotation.coordinate = placemark.location.coordinate;
+            self.destinationLocation = placemark.location;
 
 
             self.destinationGeopoint.latitude = placemark.location.coordinate.latitude;
             self.destinationGeopoint.longitude = placemark.location.coordinate.longitude;
 
-        self.destinationGeopoint.latitude = placemark.location.coordinate.latitude;
-        self.destinationGeopoint.longitude = placemark.location.coordinate.longitude;
 
             MKPinAnnotationView *endAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"endpin"];
             endAnnotation.pinColor = MKPinAnnotationColorPurple;
             endAnnotation.animatesDrop = YES;
             [self.mapView addAnnotation:annotation];
             [self.locations addObject:endAnnotation];
-
-
-        NSLog(@"Destination Pin color = %lu", endAnnotation.pinColor);
-
-
-        [self.mapView addAnnotation:annotation];
-        [self.locations addObject:endAnnotation];
-        NSLog(@"array check 2 = %@", self.locations);
-
-       // [self.mapView showAnnotations:self.locations animated:YES];
 
         [UberAPI getPriceEstimateWithToken:self.token fromPickup:self.pickupLocation toDestination:self.destinationLocation completionHandler:^(UberPrice *price) {
             self.navigationController.navigationBar.topItem.title = [NSString stringWithFormat:@"Estimated Fare: $%d",price.avgEstimate];
@@ -210,29 +191,9 @@
         NSLog(@"current location = %@", address);
         NSLog(@"current placemark location = %@", placemark.location);
     }];
-    
-}
-
-
-- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
-{
-    MKPinAnnotationView *pin = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"MyPinID"];
-    if([annotation.title isEqualToString:@"pickup"])
-    {
-    pin.pinColor = MKPinAnnotationColorGreen;
-    }
-
-    else if([annotation.title isEqualToString:@"destination"])
-    {
-    pin.pinColor = MKPinAnnotationColorRed;
-
-
-    }
-
-
-    return pin;
 
 }
+
 
 
 

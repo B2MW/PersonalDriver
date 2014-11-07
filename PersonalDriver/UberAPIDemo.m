@@ -11,6 +11,8 @@
 #import "UberAPI.h"
 #import "UberProfile.h"
 #import "UberActivity.h"
+#import "UberPrice.h"
+#import "UberKit.h"
 
 @interface UberAPIDemo ()
 
@@ -50,6 +52,18 @@
 - (IBAction)backToLogin:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+- (IBAction)fareEstimate:(id)sender {
+
+    CLLocation *pickupLocation = [[CLLocation alloc] initWithLatitude:37.7833 longitude:-122.4167];
+    CLLocation *destinationLocation = [[CLLocation alloc] initWithLatitude:37.9 longitude:-122.43];
+
+    [UberAPI getPriceEstimateWithToken:self.token fromPickup:pickupLocation toDestination:destinationLocation completionHandler:^(UberPrice *price) {
+        NSLog(@"Estimate for Average Fare: $%d",price.avgEstimate);
+    }];
+
+}
+
 
 
 

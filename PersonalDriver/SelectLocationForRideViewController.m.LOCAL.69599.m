@@ -10,10 +10,6 @@
 #import "NewRideViewController.h"
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
-#import "UberAPI.h"
-#import "Token.h"
-#import "UberPrice.h"
-
 
 @interface SelectLocationForRideViewController () <MKMapViewDelegate, CLLocationManagerDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *pickupLocationTextField;
@@ -21,10 +17,7 @@
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property CLLocationManager *locationManager;
 @property CLLocation *currentLocation;
-@property CLLocation *pickupLocation;
-@property CLLocation *destinationLocation;
 @property NSMutableArray *locations;
-@property NSString *token;
 
 
 @end
@@ -34,8 +27,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.token = [Token getToken];
-
     self.destinationGeopoint = [[PFGeoPoint alloc]init];
     self.pickupGeopoint = [[PFGeoPoint alloc]init];
 
@@ -49,31 +40,6 @@
     self.currentLocation = [self.locationManager location];
     self.mapView.region = MKCoordinateRegionMakeWithDistance(self.currentLocation.coordinate, 10000, 10000);
     self.locations = [[NSMutableArray alloc]init];
-    self.destinationLocation = [[CLLocation alloc] init];
-    self.pickupLocation = [[CLLocation alloc] init];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    self.token = [Token getToken];
-
-    self.destinationGeopoint = [[PFGeoPoint alloc]init];
-    self.pickupGeopoint = [[PFGeoPoint alloc]init];
-
-    self.locationManager = [[CLLocationManager alloc]init];
-    [self.locationManager requestWhenInUseAuthorization];
-    self.locationManager.delegate = self;
-    [self.locationManager startUpdatingLocation];
-    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    self.locationManager.distanceFilter = kCLLocationAccuracyKilometer;
-    self.currentLocation = [[CLLocation alloc]init];
-    self.currentLocation = [self.locationManager location];
-    self.mapView.region = MKCoordinateRegionMakeWithDistance(self.currentLocation.coordinate, 10000, 10000);
-    self.locations = [[NSMutableArray alloc]init];
-    self.destinationLocation = [[CLLocation alloc] init];
-    self.pickupLocation = [[CLLocation alloc] init];
-
 }
 
 
@@ -95,7 +61,6 @@
         MKPointAnnotation *annotation = [[MKPointAnnotation alloc]init];
         annotation.coordinate = placemark.location.coordinate;
         annotation.title = @"pickup";
-        self.pickupLocation = placemark.location;
 
 
         self.pickupGeopoint.latitude = placemark.location.coordinate.latitude;
@@ -132,21 +97,13 @@
         MKPointAnnotation *annotation = [[MKPointAnnotation alloc]init];
         annotation.coordinate = placemark.location.coordinate;
         annotation.title = @"destination";
-        self.destinationLocation = placemark.location;
 
-
-            self.destinationGeopoint.latitude = placemark.location.coordinate.latitude;
-            self.destinationGeopoint.longitude = placemark.location.coordinate.longitude;
 
         self.destinationGeopoint.latitude = placemark.location.coordinate.latitude;
         self.destinationGeopoint.longitude = placemark.location.coordinate.longitude;
 
-            MKPinAnnotationView *endAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"endpin"];
-            endAnnotation.pinColor = MKPinAnnotationColorPurple;
-            endAnnotation.animatesDrop = YES;
-            [self.mapView addAnnotation:annotation];
-            [self.locations addObject:endAnnotation];
 
+        MKPinAnnotationView *endAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"endpin"];
 
         NSLog(@"Destination Pin color = %lu", endAnnotation.pinColor);
 
@@ -157,13 +114,9 @@
 
        // [self.mapView showAnnotations:self.locations animated:YES];
 
-        [UberAPI getPriceEstimateWithToken:self.token fromPickup:self.pickupLocation toDestination:self.destinationLocation completionHandler:^(UberPrice *price) {
-            self.navigationController.navigationBar.topItem.title = [NSString stringWithFormat:@"Estimated Fare: $%d",price.avgEstimate];
-            [self.mapView showAnnotations:self.locations animated:YES];
-       }];
+        self.navigationController.navigationBar.topItem.title = @"Fare Estimate: $34";
 
     }];
-
 
 }
 
