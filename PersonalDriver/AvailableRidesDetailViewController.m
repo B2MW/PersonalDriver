@@ -22,13 +22,41 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self refreshDisplay];
+//    [self refreshDisplay];
+    [self getUserImage];
+}
+
+-(void)getUserImage
+{
+//    NSData *pictureData = [NSData new];
+
+    PFQuery *queryForUserImage = [PFQuery queryWithClassName:@"_User"];
+    [queryForUserImage whereKey:@"objectId" equalTo:self.ride.passenger.objectId];
+    [queryForUserImage findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (error || nil)
+        {
+            NSLog(@"Error: %@", error.userInfo);
+            self.passengerPicture.image = [UIImage imageNamed:@"passengerPicPlaceholder"];
+        }
+        else
+        {
+            [objects.firstObject[@"picture"] getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                if (!error) {
+                    self.passengerPicture.image = [UIImage imageWithData:data];
+                    [self refreshDisplay];
+                }
+            }];
+
+//            PFFile *image = [PFFile fileWithData:objects.firstObject[@"picture"]];
+//            NSData *data = [NSData dataWithData:image];
+        }
+    }];
 }
 
 -(void)refreshDisplay
 {
     RideManager *rideManager = [[RideManager alloc] init];
-    self.passengerPicture.image = [UIImage imageNamed:@"passengerPicPlaceholder"];
+//    self.passengerPicture.image = [UIImage imageNamed:@"passengerPicPlaceholder"];
     self.passengerName.text = @"Passenger's Name";
     self.numberOfPassengers.text = self.ride.passengerCount;
     self.estimatedFare.text = [rideManager formatRideFareEstimate:self.ride.fareEstimateMin :self.ride.fareEstimateMax];
