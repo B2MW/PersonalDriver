@@ -48,6 +48,9 @@
     PFUser *user = [PFUser currentUser];
     Ride *ride = [Ride object];
 
+    NSNumber *fareEstimateMax = [NSNumber numberWithInt:self.price.highEstimate];
+    NSNumber *fareEstimateMin = [NSNumber numberWithInt:self.price.lowEstimate];
+
 
     ride.passenger = user;
     ride.rideDateTime = self.datePicker.date;
@@ -57,6 +60,9 @@
     ride.passengerCount = [NSString stringWithFormat:@"%.0f", self.passengerSlider.value];
     ride.pickupGeoPoint = self.pickupGeopoint;
     ride.dropoffGeoPoint = self.destinationGeopoint;
+    ride.fareEstimateMax = fareEstimateMax;
+    ride.fareEstimateMin = fareEstimateMin;
+
     //ride.driverConfirmed = NO;
     //ride.driverEnRoute = NO;
 

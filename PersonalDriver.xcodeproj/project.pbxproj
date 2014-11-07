@@ -110,16 +110,16 @@
 		4C7175991A0AB068002AC734 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		53761B501441D0844B94902B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FA98B5EB640F8B16A99CBF9 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		CE19D9451A092D2700874F56 /* UberActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UberActivity.h; sourceTree = "<group>"; };
-		CE19D9461A092D2700874F56 /* UberActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UberActivity.m; sourceTree = "<group>"; };
-		CE19D9471A092D2700874F56 /* UberPrice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UberPrice.h; sourceTree = "<group>"; };
-		CE19D9481A092D2700874F56 /* UberPrice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UberPrice.m; sourceTree = "<group>"; };
-		CE19D9491A092D2700874F56 /* UberProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UberProduct.h; sourceTree = "<group>"; };
-		CE19D94A1A092D2700874F56 /* UberProduct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UberProduct.m; sourceTree = "<group>"; };
-		CE19D94B1A092D2700874F56 /* UberProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UberProfile.h; sourceTree = "<group>"; };
-		CE19D94C1A092D2700874F56 /* UberProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UberProfile.m; sourceTree = "<group>"; };
-		CE19D94D1A092D2700874F56 /* UberTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UberTime.h; sourceTree = "<group>"; };
-		CE19D94E1A092D2700874F56 /* UberTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UberTime.m; sourceTree = "<group>"; };
+		CE19D9451A092D2700874F56 /* UberActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UberActivity.h; path = UberKit/Model/UberActivity.h; sourceTree = "<group>"; };
+		CE19D9461A092D2700874F56 /* UberActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UberActivity.m; path = UberKit/Model/UberActivity.m; sourceTree = "<group>"; };
+		CE19D9471A092D2700874F56 /* UberPrice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UberPrice.h; path = UberKit/Model/UberPrice.h; sourceTree = "<group>"; };
+		CE19D9481A092D2700874F56 /* UberPrice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UberPrice.m; path = UberKit/Model/UberPrice.m; sourceTree = "<group>"; };
+		CE19D9491A092D2700874F56 /* UberProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UberProduct.h; path = UberKit/Model/UberProduct.h; sourceTree = "<group>"; };
+		CE19D94A1A092D2700874F56 /* UberProduct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UberProduct.m; path = UberKit/Model/UberProduct.m; sourceTree = "<group>"; };
+		CE19D94B1A092D2700874F56 /* UberProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UberProfile.h; path = UberKit/Model/UberProfile.h; sourceTree = "<group>"; };
+		CE19D94C1A092D2700874F56 /* UberProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UberProfile.m; path = UberKit/Model/UberProfile.m; sourceTree = "<group>"; };
+		CE19D94D1A092D2700874F56 /* UberTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UberTime.h; path = UberKit/Model/UberTime.h; sourceTree = "<group>"; };
+		CE19D94E1A092D2700874F56 /* UberTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UberTime.m; path = UberKit/Model/UberTime.m; sourceTree = "<group>"; };
 		CE19D9501A092D2700874F56 /* NSData+NXOAuth2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+NXOAuth2.h"; sourceTree = "<group>"; };
 		CE19D9511A092D2700874F56 /* NSData+NXOAuth2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+NXOAuth2.m"; sourceTree = "<group>"; };
 		CE19D9521A092D2700874F56 /* NSString+NXOAuth2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+NXOAuth2.h"; sourceTree = "<group>"; };
@@ -348,16 +348,6 @@
 		CE19D9441A092D2700874F56 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				CE19D9451A092D2700874F56 /* UberActivity.h */,
-				CE19D9461A092D2700874F56 /* UberActivity.m */,
-				CE19D9471A092D2700874F56 /* UberPrice.h */,
-				CE19D9481A092D2700874F56 /* UberPrice.m */,
-				CE19D9491A092D2700874F56 /* UberProduct.h */,
-				CE19D94A1A092D2700874F56 /* UberProduct.m */,
-				CE19D94B1A092D2700874F56 /* UberProfile.h */,
-				CE19D94C1A092D2700874F56 /* UberProfile.m */,
-				CE19D94D1A092D2700874F56 /* UberTime.h */,
-				CE19D94E1A092D2700874F56 /* UberTime.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -404,6 +394,16 @@
 		CEB8D1BC1A0A7D5C00A74FA6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CE19D9451A092D2700874F56 /* UberActivity.h */,
+				CE19D9461A092D2700874F56 /* UberActivity.m */,
+				CE19D9471A092D2700874F56 /* UberPrice.h */,
+				CE19D9481A092D2700874F56 /* UberPrice.m */,
+				CE19D9491A092D2700874F56 /* UberProduct.h */,
+				CE19D94A1A092D2700874F56 /* UberProduct.m */,
+				CE19D94B1A092D2700874F56 /* UberProfile.h */,
+				CE19D94C1A092D2700874F56 /* UberProfile.m */,
+				CE19D94D1A092D2700874F56 /* UberTime.h */,
+				CE19D94E1A092D2700874F56 /* UberTime.m */,
 				CEB8D1C01A0A7D9100A74FA6 /* RideManager.h */,
 				CEB8D1C11A0A7D9100A74FA6 /* RideManager.m */,
 				CEB8D1BD1A0A7D7900A74FA6 /* Ride.h */,

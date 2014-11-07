@@ -25,6 +25,7 @@
 @property CLLocation *destinationLocation;
 @property NSMutableArray *locations;
 @property NSString *token;
+@property UberPrice *price;
 
 
 @end
@@ -135,8 +136,8 @@
         self.destinationLocation = placemark.location;
 
 
-            self.destinationGeopoint.latitude = placemark.location.coordinate.latitude;
-            self.destinationGeopoint.longitude = placemark.location.coordinate.longitude;
+        self.destinationGeopoint.latitude = placemark.location.coordinate.latitude;
+        self.destinationGeopoint.longitude = placemark.location.coordinate.longitude;
 
         self.destinationGeopoint.latitude = placemark.location.coordinate.latitude;
         self.destinationGeopoint.longitude = placemark.location.coordinate.longitude;
@@ -158,6 +159,7 @@
 
 
         [UberAPI getPriceEstimateWithToken:self.token fromPickup:self.pickupLocation toDestination:self.destinationLocation completionHandler:^(UberPrice *price) {
+            self.price = price;
             self.navigationController.navigationBar.topItem.title = [NSString stringWithFormat:@"Estimated Fare: $%d",price.avgEstimate];
 
        }];
@@ -175,6 +177,7 @@
     newRideViewController.destinationAddress = self.destinationAddress;
     newRideViewController.pickupGeopoint = self.pickupGeopoint;
     newRideViewController.destinationGeopoint = self.destinationGeopoint;
+    newRideViewController.price = self.price;
 
 }
 
