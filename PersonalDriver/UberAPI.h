@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "UberActivity.h"
 #import "UberProfile.h"
+#import "UberPrice.h"
 
 @interface UberAPI : NSObject
 
