@@ -23,9 +23,15 @@
 @property CLLocation *currentLocation;
 @property CLLocation *pickupLocation;
 @property CLLocation *destinationLocation;
+//@property CLPlacemark *pickupPlacemark;
+//@property CLPlacemark *destinationPlacemark;
 @property NSMutableArray *locations;
 @property NSString *token;
 @property UberPrice *price;
+
+@property MKPolyline *routeOverlay;
+@property MKRoute *currentRoute;
+
 
 
 @end
@@ -52,6 +58,8 @@
     self.locations = [[NSMutableArray alloc]init];
     self.destinationLocation = [[CLLocation alloc] init];
     self.pickupLocation = [[CLLocation alloc] init];
+
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -92,11 +100,13 @@
     CLGeocoder *geocoder = [[CLGeocoder alloc]init];
     self.pickupAddress= self.pickupLocationTextField.text;
     [geocoder geocodeAddressString:self.pickupAddress completionHandler:^(NSArray *placemarks, NSError *error) {
-        CLPlacemark *placemark = placemarks.firstObject;
+        CLPlacemark *placemark= placemarks.firstObject;
         MKPointAnnotation *annotation = [[MKPointAnnotation alloc]init];
         annotation.coordinate = placemark.location.coordinate;
         annotation.title = @"pickup";
         self.pickupLocation = placemark.location;
+
+
 
 
         self.pickupGeopoint.latitude = placemark.location.coordinate.latitude;
@@ -116,9 +126,8 @@
         NSLog(@"array check 1 = %@", self.locations);
         NSLog(@"Destination Pin color = %lu", startAnnotation.pinColor);
 
-
-
     }];
+
 }
 
 - (IBAction)onDestinationAddTapped:(id)sender
@@ -127,7 +136,6 @@
     CLGeocoder *geocoder = [[CLGeocoder alloc]init];
     self.destinationAddress = self.destinationTextField.text;
     [geocoder geocodeAddressString:self.destinationAddress completionHandler:^(NSArray *placemarks, NSError *error) {
-
 
         CLPlacemark *placemark = placemarks.firstObject;
         MKPointAnnotation *annotation = [[MKPointAnnotation alloc]init];
@@ -139,8 +147,6 @@
         self.destinationGeopoint.latitude = placemark.location.coordinate.latitude;
         self.destinationGeopoint.longitude = placemark.location.coordinate.longitude;
 
-        self.destinationGeopoint.latitude = placemark.location.coordinate.latitude;
-        self.destinationGeopoint.longitude = placemark.location.coordinate.longitude;
 
             MKPinAnnotationView *endAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"endpin"];
             endAnnotation.pinColor = MKPinAnnotationColorPurple;
@@ -155,19 +161,38 @@
         [self.mapView addAnnotation:annotation];
         [self.locations addObject:endAnnotation];
         NSLog(@"array check 2 = %@", self.locations);
-        [self.mapView showAnnotations:self.locations animated:YES];
+       // [self.mapView showAnnotations:self.locations animated:YES];
 
 
         [UberAPI getPriceEstimateWithToken:self.token fromPickup:self.pickupLocation toDestination:self.destinationLocation completionHandler:^(UberPrice *price) {
             self.price = price;
             self.navigationController.navigationBar.topItem.title = [NSString stringWithFormat:@"Estimated Fare: $%d",price.avgEstimate];
 
-       }];
+            }];
 
+        // Make a directions request
+        MKDirectionsRequest *directionsRequest = [[MKDirectionsRequest alloc]init];;
+        // Start at our current location
+        MKPlacemark *startPlacemark = [[MKPlacemark alloc] initWithCoordinate:self.pickupLocation.coordinate addressDictionary:nil];
+        MKMapItem *source = [[MKMapItem alloc]initWithPlacemark:startPlacemark];
+        [directionsRequest setSource:source];
+        // Make the destination
+        MKPlacemark *destinationPlacemark = [[MKPlacemark alloc] initWithCoordinate:self.destinationLocation.coordinate addressDictionary:nil];
+        MKMapItem *destination = [[MKMapItem alloc] initWithPlacemark:destinationPlacemark];
+        [directionsRequest setDestination:destination];
+
+        MKDirections *directions = [[MKDirections alloc] initWithRequest:directionsRequest];
+        [directions calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse *response, NSError *error) {
+            self.currentRoute = [response.routes firstObject];
+            [self plotRouteOnMap:self.currentRoute];
+            [self.mapView showAnnotations:self.locations animated:YES];
+
+       }];
     }];
 
 
 }
+
 
 #pragma segue to next stage of request ride
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(UIButton *)sender {
@@ -217,6 +242,27 @@
 }
 
 
+- (void)plotRouteOnMap:(MKRoute *)route
+{
+    if(self.routeOverlay) {
+        [self.mapView removeOverlay:self.routeOverlay];
+    }
+
+    // Update the ivar
+    self.routeOverlay = route.polyline;
+
+    // Add it to the map
+    [self.mapView addOverlay:self.routeOverlay];
+}
+
+- (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay
+{
+    MKPolylineRenderer *renderer = [[MKPolylineRenderer alloc] initWithPolyline:overlay];
+    renderer.strokeColor = [UIColor redColor];
+    renderer.lineWidth = 4.0;
+    return  renderer;
+}
+
 /*- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
  {
  MKPinAnnotationView *pin = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"MyPinID"];
@@ -238,7 +284,6 @@
  return pin;
 
  } */
-
 
 @end
 
