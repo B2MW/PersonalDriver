@@ -60,6 +60,8 @@
         CLPlacemark *placemark = placemarks.firstObject;
         MKPointAnnotation *annotation = [[MKPointAnnotation alloc]init];
         annotation.coordinate = placemark.location.coordinate;
+        annotation.title = @"pickup";
+
 
         self.pickupGeopoint.latitude = placemark.location.coordinate.latitude;
         self.pickupGeopoint.longitude = placemark.location.coordinate.longitude;
@@ -79,6 +81,7 @@
         NSLog(@"Destination Pin color = %lu", startAnnotation.pinColor);
 
 
+
     }];
 }
 
@@ -93,6 +96,7 @@
         CLPlacemark *placemark = placemarks.firstObject;
         MKPointAnnotation *annotation = [[MKPointAnnotation alloc]init];
         annotation.coordinate = placemark.location.coordinate;
+        annotation.title = @"destination";
 
 
         self.destinationGeopoint.latitude = placemark.location.coordinate.latitude;
@@ -100,7 +104,6 @@
 
 
         MKPinAnnotationView *endAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"endpin"];
-        
 
         NSLog(@"Destination Pin color = %lu", endAnnotation.pinColor);
 
@@ -108,9 +111,13 @@
         [self.mapView addAnnotation:annotation];
         [self.locations addObject:endAnnotation];
         NSLog(@"array check 2 = %@", self.locations);
+
+       // [self.mapView showAnnotations:self.locations animated:YES];
+
         self.navigationController.navigationBar.topItem.title = @"Fare Estimate: $34";
-        [self.mapView showAnnotations:self.locations animated:YES];
+
     }];
+
 }
 
 #pragma segue to next stage of request ride
@@ -162,13 +169,22 @@
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
 {
-
     MKPinAnnotationView *pin = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"MyPinID"];
-    pin.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-    pin.pinColor = MKPinAnnotationColorPurple;
+    if([annotation.title isEqualToString:@"pickup"])
+    {
+    pin.pinColor = MKPinAnnotationColorGreen;
+    }
+
+    else if([annotation.title isEqualToString:@"destination"])
+    {
+    pin.pinColor = MKPinAnnotationColorRed;
+
+
+    }
 
 
     return pin;
+
 }
 
 
