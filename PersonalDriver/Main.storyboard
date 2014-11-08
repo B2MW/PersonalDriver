@@ -462,7 +462,6 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="segmentControl" destination="Zd6-Ti-kTm" id="XaB-lR-a7J"/>
                         <outlet property="segmentedControl" destination="Zd6-Ti-kTm" id="3i4-5R-5Tl"/>
                         <outlet property="tableView" destination="dfx-Il-jkG" id="8pY-nD-RDC"/>
                         <segue destination="eYy-Ow-1I6" kind="show" identifier="showScheduled" id="MEp-6G-3JN"/>
