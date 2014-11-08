@@ -166,7 +166,6 @@
 
         [UberAPI getPriceEstimateWithToken:self.token fromPickup:self.pickupLocation toDestination:self.destinationLocation completionHandler:^(UberPrice *price) {
             self.price = price;
-            self.navigationController.navigationBar.topItem.title = [NSString stringWithFormat:@"Estimated Fare: $%d",price.avgEstimate];
 
             }];
 
@@ -187,7 +186,9 @@
             [self plotRouteOnMap:self.currentRoute];
             [self.mapView showAnnotations:self.locations animated:YES];
             NSLog(@"ETA = %f", self.currentRoute.expectedTravelTime);
-            [self.nextButton setTitle:[NSString stringWithFormat:@"Next (%0.f minutes)",self.currentRoute.expectedTravelTime/60]forState:UIControlStateNormal];
+            [self.nextButton setTitle:[NSString stringWithFormat:@"(%0.f minutes)   Next    $%d",self.currentRoute.expectedTravelTime/60, self.price.avgEstimate ]forState:UIControlStateNormal];
+
+            //^^When I get the storyboard ball I'd like to move this to a label that I add
 
        }];
     }];
