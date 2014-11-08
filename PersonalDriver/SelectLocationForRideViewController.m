@@ -23,16 +23,16 @@
 @property CLLocation *currentLocation;
 @property CLLocation *pickupLocation;
 @property CLLocation *destinationLocation;
-//@property CLPlacemark *pickupPlacemark;
-//@property CLPlacemark *destinationPlacemark;
 @property NSMutableArray *locations;
 @property NSString *token;
 @property UberPrice *price;
 
 @property MKPolyline *routeOverlay;
 @property MKRoute *currentRoute;
-@property MKPinAnnotationView *startAnnotation;
-@property MKPinAnnotationView *endAnnotation;
+@property MKPointAnnotation *startPointAnnotation;
+@property MKPointAnnotation *endPointAnnotation;
+@property MKPinAnnotationView *startPinAnnotation;
+@property MKPinAnnotationView *endPinAnnotation;
 
 @property (weak, nonatomic) IBOutlet UIButton *nextButton;
 
@@ -98,44 +98,41 @@
 #pragma adding locations
 - (IBAction)onPickupAddTapped:(id)sender
 {
-    if(self.startAnnotation.tag == 1){
-        [self.locations removeObject:self.startAnnotation];
-        NSLog(@"new array check 1 = %@", self.locations);
+//if the user already added a location, remove it from map and array
+    if(self.startPinAnnotation.tag == 1){
+
+        [self.locations removeObject:self.startPinAnnotation];
+        [self.mapView removeAnnotation:self.startPointAnnotation];
 
     }
 
+//creating location
     CLGeocoder *geocoder = [[CLGeocoder alloc]init];
-    self.pickupAddress= self.pickupLocationTextField.text;
+    self.pickupAddress = self.pickupLocationTextField.text;
     [geocoder geocodeAddressString:self.pickupAddress completionHandler:^(NSArray *placemarks, NSError *error) {
         CLPlacemark *placemark= placemarks.firstObject;
-        MKPointAnnotation *annotation = [[MKPointAnnotation alloc]init];
-        annotation.coordinate = placemark.location.coordinate;
-        annotation.title = @"pickup";
+        self.startPointAnnotation = [[MKPointAnnotation alloc]init];
+        self.startPointAnnotation.coordinate = placemark.location.coordinate;
+        self.startPointAnnotation.title = @"pickup";
         self.pickupLocation = placemark.location;
 
-
-
+//creating pin
+        self.startPinAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:self.startPointAnnotation reuseIdentifier:@"startpin"];
+        [self.startPinAnnotation setTag:1];
 
         self.pickupGeopoint.latitude = placemark.location.coordinate.latitude;
         self.pickupGeopoint.longitude = placemark.location.coordinate.longitude;
+//^^To pass the lat and long to the PFGeo point on the next page. Could we switched to CLPlacemark if we send it over on the segue instead.
 
+//add location/pin to map and locations array
+        [self.mapView addAnnotation:self.startPointAnnotation];
+        [self.locations addObject:self.startPinAnnotation];
 
-        self.startAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"startpin"];
-        [self.startAnnotation setTag:1];
-
-
-
-        self.mapView.region = MKCoordinateRegionMakeWithDistance(placemark.location.coordinate, 10000, 10000);
-
-        [self.mapView addAnnotation:annotation];
-        [self.locations addObject:self.startAnnotation];
-
-        NSLog(@"pickup geo point = %@", self.pickupGeopoint);
-        NSLog(@"array check 1 = %@", self.locations);
-        NSLog(@"Destination Pin color = %lu", self.startAnnotation.pinColor);
-
+//zoom map to show all pins
         [self.mapView showAnnotations:self.locations animated:YES];
 
+//code to possibly use later
+//self.mapView.region = MKCoordinateRegionMakeWithDistance(placemark.location.coordinate, 10000, 10000);
     }];
 
 }
@@ -143,9 +140,11 @@
 - (IBAction)onDestinationAddTapped:(id)sender
 {
 
-    if(self.endAnnotation.tag == 2){
-        [self.locations removeObject:self.endAnnotation];
-        NSLog(@"new array check 1 = %@", self.locations);
+    if(self.endPinAnnotation.tag == 2){
+
+        [self.locations removeObject:self.endPinAnnotation];
+        [self.mapView removeAnnotation:self.endPointAnnotation];
+
     }
 
     CLGeocoder *geocoder = [[CLGeocoder alloc]init];
@@ -153,9 +152,9 @@
     [geocoder geocodeAddressString:self.destinationAddress completionHandler:^(NSArray *placemarks, NSError *error) {
 
         CLPlacemark *placemark = placemarks.firstObject;
-        MKPointAnnotation *annotation = [[MKPointAnnotation alloc]init];
-        annotation.coordinate = placemark.location.coordinate;
-        annotation.title = @"destination";
+        self.endPointAnnotation = [[MKPointAnnotation alloc]init];
+        self.endPointAnnotation.coordinate = placemark.location.coordinate;
+        self.endPointAnnotation.title = @"destination";
         self.destinationLocation = placemark.location;
 
 
@@ -163,20 +162,20 @@
         self.destinationGeopoint.longitude = placemark.location.coordinate.longitude;
 
 
-            self.endAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"endpin"];
-            self.endAnnotation.pinColor = MKPinAnnotationColorPurple;
-            self.endAnnotation.animatesDrop = YES;
-            [self.mapView addAnnotation:annotation];
-            [self.endAnnotation setTag:2];
-            [self.locations addObject:self.endAnnotation];
+            self.endPinAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:self.endPointAnnotation reuseIdentifier:@"endpin"];
+            self.endPinAnnotation.pinColor = MKPinAnnotationColorPurple;
+            self.endPinAnnotation.animatesDrop = YES;
+            [self.mapView addAnnotation:self.endPointAnnotation];
+            [self.endPinAnnotation setTag:2];
+            [self.locations addObject:self.endPinAnnotation];
 
 
-        NSLog(@"Destination Pin color = %lu", self.endAnnotation.pinColor);
 
 
-        [self.mapView addAnnotation:annotation];
-        [self.locations addObject:self.endAnnotation];
-        NSLog(@"array check 2 = %@", self.locations);
+
+        [self.mapView addAnnotation:self.endPointAnnotation];
+        [self.locations addObject:self.endPinAnnotation];
+
 
 
         [UberAPI getPriceEstimateWithToken:self.token fromPickup:self.pickupLocation toDestination:self.destinationLocation completionHandler:^(UberPrice *price) {
@@ -184,13 +183,13 @@
 
             }];
 
-        // Make a directions request
+// Make a directions request
         MKDirectionsRequest *directionsRequest = [[MKDirectionsRequest alloc]init];;
-        // Start at our current location
+// Start at our current location
         MKPlacemark *startPlacemark = [[MKPlacemark alloc] initWithCoordinate:self.pickupLocation.coordinate addressDictionary:nil];
         MKMapItem *source = [[MKMapItem alloc]initWithPlacemark:startPlacemark];
         [directionsRequest setSource:source];
-        // Make the destination
+// Make the destination
         MKPlacemark *destinationPlacemark = [[MKPlacemark alloc] initWithCoordinate:self.destinationLocation.coordinate addressDictionary:nil];
         MKMapItem *destination = [[MKMapItem alloc] initWithPlacemark:destinationPlacemark];
         [directionsRequest setDestination:destination];
@@ -203,7 +202,7 @@
             NSLog(@"ETA = %f", self.currentRoute.expectedTravelTime);
             [self.nextButton setTitle:[NSString stringWithFormat:@"(%0.f minutes)   Next    $%d",self.currentRoute.expectedTravelTime/60, self.price.avgEstimate ]forState:UIControlStateNormal];
 
-            //^^When I get the storyboard ball I'd like to move this to a label that I add
+//^^When I get the storyboard ball I'd like to move this to a label that I add
 
        }];
     }];
