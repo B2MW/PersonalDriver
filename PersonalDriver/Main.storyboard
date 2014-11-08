@@ -479,7 +479,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WBZ-NF-geY">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WBZ-NF-geY">
                                 <rect key="frame" x="180" y="550" width="240" height="30"/>
                                 <color key="backgroundColor" red="0.19582507290000001" green="0.87744417760000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Schedule Ride">
@@ -920,6 +920,7 @@
                     <connections>
                         <outlet property="destinationTextField" destination="1qW-fI-CFl" id="bPN-wo-6fb"/>
                         <outlet property="mapView" destination="o1Q-hc-UlX" id="uvr-qp-Tmf"/>
+                        <outlet property="nextButton" destination="oHI-Rc-ebr" id="lqr-eK-Cdw"/>
                         <outlet property="pickupLocationTextField" destination="qSE-MC-61E" id="EUG-Bo-lYv"/>
                     </connections>
                 </viewController>

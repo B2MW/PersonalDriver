@@ -32,6 +32,7 @@
 @property MKPolyline *routeOverlay;
 @property MKRoute *currentRoute;
 
+@property (weak, nonatomic) IBOutlet UIButton *nextButton;
 
 
 @end
@@ -161,7 +162,6 @@
         [self.mapView addAnnotation:annotation];
         [self.locations addObject:endAnnotation];
         NSLog(@"array check 2 = %@", self.locations);
-       // [self.mapView showAnnotations:self.locations animated:YES];
 
 
         [UberAPI getPriceEstimateWithToken:self.token fromPickup:self.pickupLocation toDestination:self.destinationLocation completionHandler:^(UberPrice *price) {
@@ -186,6 +186,8 @@
             self.currentRoute = [response.routes firstObject];
             [self plotRouteOnMap:self.currentRoute];
             [self.mapView showAnnotations:self.locations animated:YES];
+            NSLog(@"ETA = %f", self.currentRoute.expectedTravelTime);
+            [self.nextButton setTitle:[NSString stringWithFormat:@"Next (%0.f minutes)",self.currentRoute.expectedTravelTime/60]forState:UIControlStateNormal];
 
        }];
     }];
