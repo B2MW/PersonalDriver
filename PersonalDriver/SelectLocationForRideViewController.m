@@ -143,7 +143,8 @@
 
         if(self.hasUserAddedPickupLocation == YES){
 
-
+            [self.mapView removeOverlays:self.mapView.overlays];
+            
             [UberAPI getPriceEstimateWithToken:self.token fromPickup:self.pickupLocation toDestination:self.destinationLocation completionHandler:^(UberPrice *price) {
                 self.price = price;
 
