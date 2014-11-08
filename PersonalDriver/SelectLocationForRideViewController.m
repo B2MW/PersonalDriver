@@ -34,6 +34,8 @@
 @property MKPinAnnotationView *startPinAnnotation;
 @property MKPinAnnotationView *endPinAnnotation;
 
+@property bool hasUserAddedPickupLocation;
+
 @property (weak, nonatomic) IBOutlet UIButton *nextButton;
 
 
@@ -61,6 +63,7 @@
     self.locations = [[NSMutableArray alloc]init];
     self.destinationLocation = [[CLLocation alloc] init];
     self.pickupLocation = [[CLLocation alloc] init];
+    self.hasUserAddedPickupLocation = NO;
 
 }
 
@@ -97,14 +100,17 @@
 
 #pragma adding locations
 - (IBAction)onPickupAddTapped:(id)sender
+
 {
 //if the user already added a location, remove it from map and array
     if(self.startPinAnnotation.tag == 1){
 
         [self.locations removeObject:self.startPinAnnotation];
         [self.mapView removeAnnotation:self.startPointAnnotation];
+//***why isn't the pin actually removing on the map?***
 
     }
+
 
 //creating location
     CLGeocoder *geocoder = [[CLGeocoder alloc]init];
@@ -118,6 +124,7 @@
 
 //creating pin
         self.startPinAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:self.startPointAnnotation reuseIdentifier:@"startpin"];
+//set tag to identify later (if the user adds a new pin ill want to be able to remove this one)
         [self.startPinAnnotation setTag:1];
 
         self.pickupGeopoint.latitude = placemark.location.coordinate.latitude;
@@ -133,6 +140,41 @@
 
 //code to possibly use later
 //self.mapView.region = MKCoordinateRegionMakeWithDistance(placemark.location.coordinate, 10000, 10000);
+
+        if(self.hasUserAddedPickupLocation == YES){
+
+
+            [UberAPI getPriceEstimateWithToken:self.token fromPickup:self.pickupLocation toDestination:self.destinationLocation completionHandler:^(UberPrice *price) {
+                self.price = price;
+
+                // Make a directions request
+                MKDirectionsRequest *directionsRequest = [[MKDirectionsRequest alloc]init];;
+                // Start at our current location
+                MKPlacemark *startPlacemark = [[MKPlacemark alloc] initWithCoordinate:self.pickupLocation.coordinate addressDictionary:nil];
+                MKMapItem *source = [[MKMapItem alloc]initWithPlacemark:startPlacemark];
+                [directionsRequest setSource:source];
+                // Make the destination
+                MKPlacemark *destinationPlacemark = [[MKPlacemark alloc] initWithCoordinate:self.destinationLocation.coordinate addressDictionary:nil];
+                MKMapItem *destination = [[MKMapItem alloc] initWithPlacemark:destinationPlacemark];
+                [directionsRequest setDestination:destination];
+
+                MKDirections *directions = [[MKDirections alloc] initWithRequest:directionsRequest];
+                [directions calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse *response, NSError *error) {
+                    self.currentRoute = [response.routes firstObject];
+                    [self plotRouteOnMap:self.currentRoute];
+                    [self.mapView showAnnotations:self.locations animated:YES];
+                    NSLog(@"ETA = %f", self.currentRoute.expectedTravelTime);
+                    [self.nextButton setTitle:[NSString stringWithFormat:@"(%0.f minutes)   Next    $%d",self.currentRoute.expectedTravelTime/60, self.price.avgEstimate ]forState:UIControlStateNormal];
+                    
+                    //refactor this badly. PLEASE!
+                    
+                }];
+                }];
+
+        }
+
+        self.hasUserAddedPickupLocation = YES;
+
     }];
 
 }
@@ -171,17 +213,14 @@
 
 
 
-
-
         [self.mapView addAnnotation:self.endPointAnnotation];
         [self.locations addObject:self.endPinAnnotation];
-
-
 
         [UberAPI getPriceEstimateWithToken:self.token fromPickup:self.pickupLocation toDestination:self.destinationLocation completionHandler:^(UberPrice *price) {
             self.price = price;
 
             }];
+
 
 // Make a directions request
         MKDirectionsRequest *directionsRequest = [[MKDirectionsRequest alloc]init];;
@@ -285,27 +324,28 @@
 
 
 #pragma pin color
-/*- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
+
+/*
+ - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
  {
  MKPinAnnotationView *pin = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"MyPinID"];
  if([annotation.title isEqualToString:@"pickup"])
  {
  pin.pinColor = MKPinAnnotationColorGreen;
- self.pickup.title = nil;
 
  }
 
  else if([annotation.title isEqualToString:@"destination"])
  {
  pin.pinColor = MKPinAnnotationColorRed;
- self.destination.title = nil;
-
  }
 
 
  return pin;
 
- } */
+ }
+*/
+
 
 @end
 
