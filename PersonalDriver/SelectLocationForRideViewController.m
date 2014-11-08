@@ -31,6 +31,8 @@
 
 @property MKPolyline *routeOverlay;
 @property MKRoute *currentRoute;
+@property MKPinAnnotationView *startAnnotation;
+@property MKPinAnnotationView *endAnnotation;
 
 @property (weak, nonatomic) IBOutlet UIButton *nextButton;
 
@@ -96,6 +98,11 @@
 #pragma adding locations
 - (IBAction)onPickupAddTapped:(id)sender
 {
+    if(self.startAnnotation.tag == 1){
+        [self.locations removeObject:self.startAnnotation];
+        NSLog(@"new array check 1 = %@", self.locations);
+
+    }
 
     CLGeocoder *geocoder = [[CLGeocoder alloc]init];
     self.pickupAddress= self.pickupLocationTextField.text;
@@ -113,18 +120,21 @@
         self.pickupGeopoint.longitude = placemark.location.coordinate.longitude;
 
 
-        MKPinAnnotationView *startAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"startpin"];
+        self.startAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"startpin"];
+        [self.startAnnotation setTag:1];
 
 
 
         self.mapView.region = MKCoordinateRegionMakeWithDistance(placemark.location.coordinate, 10000, 10000);
 
         [self.mapView addAnnotation:annotation];
-        [self.locations addObject:startAnnotation];
+        [self.locations addObject:self.startAnnotation];
 
         NSLog(@"pickup geo point = %@", self.pickupGeopoint);
         NSLog(@"array check 1 = %@", self.locations);
-        NSLog(@"Destination Pin color = %lu", startAnnotation.pinColor);
+        NSLog(@"Destination Pin color = %lu", self.startAnnotation.pinColor);
+
+        [self.mapView showAnnotations:self.locations animated:YES];
 
     }];
 
@@ -132,6 +142,11 @@
 
 - (IBAction)onDestinationAddTapped:(id)sender
 {
+
+    if(self.endAnnotation.tag == 2){
+        [self.locations removeObject:self.endAnnotation];
+        NSLog(@"new array check 1 = %@", self.locations);
+    }
 
     CLGeocoder *geocoder = [[CLGeocoder alloc]init];
     self.destinationAddress = self.destinationTextField.text;
@@ -148,18 +163,19 @@
         self.destinationGeopoint.longitude = placemark.location.coordinate.longitude;
 
 
-            MKPinAnnotationView *endAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"endpin"];
-            endAnnotation.pinColor = MKPinAnnotationColorPurple;
-            endAnnotation.animatesDrop = YES;
+            self.endAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"endpin"];
+            self.endAnnotation.pinColor = MKPinAnnotationColorPurple;
+            self.endAnnotation.animatesDrop = YES;
             [self.mapView addAnnotation:annotation];
-            [self.locations addObject:endAnnotation];
+            [self.endAnnotation setTag:2];
+            [self.locations addObject:self.endAnnotation];
 
 
-        NSLog(@"Destination Pin color = %lu", endAnnotation.pinColor);
+        NSLog(@"Destination Pin color = %lu", self.endAnnotation.pinColor);
 
 
         [self.mapView addAnnotation:annotation];
-        [self.locations addObject:endAnnotation];
+        [self.locations addObject:self.endAnnotation];
         NSLog(@"array check 2 = %@", self.locations);
 
 
