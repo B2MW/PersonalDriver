@@ -12,6 +12,9 @@
 @interface AvailableRidesViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property NSArray *availableRides;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
+@property NSInteger selectedSegment;
+
 
 @end
 
@@ -23,6 +26,12 @@
 
     [self refreshDisplay];
 }
+- (IBAction)segmentedAction:(UISegmentedControl *)segmentedControl {
+    self.selectedSegment = segmentedControl.selectedSegmentIndex;
+}
+
+
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -53,10 +62,19 @@
     }];
 }
 
+
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(AvailableRideTableViewCell *)cell
+
 {
-    AvailableRidesDetailViewController *viewController = [segue destinationViewController];
-    viewController.ride = [self.availableRides objectAtIndex:[self.tableView indexPathForSelectedRow].row];
+    if ([[segue identifier] isEqualToString:@"showAvailable"])
+    {
+        AvailableRidesDetailViewController *viewController = [segue destinationViewController];
+        viewController.ride = [self.availableRides objectAtIndex:[self.tableView indexPathForSelectedRow].row];
+    }else if ([[segue identifier] isEqualToString:@"showScheduled"])
+    {
+
+    }
+
 }
 
 @end
