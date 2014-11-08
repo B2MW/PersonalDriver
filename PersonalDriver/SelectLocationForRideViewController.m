@@ -60,7 +60,6 @@
     self.destinationLocation = [[CLLocation alloc] init];
     self.pickupLocation = [[CLLocation alloc] init];
 
-
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -240,6 +239,7 @@
                              placemark.locality];
         NSLog(@"current location = %@", address);
         NSLog(@"current placemark location = %@", placemark.location);
+        self.pickupLocationTextField.text = address;
     }];
     
 }
