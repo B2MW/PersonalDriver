@@ -187,7 +187,6 @@
 
         [self.locations removeObject:self.endPinAnnotation];
         [self.mapView removeAnnotation:self.endPointAnnotation];
-
     }
 
     CLGeocoder *geocoder = [[CLGeocoder alloc]init];
