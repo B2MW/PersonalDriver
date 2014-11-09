@@ -175,6 +175,7 @@
         }
 
         self.hasUserAddedPickupLocation = YES;
+        [self.view endEditing:YES];
 
     }];
 
@@ -245,7 +246,7 @@
 
        }];
     }];
-
+[self.view endEditing:YES];
 
 }
 
@@ -345,6 +346,8 @@
 
  }
 */
+
+
 
 
 @end
