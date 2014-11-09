@@ -37,6 +37,10 @@
 @property bool hasUserAddedPickupLocation;
 
 @property (weak, nonatomic) IBOutlet UIButton *nextButton;
+@property (weak, nonatomic) IBOutlet UILabel *dollarLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *dollarImage;
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *timeImage;
 
 
 @end
@@ -64,6 +68,15 @@
     self.destinationLocation = [[CLLocation alloc] init];
     self.pickupLocation = [[CLLocation alloc] init];
     self.hasUserAddedPickupLocation = NO;
+
+    self.dollarImage.hidden = YES;
+    self.dollarLabel.hidden = YES;
+    self.timeImage.hidden = YES;
+    self.timeLabel.hidden = YES;
+    self.title = @"Ride on Time";
+    self.navigationItem.leftBarButtonItem.title = @"Cancel";
+
+
 
 }
 
@@ -240,7 +253,14 @@
             [self plotRouteOnMap:self.currentRoute];
             [self.mapView showAnnotations:self.locations animated:YES];
             NSLog(@"ETA = %f", self.currentRoute.expectedTravelTime);
-            [self.nextButton setTitle:[NSString stringWithFormat:@"(%0.f minutes)   Next    $%d",self.currentRoute.expectedTravelTime/60, self.price.avgEstimate ]forState:UIControlStateNormal];
+            self.timeLabel.text = [NSString stringWithFormat:@"%0.f min",self.currentRoute.expectedTravelTime/60];
+            self.dollarLabel.text = [NSString stringWithFormat:@"$%d",self.price.avgEstimate];
+
+
+            self.dollarImage.hidden = NO;
+            self.dollarLabel.hidden = NO;
+            self.timeImage.hidden = NO;
+            self.timeLabel.hidden = NO;
 
 //^^When I get the storyboard ball I'd like to move this to a label that I add
 

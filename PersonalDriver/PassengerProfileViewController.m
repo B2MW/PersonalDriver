@@ -22,6 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"Ride on Time";
     // Do any additional setup after loading the view.
 }
 

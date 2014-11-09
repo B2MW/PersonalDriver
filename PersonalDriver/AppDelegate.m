@@ -28,6 +28,16 @@
     [[UberKit sharedInstance] setRedirectURL:@"personaldriver://localhost"]; //Add your redirect url
     [[UberKit sharedInstance] setApplicationName:@"Personal Driver"]; //Add your application name
 
+    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:(0/255.0) green:(0/255.0) blue:(0/255.0) alpha:1]];
+
+
+    [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
+                                                           [UIColor colorWithRed:226.0/255.0 green:219.0/255.0 blue:140.0/255.0 alpha:1.0], NSForegroundColorAttributeName,
+                                                           [UIFont fontWithName:@"System Bold" size:20.0], NSFontAttributeName, nil]];
+    [[UIToolbar appearance] setTintColor:[UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:1.0]];
+
+    
+
     return YES;
 
 
