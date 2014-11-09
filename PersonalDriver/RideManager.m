@@ -7,6 +7,7 @@
 //
 
 #import "RideManager.h"
+#import <Parse/Parse.h>
 
 @implementation RideManager
 
@@ -19,6 +20,16 @@
     }];
 }
 
+-(void)getScheduledRides:(void(^)(NSArray *))complete
+{
+    PFQuery *queryScheduledRides= [Ride query];
+    [queryScheduledRides whereKey:@"driver" equalTo:[PFUser currentUser]];
+    [queryScheduledRides findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        complete(objects);
+    }];
+
+}
+
 -(NSString *)formatRideDate:(Ride *)ride
 {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -27,10 +38,15 @@
     return formattedRideDate;
 }
 
--(NSString *)formatRideFareEstimate:(NSNumber *)fareEstimateMin:(NSNumber *)fareEstimateMax
+-(NSString *)formatRideFareEstimate:(NSNumber *)fareEstimateMin fareEstimateMax:(NSNumber *)fareEstimateMax
 {
     NSString *formattedRideEstimate = [NSString stringWithFormat:@"$%@-%@",fareEstimateMin.stringValue, fareEstimateMax.stringValue];
     return formattedRideEstimate;
+}
+
+-(void)retrieveRideDistanceAndBearing:(Ride *)ride
+{
+
 }
 
 @end

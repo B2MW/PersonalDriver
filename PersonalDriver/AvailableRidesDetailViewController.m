@@ -62,7 +62,7 @@
             }];
         }
         self.passengerName.text = objects.firstObject[@"name"];
-        self.estimatedFare.text = [rideManager formatRideFareEstimate:self.ride.fareEstimateMin :self.ride.fareEstimateMax];
+        self.estimatedFare.text = [rideManager formatRideFareEstimate:self.ride.fareEstimateMin fareEstimateMax:self.ride.fareEstimateMax];
         self.rideDate.text = [rideManager formatRideDate:self.ride];
         self.numberOfPassengers.text = self.ride.passengerCount;
     }];

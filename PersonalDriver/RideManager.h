@@ -13,7 +13,8 @@
 
 @interface RideManager : NSObject
 -(void)getAvailableRides:(void(^)(NSArray *))completionHandler;
+-(void)getScheduledRides:(void(^)(NSArray *))complete;
 -(NSString *)formatRideDate:(Ride *)ride;
--(NSString *)formatRideFareEstimate:(NSNumber *)fareEstimateMin:(NSNumber *)fareEstimateMax;
+-(NSString *)formatRideFareEstimate:(NSNumber *)fareEstimateMin fareEstimateMax:(NSNumber *)fareEstimateMax;
 -(void)retrieveRideDistanceAndBearing:(Ride *)ride;
 @end
