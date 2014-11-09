@@ -8,12 +8,20 @@
 
 #import "AvailableRidesViewController.h"
 #import "AvailableRidesDetailViewController.h"
+#import "ScheduledRideTableViewCell.h"
+#import "AvailableRidesTableView.h"
+#import "ScheduledTableView.h"
 
 @interface AvailableRidesViewController () <UITableViewDelegate, UITableViewDataSource>
-@property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet AvailableRidesTableView *availableTableView;
+@property (weak, nonatomic) IBOutlet ScheduledTableView *scheduledTableView;
+
+
+
 @property NSArray *availableRides;
+@property NSArray *scheduledRides;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
-@property NSInteger selectedSegment;
+
 
 
 @end
@@ -23,34 +31,69 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    self.scheduledTableView.hidden = YES;
     [self refreshDisplay];
 }
+
 - (IBAction)segmentedAction:(UISegmentedControl *)segmentedControl {
-    self.selectedSegment = segmentedControl.selectedSegmentIndex;
+
+    if (segmentedControl.selectedSegmentIndex == 0)
+    {
+        self.scheduledTableView.hidden = YES;
+        self.availableTableView.hidden = NO;
+    }else
+    {
+        self.availableTableView.hidden = YES;
+        self.scheduledTableView.hidden = NO;
+    }
+    [self refreshDisplay];
+
 }
 
-
-
+#pragma mark -  Table View
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.availableRides.count;
+    if (self.scheduledTableView.isHidden == YES)//Show Available Rides
+    {
+        return self.availableRides.count;
+    } else //Show Schduled Rides
+    {
+        return self.scheduledRides.count;
+    }
 }
 
-- (AvailableRideTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Ride *ride = [self.availableRides objectAtIndex:indexPath.row];
     RideManager *rideManager = [[RideManager alloc] init];
-    AvailableRideTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RideCell"];
 
-    cell.pickupDateTimeLabel.text = [rideManager formatRideDate:ride];
-    cell.rideOrigin.text = ride.pickUpLocation;
-    cell.rideDestination.text = ride.destination;
-    cell.fareEstimate.text = [rideManager formatRideFareEstimate:ride.fareEstimateMin :ride.fareEstimateMax];
-    cell.userImage.image = [UIImage imageNamed:@"profilePicPlaceholder"];
-    return cell;
+    if (self.scheduledTableView.isHidden == YES)//Show Available Rides
+    {
+        AvailableRideTableViewCell *cell = [self.availableTableView dequeueReusableCellWithIdentifier:@"RideCell"];
+        Ride *availableRide = [self.availableRides objectAtIndex:indexPath.row];
+        cell.pickupDateTimeLabel.text = [rideManager formatRideDate:availableRide];
+        cell.rideOrigin.text = availableRide.pickUpLocation;
+        cell.rideDestination.text = availableRide.destination;
+        cell.fareEstimate.text = [rideManager formatRideFareEstimate:availableRide.fareEstimateMin fareEstimateMax:availableRide.fareEstimateMax];
+        cell.userImage.image = [UIImage imageNamed:@"profilePicPlaceholder"];
+        return cell;
+
+    }else
+    {
+        ScheduledRideTableViewCell *cell = [self.scheduledTableView dequeueReusableCellWithIdentifier:@"ScheduledCell"];
+        Ride *scheduledRide = [self.scheduledRides objectAtIndex:indexPath.row];
+        cell.pickupDateTimeLabel.text = [rideManager formatRideDate:scheduledRide];
+        cell.rideOrigin.text = scheduledRide.pickUpLocation;
+        cell.rideDestination.text = scheduledRide.destination;
+        cell.fareEstimate.text = [rideManager formatRideFareEstimate:scheduledRide.fareEstimateMin fareEstimateMax:scheduledRide.fareEstimateMax];
+        cell.userImage.image = [UIImage imageNamed:@"profilePicPlaceholder"];
+        return cell;
+    }
+
+
 }
+
 
 -(void)refreshDisplay
 {
@@ -58,10 +101,13 @@
     [rideManager getAvailableRides:^(NSArray *rideResults)
     {
         self.availableRides = rideResults;
-        [self.tableView reloadData];
+        [self.availableTableView reloadData];
+    }];
+    [rideManager getScheduledRides:^(NSArray *scheduledrides) {
+        self.scheduledRides = scheduledrides;
+        [self.scheduledTableView reloadData];
     }];
 }
-
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(AvailableRideTableViewCell *)cell
 
@@ -69,7 +115,7 @@
     if ([[segue identifier] isEqualToString:@"showAvailable"])
     {
         AvailableRidesDetailViewController *viewController = [segue destinationViewController];
-        viewController.ride = [self.availableRides objectAtIndex:[self.tableView indexPathForSelectedRow].row];
+        viewController.ride = [self.availableRides objectAtIndex:[self.availableTableView indexPathForSelectedRow].row];
     }else if ([[segue identifier] isEqualToString:@"showScheduled"])
     {
 

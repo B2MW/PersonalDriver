@@ -56,6 +56,9 @@
 		CE1A353C1A0AC339004A6CCC /* Token.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1A353B1A0AC339004A6CCC /* Token.m */; };
 		CE1A353E1A0AD473004A6CCC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE1A353D1A0AD473004A6CCC /* Main.storyboard */; };
 		CE1A35411A0E87FE004A6CCC /* ScheduledRideDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1A35401A0E87FE004A6CCC /* ScheduledRideDetailViewController.m */; };
+		CE1A35441A0EEB8D004A6CCC /* ScheduledRideTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1A35431A0EEB8D004A6CCC /* ScheduledRideTableViewCell.m */; };
+		CE1A35471A0F1A10004A6CCC /* AvailableRidesTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1A35461A0F1A10004A6CCC /* AvailableRidesTableView.m */; };
+		CE1A354A1A0F1A9F004A6CCC /* ScheduledTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1A35491A0F1A9F004A6CCC /* ScheduledTableView.m */; };
 		CEB8D1BB1A0A7D3B00A74FA6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEB8D1BA1A0A7D3B00A74FA6 /* MapKit.framework */; };
 		CEB8D1BF1A0A7D7900A74FA6 /* Ride.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB8D1BE1A0A7D7900A74FA6 /* Ride.m */; };
 		CEB8D1C21A0A7D9100A74FA6 /* RideManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB8D1C11A0A7D9100A74FA6 /* RideManager.m */; };
@@ -167,6 +170,12 @@
 		CE1A353D1A0AD473004A6CCC /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		CE1A353F1A0E87FE004A6CCC /* ScheduledRideDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduledRideDetailViewController.h; sourceTree = "<group>"; };
 		CE1A35401A0E87FE004A6CCC /* ScheduledRideDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduledRideDetailViewController.m; sourceTree = "<group>"; };
+		CE1A35421A0EEB8D004A6CCC /* ScheduledRideTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduledRideTableViewCell.h; sourceTree = "<group>"; };
+		CE1A35431A0EEB8D004A6CCC /* ScheduledRideTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduledRideTableViewCell.m; sourceTree = "<group>"; };
+		CE1A35451A0F1A10004A6CCC /* AvailableRidesTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvailableRidesTableView.h; sourceTree = "<group>"; };
+		CE1A35461A0F1A10004A6CCC /* AvailableRidesTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvailableRidesTableView.m; sourceTree = "<group>"; };
+		CE1A35481A0F1A9F004A6CCC /* ScheduledTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduledTableView.h; sourceTree = "<group>"; };
+		CE1A35491A0F1A9F004A6CCC /* ScheduledTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduledTableView.m; sourceTree = "<group>"; };
 		CEB8D1BA1A0A7D3B00A74FA6 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		CEB8D1BD1A0A7D7900A74FA6 /* Ride.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ride.h; sourceTree = "<group>"; };
 		CEB8D1BE1A0A7D7900A74FA6 /* Ride.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ride.m; sourceTree = "<group>"; };
@@ -318,12 +327,18 @@
 		4C7175851A08FDE4002AC734 /* Driver UX */ = {
 			isa = PBXGroup;
 			children = (
-				CEB8D1C51A0A809E00A74FA6 /* AvailableRideTableViewCell.h */,
-				CEB8D1C61A0A809E00A74FA6 /* AvailableRideTableViewCell.m */,
 				CEB8D1C31A0A809E00A74FA6 /* AvailableRidesViewController.h */,
 				CEB8D1C41A0A809E00A74FA6 /* AvailableRidesViewController.m */,
+				CE1A35451A0F1A10004A6CCC /* AvailableRidesTableView.h */,
+				CE1A35461A0F1A10004A6CCC /* AvailableRidesTableView.m */,
+				CEB8D1C51A0A809E00A74FA6 /* AvailableRideTableViewCell.h */,
+				CEB8D1C61A0A809E00A74FA6 /* AvailableRideTableViewCell.m */,
 				4C7175821A08FDCC002AC734 /* AvailableRidesDetailViewController.h */,
 				4C7175831A08FDCC002AC734 /* AvailableRidesDetailViewController.m */,
+				CE1A35481A0F1A9F004A6CCC /* ScheduledTableView.h */,
+				CE1A35491A0F1A9F004A6CCC /* ScheduledTableView.m */,
+				CE1A35421A0EEB8D004A6CCC /* ScheduledRideTableViewCell.h */,
+				CE1A35431A0EEB8D004A6CCC /* ScheduledRideTableViewCell.m */,
 				CE1A353F1A0E87FE004A6CCC /* ScheduledRideDetailViewController.h */,
 				CE1A35401A0E87FE004A6CCC /* ScheduledRideDetailViewController.m */,
 			);
@@ -564,13 +579,16 @@
 				CEB8D1C21A0A7D9100A74FA6 /* RideManager.m in Sources */,
 				CE19D9771A092D2700874F56 /* NSData+NXOAuth2.m in Sources */,
 				CE19D9751A092D2700874F56 /* UberProfile.m in Sources */,
+				CE1A35441A0EEB8D004A6CCC /* ScheduledRideTableViewCell.m in Sources */,
 				CEB8D1BF1A0A7D7900A74FA6 /* Ride.m in Sources */,
+				CE1A354A1A0F1A9F004A6CCC /* ScheduledTableView.m in Sources */,
 				2236D9441A082A4200F19EA5 /* NewRideViewController.m in Sources */,
 				4C7175201A081334002AC734 /* ViewController.m in Sources */,
 				CE19D9761A092D2700874F56 /* UberTime.m in Sources */,
 				CE19D9781A092D2700874F56 /* NSString+NXOAuth2.m in Sources */,
 				CE19D9821A092D2700874F56 /* NXOAuth2PostBodyStream.m in Sources */,
 				CEB8D1C71A0A809E00A74FA6 /* AvailableRidesViewController.m in Sources */,
+				CE1A35471A0F1A10004A6CCC /* AvailableRidesTableView.m in Sources */,
 				CE19D9791A092D2700874F56 /* NSURL+NXOAuth2.m in Sources */,
 				CEB8D1CB1A0A83CB00A74FA6 /* SelectLocationForRideViewController.m in Sources */,
 				CE1A353C1A0AC339004A6CCC /* Token.m in Sources */,
