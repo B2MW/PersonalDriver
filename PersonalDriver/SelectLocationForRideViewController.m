@@ -74,7 +74,7 @@
     self.timeImage.hidden = YES;
     self.timeLabel.hidden = YES;
     self.title = @"Ride on Time";
-    self.navigationItem.leftBarButtonItem.title = @"Cancel";
+    
 
 
 
