@@ -418,12 +418,12 @@
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
-                                                    <exclude reference="RDz-Rx-5Lh"/>
                                                     <exclude reference="Ki0-dm-2ax"/>
+                                                    <exclude reference="RDz-Rx-5Lh"/>
                                                     <exclude reference="vDi-LP-FCT"/>
                                                     <exclude reference="Pc2-oh-guf"/>
-                                                    <exclude reference="FIV-cu-UyM"/>
                                                     <exclude reference="0ZH-ZZ-D8O"/>
+                                                    <exclude reference="FIV-cu-UyM"/>
                                                     <exclude reference="xpk-00-eBP"/>
                                                 </mask>
                                             </variation>

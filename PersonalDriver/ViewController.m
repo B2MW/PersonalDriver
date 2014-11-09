@@ -23,22 +23,28 @@
     PFUser *currentUser = [PFUser currentUser];
     //Get Keychain info
     self.token = [Token getToken];
-    if (!self.token) {
-        [self performSegueWithIdentifier:@"showLogin" sender:self];
-    }else if (![PFUser currentUser])//Perform login if no current user
-    {
-        [self loginPFUserWithUberProfile];
+    //check to make sure the token is still valid and they can use the UberAPI
+    [UberAPI getUserProfileWithToken:self.token completionHandler:^(UberProfile *profile) {
 
-    }else if (((NSNumber*)[currentUser objectForKey:@"isDriver"]).boolValue == YES)//Check if they are a Driver
-    {
-        [self performSegueWithIdentifier:@"showDriver" sender:self];
-    }else if (((NSNumber*)[currentUser objectForKey:@"isDriver"]).boolValue == NO)//Check if they are a passenger
-    {
-        [self performSegueWithIdentifier:@"showPassenger" sender:self];
-    }else
-    {
-        //do nothing.  Have the user select Driver or Passenger from current screen.
-    }
+        if (!profile)
+        {
+            [self performSegueWithIdentifier:@"showLogin" sender:self];
+        }else if (![PFUser currentUser])//Perform login if no current user
+        {
+            [self loginPFUserWithUberProfile];
+
+        }else if (((NSNumber*)[currentUser objectForKey:@"isDriver"]).boolValue == YES)//Check if they are a Driver
+        {
+            [self performSegueWithIdentifier:@"showDriver" sender:self];
+        }else if (((NSNumber*)[currentUser objectForKey:@"isDriver"]).boolValue == NO)//Check if they are a passenger
+        {
+            [self performSegueWithIdentifier:@"showPassenger" sender:self];
+        }else
+        {
+            //do nothing.  Have the user select Driver or Passenger from current screen.
+        }
+    }];
+
 }
 
 -(void)viewWillAppear:(BOOL)animated {

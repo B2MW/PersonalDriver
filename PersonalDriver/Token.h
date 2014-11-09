@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 
 @interface Token : NSObject
+
+
 + (NSString *)getToken;
+
 
 @end
