@@ -178,7 +178,11 @@
                     [self plotRouteOnMap:self.currentRoute];
                     [self.mapView showAnnotations:self.locations animated:YES];
                     NSLog(@"ETA = %f", self.currentRoute.expectedTravelTime);
-                    [self.nextButton setTitle:[NSString stringWithFormat:@"(%0.f minutes)   Next    $%d",self.currentRoute.expectedTravelTime/60, self.price.avgEstimate ]forState:UIControlStateNormal];
+
+                    self.timeLabel.text = [NSString stringWithFormat:@"%0.f min",self.currentRoute.expectedTravelTime/60];
+                    self.dollarLabel.text = [NSString stringWithFormat:@"$%d",self.price.avgEstimate];
+
+
                     
                     //refactor this badly. PLEASE!
                     
@@ -312,8 +316,7 @@
                              placemark.subThoroughfare,
                              placemark.thoroughfare,
                              placemark.locality];
-        NSLog(@"current location = %@", address);
-        NSLog(@"current placemark location = %@", placemark.location);
+
         self.pickupLocationTextField.text = address;
     }];
     
