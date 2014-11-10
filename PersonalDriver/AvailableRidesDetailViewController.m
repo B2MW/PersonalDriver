@@ -78,12 +78,13 @@
         self.estimatedFare.text = [rideManager formatRideFareEstimate:self.ride.fareEstimateMin fareEstimateMax:self.ride.fareEstimateMax];
         self.rideDate.text = [rideManager formatRideDate:self.ride];
         self.numberOfPassengers.text = self.ride.passengerCount;
-        [rideManager retrieveGeoPointAddress:self.ride.pickupGeoPoint :^(NSString *address) {
+        [rideManager retrieveGeoPointAddress:self.ride.pickupGeoPoint completionHandler:^(NSString *address) {
             self.pickupAddress.text = address;
         }];
-        [rideManager retrieveGeoPointAddress:self.ride.dropoffGeoPoint :^(NSString *address) {
+        [rideManager retrieveGeoPointAddress:self.ride.dropoffGeoPoint completionHandler:^(NSString *address) {
             self.dropoffAddress.text = address;
         }];
+
     }];
 }
 
