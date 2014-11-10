@@ -21,12 +21,9 @@
 - (void)viewDidLoad {
 
     [super viewDidLoad];
-<<<<<<< HEAD
-    
-    PFUser *currentUser = [PFUser currentUser];
-=======
+
+
      User *currentUser = [User currentUser];
->>>>>>> development
     //Get Keychain info
     self.token = [Token getToken];
     //check to make sure the token is still valid and they can use the UberAPI
