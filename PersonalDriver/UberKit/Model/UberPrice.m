@@ -39,13 +39,14 @@
         _estimate = [dictionary objectForKey:@"estimate"];
         _lowEstimate = -1;
         _highEstimate = -1;
+        _surgeMultiplier = [[dictionary objectForKey:@"surge_multiplier"] floatValue];
         NSString *lowE = [dictionary objectForKey:@"low_estimate"];
         NSString *highE = [dictionary objectForKey:@"high_estimate"];
         if ( ![lowE isKindOfClass:[NSNull class]] )
-            _lowEstimate = [lowE intValue];
+            _lowEstimate = ([lowE intValue])/_surgeMultiplier;
         if ( ![highE isKindOfClass:[NSNull class]] )
-            _highEstimate = [highE intValue];
-        _surgeMultiplier = [[dictionary objectForKey:@"surge_multiplier"] floatValue];
+            _highEstimate = ([highE intValue])/_surgeMultiplier;
+
         self.avgEstimateWithoutSurge = ((_highEstimate + _lowEstimate)/2)/_surgeMultiplier;
     }
     

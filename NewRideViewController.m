@@ -11,6 +11,7 @@
 
 #import "NewRideViewController.h"
 #import "Ride.h"
+#import "User.h"
 
 
 @interface NewRideViewController ()
@@ -45,7 +46,7 @@
 
 - (IBAction)onRequestRideButtonPressed:(id)sender {
 
-    PFUser *user = [PFUser currentUser];
+    User *user = [User currentUser];
     Ride *ride = [Ride object];
 
     NSNumber *fareEstimateMax = [NSNumber numberWithInt:self.price.highEstimate];

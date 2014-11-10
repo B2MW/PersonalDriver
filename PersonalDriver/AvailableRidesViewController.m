@@ -11,6 +11,8 @@
 #import "ScheduledRideTableViewCell.h"
 #import "AvailableRidesTableView.h"
 #import "ScheduledTableView.h"
+#import "User.h"
+
 
 @interface AvailableRidesViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet AvailableRidesTableView *availableTableView;
@@ -76,7 +78,13 @@
         cell.rideOrigin.text = availableRide.pickUpLocation;
         cell.rideDestination.text = availableRide.destination;
         cell.fareEstimate.text = [rideManager formatRideFareEstimate:availableRide.fareEstimateMin fareEstimateMax:availableRide.fareEstimateMax];
-        cell.userImage.image = [UIImage imageNamed:@"profilePicPlaceholder"];
+        User *passenger = availableRide.passenger;
+        PFFile *pictureFile = [passenger objectForKey:@"picture"];
+        if (pictureFile != nil)
+        {
+            cell.userImage.file = pictureFile;
+        }
+        cell.userImage.file = (PFFile *)[passenger objectForKey:@"picture"];
         return cell;
 
     }else

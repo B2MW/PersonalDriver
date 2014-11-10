@@ -29,9 +29,9 @@
         if (!profile)
         {
             [self performSegueWithIdentifier:@"showLogin" sender:self];
-        }else if (![PFUser currentUser])//Perform login if no current user
+        }else if (![User currentUser])//Perform login if no current user
         {
-            [self loginPFUserWithUberProfile];
+            [self loginUserWithUberProfile];
 
         }else if (((NSNumber*)[currentUser objectForKey:@"isDriver"]).boolValue == YES)//Check if they are a Driver
         {
@@ -49,13 +49,13 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    PFUser *currentUser = [PFUser currentUser];
+    User *currentUser = [User currentUser];
     self.token = [Token getToken];
     if (!self.token) {
         [self performSegueWithIdentifier:@"showLogin" sender:self];
-    }else if (![PFUser currentUser])//Perform login if no current user
+    }else if (![User currentUser])//Perform login if no current user
     {
-        [self loginPFUserWithUberProfile];
+        [self loginUserWithUberProfile];
 
     }else if (((NSNumber*)[currentUser objectForKey:@"isDriver"]).boolValue == YES)//Check if they are a Driver
     {
@@ -71,7 +71,7 @@
 
 }
 - (IBAction)onPassengerPressed:(UIButton *)sender {
-    PFUser *user = [PFUser currentUser];
+    User *user = [User currentUser];
     [user setObject:@NO forKey:@"isDriver"];
     [user saveInBackground];
     [self performSegueWithIdentifier:@"showPassenger" sender:self];
@@ -80,7 +80,7 @@
 }
 
 - (IBAction)onDriverPressed:(UIButton *)sender {
-    PFUser *user = [PFUser currentUser];
+    User *user = [User currentUser];
     [user setObject:@YES forKey:@"isDriver"];
     [user saveInBackground];
     [self performSegueWithIdentifier:@"showDriver" sender:self];
@@ -94,10 +94,10 @@
 
 #pragma mark - Helper Methods
 
--(void)loginPFUserWithUberProfile {
+-(void)loginUserWithUberProfile {
 
     [UberAPI getUserProfileWithToken:self.token completionHandler:^(UberProfile *profile) {
-        [PFUser logInWithUsername:profile.email password:profile.promo_code];
+        [User logInWithUsername:profile.email password:profile.promo_code];
         NSLog(@"You are logged in");
     }];
 

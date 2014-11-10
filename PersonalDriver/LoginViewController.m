@@ -43,9 +43,9 @@
             //Get the Profile info from UberAPI and save to KeyChain
             [UberAPI getUserProfileWithToken:self.token completionHandler:^(UberProfile *profile) {
                 [SSKeychain setPassword:self.token forService:@"personaldriver" account:profile.email];
-                if ([User currentUser] == nil) //if there is not a PFUser create one
+                if ([User currentUser] == nil) //if there is not a User create one
                 {
-                    [self signUpPFUserWithUberProfile];
+                    [self signUpUserWithUberProfile];
 
                 }else {
                     [self dismissViewControllerAnimated:YES completion:nil];
@@ -92,7 +92,7 @@
 - (IBAction)goToUberAPIDemo:(id)sender {
 }
 
--(void)signUpPFUserWithUberProfile
+-(void)signUpUserWithUberProfile
 {
     [UberAPI getUserProfileWithToken:self.token completionHandler:^(UberProfile *profile) {
 

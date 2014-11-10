@@ -81,7 +81,7 @@
 - (IBAction)onScheduleRideButtonPressed:(id)sender
 {
     Ride *ride = self.ride;
-//    ride.driver = [PFUser currentUser];
+//    ride.driver = [User currentUser];
     ride.driverConfirmed = YES;
     [ride saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
 //        [self refreshDisplay];
