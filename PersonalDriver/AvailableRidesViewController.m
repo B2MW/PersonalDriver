@@ -12,6 +12,7 @@
 #import "AvailableRidesTableView.h"
 #import "ScheduledTableView.h"
 #import "User.h"
+#import <Parse/Parse.h>
 
 
 @interface AvailableRidesViewController () <UITableViewDelegate, UITableViewDataSource>
@@ -79,12 +80,16 @@
         cell.rideDestination.text = availableRide.destination;
         cell.fareEstimate.text = [rideManager formatRideFareEstimate:availableRide.fareEstimateMin fareEstimateMax:availableRide.fareEstimateMax];
         User *passenger = availableRide.passenger;
+        cell.userImage.image = [UIImage imageNamed:@"profilePicPlaceholder"];
         PFFile *pictureFile = [passenger objectForKey:@"picture"];
-        if (pictureFile != nil)
-        {
-            cell.userImage.file = pictureFile;
-        }
-        cell.userImage.file = (PFFile *)[passenger objectForKey:@"picture"];
+        cell.userImage.file = pictureFile;
+//        if (pictureFile != nil)
+//        {
+//            cell.userImage.file = pictureFile;
+//        }
+
+        [cell.userImage loadInBackground];
+
         return cell;
 
     }else

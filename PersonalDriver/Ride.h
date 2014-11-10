@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Parse/Parse.h>
 #import "User.h"
 
 @interface Ride : PFObject <PFSubclassing>
