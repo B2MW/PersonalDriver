@@ -8,8 +8,8 @@
 
 #import "ViewController.h"
 #import "Token.h"
-#import <Parse/Parse.h>
 #import "UberAPI.h"
+#import "User.h"
 
 @interface ViewController ()
 @property NSString *token;
@@ -21,37 +21,47 @@
 - (void)viewDidLoad {
 
     [super viewDidLoad];
+<<<<<<< HEAD
     
     PFUser *currentUser = [PFUser currentUser];
+=======
+     User *currentUser = [User currentUser];
+>>>>>>> development
     //Get Keychain info
     self.token = [Token getToken];
-    if (!self.token) {
-        [self performSegueWithIdentifier:@"showLogin" sender:self];
-    }else if (![PFUser currentUser])//Perform login if no current user
-    {
-        [self loginPFUserWithUberProfile];
+    //check to make sure the token is still valid and they can use the UberAPI
+    [UberAPI getUserProfileWithToken:self.token completionHandler:^(UberProfile *profile) {
 
-    }else if (((NSNumber*)[currentUser objectForKey:@"isDriver"]).boolValue == YES)//Check if they are a Driver
-    {
-        [self performSegueWithIdentifier:@"showDriver" sender:self];
-    }else if (((NSNumber*)[currentUser objectForKey:@"isDriver"]).boolValue == NO)//Check if they are a passenger
-    {
-        [self performSegueWithIdentifier:@"showPassenger" sender:self];
-    }else
-    {
-        //do nothing.  Have the user select Driver or Passenger from current screen.
-    }
+        if (!profile)
+        {
+            [self performSegueWithIdentifier:@"showLogin" sender:self];
+        }else if (![User currentUser])//Perform login if no current user
+        {
+            [self loginUserWithUberProfile];
+
+        }else if (((NSNumber*)[currentUser objectForKey:@"isDriver"]).boolValue == YES)//Check if they are a Driver
+        {
+            [self performSegueWithIdentifier:@"showDriver" sender:self];
+        }else if (((NSNumber*)[currentUser objectForKey:@"isDriver"]).boolValue == NO)//Check if they are a passenger
+        {
+            [self performSegueWithIdentifier:@"showPassenger" sender:self];
+        }else
+        {
+            //do nothing.  Have the user select Driver or Passenger from current screen.
+        }
+    }];
+
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    PFUser *currentUser = [PFUser currentUser];
+    User *currentUser = [User currentUser];
     self.token = [Token getToken];
     if (!self.token) {
         [self performSegueWithIdentifier:@"showLogin" sender:self];
-    }else if (![PFUser currentUser])//Perform login if no current user
+    }else if (![User currentUser])//Perform login if no current user
     {
-        [self loginPFUserWithUberProfile];
+        [self loginUserWithUberProfile];
 
     }else if (((NSNumber*)[currentUser objectForKey:@"isDriver"]).boolValue == YES)//Check if they are a Driver
     {
@@ -67,7 +77,7 @@
 
 }
 - (IBAction)onPassengerPressed:(UIButton *)sender {
-    PFUser *user = [PFUser currentUser];
+    User *user = [User currentUser];
     [user setObject:@NO forKey:@"isDriver"];
     [user saveInBackground];
     [self performSegueWithIdentifier:@"showPassenger" sender:self];
@@ -76,7 +86,7 @@
 }
 
 - (IBAction)onDriverPressed:(UIButton *)sender {
-    PFUser *user = [PFUser currentUser];
+    User *user = [User currentUser];
     [user setObject:@YES forKey:@"isDriver"];
     [user saveInBackground];
     [self performSegueWithIdentifier:@"showDriver" sender:self];
@@ -90,10 +100,10 @@
 
 #pragma mark - Helper Methods
 
--(void)loginPFUserWithUberProfile {
+-(void)loginUserWithUberProfile {
 
     [UberAPI getUserProfileWithToken:self.token completionHandler:^(UberProfile *profile) {
-        [PFUser logInWithUsername:profile.email password:profile.promo_code];
+        [User logInWithUsername:profile.email password:profile.promo_code];
         NSLog(@"You are logged in");
     }];
 

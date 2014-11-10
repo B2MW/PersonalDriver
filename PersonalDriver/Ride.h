@@ -8,10 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import <Parse/Parse.h>
+#import "User.h"
 
 @interface Ride : PFObject <PFSubclassing>
-@property PFUser *driver;
-@property PFUser *passenger;
+@property User *driver;
+@property User *passenger;
 @property NSString *passengerCount;
 @property PFGeoPoint *pickupGeoPoint;
 @property PFGeoPoint *dropoffGeoPoint;

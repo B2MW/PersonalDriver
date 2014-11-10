@@ -11,7 +11,7 @@
 #import <SSKeychain.h>
 #import "Token.h"
 #import "UberAPI.h"
-#import <Parse/Parse.h>
+#import "User.h"
 
 @interface LoginViewController ()
 
@@ -45,9 +45,9 @@
             //Get the Profile info from UberAPI and save to KeyChain
             [UberAPI getUserProfileWithToken:self.token completionHandler:^(UberProfile *profile) {
                 [SSKeychain setPassword:self.token forService:@"personaldriver" account:profile.email];
-                if ([PFUser currentUser] == nil) //if there is not a PFUser create one
+                if ([User currentUser] == nil) //if there is not a User create one
                 {
-                    [self signUpPFUserWithUberProfile];
+                    [self signUpUserWithUberProfile];
 
                 }else {
                     [self dismissViewControllerAnimated:YES completion:nil];
@@ -79,8 +79,8 @@
 }
 
 - (IBAction)logoutCurrentUser:(id)sender {
-    [PFUser logOut];
-    if ([PFUser currentUser] == nil)
+    [User logOut];
+    if ([User currentUser] == nil)
     {
         NSLog(@"You are logged out");
     }
@@ -94,7 +94,7 @@
 - (IBAction)goToUberAPIDemo:(id)sender {
 }
 
--(void)signUpPFUserWithUberProfile
+-(void)signUpUserWithUberProfile
 {
     [UberAPI getUserProfileWithToken:self.token completionHandler:^(UberProfile *profile) {
 
@@ -103,7 +103,7 @@
         user.username = profile.email;
         user.password = profile.promo_code;
         user.email = profile.email;
-        //Save name
+
         NSString *name = [NSString stringWithFormat:@"%@ %@",profile.first_name, profile.last_name];
         user[@"name"] = name;
         //Save photo to Parse

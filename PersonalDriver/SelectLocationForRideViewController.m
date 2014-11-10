@@ -85,23 +85,32 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.token = [Token getToken];
 
-    self.destinationGeopoint = [[PFGeoPoint alloc]init];
-    self.pickupGeopoint = [[PFGeoPoint alloc]init];
+    [UberAPI getUserProfileWithToken:self.token completionHandler:^(UberProfile *profile) {
+        if (profile.email) {
+            self.token = [Token getToken];
 
-    self.locationManager = [[CLLocationManager alloc]init];
-    [self.locationManager requestWhenInUseAuthorization];
-    self.locationManager.delegate = self;
-    [self.locationManager startUpdatingLocation];
-    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    self.locationManager.distanceFilter = kCLLocationAccuracyKilometer;
-    self.currentLocation = [[CLLocation alloc]init];
-    self.currentLocation = [self.locationManager location];
-    self.mapView.region = MKCoordinateRegionMakeWithDistance(self.currentLocation.coordinate, 10000, 10000);
-    self.locations = [[NSMutableArray alloc]init];
-    self.destinationLocation = [[CLLocation alloc] init];
-    self.pickupLocation = [[CLLocation alloc] init];
+            self.destinationGeopoint = [[PFGeoPoint alloc]init];
+            self.pickupGeopoint = [[PFGeoPoint alloc]init];
+
+            self.locationManager = [[CLLocationManager alloc]init];
+            self.locationManager.delegate = self;
+            [self.locationManager startUpdatingLocation];
+            self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+            self.locationManager.distanceFilter = kCLLocationAccuracyKilometer;
+            self.currentLocation = [[CLLocation alloc]init];
+            self.currentLocation = [self.locationManager location];
+            self.mapView.region = MKCoordinateRegionMakeWithDistance(self.currentLocation.coordinate, 10000, 10000);
+            self.locations = [[NSMutableArray alloc]init];
+            self.destinationLocation = [[CLLocation alloc] init];
+            self.pickupLocation = [[CLLocation alloc] init];
+        } else
+        {
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+
+    }];
+
 
 }
 
@@ -182,7 +191,7 @@
                     NSLog(@"ETA = %f", self.currentRoute.expectedTravelTime);
 
                     self.timeLabel.text = [NSString stringWithFormat:@"%0.f min",self.currentRoute.expectedTravelTime/60];
-                    self.dollarLabel.text = [NSString stringWithFormat:@"$%d",self.price.avgEstimate];
+                    self.dollarLabel.text = [NSString stringWithFormat:@"$%d",self.price.avgEstimateWithoutSurge];
 
 
                     
@@ -260,7 +269,7 @@
             [self.mapView showAnnotations:self.locations animated:YES];
             NSLog(@"ETA = %f", self.currentRoute.expectedTravelTime);
             self.timeLabel.text = [NSString stringWithFormat:@"%0.f min",self.currentRoute.expectedTravelTime/60];
-            self.dollarLabel.text = [NSString stringWithFormat:@"$%d",self.price.avgEstimate];
+            self.dollarLabel.text = [NSString stringWithFormat:@"$%d",self.price.avgEstimateWithoutSurge];
 
 
             self.dollarImage.hidden = NO;

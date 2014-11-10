@@ -7,14 +7,17 @@
 //
 
 #import "RideManager.h"
-#import <Parse/Parse.h>
+#import "User.h"
 
 @implementation RideManager
 
 -(void)getAvailableRides:(void(^)(NSArray *))completionHandler
 {
+
     PFQuery *queryAvailableRides = [Ride query];
+    queryAvailableRides.cachePolicy = kPFCachePolicyCacheThenNetwork;
     [queryAvailableRides whereKeyDoesNotExist:@"driver"];
+    [queryAvailableRides includeKey:@"passenger"];
     [queryAvailableRides findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         completionHandler(objects);
     }];
@@ -22,8 +25,12 @@
 
 -(void)getScheduledRides:(void(^)(NSArray *))complete
 {
+    User *currentUser = [User currentUser];
     PFQuery *queryScheduledRides= [Ride query];
-    [queryScheduledRides whereKey:@"driver" equalTo:[PFUser currentUser]];
+    queryScheduledRides.cachePolicy = kPFCachePolicyCacheThenNetwork;
+    [queryScheduledRides whereKey:@"driver" equalTo:currentUser];
+    [queryScheduledRides includeKey:@"passenger"];
+    [queryScheduledRides includeKey:@"driver"];
     [queryScheduledRides findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         complete(objects);
     }];
