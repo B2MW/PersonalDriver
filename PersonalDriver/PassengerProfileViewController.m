@@ -7,12 +7,12 @@
 //
 
 #import "PassengerProfileViewController.h"
+#import <Parse/Parse.h>
+#import "Ride.h"
 
-@interface PassengerProfileViewController ()
-@property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
-@property (weak, nonatomic) IBOutlet UILabel *profileNameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *profileEmailLabel;
-@property (weak, nonatomic) IBOutlet UILabel *profilePhoneLabel;
+@interface PassengerProfileViewController () <UITableViewDataSource, UITableViewDelegate>
+@property NSMutableArray *rides;
+
 
 
 
@@ -22,8 +22,47 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"Ride on Time";
-    // Do any additional setup after loading the view.
+    self.title = @"Current Rides";
+    self.rides = [[NSMutableArray alloc]init];
+
+
+    
+
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.rides.count;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RideCell" forIndexPath:indexPath];
+
+    return cell;
+}
+
+-(void)getAvailableRides:(void(^)(NSArray *))completionHandler
+{
+    PFQuery *queryAvailableRides = [Ride query];
+    [queryAvailableRides whereKeyDoesNotExist:@"driver"];
+    [queryAvailableRides whereKey:@"passenger"equalTo:[PFUser currentUser]];
+    [queryAvailableRides findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        completionHandler(objects);
+
+    }];
+}
+
+-(void)getScheduledRides:(void(^)(NSArray *))complete
+{
+    PFQuery *queryScheduledRides= [Ride query];
+    [queryScheduledRides whereKey:@"passenger" equalTo:[PFUser currentUser]];
+    [queryScheduledRides whereKey:@"driver" notEqualTo:nil];
+    [queryScheduledRides findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        complete(objects);
+    }];
+
 }
 
 

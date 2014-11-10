@@ -19,7 +19,9 @@
 @implementation ViewController
 
 - (void)viewDidLoad {
+
     [super viewDidLoad];
+    
     PFUser *currentUser = [PFUser currentUser];
     //Get Keychain info
     self.token = [Token getToken];

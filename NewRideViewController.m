@@ -7,8 +7,6 @@
 //
 
 
-
-
 #import "NewRideViewController.h"
 #import "Ride.h"
 
@@ -35,6 +33,8 @@
     self.pickupLabel.text = self.pickupAddress;
     self.destinationLabel.text = self.destinationAddress;
     NSLog(@"geo points = %@", self.pickupGeopoint);
+    self.title = @"Ride Info";
+
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event

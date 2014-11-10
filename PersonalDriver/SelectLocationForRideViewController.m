@@ -15,6 +15,7 @@
 #import "UberPrice.h"
 
 
+
 @interface SelectLocationForRideViewController () <MKMapViewDelegate, CLLocationManagerDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *pickupLocationTextField;
 @property (weak, nonatomic) IBOutlet UITextField *destinationTextField;
@@ -73,8 +74,9 @@
     self.dollarLabel.hidden = YES;
     self.timeImage.hidden = YES;
     self.timeLabel.hidden = YES;
-    self.title = @"Ride on Time";
-    
+    self.title = @"New Ride";
+
+
 
 
 
