@@ -872,6 +872,7 @@
                         <outlet property="pickupAddress" destination="ChH-9w-uV8" id="Fen-K8-C3l"/>
                         <outlet property="pickupAddressLabel" destination="jjE-Xi-hxZ" id="Mnv-8C-aq7"/>
                         <outlet property="rideDate" destination="GAr-ad-QmF" id="XKY-cw-Cc6"/>
+                        <outlet property="scheduleRideButton" destination="WBZ-NF-geY" id="RKf-Jp-IZP"/>
                         <outlet property="specialInstructions" destination="UkD-TA-AFT" id="sZe-tl-5S2"/>
                         <outlet property="specialInstructionsLabel" destination="nek-Oq-9SJ" id="tQe-Km-hb8"/>
                     </connections>

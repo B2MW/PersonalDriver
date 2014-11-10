@@ -30,12 +30,16 @@
 @end
 
 @implementation AvailableRidesViewController
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self refreshDisplay];
+}
+
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.scheduledTableView.hidden = YES;
-    [self refreshDisplay];
 }
 
 - (IBAction)segmentedAction:(UISegmentedControl *)segmentedControl {
@@ -130,11 +134,17 @@
     {
         AvailableRidesDetailViewController *viewController = [segue destinationViewController];
         viewController.ride = [self.availableRides objectAtIndex:[self.availableTableView indexPathForSelectedRow].row];
-    }else if ([[segue identifier] isEqualToString:@"showScheduled"])
+    }
+    else if ([[segue identifier] isEqualToString:@"showScheduled"])
     {
 
     }
 
 }
+
+//-(IBAction)unwindAvailableRideDetails:(UIStoryboardSegue)sender
+//{
+//    
+//}
 
 @end

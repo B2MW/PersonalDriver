@@ -8,12 +8,16 @@
 
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
+#import <CoreLocation/CoreLocation.h>
+#import <Parse/Parse.h>
 #import "Ride.h"
+#import "User.h"
 
 @interface RideManager : NSObject
 -(void)getAvailableRides:(void(^)(NSArray *))completionHandler;
 -(void)getScheduledRides:(void(^)(NSArray *))complete;
 -(NSString *)formatRideDate:(Ride *)ride;
 -(NSString *)formatRideFareEstimate:(NSNumber *)fareEstimateMin fareEstimateMax:(NSNumber *)fareEstimateMax;
+-(void)retrieveGeoPointAddress:(PFGeoPoint *)rideGeoPoint:(void(^)(NSString *))completionHandler;
 -(void)retrieveRideDistanceAndBearing:(Ride *)ride;
 @end

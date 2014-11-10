@@ -7,7 +7,7 @@
 //
 
 #import "RideManager.h"
-#import "User.h"
+
 
 @implementation RideManager
 
@@ -49,6 +49,23 @@
 {
     NSString *formattedRideEstimate = [NSString stringWithFormat:@"$%@-%@",fareEstimateMin.stringValue, fareEstimateMax.stringValue];
     return formattedRideEstimate;
+}
+
+-(void)retrieveGeoPointAddress:(PFGeoPoint *)rideGeoPoint:(void(^)(NSString *))completionHandler
+{
+    CLGeocoder *geocode = [[CLGeocoder alloc] init];
+    CLLocation *location = [[CLLocation alloc] initWithLatitude:rideGeoPoint.latitude longitude:rideGeoPoint.longitude];
+
+    [geocode reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error)
+     {
+         CLPlacemark *placemark = placemarks.firstObject;
+         NSString *address = [NSString stringWithFormat:@"%@ %@ \n%@",
+                              placemark.subThoroughfare,
+                              placemark.thoroughfare,
+                              placemark.locality];
+
+         completionHandler(address);
+     }];
 }
 
 -(void)retrieveRideDistanceAndBearing:(Ride *)ride

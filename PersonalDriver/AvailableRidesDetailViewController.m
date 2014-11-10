@@ -20,6 +20,7 @@
 @property (strong, nonatomic) IBOutlet UITextView *dropoffAddress;
 @property (strong, nonatomic) IBOutlet UILabel *specialInstructionsLabel;
 @property (strong, nonatomic) IBOutlet UITextView *specialInstructions;
+@property (strong, nonatomic) IBOutlet UIButton *scheduleRideButton;
 @end
 
 @implementation AvailableRidesDetailViewController
@@ -28,8 +29,6 @@
 {
     [self retrieveAvailableRidesData];
     [self hideRideDetails];
-
-    self.specialInstructions.text = self.ride.specialInstructions;
 }
 
 - (void)viewDidLoad {
@@ -64,10 +63,27 @@
                 }
             }];
         }
+
+        if ([self.ride.specialInstructions isEqualToString:@""])
+        {
+            self.specialInstructions.text = @"No special instructions for this ride";
+            self.specialInstructions.textColor = [UIColor grayColor];
+        }
+        else
+        {
+            self.specialInstructions.text = self.ride.specialInstructions;
+        }
+
         self.passengerName.text = objects.firstObject[@"name"];
         self.estimatedFare.text = [rideManager formatRideFareEstimate:self.ride.fareEstimateMin fareEstimateMax:self.ride.fareEstimateMax];
         self.rideDate.text = [rideManager formatRideDate:self.ride];
         self.numberOfPassengers.text = self.ride.passengerCount;
+        [rideManager retrieveGeoPointAddress:self.ride.pickupGeoPoint :^(NSString *address) {
+            self.pickupAddress.text = address;
+        }];
+        [rideManager retrieveGeoPointAddress:self.ride.dropoffGeoPoint :^(NSString *address) {
+            self.dropoffAddress.text = address;
+        }];
     }];
 }
 
@@ -96,6 +112,11 @@
             [rideAvailabilityAlert setTitle:@"Ride Scheduled!"];
             [rideAvailabilityAlert setMessage:@"Thank you. You have been designated as the driver for this ride."];
             [rideAvailabilityAlert show];
+
+            //Update button appearance and behavior
+            [self.scheduleRideButton setTitle:@"Ride Confirmed" forState:UIControlStateNormal];
+            self.scheduleRideButton.backgroundColor = [UIColor colorWithRed:(99.0/255.0) green:(193.0/255.0) blue:(43.0/255.0) alpha:0.65];
+            self.scheduleRideButton.enabled = NO;
         }
         else
         {
@@ -126,18 +147,6 @@
     self.dropoffAddress.hidden = YES;
     self.specialInstructionsLabel.hidden = YES;
     self.specialInstructions.hidden = YES;
-}
-
--(void)populateRideLocationDetails
-{
-    if (self.specialInstructions.text == nil)
-    {
-        self.specialInstructions.text = @"No special instructions for this ride";
-    }
-    else
-    {
-        self.specialInstructions.text = self.ride.specialInstructions;
-    }
 }
 
 - (IBAction)onScheduleRideButtonPressed:(id)sender
