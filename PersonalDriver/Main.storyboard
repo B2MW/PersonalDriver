@@ -1067,7 +1067,7 @@
                                 </variation>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20 min" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eav-dy-3rE">
-                                <rect key="frame" x="159" y="503" width="40" height="21"/>
+                                <rect key="frame" x="159" y="501" width="40" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="0D0-Gi-kpR"/>
                                     <constraint firstAttribute="width" constant="47" id="2iT-Vk-yrp"/>
@@ -1133,7 +1133,7 @@
                             <constraint firstItem="jhI-p4-m4d" firstAttribute="leading" secondItem="4kw-3i-5HX" secondAttribute="leading" constant="62" id="naS-6M-KC3"/>
                             <constraint firstItem="gQg-hS-yeQ" firstAttribute="leading" secondItem="4kw-3i-5HX" secondAttribute="leading" constant="143" id="nv7-QL-zGg"/>
                             <constraint firstAttribute="centerX" secondItem="o1Q-hc-UlX" secondAttribute="centerX" id="rgn-uf-bJs"/>
-                            <constraint firstItem="Eav-dy-3rE" firstAttribute="top" secondItem="1qW-fI-CFl" secondAttribute="bottom" constant="373" id="sQR-jr-jwk"/>
+                            <constraint firstItem="Eav-dy-3rE" firstAttribute="top" secondItem="1qW-fI-CFl" secondAttribute="bottom" constant="371" id="sQR-jr-jwk"/>
                             <constraint firstItem="dec-Ga-7Jr" firstAttribute="top" secondItem="1qW-fI-CFl" secondAttribute="bottom" constant="402" id="svg-Eo-twy"/>
                             <constraint firstItem="Eav-dy-3rE" firstAttribute="top" secondItem="DAM-dG-eLG" secondAttribute="bottom" constant="468" id="tjZ-aI-g99"/>
                             <constraint firstItem="o1Q-hc-UlX" firstAttribute="top" secondItem="1qW-fI-CFl" secondAttribute="bottom" constant="15" id="vQy-2I-g1j"/>
@@ -1151,14 +1151,14 @@
                                 <exclude reference="cYo-qI-6tc"/>
                                 <exclude reference="nv7-QL-zGg"/>
                                 <exclude reference="yT8-5q-Qvs"/>
-                                <exclude reference="2Uu-um-BLl"/>
-                                <exclude reference="OMK-Z0-DmK"/>
-                                <exclude reference="kqX-a2-LMT"/>
-                                <exclude reference="svg-Eo-twy"/>
                                 <exclude reference="G3d-Yb-qFY"/>
                                 <exclude reference="fDK-zc-bWl"/>
                                 <exclude reference="luV-eX-uDi"/>
                                 <exclude reference="naS-6M-KC3"/>
+                                <exclude reference="2Uu-um-BLl"/>
+                                <exclude reference="OMK-Z0-DmK"/>
+                                <exclude reference="kqX-a2-LMT"/>
+                                <exclude reference="svg-Eo-twy"/>
                                 <exclude reference="FKS-cf-kNT"/>
                                 <exclude reference="l38-e3-NhO"/>
                                 <exclude reference="tjZ-aI-g99"/>
@@ -1215,7 +1215,7 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rFA-XL-AvH">
                                 <rect key="frame" x="160" y="535" width="281" height="30"/>
-                                <color key="backgroundColor" red="0.19582507290000001" green="0.87744417760000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="281" id="Pny-aA-cj3"/>
                                     <constraint firstAttribute="height" constant="30" id="qIX-gk-bN1"/>
