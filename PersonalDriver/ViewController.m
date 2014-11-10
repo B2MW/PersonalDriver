@@ -8,8 +8,8 @@
 
 #import "ViewController.h"
 #import "Token.h"
-#import <Parse/Parse.h>
 #import "UberAPI.h"
+#import "User.h"
 
 @interface ViewController ()
 @property NSString *token;
@@ -20,7 +20,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    PFUser *currentUser = [PFUser currentUser];
+     User *currentUser = [User currentUser];
     //Get Keychain info
     self.token = [Token getToken];
     //check to make sure the token is still valid and they can use the UberAPI

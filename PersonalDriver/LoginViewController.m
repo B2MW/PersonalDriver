@@ -11,7 +11,7 @@
 #import <SSKeychain.h>
 #import "Token.h"
 #import "UberAPI.h"
-#import <Parse/Parse.h>
+#import "User.h"
 
 @interface LoginViewController ()
 
@@ -43,7 +43,7 @@
             //Get the Profile info from UberAPI and save to KeyChain
             [UberAPI getUserProfileWithToken:self.token completionHandler:^(UberProfile *profile) {
                 [SSKeychain setPassword:self.token forService:@"personaldriver" account:profile.email];
-                if ([PFUser currentUser] == nil) //if there is not a PFUser create one
+                if ([User currentUser] == nil) //if there is not a PFUser create one
                 {
                     [self signUpPFUserWithUberProfile];
 
@@ -77,8 +77,8 @@
 }
 
 - (IBAction)logoutCurrentUser:(id)sender {
-    [PFUser logOut];
-    if ([PFUser currentUser] == nil)
+    [User logOut];
+    if ([User currentUser] == nil)
     {
         NSLog(@"You are logged out");
     }
@@ -96,21 +96,20 @@
 {
     [UberAPI getUserProfileWithToken:self.token completionHandler:^(UberProfile *profile) {
 
-        PFUser *user = [PFUser user];
-
-        user.username = profile.email;
-        user.password = profile.promo_code;
-        user.email = profile.email;
+        User *newUser = [User new];
+        newUser.username = profile.email;
+        newUser.password = profile.promo_code;
+        newUser.email = profile.email;
         //Save name
         NSString *name = [NSString stringWithFormat:@"%@ %@",profile.first_name, profile.last_name];
-        user[@"name"] = name;
+        newUser.name = name;
         //Save photo to Parse
         NSURL *url = [NSURL URLWithString:profile.picture];
         NSData *pictureData = [NSData dataWithContentsOfURL:url];
         PFFile *imageFile = [PFFile fileWithName:@"ProfilePic.jpg" data:pictureData];
-        [user setObject:imageFile forKey:@"picture"];
+        newUser.picture = imageFile;
         //Save to Parse
-        [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (!error) {
                 NSLog(@"Successfully created User");
                 [self dismissViewControllerAnimated:YES completion:nil];
