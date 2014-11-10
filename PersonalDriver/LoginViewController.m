@@ -96,20 +96,21 @@
 {
     [UberAPI getUserProfileWithToken:self.token completionHandler:^(UberProfile *profile) {
 
-        User *newUser = [User new];
-        newUser.username = profile.email;
-        newUser.password = profile.promo_code;
-        newUser.email = profile.email;
-        //Save name
+        PFUser *user = [PFUser user];
+
+        user.username = profile.email;
+        user.password = profile.promo_code;
+        user.email = profile.email;
+
         NSString *name = [NSString stringWithFormat:@"%@ %@",profile.first_name, profile.last_name];
-        newUser.name = name;
+        user[@"name"] = name;
         //Save photo to Parse
         NSURL *url = [NSURL URLWithString:profile.picture];
         NSData *pictureData = [NSData dataWithContentsOfURL:url];
         PFFile *imageFile = [PFFile fileWithName:@"ProfilePic.jpg" data:pictureData];
-        newUser.picture = imageFile;
+        [user setObject:imageFile forKey:@"picture"];
         //Save to Parse
-        [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (!error) {
                 NSLog(@"Successfully created User");
                 [self dismissViewControllerAnimated:YES completion:nil];

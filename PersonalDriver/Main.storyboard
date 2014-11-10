@@ -870,7 +870,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G4Q-kC-YQ8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2637" y="1782"/>
+            <point key="canvasLocation" x="2631" y="1818"/>
         </scene>
         <!--Passenger Story Board-->
         <scene sceneID="Sfo-Mz-ufs">
