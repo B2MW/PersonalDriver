@@ -83,23 +83,32 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.token = [Token getToken];
 
-    self.destinationGeopoint = [[PFGeoPoint alloc]init];
-    self.pickupGeopoint = [[PFGeoPoint alloc]init];
+    [UberAPI getUserProfileWithToken:self.token completionHandler:^(UberProfile *profile) {
+        if (profile.email) {
+            self.token = [Token getToken];
 
-    self.locationManager = [[CLLocationManager alloc]init];
-    [self.locationManager requestWhenInUseAuthorization];
-    self.locationManager.delegate = self;
-    [self.locationManager startUpdatingLocation];
-    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    self.locationManager.distanceFilter = kCLLocationAccuracyKilometer;
-    self.currentLocation = [[CLLocation alloc]init];
-    self.currentLocation = [self.locationManager location];
-    self.mapView.region = MKCoordinateRegionMakeWithDistance(self.currentLocation.coordinate, 10000, 10000);
-    self.locations = [[NSMutableArray alloc]init];
-    self.destinationLocation = [[CLLocation alloc] init];
-    self.pickupLocation = [[CLLocation alloc] init];
+            self.destinationGeopoint = [[PFGeoPoint alloc]init];
+            self.pickupGeopoint = [[PFGeoPoint alloc]init];
+
+            self.locationManager = [[CLLocationManager alloc]init];
+            self.locationManager.delegate = self;
+            [self.locationManager startUpdatingLocation];
+            self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+            self.locationManager.distanceFilter = kCLLocationAccuracyKilometer;
+            self.currentLocation = [[CLLocation alloc]init];
+            self.currentLocation = [self.locationManager location];
+            self.mapView.region = MKCoordinateRegionMakeWithDistance(self.currentLocation.coordinate, 10000, 10000);
+            self.locations = [[NSMutableArray alloc]init];
+            self.destinationLocation = [[CLLocation alloc] init];
+            self.pickupLocation = [[CLLocation alloc] init];
+        } else
+        {
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+
+    }];
+
 
 }
 

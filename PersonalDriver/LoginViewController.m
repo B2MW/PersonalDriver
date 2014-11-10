@@ -38,9 +38,7 @@
     if(!self.token)//if there is no token in keychain, get the token and save it
     {
         self.token = [[UberKit sharedInstance] getStoredAuthToken];
-        if (Token validToken:self.token completionHandler:^(BOOL)boolValue {
-            boolValue;
-        }) // Check to make sure a token was retrieved from Oauth
+        if (self.token) // Check to make sure a token was retrieved from Oauth
         {
             //Get the Profile info from UberAPI and save to KeyChain
             [UberAPI getUserProfileWithToken:self.token completionHandler:^(UberProfile *profile) {

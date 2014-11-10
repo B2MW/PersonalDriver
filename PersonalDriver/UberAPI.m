@@ -16,7 +16,7 @@
 {
     //GET /v1.1/history
 
-    NSString *urlString = [NSString stringWithFormat:@"https://api.uber.com/v1.1/history?access_token=%@", token];
+    NSString *urlString = [NSString stringWithFormat:@"https://api.uber.com/v1.1/history?access_token=%@&scope=history_lite", token];
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
