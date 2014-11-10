@@ -14,6 +14,7 @@
 -(void)getAvailableRides:(void(^)(NSArray *))completionHandler
 {
     PFQuery *queryAvailableRides = [Ride query];
+    queryAvailableRides.cachePolicy = kPFCachePolicyCacheThenNetwork;
     [queryAvailableRides whereKeyDoesNotExist:@"driver"];
     [queryAvailableRides findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         completionHandler(objects);
@@ -23,6 +24,7 @@
 -(void)getScheduledRides:(void(^)(NSArray *))complete
 {
     PFQuery *queryScheduledRides= [Ride query];
+    queryScheduledRides.cachePolicy = kPFCachePolicyCacheThenNetwork;
     [queryScheduledRides whereKey:@"driver" equalTo:[PFUser currentUser]];
     [queryScheduledRides findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         complete(objects);
