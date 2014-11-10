@@ -189,7 +189,7 @@
                     NSLog(@"ETA = %f", self.currentRoute.expectedTravelTime);
 
                     self.timeLabel.text = [NSString stringWithFormat:@"%0.f min",self.currentRoute.expectedTravelTime/60];
-                    self.dollarLabel.text = [NSString stringWithFormat:@"$%d",self.price.avgEstimate];
+                    self.dollarLabel.text = [NSString stringWithFormat:@"$%d",self.price.avgEstimateWithoutSurge];
 
 
                     
@@ -267,7 +267,7 @@
             [self.mapView showAnnotations:self.locations animated:YES];
             NSLog(@"ETA = %f", self.currentRoute.expectedTravelTime);
             self.timeLabel.text = [NSString stringWithFormat:@"%0.f min",self.currentRoute.expectedTravelTime/60];
-            self.dollarLabel.text = [NSString stringWithFormat:@"$%d",self.price.avgEstimate];
+            self.dollarLabel.text = [NSString stringWithFormat:@"$%d",self.price.avgEstimateWithoutSurge];
 
 
             self.dollarImage.hidden = NO;

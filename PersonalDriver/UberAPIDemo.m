@@ -59,7 +59,7 @@
     CLLocation *destinationLocation = [[CLLocation alloc] initWithLatitude:37.9 longitude:-122.43];
 
     [UberAPI getPriceEstimateWithToken:self.token fromPickup:pickupLocation toDestination:destinationLocation completionHandler:^(UberPrice *price) {
-        NSLog(@"Estimate for Average Fare: $%d",price.avgEstimate);
+        NSLog(@"Estimate for Average Fare: $%d",price.avgEstimateWithoutSurge);
     }];
 
 }

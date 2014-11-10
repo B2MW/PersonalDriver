@@ -46,7 +46,7 @@
         if ( ![highE isKindOfClass:[NSNull class]] )
             _highEstimate = [highE intValue];
         _surgeMultiplier = [[dictionary objectForKey:@"surge_multiplier"] floatValue];
-        self.avgEstimate = (_highEstimate + _lowEstimate)/2;
+        self.avgEstimateWithoutSurge = ((_highEstimate + _lowEstimate)/2)/_surgeMultiplier;
     }
     
     return self;
