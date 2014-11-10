@@ -581,6 +581,7 @@
                                             <outlet property="rideDestination" destination="JXx-MM-TK6" id="wCa-x8-HoK"/>
                                             <outlet property="rideOrigin" destination="qPq-d6-pvq" id="rke-nP-bDX"/>
                                             <outlet property="userImage" destination="ZiY-d0-VYz" id="a51-ZC-zBq"/>
+                                            <segue destination="uzA-uz-0YH" kind="show" identifier="showAvailable" id="mc3-BT-prK"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -654,13 +655,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WBZ-NF-geY">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WBZ-NF-geY">
                                 <rect key="frame" x="180" y="550" width="240" height="30"/>
                                 <color key="backgroundColor" red="0.19582507290000001" green="0.87744417760000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="O4Y-ua-bLw"/>
+                                    <constraint firstAttribute="height" constant="30" id="bTn-nr-vMy"/>
+                                </constraints>
                                 <state key="normal" title="Schedule Ride">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="onScheduleRideButtonPressed:" destination="uzA-uz-0YH" eventType="touchUpInside" id="1bz-zw-ThI"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="271-ag-ste" userLabel="Passenger Name">
                                 <rect key="frame" x="166" y="203" width="269" height="29"/>
@@ -862,7 +870,7 @@
                         <outlet property="passengerName" destination="271-ag-ste" id="hvZ-aE-flN"/>
                         <outlet property="passengerPicture" destination="lZV-VJ-2Q8" id="vFQ-un-tha"/>
                         <outlet property="pickupAddress" destination="ChH-9w-uV8" id="Fen-K8-C3l"/>
-                        <outlet property="pickupAddressLabel" destination="XES-NX-cJd" id="B2n-6m-Uk8"/>
+                        <outlet property="pickupAddressLabel" destination="jjE-Xi-hxZ" id="Mnv-8C-aq7"/>
                         <outlet property="rideDate" destination="GAr-ad-QmF" id="XKY-cw-Cc6"/>
                         <outlet property="specialInstructions" destination="UkD-TA-AFT" id="sZe-tl-5S2"/>
                         <outlet property="specialInstructionsLabel" destination="nek-Oq-9SJ" id="tQe-Km-hb8"/>
@@ -1372,4 +1380,7 @@
         <image name="Oval 9" width="100" height="100"/>
         <image name="profilePicPlaceholder" width="128" height="128"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="mc3-BT-prK"/>
+    </inferredMetricsTieBreakers>
 </document>

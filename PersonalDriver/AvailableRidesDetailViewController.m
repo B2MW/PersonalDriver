@@ -27,6 +27,9 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [self retrieveAvailableRidesData];
+    [self hideRideDetails];
+
+    self.specialInstructions.text = self.ride.specialInstructions;
 }
 
 - (void)viewDidLoad {
@@ -68,24 +71,78 @@
     }];
 }
 
-//- (void)unhideRideDetails
-//{
-//    self.pickupAddressLabel.hidden = NO;
-//    self.pickupAddress.hidden = NO;
-//    self.dropoffAddressLabel = NO;
-//    self.dropoffAddress = NO;
-//    self.specialInstructionsLabel = NO;
-//    self.specialInstructions = NO;
-//}
+- (void)confirmRideAvailability
+{
+    UIAlertView *rideAvailabilityAlert = [UIAlertView new];
+    PFQuery *queryRideAvailability = [PFQuery queryWithClassName:@"Ride"];
+    [queryRideAvailability whereKey:@"objectId" equalTo:self.ride.objectId];
+    [queryRideAvailability findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+    {
+        if (self.ride.driver == nil)
+        {
+            //Update Ride Record
+            Ride *ride = self.ride;
+            ride.driver = [User currentUser];
+            [ride saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+             {
+
+             }];
+
+            //Show Ride Details
+            [self unhideRideDetails];
+
+            //Display Confirmation Alert View
+            [rideAvailabilityAlert addButtonWithTitle:@"Ok"];
+            [rideAvailabilityAlert setTitle:@"Ride Scheduled!"];
+            [rideAvailabilityAlert setMessage:@"Thank you. You have been designated as the driver for this ride."];
+            [rideAvailabilityAlert show];
+        }
+        else
+        {
+            //Display "Too Slow" Alert View
+            [rideAvailabilityAlert addButtonWithTitle:@"Ok"];
+            [rideAvailabilityAlert setTitle:@"Too Slow"];
+            [rideAvailabilityAlert setMessage:@"We're sorry. Another driver has scheduled this ride."];
+            [rideAvailabilityAlert show];
+        }
+    }];
+}
+
+-(void)unhideRideDetails
+{
+    self.pickupAddressLabel.hidden = NO;
+    self.pickupAddress.hidden = NO;
+    self.dropoffAddressLabel.hidden = NO;
+    self.dropoffAddress.hidden = NO;
+    self.specialInstructionsLabel.hidden = NO;
+    self.specialInstructions.hidden = NO;
+}
+
+-(void)hideRideDetails
+{
+    self.pickupAddressLabel.hidden = YES;
+    self.pickupAddress.hidden = YES;
+    self.dropoffAddressLabel.hidden = YES;
+    self.dropoffAddress.hidden = YES;
+    self.specialInstructionsLabel.hidden = YES;
+    self.specialInstructions.hidden = YES;
+}
+
+-(void)populateRideLocationDetails
+{
+    if (self.specialInstructions.text == nil)
+    {
+        self.specialInstructions.text = @"No special instructions for this ride";
+    }
+    else
+    {
+        self.specialInstructions.text = self.ride.specialInstructions;
+    }
+}
 
 - (IBAction)onScheduleRideButtonPressed:(id)sender
 {
-    Ride *ride = self.ride;
-//    ride.driver = [User currentUser];
-    ride.driverConfirmed = YES;
-    [ride saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-//        [self refreshDisplay];
-    }];
+    [self confirmRideAvailability];
 }
 
 @end
