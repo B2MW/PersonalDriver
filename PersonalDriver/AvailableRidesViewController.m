@@ -79,15 +79,11 @@
         cell.rideOrigin.text = availableRide.pickUpLocation;
         cell.rideDestination.text = availableRide.destination;
         cell.fareEstimate.text = [rideManager formatRideFareEstimate:availableRide.fareEstimateMin fareEstimateMax:availableRide.fareEstimateMax];
+        //load image file with placeholder first
         User *passenger = availableRide.passenger;
         cell.userImage.image = [UIImage imageNamed:@"profilePicPlaceholder"];
         PFFile *pictureFile = [passenger objectForKey:@"picture"];
         cell.userImage.file = pictureFile;
-//        if (pictureFile != nil)
-//        {
-//            cell.userImage.file = pictureFile;
-//        }
-
         [cell.userImage loadInBackground];
 
         return cell;
@@ -100,7 +96,12 @@
         cell.rideOrigin.text = scheduledRide.pickUpLocation;
         cell.rideDestination.text = scheduledRide.destination;
         cell.fareEstimate.text = [rideManager formatRideFareEstimate:scheduledRide.fareEstimateMin fareEstimateMax:scheduledRide.fareEstimateMax];
+        //load image file with placeholder first
+        User *passenger = scheduledRide.passenger;
         cell.userImage.image = [UIImage imageNamed:@"profilePicPlaceholder"];
+        PFFile *pictureFile = [passenger objectForKey:@"picture"];
+        cell.userImage.file = pictureFile;
+        [cell.userImage loadInBackground];
         return cell;
     }
 
