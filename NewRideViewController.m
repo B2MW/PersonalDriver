@@ -10,15 +10,18 @@
 #import "NewRideViewController.h"
 #import "Ride.h"
 #import "User.h"
+#import <MZDayPicker.h>
 
 
 @interface NewRideViewController ()
-@property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
-@property (weak, nonatomic) IBOutlet UITextView *specialComments;
+
 @property (weak, nonatomic) IBOutlet UISlider *passengerSlider;
 @property (weak, nonatomic) IBOutlet UILabel *passengerTotalLabel;
-@property (weak, nonatomic) IBOutlet UILabel *pickupLabel;
-@property (weak, nonatomic) IBOutlet UILabel *destinationLabel;
+@property (weak, nonatomic) IBOutlet UITextView *specialComments;
+@property (weak, nonatomic) IBOutlet UISlider *dateSlider;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+@property (weak, nonatomic) IBOutlet UISlider *hourSlider;
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 
 
 @end
@@ -31,10 +34,8 @@
     NSInteger value = self.passengerSlider.value;
     NSString *passengerTotal = [NSNumber numberWithInteger:value].description;
     self.passengerTotalLabel.text = passengerTotal;
-    self.pickupLabel.text = self.pickupAddress;
-    self.destinationLabel.text = self.destinationAddress;
-    NSLog(@"geo points = %@", self.pickupGeopoint);
-    self.title = @"Ride Info";
+
+    
 
 }
 
@@ -54,10 +55,10 @@
 
 
     ride.passenger = user;
-    ride.rideDateTime = self.datePicker.date;
-    ride.specialInstructions = self.specialComments.text;
-    ride.destination = self.destinationLabel.text;
-    ride.pickUpLocation = self.pickupLabel.text;
+ //   ride.rideDateTime = self.datePicker.date;
+  //  ride.specialInstructions = self.specialComments.text;
+   // ride.destination = self.destinationLabel.text;
+  //  ride.pickUpLocation = self.pickupLabel.text;
     ride.passengerCount = [NSString stringWithFormat:@"%.0f", self.passengerSlider.value];
     ride.pickupGeoPoint = self.pickupGeopoint;
     ride.dropoffGeoPoint = self.destinationGeopoint;
@@ -78,6 +79,7 @@
 - (IBAction)onPassengerUpdateSliderMoved:(id)sender {
     self.passengerTotalLabel.text = [NSString stringWithFormat:@"%.0f", self.passengerSlider.value];
 }
+
 
 
 
