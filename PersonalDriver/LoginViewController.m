@@ -61,6 +61,17 @@
     }
     else
     {
+        [UberAPI getUserProfileWithToken:self.token completionHandler:^(UberProfile *profile) {
+            [SSKeychain setPassword:self.token forService:@"personaldriver" account:profile.email];
+            if ([User currentUser] == nil) //if there is not a User create one
+            {
+                [self signUpUserWithUberProfile];
+
+            }else {
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }
+
+        }];
         NSLog(@"You've got a token");
     }
 
@@ -98,19 +109,19 @@
 {
     [UberAPI getUserProfileWithToken:self.token completionHandler:^(UberProfile *profile) {
 
-        PFUser *user = [PFUser user];
+        User *user = [User new];
 
         user.username = profile.email;
         user.password = profile.promo_code;
         user.email = profile.email;
 
         NSString *name = [NSString stringWithFormat:@"%@ %@",profile.first_name, profile.last_name];
-        user[@"name"] = name;
+        user.name = name;
         //Save photo to Parse
         NSURL *url = [NSURL URLWithString:profile.picture];
         NSData *pictureData = [NSData dataWithContentsOfURL:url];
         PFFile *imageFile = [PFFile fileWithName:@"ProfilePic.jpg" data:pictureData];
-        [user setObject:imageFile forKey:@"picture"];
+        user.picture =imageFile;
         //Save to Parse
         [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (!error) {

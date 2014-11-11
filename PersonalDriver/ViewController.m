@@ -13,6 +13,7 @@
 
 @interface ViewController ()
 @property NSString *token;
+@property User *currentUser;
 
 @end
 
@@ -23,7 +24,7 @@
     [super viewDidLoad];
 
 
-     User *currentUser = [User currentUser];
+     self.currentUser = [User currentUser];
     //Get Keychain info
     self.token = [Token getToken];
     //check to make sure the token is still valid and they can use the UberAPI
@@ -36,10 +37,10 @@
         {
             [self loginUserWithUberProfile];
 
-        }else if (((NSNumber*)[currentUser objectForKey:@"isDriver"]).boolValue == YES)//Check if they are a Driver
+        }else if (self.currentUser.isDriver == YES)//Check if they are a Driver
         {
             [self performSegueWithIdentifier:@"showDriver" sender:self];
-        }else if (((NSNumber*)[currentUser objectForKey:@"isDriver"]).boolValue == NO)//Check if they are a passenger
+        }else if (self.currentUser.isDriver == NO)//Check if they are a passenger
         {
             [self performSegueWithIdentifier:@"showPassenger" sender:self];
         }else
@@ -52,7 +53,7 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    User *currentUser = [User currentUser];
+    self.currentUser = [User currentUser];
     self.token = [Token getToken];
     if (!self.token) {
         [self performSegueWithIdentifier:@"showLogin" sender:self];
@@ -60,10 +61,10 @@
     {
         [self loginUserWithUberProfile];
 
-    }else if (((NSNumber*)[currentUser objectForKey:@"isDriver"]).boolValue == YES)//Check if they are a Driver
+    }else if (((NSNumber*)[self.currentUser objectForKey:@"isDriver"]).boolValue == YES)//Check if they are a Driver
     {
         //[self performSegueWithIdentifier:@"showDriver" sender:self];
-    }else if (((NSNumber*)[currentUser objectForKey:@"isDriver"]).boolValue == NO)//Check if they are a passenger
+    }else if (((NSNumber*)[self.currentUser objectForKey:@"isDriver"]).boolValue == NO)//Check if they are a passenger
     {
         //[self performSegueWithIdentifier:@"showPassenger" sender:self];
     }else
@@ -74,18 +75,17 @@
 
 }
 - (IBAction)onPassengerPressed:(UIButton *)sender {
-    User *user = [User currentUser];
-    [user setObject:@NO forKey:@"isDriver"];
-    [user saveInBackground];
+
+    self.currentUser.isDriver = NO;
+    [self.currentUser saveInBackground];
     [self performSegueWithIdentifier:@"showPassenger" sender:self];
     NSLog(@"You are a Passenger");
 
 }
 
 - (IBAction)onDriverPressed:(UIButton *)sender {
-    User *user = [User currentUser];
-    [user setObject:@YES forKey:@"isDriver"];
-    [user saveInBackground];
+    self.currentUser.isDriver = YES;
+    [self.currentUser saveInBackground];
     [self performSegueWithIdentifier:@"showDriver" sender:self];
     NSLog(@"You are a Driver");
 }
@@ -105,6 +105,8 @@
     }];
 
 }
+
+
 
 
 

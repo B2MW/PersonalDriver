@@ -11,8 +11,6 @@
 @implementation User
 
 @dynamic name;
-@dynamic username;
-@dynamic email;
 @dynamic homeBase;
 @dynamic picture;
 @dynamic isDriver;
@@ -22,8 +20,4 @@
     [self registerSubclass];
 }
 
-+(NSString *)parseClassName
-{
-    return @"User";
-}
 @end

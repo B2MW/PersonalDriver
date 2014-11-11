@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Ride.h"
 
 @interface ScheduledRideDetailViewController : UIViewController
+@property Ride *ride;
 
 @end

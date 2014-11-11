@@ -12,8 +12,6 @@
 
 @interface User : PFUser <PFSubclassing>
 @property NSString *name;
-@property (nonatomic) NSString *username;
-@property (nonatomic) NSString *email;
 @property PFGeoPoint *homeBase;
 @property PFFile *picture;
 @property BOOL isDriver;
