@@ -18,8 +18,6 @@
 @property (weak, nonatomic) IBOutlet UISlider *passengerSlider;
 @property (weak, nonatomic) IBOutlet UILabel *passengerTotalLabel;
 @property (weak, nonatomic) IBOutlet UITextView *specialComments;
-@property (weak, nonatomic) IBOutlet UISlider *hourSlider;
-@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabelOne;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabelTwo;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabelThree;
@@ -150,12 +148,6 @@
     self.passengerTotalLabel.text = [NSString stringWithFormat:@"%.0f", self.passengerSlider.value];
 }
 
-
-
-
-- (IBAction)onTimeSliderMoved:(id)sender {
-    self.timeLabel.text = [NSString stringWithFormat:@"%.0f", self.hourSlider.value];
-}
 
 
 
