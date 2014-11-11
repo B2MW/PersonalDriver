@@ -1232,6 +1232,9 @@
                                     <constraint firstAttribute="width" constant="197" id="Vwg-iT-90G"/>
                                     <constraint firstAttribute="height" constant="30" id="cSL-w7-bXh"/>
                                 </constraints>
+                                <connections>
+                                    <action selector="onDateSliderMoved:" destination="cfi-RL-R0p" eventType="valueChanged" id="03J-2e-trQ"/>
+                                </connections>
                             </slider>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pickup Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fHg-fm-IFk">
                                 <rect key="frame" x="257" y="72" width="86" height="21"/>
@@ -1305,6 +1308,9 @@
                                     <constraint firstAttribute="height" constant="30" id="E39-89-MyS"/>
                                     <constraint firstAttribute="width" constant="197" id="b4I-Dv-EqH"/>
                                 </constraints>
+                                <connections>
+                                    <action selector="onTimeSliderMoved:" destination="cfi-RL-R0p" eventType="valueChanged" id="fOk-8y-d5d"/>
+                                </connections>
                             </slider>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pickup Hour" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vv2-Qg-hDl">
                                 <rect key="frame" x="257" y="195" width="87" height="21"/>

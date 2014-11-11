@@ -23,6 +23,16 @@
 @property (weak, nonatomic) IBOutlet UISlider *hourSlider;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 
+@property NSDate *currentDate;
+@property NSDate *dayTwo;
+@property NSDate *dayThree;
+@property NSDate *dayFour;
+@property NSDate *dayFive;
+@property NSDate *daySix;
+@property NSDate *daySeven;
+@property NSDateFormatter *formatter;
+
+
 
 @end
 
@@ -35,8 +45,18 @@
     NSString *passengerTotal = [NSNumber numberWithInteger:value].description;
     self.passengerTotalLabel.text = passengerTotal;
 
-    
+    self.currentDate = [NSDate date];
+    self.formatter = [[NSDateFormatter alloc]init];
+    [self.formatter setDateFormat:@"yyyy-MM-dd"];
 
+    NSString *dateString = [self.formatter stringFromDate:self.currentDate];
+    self.dateLabel.text = dateString;
+    self.dayTwo = [self.currentDate dateByAddingTimeInterval:86400];
+    self.dayThree = [self.currentDate dateByAddingTimeInterval:86400*2];
+    self.dayFour = [self.currentDate dateByAddingTimeInterval:86400*3];
+    self.dayFive = [self.currentDate dateByAddingTimeInterval:86400*4];
+    self.daySix = [self.currentDate dateByAddingTimeInterval:86400*5];
+    self.daySeven = [self.currentDate dateByAddingTimeInterval:86400*6];
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -81,6 +101,49 @@
 }
 
 
+- (IBAction)onDateSliderMoved:(id)sender {
+
+    if(self.dateSlider.value == 1){
+        NSString *dateString = [self.formatter stringFromDate:self.currentDate];
+        self.dateLabel.text = dateString;
+    }
+
+    if(self.dateSlider.value == 2){
+        NSString *dayTwoString = [self.formatter stringFromDate:self.dayTwo];
+        self.dateLabel.text = dayTwoString;
+    }
+
+    if(self.dateSlider.value == 3){
+        NSString *dayThreeString = [self.formatter stringFromDate:self.dayThree];
+        self.dateLabel.text = dayThreeString;
+    }
+
+    if(self.dateSlider.value == 4){
+        NSString *dayFourString = [self.formatter stringFromDate:self.dayFour];
+        self.dateLabel.text = dayFourString;
+    }
+
+    if(self.dateSlider.value == 5){
+        NSString *dayFiveString = [self.formatter stringFromDate:self.dayFive];
+        self.dateLabel.text = dayFiveString;
+
+    }
+
+    if(self.dateSlider.value == 6){
+        NSString *daySixString = [self.formatter stringFromDate:self.daySix];
+        self.dateLabel.text = daySixString;
+    }
+
+    if(self.dateSlider.value == 7){
+        NSString *daySevenString = [self.formatter stringFromDate:self.daySeven];
+        self.dateLabel.text = daySevenString;
+    }
+
+}
+
+- (IBAction)onTimeSliderMoved:(id)sender {
+    self.timeLabel.text = [NSString stringWithFormat:@"%.0f", self.hourSlider.value];
+}
 
 
 
