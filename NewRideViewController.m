@@ -129,6 +129,42 @@
     ride.fareEstimateMax = fareEstimateMax;
     ride.fareEstimateMin = fareEstimateMin;
 
+
+    if (self.dateButtonOne.tag ==1)
+    {
+        ride.rideDateTime = self.currentDate;
+    }
+
+    else if (self.dateButtonTwo.tag ==1)
+    {
+        ride.rideDateTime = self.dayTwo;
+    }
+
+    else if (self.dateButtonThree.tag ==1)
+    {
+        ride.rideDateTime = self.dayThree;
+    }
+
+    else if (self.dateButtonFour.tag ==1)
+    {
+        ride.rideDateTime = self.dayFour;
+    }
+
+    else if (self.dateButtonFive.tag ==1)
+    {
+        ride.rideDateTime = self.dayFive;
+    }
+
+    else if (self.dateButtonSix.tag ==1)
+    {
+        ride.rideDateTime = self.daySix;
+    }
+
+    else if (self.dateButtonSeven.tag ==1)
+    {
+        ride.rideDateTime = self.daySeven;
+    }
+
     //ride.driverConfirmed = NO;
     //ride.driverEnRoute = NO;
 

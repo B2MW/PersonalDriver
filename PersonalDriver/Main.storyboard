@@ -1238,6 +1238,15 @@
                                     </mask>
                                 </variation>
                             </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fxq-Sh-IYp">
+                                <rect key="frame" x="191" y="481" width="238" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="238" id="HcT-Rg-4bI"/>
+                                    <constraint firstAttribute="height" constant="30" id="fni-fJ-KxE"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hv0-Dg-vcm" userLabel="Button 1" customClass="Date">
                                 <rect key="frame" x="51" y="286" width="50" height="50"/>
                                 <accessibility key="accessibilityConfiguration">
@@ -1389,16 +1398,6 @@
                                     <action selector="onRequestRideButtonPressed:" destination="cfi-RL-R0p" eventType="touchUpInside" id="qag-d4-vo6"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nov, 11" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5LP-qW-uYm">
-                                <rect key="frame" x="58" y="304" width="37" height="13"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="37" id="K08-PQ-Fie"/>
-                                    <constraint firstAttribute="height" constant="13" id="iGD-mT-wlb"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nov, 12" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TJn-ij-k3o">
                                 <rect key="frame" x="113" y="304" width="37" height="13"/>
                                 <constraints>
@@ -1537,15 +1536,16 @@
                                     </mask>
                                 </variation>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fxq-Sh-IYp">
-                                <rect key="frame" x="191" y="481" width="238" height="30"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nov, 11" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5LP-qW-uYm">
+                                <rect key="frame" x="58" y="304" width="37" height="13"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="238" id="HcT-Rg-4bI"/>
-                                    <constraint firstAttribute="height" constant="30" id="fni-fJ-KxE"/>
+                                    <constraint firstAttribute="width" constant="37" id="K08-PQ-Fie"/>
+                                    <constraint firstAttribute="height" constant="13" id="iGD-mT-wlb"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
