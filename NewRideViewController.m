@@ -55,7 +55,7 @@
 
 @property NSMutableArray *dates;
 @property NSMutableArray *datesSelected;
-@property BOOL dateSelected;
+
 
 
 
@@ -161,25 +161,40 @@
 
 -(void)dateButtonWasTapped:(Date *)sender {
 
-    if(self.dateSelected == NO)
-    {
+    [self.datesSelected removeAllObjects];
+    [self.dates removeAllObjects];
+    self.dates = [NSMutableArray arrayWithObjects: self.dateButtonOne, self.dateButtonTwo, self.dateButtonThree, self.dateButtonFour, self.dateButtonFive, self.dateButtonSix, self.dateButtonSeven, nil];
     [self.dates removeObject:sender];
     [self.datesSelected addObject:sender];
-    [sender setImage:[UIImage imageNamed:@"Oval 9"] forState:(UIControlStateNormal)];
-    self.dateSelected = YES;
-    }
 
-    else if(self.dateSelected == YES)
-    {
-        [self.dates addObject:sender];
-        [self.datesSelected removeObject:sender];
-        [sender setImage:[UIImage imageNamed:@"Oval 8"] forState:(UIControlStateNormal)];
-        self.dateSelected = NO;
-    }
+    [self.dateButtonOne setImage:[UIImage imageNamed:@"Oval 8"] forState:UIControlStateNormal];
+    [self.dateButtonTwo setImage:[UIImage imageNamed:@"Oval 8"] forState:UIControlStateNormal];
+    [self.dateButtonThree setImage:[UIImage imageNamed:@"Oval 8"] forState:UIControlStateNormal];
+    [self.dateButtonFour setImage:[UIImage imageNamed:@"Oval 8"] forState:UIControlStateNormal];
+    [self.dateButtonFive setImage:[UIImage imageNamed:@"Oval 8"] forState:UIControlStateNormal];
+    [self.dateButtonSix setImage:[UIImage imageNamed:@"Oval 8"] forState:UIControlStateNormal];
+    [self.dateButtonSeven setImage:[UIImage imageNamed:@"Oval 8"] forState:UIControlStateNormal];
 
+    [sender setImage:[UIImage imageNamed:@"Oval 9"] forState:UIControlStateNormal];
+
+    
+
+    NSLog (@"dates array = %@", self.dates);
+    NSLog (@"datesSelected array = %@", self.datesSelected);
 }
 
 
-
 @end
+
+
+
+
+
+
+
+
+
+
+
+
 
