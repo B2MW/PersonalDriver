@@ -8,8 +8,9 @@
 
 #import "AvailableRidesViewController.h"
 #import "AvailableRidesDetailViewController.h"
-#import "ScheduledRideTableViewCell.h"
 #import "AvailableRidesTableView.h"
+#import "ScheduledRideDetailViewController.h"
+#import "ScheduledRideTableViewCell.h"
 #import "ScheduledTableView.h"
 #import "User.h"
 #import <Parse/Parse.h>
@@ -127,7 +128,7 @@
     }];
 }
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(AvailableRideTableViewCell *)cell
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(UITableViewCell *)cell
 
 {
     if ([[segue identifier] isEqualToString:@"showAvailable"])
@@ -137,14 +138,12 @@
     }
     else if ([[segue identifier] isEqualToString:@"showScheduled"])
     {
-
+        ScheduledRideDetailViewController *scheduledVC = [segue destinationViewController];
+        NSIndexPath *indexPath = [self.scheduledTableView indexPathForCell:cell];
+        scheduledVC.ride = [self.scheduledRides objectAtIndex:indexPath.row];
     }
 
 }
 
-//-(IBAction)unwindAvailableRideDetails:(UIStoryboardSegue)sender
-//{
-//    
-//}
 
 @end

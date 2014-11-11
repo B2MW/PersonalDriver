@@ -6,6 +6,12 @@
 // project.
 
 
+// MZDayPicker
+#define COCOAPODS_POD_AVAILABLE_MZDayPicker
+#define COCOAPODS_VERSION_MAJOR_MZDayPicker 0
+#define COCOAPODS_VERSION_MINOR_MZDayPicker 0
+#define COCOAPODS_VERSION_PATCH_MZDayPicker 5
+
 // SSKeychain
 #define COCOAPODS_POD_AVAILABLE_SSKeychain
 #define COCOAPODS_VERSION_MAJOR_SSKeychain 1

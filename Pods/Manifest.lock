@@ -1,10 +1,13 @@
 PODS:
+  - MZDayPicker (0.0.5)
   - SSKeychain (1.2.2)
 
 DEPENDENCIES:
+  - MZDayPicker
   - SSKeychain
 
 SPEC CHECKSUMS:
+  MZDayPicker: 764a603e74918cca830323ebb4e016aab1f40085
   SSKeychain: cc48bd3ad24fcd9125adb9e0d23dd50b8bbd08b9
 
 COCOAPODS: 0.34.4

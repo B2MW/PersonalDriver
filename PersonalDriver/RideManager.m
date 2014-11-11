@@ -56,7 +56,7 @@
     return formattedRideEstimate;
 }
 
--(void)retrieveGeoPointAddress:(PFGeoPoint *)rideGeoPoint:(void(^)(NSString *))completionHandler
+-(void)retrieveGeoPointAddress:(PFGeoPoint *)rideGeoPoint completionHandler:(void(^)(NSString *))completionHandler
 {
     CLGeocoder *geocode = [[CLGeocoder alloc] init];
     CLLocation *location = [[CLLocation alloc] initWithLatitude:rideGeoPoint.latitude longitude:rideGeoPoint.longitude];
