@@ -10,10 +10,10 @@
 #import "NewRideViewController.h"
 #import "Ride.h"
 #import "User.h"
-#import <MZDayPicker.h>
+#import "Date.h"
 
 
-@interface NewRideViewController ()
+@interface NewRideViewController () <DateDelegate>
 
 @property (weak, nonatomic) IBOutlet UISlider *passengerSlider;
 @property (weak, nonatomic) IBOutlet UILabel *passengerTotalLabel;
@@ -28,7 +28,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *dateLabelSix;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabelSeven;
 
-
+@property NSDateFormatter *formatter;
 @property NSDate *currentDate;
 @property NSDate *dayTwo;
 @property NSDate *dayThree;
@@ -36,7 +36,7 @@
 @property NSDate *dayFive;
 @property NSDate *daySix;
 @property NSDate *daySeven;
-@property NSDateFormatter *formatter;
+
 @property NSString *dateString;
 @property NSString *dateTwoString;
 @property NSString *dateThreeString;
@@ -44,6 +44,19 @@
 @property NSString *dateFiveString;
 @property NSString *dateSixString;
 @property NSString *dateSevenString;
+
+@property (weak, nonatomic) IBOutlet UIButton *dateButtonOne;
+@property (weak, nonatomic) IBOutlet UIButton *dateButtonTwo;
+@property (weak, nonatomic) IBOutlet UIButton *dateButtonThree;
+@property (weak, nonatomic) IBOutlet UIButton *dateButtonFour;
+@property (weak, nonatomic) IBOutlet UIButton *dateButtonFive;
+@property (weak, nonatomic) IBOutlet UIButton *dateButtonSix;
+@property (weak, nonatomic) IBOutlet UIButton *dateButtonSeven;
+
+@property NSMutableArray *dates;
+@property NSMutableArray *datesSelected;
+@property BOOL dateSelected;
+
 
 
 @end
@@ -56,6 +69,13 @@
     NSInteger value = self.passengerSlider.value;
     NSString *passengerTotal = [NSNumber numberWithInteger:value].description;
     self.passengerTotalLabel.text = passengerTotal;
+    self.dates = [NSMutableArray arrayWithObjects: self.dateButtonOne, self.dateButtonTwo, self.dateButtonThree, self.dateButtonFour, self.dateButtonFive, self.dateButtonSix, self.dateButtonSeven, nil];
+
+    for (Date *date in self.dates) {
+        date.delegate = self;
+    }
+
+    self.datesSelected = [[NSMutableArray alloc]init];
 
 
     self.formatter = [[NSDateFormatter alloc]init];
@@ -84,6 +104,8 @@
     self.dateLabelFive.text = self.dateFiveString;
     self.dateLabelSix.text = self.dateSixString;
     self.dateLabelSeven.text = self.dateSevenString;
+
+
 
 
 }
@@ -136,6 +158,26 @@
 }
 
 
+
+-(void)dateButtonWasTapped:(Date *)sender {
+
+    if(self.dateSelected == NO)
+    {
+    [self.dates removeObject:sender];
+    [self.datesSelected addObject:sender];
+    [sender setImage:[UIImage imageNamed:@"Oval 9"] forState:(UIControlStateNormal)];
+    self.dateSelected = YES;
+    }
+
+    else if(self.dateSelected == YES)
+    {
+        [self.dates addObject:sender];
+        [self.datesSelected removeObject:sender];
+        [sender setImage:[UIImage imageNamed:@"Oval 8"] forState:(UIControlStateNormal)];
+        self.dateSelected = NO;
+    }
+
+}
 
 
 
