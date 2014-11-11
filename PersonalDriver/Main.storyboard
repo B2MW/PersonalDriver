@@ -1606,25 +1606,25 @@
                 </tapGestureRecognizer>
                 <tapGestureRecognizer id="qhi-up-GLh" userLabel="Tap Gesture Recognizer 2">
                     <connections>
-                        <action selector="onTapped:" destination="dIe-ON-Vo5" id="IHk-os-fkI"/>
+                        <action selector="onTapped:" destination="cFU-s3-zuq" id="U6o-ws-Akh"/>
                         <outlet property="delegate" destination="cfi-RL-R0p" id="NQ9-Y1-vnB"/>
                     </connections>
                 </tapGestureRecognizer>
                 <tapGestureRecognizer id="0yl-nX-fgm" userLabel="Tap Gesture Recognizer 3">
                     <connections>
-                        <action selector="onTapped:" destination="JRc-DH-Cp8" id="uTr-5p-dkj"/>
+                        <action selector="onTapped:" destination="rT3-oG-VWn" id="JuH-lc-5hz"/>
                         <outlet property="delegate" destination="cfi-RL-R0p" id="kfm-m0-qVe"/>
                     </connections>
                 </tapGestureRecognizer>
                 <tapGestureRecognizer id="gQV-fb-fTS" userLabel="Tap Gesture Recognizer 4">
                     <connections>
-                        <action selector="onTapped:" destination="cFU-s3-zuq" id="6FK-Ii-5SO"/>
+                        <action selector="onTapped:" destination="dIe-ON-Vo5" id="9kg-iF-ro4"/>
                         <outlet property="delegate" destination="cfi-RL-R0p" id="iuA-s2-r0g"/>
                     </connections>
                 </tapGestureRecognizer>
                 <tapGestureRecognizer id="ABd-Hc-dD4" userLabel="Tap Gesture Recognizer 5">
                     <connections>
-                        <action selector="onTapped:" destination="rT3-oG-VWn" id="A2y-KC-jZz"/>
+                        <action selector="onTapped:" destination="JRc-DH-Cp8" id="Ay5-ZC-VFy"/>
                         <outlet property="delegate" destination="cfi-RL-R0p" id="iQN-vt-zMb"/>
                     </connections>
                 </tapGestureRecognizer>
