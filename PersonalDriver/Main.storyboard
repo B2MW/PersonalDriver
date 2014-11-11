@@ -1642,6 +1642,7 @@
                         <outlet property="dateLabelSix" destination="r7B-5k-jOY" id="whB-Sw-pGp"/>
                         <outlet property="dateLabelThree" destination="4MN-Fb-bfx" id="47a-0L-OOo"/>
                         <outlet property="dateLabelTwo" destination="TJn-ij-k3o" id="UWu-6V-Dz4"/>
+                        <outlet property="datePicker" destination="Co2-7V-Wlg" id="4do-8y-Zja"/>
                         <outlet property="passengerSlider" destination="BzQ-K5-HKd" id="raZ-vP-m0f"/>
                         <outlet property="passengerTotalLabel" destination="laf-bc-pdy" id="2z5-7W-Khe"/>
                         <outlet property="specialComments" destination="J20-0B-eys" id="Yjj-8v-CdK"/>

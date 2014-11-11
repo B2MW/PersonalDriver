@@ -25,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *dateLabelFive;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabelSix;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabelSeven;
+@property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
 
 @property NSDateFormatter *formatter;
 @property NSDate *currentDate;
@@ -52,7 +53,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *dateButtonSeven;
 
 @property NSMutableArray *dates;
-@property NSMutableArray *datesSelected;
+
 
 
 
@@ -72,9 +73,6 @@
     for (Date *date in self.dates) {
         date.delegate = self;
     }
-
-    self.datesSelected = [[NSMutableArray alloc]init];
-
 
     self.formatter = [[NSDateFormatter alloc]init];
     [self.formatter setDateFormat:@"MMM dd"];
@@ -123,10 +121,8 @@
 
 
     ride.passenger = user;
- //   ride.rideDateTime = self.datePicker.date;
-  //  ride.specialInstructions = self.specialComments.text;
-   // ride.destination = self.destinationLabel.text;
-  //  ride.pickUpLocation = self.pickupLabel.text;
+    ride.rideDateTime = self.datePicker.date;
+    ride.specialInstructions = self.specialComments.text;
     ride.passengerCount = [NSString stringWithFormat:@"%.0f", self.passengerSlider.value];
     ride.pickupGeoPoint = self.pickupGeopoint;
     ride.dropoffGeoPoint = self.destinationGeopoint;
@@ -153,26 +149,16 @@
 
 -(void)dateButtonWasTapped:(Date *)sender {
 
-    [self.datesSelected removeAllObjects];
-    [self.dates removeAllObjects];
-    self.dates = [NSMutableArray arrayWithObjects: self.dateButtonOne, self.dateButtonTwo, self.dateButtonThree, self.dateButtonFour, self.dateButtonFive, self.dateButtonSix, self.dateButtonSeven, nil];
-    [self.dates removeObject:sender];
-    [self.datesSelected addObject:sender];
+    id buttons = @[self.dateButtonOne, self.dateButtonTwo, self.dateButtonThree, self.dateButtonFour, self.dateButtonFive, self.dateButtonSix, self.dateButtonSeven];
 
-    [self.dateButtonOne setImage:[UIImage imageNamed:@"Oval 8"] forState:UIControlStateNormal];
-    [self.dateButtonTwo setImage:[UIImage imageNamed:@"Oval 8"] forState:UIControlStateNormal];
-    [self.dateButtonThree setImage:[UIImage imageNamed:@"Oval 8"] forState:UIControlStateNormal];
-    [self.dateButtonFour setImage:[UIImage imageNamed:@"Oval 8"] forState:UIControlStateNormal];
-    [self.dateButtonFive setImage:[UIImage imageNamed:@"Oval 8"] forState:UIControlStateNormal];
-    [self.dateButtonSix setImage:[UIImage imageNamed:@"Oval 8"] forState:UIControlStateNormal];
-    [self.dateButtonSeven setImage:[UIImage imageNamed:@"Oval 8"] forState:UIControlStateNormal];
+    for (UIButton *button in buttons) {
+        button.tag = 0;
+        [button setImage:[UIImage imageNamed:@"Oval 8"] forState:UIControlStateNormal];
+    }
 
+    sender.tag = 1;
     [sender setImage:[UIImage imageNamed:@"Oval 9"] forState:UIControlStateNormal];
 
-    
-
-    NSLog (@"dates array = %@", self.dates);
-    NSLog (@"datesSelected array = %@", self.datesSelected);
 }
 
 
