@@ -31,7 +31,13 @@
 @property NSDate *daySix;
 @property NSDate *daySeven;
 @property NSDateFormatter *formatter;
-
+@property NSString *dateString;
+@property NSString *dateTwoString;
+@property NSString *dateThreeString;
+@property NSString *dateFourString;
+@property NSString *dateFiveString;
+@property NSString *dateSixString;
+@property NSString *dateSevenString;
 
 
 @end
@@ -45,20 +51,29 @@
     NSString *passengerTotal = [NSNumber numberWithInteger:value].description;
     self.passengerTotalLabel.text = passengerTotal;
 
-    self.currentDate = [NSDate date];
-    self.formatter = [[NSDateFormatter alloc]init];
-    [self.formatter setDateFormat:@"yyyy-MM-dd"];
 
-    NSString *dateString = [self.formatter stringFromDate:self.currentDate];
-    self.dateLabel.text = dateString;
+    self.formatter = [[NSDateFormatter alloc]init];
+    [self.formatter setDateFormat:@"MMMM dd"];
+
+    self.currentDate = [NSDate date];
     self.dayTwo = [self.currentDate dateByAddingTimeInterval:86400];
     self.dayThree = [self.currentDate dateByAddingTimeInterval:86400*2];
     self.dayFour = [self.currentDate dateByAddingTimeInterval:86400*3];
     self.dayFive = [self.currentDate dateByAddingTimeInterval:86400*4];
     self.daySix = [self.currentDate dateByAddingTimeInterval:86400*5];
     self.daySeven = [self.currentDate dateByAddingTimeInterval:86400*6];
-}
+    self.dateLabel.text = self.dateString;
 
+    self.dateString = [self.formatter stringFromDate:self.currentDate];
+    self.dateTwoString = [self.formatter stringFromDate:self.dayTwo];
+    self.dateThreeString = [self.formatter stringFromDate:self.dayThree];
+    self.dateFourString = [self.formatter stringFromDate:self.dayFour];
+    self.dateFiveString = [self.formatter stringFromDate:self.dayFive];
+    self.dateSixString = [self.formatter stringFromDate:self.daySix];
+    self.dateSevenString = [self.formatter stringFromDate:self.daySeven];
+
+
+}
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [self.view endEditing:YES];
@@ -104,39 +119,32 @@
 - (IBAction)onDateSliderMoved:(id)sender {
 
     if(self.dateSlider.value == 1){
-        NSString *dateString = [self.formatter stringFromDate:self.currentDate];
-        self.dateLabel.text = dateString;
+        self.dateLabel.text = self.dateString;
     }
 
-    if(self.dateSlider.value == 2){
-        NSString *dayTwoString = [self.formatter stringFromDate:self.dayTwo];
-        self.dateLabel.text = dayTwoString;
+    else if(self.dateSlider.value == 2){
+        self.dateLabel.text = self.dateTwoString;
     }
 
-    if(self.dateSlider.value == 3){
-        NSString *dayThreeString = [self.formatter stringFromDate:self.dayThree];
-        self.dateLabel.text = dayThreeString;
+     else if(self.dateSlider.value == 3){
+        self.dateLabel.text = self.dateThreeString;
     }
 
-    if(self.dateSlider.value == 4){
-        NSString *dayFourString = [self.formatter stringFromDate:self.dayFour];
-        self.dateLabel.text = dayFourString;
+     else if(self.dateSlider.value == 4){
+         self.dateLabel.text = self.dateFourString;
     }
 
-    if(self.dateSlider.value == 5){
-        NSString *dayFiveString = [self.formatter stringFromDate:self.dayFive];
-        self.dateLabel.text = dayFiveString;
+     else if(self.dateSlider.value == 5){
+        self.dateLabel.text = self.dateFiveString;
 
     }
 
-    if(self.dateSlider.value == 6){
-        NSString *daySixString = [self.formatter stringFromDate:self.daySix];
-        self.dateLabel.text = daySixString;
+     else if(self.dateSlider.value == 6){
+        self.dateLabel.text = self.dateSixString;
     }
 
-    if(self.dateSlider.value == 7){
-        NSString *daySevenString = [self.formatter stringFromDate:self.daySeven];
-        self.dateLabel.text = daySevenString;
+     else if(self.dateSlider.value == 7){
+        self.dateLabel.text = self.dateSevenString;
     }
 
 }
