@@ -18,10 +18,16 @@
 @property (weak, nonatomic) IBOutlet UISlider *passengerSlider;
 @property (weak, nonatomic) IBOutlet UILabel *passengerTotalLabel;
 @property (weak, nonatomic) IBOutlet UITextView *specialComments;
-@property (weak, nonatomic) IBOutlet UISlider *dateSlider;
-@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UISlider *hourSlider;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabelOne;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabelTwo;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabelThree;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabelFour;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabelFive;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabelSix;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabelSeven;
+
 
 @property NSDate *currentDate;
 @property NSDate *dayTwo;
@@ -53,7 +59,7 @@
 
 
     self.formatter = [[NSDateFormatter alloc]init];
-    [self.formatter setDateFormat:@"MMMM dd"];
+    [self.formatter setDateFormat:@"MMM dd"];
 
     self.currentDate = [NSDate date];
     self.dayTwo = [self.currentDate dateByAddingTimeInterval:86400];
@@ -62,7 +68,6 @@
     self.dayFive = [self.currentDate dateByAddingTimeInterval:86400*4];
     self.daySix = [self.currentDate dateByAddingTimeInterval:86400*5];
     self.daySeven = [self.currentDate dateByAddingTimeInterval:86400*6];
-    self.dateLabel.text = self.dateString;
 
     self.dateString = [self.formatter stringFromDate:self.currentDate];
     self.dateTwoString = [self.formatter stringFromDate:self.dayTwo];
@@ -71,6 +76,14 @@
     self.dateFiveString = [self.formatter stringFromDate:self.dayFive];
     self.dateSixString = [self.formatter stringFromDate:self.daySix];
     self.dateSevenString = [self.formatter stringFromDate:self.daySeven];
+
+    self.dateLabelOne.text = self.dateString;
+    self.dateLabelTwo.text = self.dateTwoString;
+    self.dateLabelThree.text = self.dateThreeString;
+    self.dateLabelFour.text = self.dateFourString;
+    self.dateLabelFive.text = self.dateFiveString;
+    self.dateLabelSix.text = self.dateSixString;
+    self.dateLabelSeven.text = self.dateSevenString;
 
 
 }
@@ -116,38 +129,7 @@
 }
 
 
-- (IBAction)onDateSliderMoved:(id)sender {
 
-    if(self.dateSlider.value == 1){
-        self.dateLabel.text = self.dateString;
-    }
-
-    else if(self.dateSlider.value == 2){
-        self.dateLabel.text = self.dateTwoString;
-    }
-
-     else if(self.dateSlider.value == 3){
-        self.dateLabel.text = self.dateThreeString;
-    }
-
-     else if(self.dateSlider.value == 4){
-         self.dateLabel.text = self.dateFourString;
-    }
-
-     else if(self.dateSlider.value == 5){
-        self.dateLabel.text = self.dateFiveString;
-
-    }
-
-     else if(self.dateSlider.value == 6){
-        self.dateLabel.text = self.dateSixString;
-    }
-
-     else if(self.dateSlider.value == 7){
-        self.dateLabel.text = self.dateSevenString;
-    }
-
-}
 
 - (IBAction)onTimeSliderMoved:(id)sender {
     self.timeLabel.text = [NSString stringWithFormat:@"%.0f", self.hourSlider.value];
