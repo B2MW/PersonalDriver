@@ -997,6 +997,9 @@
                             <constraint firstAttribute="centerX" secondItem="vue-sB-EdF" secondAttribute="centerX" id="zxG-7K-gOe"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="vue-sB-EdF" id="3RF-sI-CoD"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qNE-pg-mPq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
