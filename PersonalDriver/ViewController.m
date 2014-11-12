@@ -25,6 +25,10 @@
 
 
      self.currentUser = [User currentUser];
+    // Associate the device with a user for Push Notifications
+    PFInstallation *installation = [PFInstallation currentInstallation];
+    installation[@"user"] = [User currentUser];
+    [installation saveInBackground];
     //Get Keychain info
     self.token = [Token getToken];
     //check to make sure the token is still valid and they can use the UberAPI
