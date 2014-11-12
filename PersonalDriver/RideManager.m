@@ -72,6 +72,7 @@
     NSMutableArray *distanceAndBearing = [NSMutableArray array];
     NSNumber *distance;
     NSNumber *bearing;
+    NSString *direction;
 
     //find distance between pickup & dropoff GeoPoints
     CLLocation *pickupLocation = [[CLLocation alloc] initWithLatitude:ride.pickupGeoPoint.latitude longitude:ride.pickupGeoPoint.longitude];
@@ -85,14 +86,21 @@
 
     NSNumber *degree = [self convertRadiansToDegrees:(atan2(sin(pickupLong.doubleValue-driverLong.doubleValue)*cos(pickupLat.doubleValue), cos(driverLat.doubleValue)*sin(pickupLat.doubleValue)-sin(driverLat.doubleValue)*cos(pickupLat.doubleValue)*cos(pickupLong.doubleValue-driverLong.doubleValue)))];
 
-    if (degree >= 0) {
+    if (degree.doubleValue >= 0.0)
+    {
         bearing = degree;
-    } else {
+    }
+    else
+    {
         bearing = @(360.0 + degree.doubleValue);
     }
 
+    direction = [self convertBearingToDirection:bearing];
+
     [distanceAndBearing arrayByAddingObject:distance];
     [distanceAndBearing arrayByAddingObject:bearing];
+    [distanceAndBearing arrayByAddingObject:direction];
+    NSLog(@"direction is %@", direction);
     NSLog(@"distance is %@ miles", distance);
     NSLog(@"bearing is %@ degrees", bearing);
 }
@@ -109,6 +117,48 @@
     return degreeValue;
 }
 
+-(NSString *)convertBearingToDirection:(NSNumber *)bearing
+{
+//    bearing = @(fabs(bearing.doubleValue));
+    NSString *direction = [NSString new];
+    if (bearing.doubleValue > 337.5 && bearing.doubleValue <= 360)
+    {
+        direction = @"N";
+    }
+    else if (bearing.doubleValue >= 0 && bearing.doubleValue <= 22.5)
+    {
+        direction = @"N";
+    }
+    else if (bearing.doubleValue > 22.5 && bearing.doubleValue <= 67.5)
+    {
+        direction = @"NE";
+    }
+    else if (bearing.doubleValue > 67.5 && bearing.doubleValue <= 112.5)
+    {
+        direction = @"E";
+    }
+    else if (bearing.doubleValue > 112.5 && bearing.doubleValue <= 157.5)
+    {
+        direction = @"SE";
+    }
+    else if (bearing.doubleValue > 157.5 && bearing.doubleValue <= 202.5)
+    {
+        direction = @"S";
+    }
+    else if (bearing.doubleValue > 202.5 && bearing.doubleValue <= 247.5)
+    {
+        direction = @"SW";
+    }
+    else if (bearing.doubleValue > 247.5 && bearing.doubleValue <= 292.5)
+    {
+        direction = @"W";
+    }
+    else if (bearing.doubleValue > 292.5 && bearing.doubleValue <= 337.5)
+    {
+        direction = @"NW";
+    }
+    return direction;
+}
 
 
 @end
