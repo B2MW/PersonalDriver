@@ -32,6 +32,7 @@
 		4C7175841A08FDCC002AC734 /* AvailableRidesDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7175831A08FDCC002AC734 /* AvailableRidesDetailViewController.m */; };
 		4C7175881A0928A2002AC734 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7175861A0928A2002AC734 /* Bolts.framework */; };
 		4C71759A1A0AB068002AC734 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7175991A0AB068002AC734 /* Parse.framework */; };
+		4CA06B9C1A14159F00D33AA0 /* DriverProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA06B9B1A14159F00D33AA0 /* DriverProfile.m */; };
 		CE0B18951A104A0600D046B8 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0B18941A104A0600D046B8 /* User.m */; };
 		CE19D9721A092D2700874F56 /* UberActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = CE19D9461A092D2700874F56 /* UberActivity.m */; };
 		CE19D9731A092D2700874F56 /* UberPrice.m in Sources */ = {isa = PBXBuildFile; fileRef = CE19D9481A092D2700874F56 /* UberPrice.m */; };
@@ -119,6 +120,8 @@
 		4C7175831A08FDCC002AC734 /* AvailableRidesDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvailableRidesDetailViewController.m; sourceTree = "<group>"; };
 		4C7175861A0928A2002AC734 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		4C7175991A0AB068002AC734 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		4CA06B9A1A14159F00D33AA0 /* DriverProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DriverProfile.h; sourceTree = "<group>"; };
+		4CA06B9B1A14159F00D33AA0 /* DriverProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DriverProfile.m; sourceTree = "<group>"; };
 		53761B501441D0844B94902B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FA98B5EB640F8B16A99CBF9 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		CE0B18931A104A0600D046B8 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
@@ -427,6 +430,8 @@
 		CEB8D1BC1A0A7D5C00A74FA6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				4CA06B9A1A14159F00D33AA0 /* DriverProfile.h */,
+				4CA06B9B1A14159F00D33AA0 /* DriverProfile.m */,
 				CE19D9451A092D2700874F56 /* UberActivity.h */,
 				CE19D9461A092D2700874F56 /* UberActivity.m */,
 				CE19D9471A092D2700874F56 /* UberPrice.h */,
@@ -624,6 +629,7 @@
 				4C71751D1A081334002AC734 /* PersonalDriver.xcdatamodeld in Sources */,
 				CE19D9801A092D2700874F56 /* NXOAuth2FileStreamWrapper.m in Sources */,
 				CE19D97B1A092D2700874F56 /* NXOAuth2Account.m in Sources */,
+				4CA06B9C1A14159F00D33AA0 /* DriverProfile.m in Sources */,
 				CE19D9811A092D2700874F56 /* NXOAuth2PostBodyPart.m in Sources */,
 				CE19D97A1A092D2700874F56 /* NXOAuth2AccessToken.m in Sources */,
 			);
