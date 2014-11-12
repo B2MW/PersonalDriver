@@ -10,6 +10,7 @@
 		2236D93E1A08234B00F19EA5 /* PassengerProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2236D93D1A08234B00F19EA5 /* PassengerProfileViewController.m */; };
 		2236D9441A082A4200F19EA5 /* NewRideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2236D9431A082A4200F19EA5 /* NewRideViewController.m */; };
 		22E4A8711A12714F00A5225A /* Date.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E4A8701A12714F00A5225A /* Date.m */; };
+		22E952D01A13DE1500096E2D /* PassengerLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E952CF1A13DE1500096E2D /* PassengerLabel.m */; };
 		4C7175171A081334002AC734 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7175161A081334002AC734 /* main.m */; };
 		4C71751A1A081334002AC734 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7175191A081334002AC734 /* AppDelegate.m */; };
 		4C71751D1A081334002AC734 /* PersonalDriver.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4C71751B1A081334002AC734 /* PersonalDriver.xcdatamodeld */; };
@@ -88,6 +89,8 @@
 		2236D9431A082A4200F19EA5 /* NewRideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewRideViewController.m; path = ../NewRideViewController.m; sourceTree = "<group>"; };
 		22E4A86F1A12714F00A5225A /* Date.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Date.h; sourceTree = "<group>"; };
 		22E4A8701A12714F00A5225A /* Date.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Date.m; sourceTree = "<group>"; };
+		22E952CE1A13DE1500096E2D /* PassengerLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassengerLabel.h; sourceTree = "<group>"; };
+		22E952CF1A13DE1500096E2D /* PassengerLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassengerLabel.m; sourceTree = "<group>"; };
 		4C7175111A081334002AC734 /* PersonalDriver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PersonalDriver.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C7175151A081334002AC734 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4C7175161A081334002AC734 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -261,6 +264,8 @@
 		4C7175131A081334002AC734 /* PersonalDriver */ = {
 			isa = PBXGroup;
 			children = (
+				22E952CE1A13DE1500096E2D /* PassengerLabel.h */,
+				22E952CF1A13DE1500096E2D /* PassengerLabel.m */,
 				CE1A353D1A0AD473004A6CCC /* Main.storyboard */,
 				4C7175181A081334002AC734 /* AppDelegate.h */,
 				4C7175191A081334002AC734 /* AppDelegate.m */,
@@ -606,6 +611,7 @@
 				CEB8D1CB1A0A83CB00A74FA6 /* SelectLocationForRideViewController.m in Sources */,
 				CE1A353C1A0AC339004A6CCC /* Token.m in Sources */,
 				CE19D97D1A092D2700874F56 /* NXOAuth2Client.m in Sources */,
+				22E952D01A13DE1500096E2D /* PassengerLabel.m in Sources */,
 				CE19D97C1A092D2700874F56 /* NXOAuth2AccountStore.m in Sources */,
 				2236D93E1A08234B00F19EA5 /* PassengerProfileViewController.m in Sources */,
 				CE19D9841A092D2700874F56 /* UberKit.m in Sources */,

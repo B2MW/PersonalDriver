@@ -11,12 +11,13 @@
 #import "Ride.h"
 #import "User.h"
 #import "Date.h"
+#import "PassengerLabel.h"
 
 
-@interface NewRideViewController () <DateDelegate>
+@interface NewRideViewController () <DateDelegate, PassengerDelegate>
 
-@property (weak, nonatomic) IBOutlet UISlider *passengerSlider;
-@property (weak, nonatomic) IBOutlet UILabel *passengerTotalLabel;
+//@property (weak, nonatomic) IBOutlet UISlider *passengerSlider;
+//@property (weak, nonatomic) IBOutlet UILabel *passengerTotalLabel;
 @property (weak, nonatomic) IBOutlet UITextView *specialComments;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabelOne;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabelTwo;
@@ -27,7 +28,16 @@
 @property (weak, nonatomic) IBOutlet UILabel *dateLabelSeven;
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
 
+@property (weak, nonatomic) IBOutlet PassengerLabel *passengerLabelOne;
+@property (weak, nonatomic) IBOutlet PassengerLabel *passengerLabelTwo;
+@property (weak, nonatomic) IBOutlet PassengerLabel *passengerLabelThree;
+@property (weak, nonatomic) IBOutlet PassengerLabel *passengerLabelFour;
+
+
 @property NSDateFormatter *formatter;
+@property NSDateFormatter *timeFormatter;
+@property NSDateFormatter *dayFormatter;
+@property NSDateFormatter *parseFormatter;
 @property NSDate *currentDate;
 @property NSDate *dayTwo;
 @property NSDate *dayThree;
@@ -53,6 +63,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *dateButtonSeven;
 
 @property NSMutableArray *dates;
+@property NSMutableArray *passengerAmounts;
+@property NSDate *selectedDay;
+@property NSDate *selectedTime;
 
 
 
@@ -65,17 +78,31 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    NSInteger value = self.passengerSlider.value;
-    NSString *passengerTotal = [NSNumber numberWithInteger:value].description;
-    self.passengerTotalLabel.text = passengerTotal;
+
     self.dates = [NSMutableArray arrayWithObjects: self.dateButtonOne, self.dateButtonTwo, self.dateButtonThree, self.dateButtonFour, self.dateButtonFive, self.dateButtonSix, self.dateButtonSeven, nil];
 
     for (Date *date in self.dates) {
         date.delegate = self;
     }
 
+    self.passengerAmounts = [NSMutableArray arrayWithObjects:self.passengerLabelOne, self.passengerLabelTwo, self.passengerLabelThree, self.passengerLabelFour, nil];
+
+    for (PassengerLabel *passenger in self.passengerAmounts) {
+        passenger.delegate = self;
+    }
+
     self.formatter = [[NSDateFormatter alloc]init];
     [self.formatter setDateFormat:@"MMM dd"];
+
+    self.dayFormatter = [[NSDateFormatter alloc]init];
+    [self.dayFormatter setDateFormat:@"MMM dd, yyyy"];
+
+
+    self.timeFormatter = [[NSDateFormatter alloc] init];
+    [self.timeFormatter setDateFormat:@"HH:mm"];
+
+    self.parseFormatter = [[NSDateFormatter alloc] init];
+    [self.parseFormatter setDateFormat:@"MMM dd, yyyy, HH:mm"];
 
     self.currentDate = [NSDate date];
     self.dayTwo = [self.currentDate dateByAddingTimeInterval:86400];
@@ -106,7 +133,6 @@
 
 
 
-
 }
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
@@ -126,7 +152,7 @@
     ride.passenger = user;
     ride.rideDateTime = self.datePicker.date;
     ride.specialInstructions = self.specialComments.text;
-    ride.passengerCount = [NSString stringWithFormat:@"%.0f", self.passengerSlider.value];
+//    ride.passengerCount = [NSString stringWithFormat:@"%.0f", self.passengerSlider.value];
     ride.pickupGeoPoint = self.pickupGeopoint;
     ride.dropoffGeoPoint = self.destinationGeopoint;
     ride.fareEstimateMax = fareEstimateMax;
@@ -135,42 +161,72 @@
 
     if (self.dateButtonOne.tag ==1)
     {
-        ride.rideDateTime = self.currentDate;
+        self.selectedDay = self.currentDate;
     }
 
     else if (self.dateButtonTwo.tag ==1)
     {
-        ride.rideDateTime = self.dayTwo;
+        self.selectedDay= self.dayTwo;
     }
 
     else if (self.dateButtonThree.tag ==1)
     {
-        ride.rideDateTime = self.dayThree;
+        self.selectedDay = self.dayThree;
     }
 
     else if (self.dateButtonFour.tag ==1)
     {
-        ride.rideDateTime = self.dayFour;
+        self.selectedDay = self.dayFour;
     }
 
     else if (self.dateButtonFive.tag ==1)
     {
-        ride.rideDateTime = self.dayFive;
+        self.selectedDay = self.dayFive;
     }
 
     else if (self.dateButtonSix.tag ==1)
     {
-        ride.rideDateTime = self.daySix;
+        self.selectedDay = self.daySix;
     }
 
     else if (self.dateButtonSeven.tag ==1)
     {
-        ride.rideDateTime = self.daySeven;
+        self.selectedDay = self.daySeven;
     }
 
-    //ride.driverConfirmed = NO;
-    //ride.driverEnRoute = NO;
 
+    if(self.passengerLabelOne.tag ==1)
+    {
+        ride.passengerCount = self.passengerLabelOne.text;
+    }
+
+    else if (self.passengerLabelTwo.tag ==1)
+    {
+        ride.passengerCount = self.passengerLabelTwo.text;
+    }
+
+    else if (self.passengerLabelThree.tag ==1)
+    {
+        ride.passengerCount = self.passengerLabelThree.text;
+    }
+
+    else if (self.passengerLabelFour.tag ==1)
+    {
+        ride.passengerCount = self.passengerLabelFour.text;
+    }
+
+    self.selectedTime = self.datePicker.date;
+
+    NSString *dateSelectedString = [self.dayFormatter stringFromDate:self.selectedDay];
+    NSString *timeSelectedString = [self.timeFormatter stringFromDate:self.selectedTime];
+
+
+    NSString *newDate = [NSString stringWithFormat:@"%@ %@", dateSelectedString, timeSelectedString];
+
+
+    NSDate *dateFromString = [self.parseFormatter dateFromString:newDate];
+
+    ride.rideDateTime = dateFromString;
 
     [ride saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
     }];
@@ -179,9 +235,11 @@
 
 }
 
-- (IBAction)onPassengerUpdateSliderMoved:(id)sender {
+/*
+ - (IBAction)onPassengerUpdateSliderMoved:(id)sender {
     self.passengerTotalLabel.text = [NSString stringWithFormat:@"%.0f", self.passengerSlider.value];
 }
+ */
 
 
 
@@ -200,13 +258,22 @@
 
 }
 
+-(void)passengerLabelWasTapped:(PassengerLabel *)sender {
+    id labels = @[self.passengerLabelOne, self.passengerLabelTwo, self.passengerLabelThree, self.passengerLabelFour];
+
+    for (UILabel *label in labels) {
+        label.tag = 0;
+        label.textColor = [UIColor colorWithRed:226/255.0 green:219/255.0 blue:140/255.0 alpha:1.0];
+        label.backgroundColor = [UIColor blackColor];
+    }
+
+    sender.tag = 1;
+    sender.textColor = [UIColor blackColor];
+    sender.backgroundColor = [UIColor colorWithRed:226/255.0 green:219/255.0 blue:140/255.0 alpha:1.0];
+
+}
 
 @end
-
-
-
-
-
 
 
 
