@@ -17,4 +17,6 @@
 @property NSString *destinationAddress;
 @property UberPrice *price;
 
+
+
 @end

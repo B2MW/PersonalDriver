@@ -10,15 +10,52 @@
 #import "NewRideViewController.h"
 #import "Ride.h"
 #import "User.h"
+#import "Date.h"
 
 
-@interface NewRideViewController ()
-@property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
-@property (weak, nonatomic) IBOutlet UITextView *specialComments;
+@interface NewRideViewController () <DateDelegate>
+
 @property (weak, nonatomic) IBOutlet UISlider *passengerSlider;
 @property (weak, nonatomic) IBOutlet UILabel *passengerTotalLabel;
-@property (weak, nonatomic) IBOutlet UILabel *pickupLabel;
-@property (weak, nonatomic) IBOutlet UILabel *destinationLabel;
+@property (weak, nonatomic) IBOutlet UITextView *specialComments;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabelOne;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabelTwo;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabelThree;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabelFour;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabelFive;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabelSix;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabelSeven;
+@property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
+
+@property NSDateFormatter *formatter;
+@property NSDate *currentDate;
+@property NSDate *dayTwo;
+@property NSDate *dayThree;
+@property NSDate *dayFour;
+@property NSDate *dayFive;
+@property NSDate *daySix;
+@property NSDate *daySeven;
+
+@property NSString *dateString;
+@property NSString *dateTwoString;
+@property NSString *dateThreeString;
+@property NSString *dateFourString;
+@property NSString *dateFiveString;
+@property NSString *dateSixString;
+@property NSString *dateSevenString;
+
+@property (weak, nonatomic) IBOutlet UIButton *dateButtonOne;
+@property (weak, nonatomic) IBOutlet UIButton *dateButtonTwo;
+@property (weak, nonatomic) IBOutlet UIButton *dateButtonThree;
+@property (weak, nonatomic) IBOutlet UIButton *dateButtonFour;
+@property (weak, nonatomic) IBOutlet UIButton *dateButtonFive;
+@property (weak, nonatomic) IBOutlet UIButton *dateButtonSix;
+@property (weak, nonatomic) IBOutlet UIButton *dateButtonSeven;
+
+@property NSMutableArray *dates;
+
+
+
 
 
 @end
@@ -31,13 +68,46 @@
     NSInteger value = self.passengerSlider.value;
     NSString *passengerTotal = [NSNumber numberWithInteger:value].description;
     self.passengerTotalLabel.text = passengerTotal;
-    self.pickupLabel.text = self.pickupAddress;
-    self.destinationLabel.text = self.destinationAddress;
-    NSLog(@"geo points = %@", self.pickupGeopoint);
-    self.title = @"Ride Info";
+    self.dates = [NSMutableArray arrayWithObjects: self.dateButtonOne, self.dateButtonTwo, self.dateButtonThree, self.dateButtonFour, self.dateButtonFive, self.dateButtonSix, self.dateButtonSeven, nil];
+
+    for (Date *date in self.dates) {
+        date.delegate = self;
+    }
+
+    self.formatter = [[NSDateFormatter alloc]init];
+    [self.formatter setDateFormat:@"MMM dd"];
+
+    self.currentDate = [NSDate date];
+    self.dayTwo = [self.currentDate dateByAddingTimeInterval:86400];
+    self.dayThree = [self.currentDate dateByAddingTimeInterval:86400*2];
+    self.dayFour = [self.currentDate dateByAddingTimeInterval:86400*3];
+    self.dayFive = [self.currentDate dateByAddingTimeInterval:86400*4];
+    self.daySix = [self.currentDate dateByAddingTimeInterval:86400*5];
+    self.daySeven = [self.currentDate dateByAddingTimeInterval:86400*6];
+
+    self.dateString = [self.formatter stringFromDate:self.currentDate];
+    self.dateTwoString = [self.formatter stringFromDate:self.dayTwo];
+    self.dateThreeString = [self.formatter stringFromDate:self.dayThree];
+    self.dateFourString = [self.formatter stringFromDate:self.dayFour];
+    self.dateFiveString = [self.formatter stringFromDate:self.dayFive];
+    self.dateSixString = [self.formatter stringFromDate:self.daySix];
+    self.dateSevenString = [self.formatter stringFromDate:self.daySeven];
+
+    self.dateLabelOne.text = self.dateString;
+    self.dateLabelTwo.text = self.dateTwoString;
+    self.dateLabelThree.text = self.dateThreeString;
+    self.dateLabelFour.text = self.dateFourString;
+    self.dateLabelFive.text = self.dateFiveString;
+    self.dateLabelSix.text = self.dateSixString;
+    self.dateLabelSeven.text = self.dateSevenString;
+
+
+
+
+
+
 
 }
-
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [self.view endEditing:YES];
@@ -56,13 +126,47 @@
     ride.passenger = user;
     ride.rideDateTime = self.datePicker.date;
     ride.specialInstructions = self.specialComments.text;
-    ride.destination = self.destinationLabel.text;
-    ride.pickUpLocation = self.pickupLabel.text;
     ride.passengerCount = [NSString stringWithFormat:@"%.0f", self.passengerSlider.value];
     ride.pickupGeoPoint = self.pickupGeopoint;
     ride.dropoffGeoPoint = self.destinationGeopoint;
     ride.fareEstimateMax = fareEstimateMax;
     ride.fareEstimateMin = fareEstimateMin;
+
+
+    if (self.dateButtonOne.tag ==1)
+    {
+        ride.rideDateTime = self.currentDate;
+    }
+
+    else if (self.dateButtonTwo.tag ==1)
+    {
+        ride.rideDateTime = self.dayTwo;
+    }
+
+    else if (self.dateButtonThree.tag ==1)
+    {
+        ride.rideDateTime = self.dayThree;
+    }
+
+    else if (self.dateButtonFour.tag ==1)
+    {
+        ride.rideDateTime = self.dayFour;
+    }
+
+    else if (self.dateButtonFive.tag ==1)
+    {
+        ride.rideDateTime = self.dayFive;
+    }
+
+    else if (self.dateButtonSix.tag ==1)
+    {
+        ride.rideDateTime = self.daySix;
+    }
+
+    else if (self.dateButtonSeven.tag ==1)
+    {
+        ride.rideDateTime = self.daySeven;
+    }
 
     //ride.driverConfirmed = NO;
     //ride.driverEnRoute = NO;
@@ -82,7 +186,32 @@
 
 
 
+-(void)dateButtonWasTapped:(Date *)sender {
+
+    id buttons = @[self.dateButtonOne, self.dateButtonTwo, self.dateButtonThree, self.dateButtonFour, self.dateButtonFive, self.dateButtonSix, self.dateButtonSeven];
+
+    for (UIButton *button in buttons) {
+        button.tag = 0;
+        [button setImage:[UIImage imageNamed:@"Oval 8"] forState:UIControlStateNormal];
+    }
+
+    sender.tag = 1;
+    [sender setImage:[UIImage imageNamed:@"Oval 9"] forState:UIControlStateNormal];
+
+}
 
 
 @end
+
+
+
+
+
+
+
+
+
+
+
+
 
