@@ -1468,6 +1468,7 @@
                                 </variation>
                                 <connections>
                                     <action selector="onRequestRideButtonPressed:" destination="cfi-RL-R0p" eventType="touchUpInside" id="qag-d4-vo6"/>
+                                    <segue destination="h4G-8o-Khy" kind="show" id="zfv-Az-Tu5"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nov, 12" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TJn-ij-k3o">
@@ -1844,6 +1845,103 @@
             </objects>
             <point key="canvasLocation" x="4876" y="1070"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="Dke-ik-9nu">
+            <objects>
+                <viewController id="h4G-8o-Khy" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jmA-oW-3vO"/>
+                        <viewControllerLayoutGuide type="bottom" id="uId-hd-qQ6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Fcq-nY-EmA">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="sedan2" translatesAutoresizingMaskIntoConstraints="NO" id="nry-tA-2x9">
+                                <rect key="frame" x="133" y="209" width="318" height="423"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GUM-yD-4D5">
+                                <rect key="frame" x="160" y="535" width="281" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="1XF-0j-4NF"/>
+                                    <constraint firstAttribute="height" constant="30" id="2Xl-1j-Fb8"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="AUI-Sc-7FQ"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="281" id="AVe-5G-RRd"/>
+                                    <constraint firstAttribute="height" constant="30" id="Eia-Lh-RDu"/>
+                                    <constraint firstAttribute="width" constant="281" id="WfA-LK-FYE"/>
+                                    <constraint firstAttribute="height" constant="30" id="aur-XY-XLN"/>
+                                    <constraint firstAttribute="width" constant="281" id="dNH-Qr-gdB"/>
+                                    <constraint firstAttribute="width" constant="281" id="tNq-gP-axs"/>
+                                    <constraint firstAttribute="width" constant="281" id="vaK-rI-2lm"/>
+                                </constraints>
+                                <state key="normal" title="Home">
+                                    <color key="titleColor" red="0.98530040890000004" green="0.9906451235" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" red="0.98530040890000004" green="0.9906451235" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="1XF-0j-4NF"/>
+                                        <exclude reference="AUI-Sc-7FQ"/>
+                                        <exclude reference="AVe-5G-RRd"/>
+                                        <exclude reference="Eia-Lh-RDu"/>
+                                        <exclude reference="aur-XY-XLN"/>
+                                        <exclude reference="dNH-Qr-gdB"/>
+                                        <exclude reference="tNq-gP-axs"/>
+                                        <exclude reference="vaK-rI-2lm"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="onRequestRideButtonPressed:" destination="cfi-RL-R0p" eventType="touchUpInside" id="IKl-96-DZH"/>
+                                    <segue destination="iSl-it-gZz" kind="show" id="Vl4-Ei-4Lm"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="We will alert" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="76c-bW-sJg">
+                                <rect key="frame" x="10" y="107" width="286" height="58"/>
+                                <fontDescription key="fontDescription" name="AmericanTypewriter-Bold" family="American Typewriter" pointSize="43"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="you when we" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V4M-34-vDc">
+                                <rect key="frame" x="16" y="156" width="286" height="58"/>
+                                <fontDescription key="fontDescription" name="AmericanTypewriter-Bold" family="American Typewriter" pointSize="43"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="have found a" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rWL-zy-ch2">
+                                <rect key="frame" x="16" y="209" width="286" height="58"/>
+                                <fontDescription key="fontDescription" name="AmericanTypewriter-Bold" family="American Typewriter" pointSize="43"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="driver." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GgR-wq-Lu7">
+                                <rect key="frame" x="16" y="263" width="286" height="58"/>
+                                <fontDescription key="fontDescription" name="AmericanTypewriter-Bold" family="American Typewriter" pointSize="43"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="0.87450980389999999" blue="0.55294117649999996" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="GUM-yD-4D5" firstAttribute="top" secondItem="Fcq-nY-EmA" secondAttribute="topMargin" constant="535" id="6jn-MM-BZH"/>
+                            <constraint firstItem="GUM-yD-4D5" firstAttribute="top" secondItem="jmA-oW-3vO" secondAttribute="bottom" constant="471" id="AJL-tU-x02"/>
+                            <constraint firstAttribute="centerX" secondItem="GUM-yD-4D5" secondAttribute="centerX" id="RxZ-3O-9Xd"/>
+                            <constraint firstAttribute="centerX" secondItem="GUM-yD-4D5" secondAttribute="centerX" id="iOc-6J-1jQ"/>
+                            <constraint firstAttribute="centerX" secondItem="GUM-yD-4D5" secondAttribute="centerX" id="xIW-cf-ZZV"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="AJL-tU-x02"/>
+                                <exclude reference="RxZ-3O-9Xd"/>
+                                <exclude reference="xIW-cf-ZZV"/>
+                            </mask>
+                        </variation>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UEO-on-sJE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3821" y="1801"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="9ug-6F-CI6">
             <objects>
@@ -1869,5 +1967,6 @@
         <image name="Oval 8" width="100" height="100"/>
         <image name="Oval 9" width="100" height="100"/>
         <image name="profilePicPlaceholder" width="128" height="128"/>
+        <image name="sedan2" width="256" height="256"/>
     </resources>
 </document>
