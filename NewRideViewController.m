@@ -28,6 +28,9 @@
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
 
 @property NSDateFormatter *formatter;
+@property NSDateFormatter *timeFormatter;
+@property NSDateFormatter *dayFormatter;
+@property NSDateFormatter *parseFormatter;
 @property NSDate *currentDate;
 @property NSDate *dayTwo;
 @property NSDate *dayThree;
@@ -53,6 +56,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *dateButtonSeven;
 
 @property NSMutableArray *dates;
+@property NSDate *selectedDay;
+@property NSDate *selectedTime;
 
 
 
@@ -77,6 +82,16 @@
     self.formatter = [[NSDateFormatter alloc]init];
     [self.formatter setDateFormat:@"MMM dd"];
 
+    self.dayFormatter = [[NSDateFormatter alloc]init];
+    [self.dayFormatter setDateFormat:@"MMM dd, yyyy"];
+
+
+    self.timeFormatter = [[NSDateFormatter alloc] init];
+    [self.timeFormatter setDateFormat:@"HH:mm"];
+
+    self.parseFormatter = [[NSDateFormatter alloc] init];
+    [self.parseFormatter setDateFormat:@"MMM dd, yyyy, HH:mm"];
+
     self.currentDate = [NSDate date];
     self.dayTwo = [self.currentDate dateByAddingTimeInterval:86400];
     self.dayThree = [self.currentDate dateByAddingTimeInterval:86400*2];
@@ -100,7 +115,6 @@
     self.dateLabelFive.text = self.dateFiveString;
     self.dateLabelSix.text = self.dateSixString;
     self.dateLabelSeven.text = self.dateSevenString;
-
 
 
 
@@ -135,42 +149,62 @@
 
     if (self.dateButtonOne.tag ==1)
     {
-        ride.rideDateTime = self.currentDate;
+        self.selectedDay = self.currentDate;
     }
 
     else if (self.dateButtonTwo.tag ==1)
     {
-        ride.rideDateTime = self.dayTwo;
+        self.selectedDay= self.dayTwo;
     }
 
     else if (self.dateButtonThree.tag ==1)
     {
-        ride.rideDateTime = self.dayThree;
+        self.selectedDay = self.dayThree;
     }
 
     else if (self.dateButtonFour.tag ==1)
     {
-        ride.rideDateTime = self.dayFour;
+        self.selectedDay = self.dayFour;
     }
 
     else if (self.dateButtonFive.tag ==1)
     {
-        ride.rideDateTime = self.dayFive;
+        self.selectedDay = self.dayFive;
     }
 
     else if (self.dateButtonSix.tag ==1)
     {
-        ride.rideDateTime = self.daySix;
+        self.selectedDay = self.daySix;
     }
 
     else if (self.dateButtonSeven.tag ==1)
     {
-        ride.rideDateTime = self.daySeven;
+        self.selectedDay = self.daySeven;
     }
 
-    //ride.driverConfirmed = NO;
-    //ride.driverEnRoute = NO;
+    self.selectedTime = self.datePicker.date;
 
+
+    NSLog(@"NSDate = %@", self.selectedDay);
+    NSLog(@"Time = %@", self.selectedTime);
+
+
+    NSString *dateSelectedString = [self.dayFormatter stringFromDate:self.selectedDay];
+    NSLog (@"date selected string = %@", dateSelectedString);
+    NSString *timeSelectedString = [self.timeFormatter stringFromDate:self.selectedTime];
+    NSLog (@"dtime selected string = %@", timeSelectedString);
+
+    NSString *newDate = [NSString stringWithFormat:@"%@ %@", dateSelectedString, timeSelectedString];
+
+    NSLog(@"NSDate = %@", self.selectedDay);
+    NSLog(@"Time = %@", self.selectedTime);
+    NSLog(@"new date = %@", newDate);
+
+    NSDate *dateFromString = [self.parseFormatter dateFromString:newDate];
+
+    NSLog(@"Final Date = %@", dateFromString);
+
+    ride.rideDateTime = dateFromString;
 
     [ride saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
     }];
@@ -199,6 +233,8 @@
     [sender setImage:[UIImage imageNamed:@"Oval 9"] forState:UIControlStateNormal];
 
 }
+
+
 
 
 @end
