@@ -10,12 +10,11 @@
 
 @implementation PassengerLabel
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+-(IBAction)onTapped:(UITapGestureRecognizer *)sender{
+    [self.delegate passengerLabelWasTapped:self];
+    NSLog(@"who am i? I am : %@",self.text);
 }
-*/
+
+
 
 @end

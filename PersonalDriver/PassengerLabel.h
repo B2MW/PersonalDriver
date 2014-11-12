@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol PassengerDelegate
+-(void)passengerLabelWasTapped:(id)sender;
+
+@end
+
 @interface PassengerLabel : UILabel
+
+@property id<PassengerDelegate> delegate;
 
 @end
