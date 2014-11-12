@@ -11,12 +11,13 @@
 #import "Ride.h"
 #import "User.h"
 #import "Date.h"
+#import "PassengerLabel.h"
 
 
-@interface NewRideViewController () <DateDelegate>
+@interface NewRideViewController () <DateDelegate, PassengerDelegate>
 
-@property (weak, nonatomic) IBOutlet UISlider *passengerSlider;
-@property (weak, nonatomic) IBOutlet UILabel *passengerTotalLabel;
+//@property (weak, nonatomic) IBOutlet UISlider *passengerSlider;
+//@property (weak, nonatomic) IBOutlet UILabel *passengerTotalLabel;
 @property (weak, nonatomic) IBOutlet UITextView *specialComments;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabelOne;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabelTwo;
@@ -26,6 +27,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *dateLabelSix;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabelSeven;
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
+
+@property (weak, nonatomic) IBOutlet PassengerLabel *passengerLabelOne;
+@property (weak, nonatomic) IBOutlet PassengerLabel *passengerLabelTwo;
+@property (weak, nonatomic) IBOutlet PassengerLabel *passengerLabelThree;
+@property (weak, nonatomic) IBOutlet PassengerLabel *passengerLabelFour;
+
 
 @property NSDateFormatter *formatter;
 @property NSDateFormatter *timeFormatter;
@@ -56,6 +63,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *dateButtonSeven;
 
 @property NSMutableArray *dates;
+@property NSMutableArray *passengerAmounts;
 @property NSDate *selectedDay;
 @property NSDate *selectedTime;
 
@@ -70,13 +78,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    NSInteger value = self.passengerSlider.value;
-    NSString *passengerTotal = [NSNumber numberWithInteger:value].description;
-    self.passengerTotalLabel.text = passengerTotal;
+
     self.dates = [NSMutableArray arrayWithObjects: self.dateButtonOne, self.dateButtonTwo, self.dateButtonThree, self.dateButtonFour, self.dateButtonFive, self.dateButtonSix, self.dateButtonSeven, nil];
 
     for (Date *date in self.dates) {
         date.delegate = self;
+    }
+
+    self.passengerAmounts = [NSMutableArray arrayWithObjects:self.passengerLabelOne, self.passengerLabelTwo, self.passengerLabelThree, self.passengerLabelFour, nil];
+
+    for (PassengerLabel *passenger in self.passengerAmounts) {
+        passenger.delegate = self;
     }
 
     self.formatter = [[NSDateFormatter alloc]init];
@@ -140,7 +152,7 @@
     ride.passenger = user;
     ride.rideDateTime = self.datePicker.date;
     ride.specialInstructions = self.specialComments.text;
-    ride.passengerCount = [NSString stringWithFormat:@"%.0f", self.passengerSlider.value];
+//    ride.passengerCount = [NSString stringWithFormat:@"%.0f", self.passengerSlider.value];
     ride.pickupGeoPoint = self.pickupGeopoint;
     ride.dropoffGeoPoint = self.destinationGeopoint;
     ride.fareEstimateMax = fareEstimateMax;
@@ -213,9 +225,11 @@
 
 }
 
-- (IBAction)onPassengerUpdateSliderMoved:(id)sender {
+/*
+ - (IBAction)onPassengerUpdateSliderMoved:(id)sender {
     self.passengerTotalLabel.text = [NSString stringWithFormat:@"%.0f", self.passengerSlider.value];
 }
+ */
 
 
 
@@ -234,15 +248,22 @@
 
 }
 
+-(void)passengerLabelWasTapped:(PassengerLabel *)sender {
+    id labels = @[self.passengerLabelOne, self.passengerLabelTwo, self.passengerLabelThree, self.passengerLabelFour];
 
+    for (UILabel *label in labels) {
+        label.tag = 0;
+        label.textColor = [UIColor colorWithRed:226/255.0 green:219/255.0 blue:140/255.0 alpha:1.0];
+        label.backgroundColor = [UIColor blackColor];
+    }
 
+    sender.tag = 1;
+    sender.textColor = [UIColor blackColor];
+    sender.backgroundColor = [UIColor colorWithRed:226/255.0 green:219/255.0 blue:140/255.0 alpha:1.0];
+
+}
 
 @end
-
-
-
-
-
 
 
 
