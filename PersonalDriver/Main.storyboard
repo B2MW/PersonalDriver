@@ -635,7 +635,63 @@
                     <view key="view" contentMode="scaleToFill" id="af1-lx-J2p">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JDk-jw-9RW">
+                                <rect key="frame" x="0.0" y="225" width="600" height="150"/>
+                                <color key="backgroundColor" red="0.0" green="0.50196081399917603" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="9st-ls-orJ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
+                                <state key="normal" title="Start Trip">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onStartPressed:" destination="eYy-Ow-1I6" eventType="touchUpInside" id="mZw-ge-0A5"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wcr-io-FsI">
+                                <rect key="frame" x="0.0" y="525" width="600" height="75"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
+                                <state key="normal" title="Cancel Trip">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onCancelledPressed:" destination="eYy-Ow-1I6" eventType="touchUpInside" id="0Hc-I2-kFU"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FmH-pQ-KZR">
+                                <rect key="frame" x="0.0" y="375" width="600" height="150"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="0.56000000000000005" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="s5i-AV-baQ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
+                                <state key="normal" title="Get Directions">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onDirectionPressed:" destination="eYy-Ow-1I6" eventType="touchUpInside" id="8Dl-d2-I5U"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="wcr-io-FsI" secondAttribute="trailing" id="0F4-fA-bFs"/>
+                            <constraint firstItem="3LB-tO-mfv" firstAttribute="top" secondItem="wcr-io-FsI" secondAttribute="bottom" id="CS5-Pb-Yey"/>
+                            <constraint firstAttribute="trailing" secondItem="JDk-jw-9RW" secondAttribute="trailing" id="NE8-O3-ZJn"/>
+                            <constraint firstAttribute="centerY" secondItem="JDk-jw-9RW" secondAttribute="centerY" id="OJE-v1-OTG"/>
+                            <constraint firstItem="wcr-io-FsI" firstAttribute="leading" secondItem="af1-lx-J2p" secondAttribute="leading" id="Q30-Or-ENX"/>
+                            <constraint firstItem="JDk-jw-9RW" firstAttribute="leading" secondItem="af1-lx-J2p" secondAttribute="leading" id="a5Y-As-blT"/>
+                            <constraint firstItem="FmH-pQ-KZR" firstAttribute="top" secondItem="JDk-jw-9RW" secondAttribute="bottom" id="bi9-5I-0K1"/>
+                            <constraint firstAttribute="trailing" secondItem="FmH-pQ-KZR" secondAttribute="trailing" id="fJW-x2-UWZ"/>
+                            <constraint firstItem="wcr-io-FsI" firstAttribute="top" secondItem="FmH-pQ-KZR" secondAttribute="bottom" id="j3W-ho-gSP"/>
+                            <constraint firstItem="FmH-pQ-KZR" firstAttribute="leading" secondItem="af1-lx-J2p" secondAttribute="leading" id="lkU-g6-Mys"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kgd-F7-BZf" userLabel="First Responder" sceneMemberID="firstResponder"/>
