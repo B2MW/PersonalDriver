@@ -488,6 +488,7 @@
 				TargetAttributes = {
 					4C7175101A081334002AC734 = {
 						CreatedOnToolsVersion = 6.1;
+						DevelopmentTeam = X9H2FN6JAM;
 					};
 					4C71752C1A081334002AC734 = {
 						CreatedOnToolsVersion = 6.1;
@@ -727,11 +728,12 @@
 			baseConfigurationReference = 7FA98B5EB640F8B16A99CBF9 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Pete McCarthy (439MEYSRLW)";
+				CODE_SIGN_IDENTITY = "";
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/PersonalDriver";
 				INFOPLIST_FILE = PersonalDriver/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "e574a9fa-8751-4952-96e7-34c263bbf5ea";
 			};
 			name = Debug;
 		};
@@ -740,11 +742,12 @@
 			baseConfigurationReference = 2173130ED3E5D01E966E8968 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Pete McCarthy (439MEYSRLW)";
+				CODE_SIGN_IDENTITY = "";
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/PersonalDriver";
 				INFOPLIST_FILE = PersonalDriver/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "e574a9fa-8751-4952-96e7-34c263bbf5ea";
 			};
 			name = Release;
 		};
