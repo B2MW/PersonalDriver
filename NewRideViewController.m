@@ -194,27 +194,37 @@
         self.selectedDay = self.daySeven;
     }
 
+
+    if(self.passengerLabelOne.tag ==1)
+    {
+        ride.passengerCount = self.passengerLabelOne.text;
+    }
+
+    else if (self.passengerLabelTwo.tag ==1)
+    {
+        ride.passengerCount = self.passengerLabelTwo.text;
+    }
+
+    else if (self.passengerLabelThree.tag ==1)
+    {
+        ride.passengerCount = self.passengerLabelThree.text;
+    }
+
+    else if (self.passengerLabelFour.tag ==1)
+    {
+        ride.passengerCount = self.passengerLabelFour.text;
+    }
+
     self.selectedTime = self.datePicker.date;
 
-
-    NSLog(@"NSDate = %@", self.selectedDay);
-    NSLog(@"Time = %@", self.selectedTime);
-
-
     NSString *dateSelectedString = [self.dayFormatter stringFromDate:self.selectedDay];
-    NSLog (@"date selected string = %@", dateSelectedString);
     NSString *timeSelectedString = [self.timeFormatter stringFromDate:self.selectedTime];
-    NSLog (@"dtime selected string = %@", timeSelectedString);
+
 
     NSString *newDate = [NSString stringWithFormat:@"%@ %@", dateSelectedString, timeSelectedString];
 
-    NSLog(@"NSDate = %@", self.selectedDay);
-    NSLog(@"Time = %@", self.selectedTime);
-    NSLog(@"new date = %@", newDate);
 
     NSDate *dateFromString = [self.parseFormatter dateFromString:newDate];
-
-    NSLog(@"Final Date = %@", dateFromString);
 
     ride.rideDateTime = dateFromString;
 
