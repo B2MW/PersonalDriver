@@ -7,7 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Parse/Parse.h>
 
-@interface DriverProfile : NSObject
-
+@interface DriverProfile : PFObject
+@property PFUser *user;
+@property PFGeoPoint *homeLocation;
+@property NSNumber *fareMix;
+@property NSNumber *fareMax;
+@property NSNumber *searchRadius;
 @end

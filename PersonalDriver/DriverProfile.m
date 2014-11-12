@@ -9,5 +9,19 @@
 #import "DriverProfile.h"
 
 @implementation DriverProfile
+@dynamic user;
+@dynamic homeLocation;
+@dynamic fareMix;
+@dynamic fareMax;
+@dynamic searchRadius;
 
++(void)load
+{
+    [self registerSubclass];
+}
+
++(NSString *)parseClassName
+{
+    return @"DriverProfile";
+}
 @end
