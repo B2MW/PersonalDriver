@@ -16,12 +16,12 @@
 #import <Parse/Parse.h>
 
 
-@interface AvailableRidesViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface AvailableRidesViewController () <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate>
 @property (weak, nonatomic) IBOutlet AvailableRidesTableView *availableTableView;
 @property (weak, nonatomic) IBOutlet ScheduledTableView *scheduledTableView;
 
 
-
+@property CLLocationManager *locationManager;
 @property NSArray *availableRides;
 @property NSArray *scheduledRides;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
@@ -34,6 +34,9 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [self refreshDisplay];
+    self.locationManager = [CLLocationManager new];
+    [self.locationManager requestWhenInUseAuthorization];
+    [self.locationManager startUpdatingLocation];
 }
 
 
@@ -84,6 +87,11 @@
         cell.rideOrigin.text = availableRide.pickUpLocation;
         cell.rideDestination.text = availableRide.destination;
         cell.fareEstimate.text = [rideManager formatRideFareEstimate:availableRide.fareEstimateMin fareEstimateMax:availableRide.fareEstimateMax];
+
+        [rideManager retrieveRideDistanceAndBearing:availableRide :self.locationManager :^(NSArray *rideBearingAndDistance) {
+
+        }];
+
         //load image file with placeholder first
         User *passenger = availableRide.passenger;
         cell.userImage.image = [UIImage imageNamed:@"profilePicPlaceholder"];
@@ -143,6 +151,17 @@
         scheduledVC.ride = [self.scheduledRides objectAtIndex:indexPath.row];
     }
 
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    for (CLLocation *location in locations) {
+        if (location.verticalAccuracy < 1000 && location.horizontalAccuracy < 1000)
+        {
+            [self.locationManager stopUpdatingLocation];
+            break;
+        }
+    }
 }
 
 

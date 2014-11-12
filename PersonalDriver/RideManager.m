@@ -8,12 +8,6 @@
 
 #import "RideManager.h"
 
-@interface RideManager()
-@property CLLocationManager *locationManager;
-
-@end
-
-
 @implementation RideManager
 
 -(void)getAvailableRides:(void(^)(NSArray *))completionHandler
@@ -73,18 +67,15 @@
      }];
 }
 
--(void)retrieveRideDistanceAndBearing:(Ride *)ride:(void(^)(NSArray *))completionHandler
+-(void)retrieveRideDistanceAndBearing:(Ride *)ride:(CLLocationManager *)locationManager:(void(^)(NSArray *))completionHandler
 {
-    NSArray *distanceAndBearing = [NSArray array];
+    NSMutableArray *distanceAndBearing = [NSMutableArray array];
     NSNumber *distance;
     NSNumber *bearing;
-    RideManager *rideManager = [RideManager new];
-
-    [self.locationManager startUpdatingLocation];
 
     //find distance between pickup & dropoff GeoPoints
     CLLocation *pickupLocation = [[CLLocation alloc] initWithLatitude:ride.pickupGeoPoint.latitude longitude:ride.pickupGeoPoint.longitude];
-    CLLocation *driverLocation = self.locationManager.location;
+    CLLocation *driverLocation = locationManager.location;
     distance = [NSNumber numberWithDouble:([pickupLocation distanceFromLocation:driverLocation] / 1609.34)];
 
     NSNumber *driverLat = [self convertDegreesToRadians:driverLocation.coordinate.latitude];
@@ -118,15 +109,6 @@
     return degreeValue;
 }
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
-{
-    for (CLLocation *location in locations) {
-        if (location.verticalAccuracy < 1000 && location.horizontalAccuracy < 1000)
-        {
-            [self.locationManager stopUpdatingLocation];
-            break;
-        }
-    }
-}
+
 
 @end
