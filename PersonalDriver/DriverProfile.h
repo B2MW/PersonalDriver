@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <Parse/Parse.h>
 
-@interface DriverProfile : PFObject
+@interface DriverProfile : PFObject <PFSubclassing>
 @property PFUser *user;
 @property PFGeoPoint *homeLocation;
 @property NSNumber *fareMix;

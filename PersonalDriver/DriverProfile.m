@@ -9,6 +9,7 @@
 #import "DriverProfile.h"
 
 @implementation DriverProfile
+
 @dynamic user;
 @dynamic homeLocation;
 @dynamic fareMix;
@@ -24,4 +25,5 @@
 {
     return @"DriverProfile";
 }
+
 @end
