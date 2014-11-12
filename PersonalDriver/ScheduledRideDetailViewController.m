@@ -19,6 +19,15 @@
     self.title = self.ride.passenger.name;
 
 }
+- (IBAction)onStartPressed:(UIButton *)sender {
+    self.ride.driverEnRoute = YES;
+}
+
+- (IBAction)onDirectionPressed:(UIButton *)sender {
+}
+
+- (IBAction)onCancelledPressed:(UIButton *)sender {
+}
 
 
 

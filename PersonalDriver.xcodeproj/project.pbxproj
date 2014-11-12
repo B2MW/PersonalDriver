@@ -727,6 +727,7 @@
 			baseConfigurationReference = 7FA98B5EB640F8B16A99CBF9 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Pete McCarthy (439MEYSRLW)";
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/PersonalDriver";
 				INFOPLIST_FILE = PersonalDriver/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -739,6 +740,7 @@
 			baseConfigurationReference = 2173130ED3E5D01E966E8968 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Pete McCarthy (439MEYSRLW)";
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/PersonalDriver";
 				INFOPLIST_FILE = PersonalDriver/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
