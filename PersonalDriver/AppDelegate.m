@@ -62,11 +62,11 @@
 
 
 }
-//THIS IS NOT WORKING
+
 //Allow redirect from Safari back to App after oauth authentication
 - (BOOL) application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-
+    //Get the authCode before getting the token
     NSArray *urlArray = [url.query componentsSeparatedByString:@"="];
     NSString *authCode = [urlArray objectAtIndex:1];
     if (authCode)
@@ -94,9 +94,6 @@
 
 }
 
-- (void)applicationWillResignActive:(UIApplication *)application {
-
-}
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
