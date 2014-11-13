@@ -258,7 +258,7 @@
 
                 [self.mapView removeOverlays:self.mapView.overlays];
 
-                [UberAPI getPriceEstimateWithToken:self.token fromPickup:self.pickupLocation toDestination:self.destinationLocation completionHandler:^(UberPrice *price) {
+                [UberAPI getPriceEstimateFromPickup:self.pickupLocation toDestination:self.destinationLocation completionHandler:^(UberPrice *price) {
                     self.price = price;
 
                     // Make a directions request
@@ -333,7 +333,7 @@
             [self.mapView addAnnotation:self.endPointAnnotation];
             [self.locations addObject:self.endPinAnnotation];
 
-            [UberAPI getPriceEstimateWithToken:self.token fromPickup:self.pickupLocation toDestination:self.destinationLocation completionHandler:^(UberPrice *price) {
+            [UberAPI getPriceEstimateFromPickup:self.pickupLocation toDestination:self.destinationLocation completionHandler:^(UberPrice *price) {
                 self.price = price;
 
             }];

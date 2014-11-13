@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B23" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="iSl-it-gZz">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="iSl-it-gZz">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -1124,14 +1124,14 @@
                                 <exclude reference="cYo-qI-6tc"/>
                                 <exclude reference="nv7-QL-zGg"/>
                                 <exclude reference="yT8-5q-Qvs"/>
-                                <exclude reference="G3d-Yb-qFY"/>
-                                <exclude reference="fDK-zc-bWl"/>
-                                <exclude reference="luV-eX-uDi"/>
-                                <exclude reference="naS-6M-KC3"/>
                                 <exclude reference="2Uu-um-BLl"/>
                                 <exclude reference="OMK-Z0-DmK"/>
                                 <exclude reference="kqX-a2-LMT"/>
                                 <exclude reference="svg-Eo-twy"/>
+                                <exclude reference="G3d-Yb-qFY"/>
+                                <exclude reference="fDK-zc-bWl"/>
+                                <exclude reference="luV-eX-uDi"/>
+                                <exclude reference="naS-6M-KC3"/>
                                 <exclude reference="FKS-cf-kNT"/>
                                 <exclude reference="l38-e3-NhO"/>
                                 <exclude reference="tjZ-aI-g99"/>
