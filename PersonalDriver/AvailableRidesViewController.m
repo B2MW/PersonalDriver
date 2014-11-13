@@ -83,7 +83,15 @@
 
         [rideManager retrieveRideDistanceAndBearing:availableRide :self.locationManager :^(NSArray *rideBearingAndDistance)
         {
-            cell.rideOrigin.text = [NSString stringWithFormat:@"Pickup is %@ miles %@",[rideBearingAndDistance objectAtIndex:0], [rideBearingAndDistance objectAtIndex:1]];
+            NSNumber *rideDistance = [rideBearingAndDistance objectAtIndex:0];
+            if ( rideDistance.doubleValue >= 1)
+            {
+                cell.rideOrigin.text = [NSString stringWithFormat:@"Pickup point is %@ miles %@",[rideBearingAndDistance objectAtIndex:0], [rideBearingAndDistance objectAtIndex:1]];
+            }
+            else
+            {
+                cell.rideOrigin.text = @"Pickup point is within a mile";
+            }
         }];
 
         [rideManager retrivedRideTripDistance:availableRide :^(NSNumber *tripDistance)
@@ -93,10 +101,6 @@
 
         //load image file with placeholder first
         User *passenger = availableRide.passenger;
-        cell.userImage.image = [UIImage imageNamed:@"profilePicPlaceholder"];
-        PFFile *pictureFile = [passenger objectForKey:@"picture"];
-        cell.userImage.file = pictureFile;
-        [cell.userImage loadInBackground];
 
         return cell;
 

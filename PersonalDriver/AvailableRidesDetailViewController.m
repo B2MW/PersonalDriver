@@ -9,8 +9,6 @@
 #import "AvailableRidesDetailViewController.h"
 
 @interface AvailableRidesDetailViewController ()
-@property (strong, nonatomic) IBOutlet UIImageView *passengerPicture;
-@property (strong, nonatomic) IBOutlet UILabel *passengerName;
 @property (strong, nonatomic) IBOutlet UILabel *estimatedFare;
 @property (strong, nonatomic) IBOutlet UILabel *rideDate;
 @property (strong, nonatomic) IBOutlet UILabel *numberOfPassengers;
@@ -38,54 +36,39 @@
 -(void)retrieveAvailableRidesData
 {
     RideManager *rideManager = [[RideManager alloc] init];
+
+    //Query Parse User class
     PFQuery *queryForUserDetails = [PFQuery queryWithClassName:@"_User"];
     [queryForUserDetails whereKey:@"objectId" equalTo:self.ride.passenger.objectId];
     [queryForUserDetails findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
-    {
-        if (error || nil)
-        {
-            NSLog(@"Error: %@", error.userInfo);
-        }
-        else
-        {
-            [objects.firstObject[@"picture"] getDataInBackgroundWithBlock:^(NSData *data, NSError *error)
-            {
-                if (!error)
-                {
-                    if (data != nil)
-                    {
-                        self.passengerPicture.image = [UIImage imageWithData:data];
-                    }
-                    else
-                    {
-                        self.passengerPicture.image = [UIImage imageNamed:@"passengerPicPlaceholder"];
-                    }
-                }
-            }];
-        }
+     {
+         if (error || nil)
+         {
+             NSLog(@"Error: %@", error.userInfo);
+         }
 
-        if ([self.ride.specialInstructions isEqualToString:@""])
-        {
-            self.specialInstructions.text = @"No special instructions for this ride";
-            self.specialInstructions.textColor = [UIColor grayColor];
-        }
-        else
-        {
-            self.specialInstructions.text = self.ride.specialInstructions;
-        }
+         //Display and format special instructions
+         if ([self.ride.specialInstructions isEqualToString:@""])
+         {
+             self.specialInstructions.text = @"No special instructions for this ride";
+             self.specialInstructions.textColor = [UIColor grayColor];
+         }
+         else
+         {
+             self.specialInstructions.text = self.ride.specialInstructions;
+         }
 
-        self.passengerName.text = objects.firstObject[@"name"];
-        self.estimatedFare.text = [rideManager formatRideFareEstimate:self.ride.fareEstimateMin fareEstimateMax:self.ride.fareEstimateMax];
-        self.rideDate.text = [rideManager formatRideDate:self.ride];
-        self.numberOfPassengers.text = self.ride.passengerCount;
-        [rideManager retrieveGeoPointAddress:self.ride.pickupGeoPoint completionHandler:^(NSString *address) {
-            self.pickupAddress.text = address;
-        }];
-        [rideManager retrieveGeoPointAddress:self.ride.dropoffGeoPoint completionHandler:^(NSString *address) {
-            self.dropoffAddress.text = address;
-        }];
-
-    }];
+         self.estimatedFare.text = [rideManager formatRideFareEstimate:self.ride.fareEstimateMin fareEstimateMax:self.ride.fareEstimateMax];
+         self.rideDate.text = [rideManager formatRideDate:self.ride];
+         self.numberOfPassengers.text = self.ride.passengerCount;
+         [rideManager retrieveGeoPointAddress:self.ride.pickupGeoPoint completionHandler:^(NSString *address) {
+             self.pickupAddress.text = address;
+         }];
+         [rideManager retrieveGeoPointAddress:self.ride.dropoffGeoPoint completionHandler:^(NSString *address) {
+             self.dropoffAddress.text = address;
+         }];
+         
+     }];
 }
 
 - (void)confirmRideAvailability
