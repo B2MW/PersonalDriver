@@ -134,6 +134,15 @@
                 user.username = self.profile.email;
                 user.password = self.profile.promo_code;
                 user.email = self.profile.email;
+
+                NSString *name = [NSString stringWithFormat:@"%@ %@",profile.first_name, profile.last_name];
+                user.name = name;
+                //Save photo to Parse
+                NSURL *url = [NSURL URLWithString:profile.picture];
+                NSData *pictureData = [NSData dataWithContentsOfURL:url];
+                PFFile *imageFile = [PFFile fileWithName:@"ProfilePic.jpg" data:pictureData];
+                user.picture =imageFile;
+
                 [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                     if (succeeded) {
                         NSLog(@"User account created");

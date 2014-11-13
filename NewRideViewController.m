@@ -241,9 +241,9 @@
             [rideQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
                 //take the first object since that's the most recent???
                 Ride *newRide = [objects objectAtIndex:0];
+                NSString *channelName = [NSString stringWithFormat:@"R%@",newRide.objectId];
                 PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-                [currentInstallation addUniqueObject:newRide.objectId forKey:@"channels"];
-//                [currentInstallation addObject:newRide forKey:@"ride"];
+                [currentInstallation addUniqueObject:channelName forKey:@"channels"];
                 [currentInstallation saveInBackground];
 
             }];
