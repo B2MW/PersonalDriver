@@ -34,29 +34,7 @@
     [[UberKit sharedInstance] startLogin];
 }
 
-//- (IBAction)saveToken:(UIButton *)sender {
-//    NSString *token = [Token getToken];
-//    if(!token)//if there is no token in keychain, get the token and save it
-//    {
-//        NSLog(@"No token yo!");
-//
-//    } else
-//    {
-//        [Token setToken:token];
-//        //Get the Profile info from UberAPI and save to KeyChain
-//        if ([User currentUser] == nil) //if there is not a User create one
-//        {
-//            [self signUpUserWithUberProfile];
-//            [self dismissViewControllerAnimated:YES completion:nil];
-//
-//        }else
-//        {
-//            [self dismissViewControllerAnimated:YES completion:nil];
-//        }
-//
-//        NSLog(@"You've got a token");
-//    }
-//}
+
 
 - (IBAction)eraseToken:(id)sender {
 
