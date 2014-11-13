@@ -19,15 +19,11 @@
 @interface AvailableRidesViewController () <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate>
 @property (weak, nonatomic) IBOutlet AvailableRidesTableView *availableTableView;
 @property (weak, nonatomic) IBOutlet ScheduledTableView *scheduledTableView;
-
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 
 @property CLLocationManager *locationManager;
 @property NSArray *availableRides;
 @property NSArray *scheduledRides;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
-
-
-
 @end
 
 @implementation AvailableRidesViewController
@@ -38,7 +34,6 @@
     [self.locationManager requestWhenInUseAuthorization];
     [self.locationManager startUpdatingLocation];
 }
-
 
 - (void)viewDidLoad
 {
@@ -84,12 +79,16 @@
         AvailableRideTableViewCell *cell = [self.availableTableView dequeueReusableCellWithIdentifier:@"RideCell"];
         Ride *availableRide = [self.availableRides objectAtIndex:indexPath.row];
         cell.pickupDateTimeLabel.text = [rideManager formatRideDate:availableRide];
-        cell.rideOrigin.text = availableRide.pickUpLocation;
-        cell.rideDestination.text = availableRide.destination;
         cell.fareEstimate.text = [rideManager formatRideFareEstimate:availableRide.fareEstimateMin fareEstimateMax:availableRide.fareEstimateMax];
 
-        [rideManager retrieveRideDistanceAndBearing:availableRide :self.locationManager :^(NSArray *rideBearingAndDistance) {
+        [rideManager retrieveRideDistanceAndBearing:availableRide :self.locationManager :^(NSArray *rideBearingAndDistance)
+        {
+            cell.rideOrigin.text = [NSString stringWithFormat:@"Pickup is %@ miles %@",[rideBearingAndDistance objectAtIndex:0], [rideBearingAndDistance objectAtIndex:1]];
+        }];
 
+        [rideManager retrivedRideTripDistance:availableRide :^(NSNumber *tripDistance)
+        {
+            cell.rideDestination.text = [NSString stringWithFormat:@"%@ mile trip", tripDistance];
         }];
 
         //load image file with placeholder first

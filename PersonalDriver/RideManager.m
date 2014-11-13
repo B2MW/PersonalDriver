@@ -58,7 +58,7 @@
     [geocode reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error)
      {
          CLPlacemark *placemark = placemarks.firstObject;
-         NSString *address = [NSString stringWithFormat:@"%@ %@ \n%@",
+         NSString *address = [NSString stringWithFormat:@"%@ %@ \n%@, %@",
                               placemark.subThoroughfare,
                               placemark.thoroughfare,
                               placemark.locality];
@@ -77,7 +77,7 @@
     //find distance between pickup & dropoff GeoPoints
     CLLocation *pickupLocation = [[CLLocation alloc] initWithLatitude:ride.pickupGeoPoint.latitude longitude:ride.pickupGeoPoint.longitude];
     CLLocation *driverLocation = locationManager.location;
-    distance = [NSNumber numberWithDouble:([pickupLocation distanceFromLocation:driverLocation] / 1609.34)];
+    distance = [NSNumber numberWithDouble:(round([pickupLocation distanceFromLocation:driverLocation] / 1609.34))];
 
     NSNumber *driverLat = [self convertDegreesToRadians:driverLocation.coordinate.latitude];
     NSNumber *driverLong = [self convertDegreesToRadians:driverLocation.coordinate.longitude];
@@ -96,13 +96,17 @@
     }
 
     direction = [self convertBearingToDirection:bearing];
+    [distanceAndBearing addObject:distance];
+    [distanceAndBearing addObject:direction];
+    completionHandler(distanceAndBearing);
+}
 
-    [distanceAndBearing arrayByAddingObject:distance];
-    [distanceAndBearing arrayByAddingObject:bearing];
-    [distanceAndBearing arrayByAddingObject:direction];
-    NSLog(@"direction is %@", direction);
-    NSLog(@"distance is %@ miles", distance);
-    NSLog(@"bearing is %@ degrees", bearing);
+-(void)retrivedRideTripDistance:(Ride *)ride:(void(^)(NSNumber *))completionHandler
+{
+    CLLocation *pickupLocation = [[CLLocation alloc] initWithLatitude:ride.pickupGeoPoint.latitude longitude:ride.pickupGeoPoint.longitude];
+    CLLocation *driverLocation = [[CLLocation alloc] initWithLatitude:ride.dropoffGeoPoint.latitude longitude:ride.dropoffGeoPoint.longitude];
+    NSNumber *distance = [NSNumber numberWithDouble:(round([pickupLocation distanceFromLocation:driverLocation] / 1609.34))];
+    completionHandler(distance);
 }
 
 -(NSNumber *)convertDegreesToRadians:(double)valueInDegrees
@@ -123,39 +127,39 @@
     NSString *direction = [NSString new];
     if (bearing.doubleValue > 337.5 && bearing.doubleValue <= 360)
     {
-        direction = @"N";
+        direction = @"North";
     }
     else if (bearing.doubleValue >= 0 && bearing.doubleValue <= 22.5)
     {
-        direction = @"N";
+        direction = @"North";
     }
     else if (bearing.doubleValue > 22.5 && bearing.doubleValue <= 67.5)
     {
-        direction = @"NE";
+        direction = @"Northeast";
     }
     else if (bearing.doubleValue > 67.5 && bearing.doubleValue <= 112.5)
     {
-        direction = @"E";
+        direction = @"East";
     }
     else if (bearing.doubleValue > 112.5 && bearing.doubleValue <= 157.5)
     {
-        direction = @"SE";
+        direction = @"Southeast";
     }
     else if (bearing.doubleValue > 157.5 && bearing.doubleValue <= 202.5)
     {
-        direction = @"S";
+        direction = @"South";
     }
     else if (bearing.doubleValue > 202.5 && bearing.doubleValue <= 247.5)
     {
-        direction = @"SW";
+        direction = @"Southwest";
     }
     else if (bearing.doubleValue > 247.5 && bearing.doubleValue <= 292.5)
     {
-        direction = @"W";
+        direction = @"West";
     }
     else if (bearing.doubleValue > 292.5 && bearing.doubleValue <= 337.5)
     {
-        direction = @"NW";
+        direction = @"Northwest";
     }
     return direction;
 }
