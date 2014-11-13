@@ -152,11 +152,13 @@
     ride.passenger = user;
     ride.rideDateTime = self.datePicker.date;
     ride.specialInstructions = self.specialComments.text;
-//    ride.passengerCount = [NSString stringWithFormat:@"%.0f", self.passengerSlider.value];
     ride.pickupGeoPoint = self.pickupGeopoint;
     ride.dropoffGeoPoint = self.destinationGeopoint;
     ride.fareEstimateMax = fareEstimateMax;
     ride.fareEstimateMin = fareEstimateMin;
+    ride.destination = self.destinationAddress;
+    ride.destination = self.pickupAddress;
+
 
 
     if (self.dateButtonOne.tag ==1)
@@ -234,12 +236,6 @@
     
 
 }
-
-/*
- - (IBAction)onPassengerUpdateSliderMoved:(id)sender {
-    self.passengerTotalLabel.text = [NSString stringWithFormat:@"%.0f", self.passengerSlider.value];
-}
- */
 
 
 

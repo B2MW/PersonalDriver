@@ -42,9 +42,11 @@
 
 
     Ride *ride = [self.requestedRides objectAtIndex:indexPath.row];
-    cell.textLabel.text = ride.objectId;
-    NSLog(@"cell object ID = %@", cell.textLabel.text);
-    cell.detailTextLabel.text = ride.destination;
+    cell.textLabel.text = ride.destination;
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"MMM dd, HH:mm"];
+    NSString *dateString = [formatter stringFromDate:ride.rideDateTime];
+    cell.detailTextLabel.text = dateString;
     return cell;
 }
 

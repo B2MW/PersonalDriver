@@ -423,6 +423,10 @@
 		CEB8D1BC1A0A7D5C00A74FA6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				22E4A86F1A12714F00A5225A /* Date.h */,
+				22E4A8701A12714F00A5225A /* Date.m */,
+				22E952CE1A13DE1500096E2D /* PassengerLabel.h */,
+				22E952CF1A13DE1500096E2D /* PassengerLabel.m */,
 				CE19D9451A092D2700874F56 /* UberActivity.h */,
 				CE19D9461A092D2700874F56 /* UberActivity.m */,
 				CE19D9471A092D2700874F56 /* UberPrice.h */,
