@@ -8,7 +8,6 @@
 
 #import "LoginViewController.h"
 #import "UberKit.h"
-#import <SSKeychain.h>
 #import "Token.h"
 #import "UberAPI.h"
 #import "User.h"
@@ -35,58 +34,33 @@
     [[UberKit sharedInstance] startLogin];
 }
 
-- (IBAction)saveToken:(UIButton *)sender {
-    self.token = [Token getToken];
-    if(!self.token)//if there is no token in keychain, get the token and save it
-    {
-        self.token = [[UberKit sharedInstance] getStoredAuthToken];
-        if (self.token) // Check to make sure a token was retrieved from Oauth
-        {
-            //Get the Profile info from UberAPI and save to KeyChain
-            [UberAPI getUserProfileWithToken:self.token completionHandler:^(UberProfile *profile) {
-                [SSKeychain setPassword:self.token forService:@"personaldriver" account:profile.email];
-                if ([User currentUser] == nil) //if there is not a User create one
-                {
-                    [self signUpUserWithUberProfile];
-
-                }else {
-                    [self dismissViewControllerAnimated:YES completion:nil];
-                }
-                
-            }];
-        } else {
-            NSLog(@"No token yo!");
-        }
-
-    }
-    else
-    {
-        [UberAPI getUserProfileWithToken:self.token completionHandler:^(UberProfile *profile) {
-            [SSKeychain setPassword:self.token forService:@"personaldriver" account:profile.email];
-            if ([User currentUser] == nil) //if there is not a User create one
-            {
-                [self signUpUserWithUberProfile];
-
-            }else {
-                [self dismissViewControllerAnimated:YES completion:nil];
-            }
-
-        }];
-        NSLog(@"You've got a token");
-    }
-
-}
+//- (IBAction)saveToken:(UIButton *)sender {
+//    NSString *token = [Token getToken];
+//    if(!token)//if there is no token in keychain, get the token and save it
+//    {
+//        NSLog(@"No token yo!");
+//
+//    } else
+//    {
+//        [Token setToken:token];
+//        //Get the Profile info from UberAPI and save to KeyChain
+//        if ([User currentUser] == nil) //if there is not a User create one
+//        {
+//            [self signUpUserWithUberProfile];
+//            [self dismissViewControllerAnimated:YES completion:nil];
+//
+//        }else
+//        {
+//            [self dismissViewControllerAnimated:YES completion:nil];
+//        }
+//
+//        NSLog(@"You've got a token");
+//    }
+//}
 
 - (IBAction)eraseToken:(id)sender {
 
-    NSString *service = @"personaldriver";
-    NSArray *keychainArray = [SSKeychain accountsForService:service];
-    NSDictionary *keychainDict = [keychainArray firstObject];
-    NSString *account = [keychainDict objectForKey:@"acct"];
-    [SSKeychain deletePasswordForService:service account:account];
-    if ([Token getToken] == nil) {
-        NSLog(@"Token deleted");
-    }
+    [Token eraseToken];
 }
 
 - (IBAction)logoutCurrentUser:(id)sender {
@@ -107,7 +81,7 @@
 
 -(void)signUpUserWithUberProfile
 {
-    [UberAPI getUserProfileWithToken:self.token completionHandler:^(UberProfile *profile) {
+    [UberAPI getUserProfileWithCompletionHandler:^(UberProfile *profile) {
 
         User *user = [User new];
 

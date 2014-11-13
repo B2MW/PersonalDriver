@@ -25,7 +25,6 @@
 @property CLLocation *pickupLocation;
 @property CLLocation *destinationLocation;
 @property NSMutableArray *locations;
-@property NSString *token;
 @property UberPrice *price;
 
 @property MKPolyline *routeOverlay;
@@ -50,8 +49,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    self.token = [Token getToken];
 
     self.destinationGeopoint = [[PFGeoPoint alloc]init];
     self.pickupGeopoint = [[PFGeoPoint alloc]init];
@@ -86,9 +83,8 @@
 {
     [super viewWillAppear:animated];
 
-    [UberAPI getUserProfileWithToken:self.token completionHandler:^(UberProfile *profile) {
-        if (profile.email) {
-            self.token = [Token getToken];
+    [UberAPI getUserProfileWithCompletionHandler:^(UberProfile *profile) {
+        if (profile) {
 
             self.destinationGeopoint = [[PFGeoPoint alloc]init];
             self.pickupGeopoint = [[PFGeoPoint alloc]init];
@@ -169,7 +165,7 @@
 
             [self.mapView removeOverlays:self.mapView.overlays];
             
-            [UberAPI getPriceEstimateWithToken:self.token fromPickup:self.pickupLocation toDestination:self.destinationLocation completionHandler:^(UberPrice *price) {
+            [UberAPI getPriceEstimateFromPickup:self.pickupLocation toDestination:self.destinationLocation completionHandler:^(UberPrice *price) {
                 self.price = price;
 
                 // Make a directions request
@@ -245,7 +241,7 @@
         [self.mapView addAnnotation:self.endPointAnnotation];
         [self.locations addObject:self.endPinAnnotation];
 
-        [UberAPI getPriceEstimateWithToken:self.token fromPickup:self.pickupLocation toDestination:self.destinationLocation completionHandler:^(UberPrice *price) {
+        [UberAPI getPriceEstimateFromPickup:self.pickupLocation toDestination:self.destinationLocation completionHandler:^(UberPrice *price) {
             self.price = price;
 
             }];

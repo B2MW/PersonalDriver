@@ -10,8 +10,8 @@
 
 @interface Token : NSObject
 
-
 + (NSString *)getToken;
-
++ (void)setToken:(NSString *)token;
++ (void) eraseToken;
 
 @end

@@ -64,8 +64,15 @@
     ride.fareEstimateMax = fareEstimateMax;
     ride.fareEstimateMin = fareEstimateMin;
 
+
     //ride.driverConfirmed = NO;
     //ride.driverEnRoute = NO;
+
+    // Subscribe the passenger to the ride for notifications
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+//    [currentInstallation addUniqueObject:ride.objectId forKey:@"channels"];
+    [currentInstallation addUniqueObject:@"rideScheduled" forKey:@"channels"];
+    [currentInstallation saveInBackground];
 
 
     [ride saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {

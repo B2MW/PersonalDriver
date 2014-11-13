@@ -27,23 +27,26 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.token = [Token getToken];
-    NSLog(@"Token:%@",self.token);
+//send back to login if no token
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+//send back to login if no token
 
 }
 - (IBAction)queryUser:(id)sender {
-    [UberAPI getUserProfileWithToken:self.token completionHandler:^(UberProfile *profile) {
+    [UberAPI getUserProfileWithCompletionHandler:^(UberProfile *profile) {
         NSLog(@"Name:%@ %@",profile.first_name,profile.last_name);
         NSLog(@"Email:%@",profile.email);
         NSLog(@"Picture: %@", profile.picture);
         NSLog(@"Promo Code:%@",profile.promo_code);
     }];
-    
 
 }
 
 - (IBAction)queryActivity:(id)sender {
-    [UberAPI getUberActivitiesWithToken:self.token completionHandler:^(NSMutableArray *activities) {
+    [UberAPI getUberActivitiesWithCompletionHandler:^(NSMutableArray *activities) {
         self.activities = [NSArray arrayWithArray:activities];
         NSLog(@"Activities:%@",self.activities);
     }];
@@ -58,14 +61,11 @@
     CLLocation *pickupLocation = [[CLLocation alloc] initWithLatitude:37.7833 longitude:-122.4167];
     CLLocation *destinationLocation = [[CLLocation alloc] initWithLatitude:37.9 longitude:-122.43];
 
-    [UberAPI getPriceEstimateWithToken:self.token fromPickup:pickupLocation toDestination:destinationLocation completionHandler:^(UberPrice *price) {
+    [UberAPI getPriceEstimateFromPickup:pickupLocation toDestination:destinationLocation completionHandler:^(UberPrice *price) {
         NSLog(@"Estimate for Average Fare: $%d",price.avgEstimateWithoutSurge);
     }];
 
 }
-
-
-
 
 
 @end

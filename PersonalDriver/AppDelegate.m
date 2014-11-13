@@ -10,8 +10,11 @@
 #import <Parse/Parse.h>
 #import "UberKit.h"
 #import "User.h"
+#import "Token.h"
+#import "UberAPI.h"
 
 @interface AppDelegate ()
+@property UberAPI *uberAPI;
 
 @end
 
@@ -28,6 +31,13 @@
     [[UberKit sharedInstance] setClientSecret:@"7pJruVcbjQQPZNHRAscuArs2I3Ip3Y-MvVDj_Sw5"]; //Add your client secret
     [[UberKit sharedInstance] setRedirectURL:@"personaldriver://localhost"]; //Add your redirect url
     [[UberKit sharedInstance] setApplicationName:@"Personal Driver"]; //Add your application name
+
+    self.uberAPI = [UberAPI new];
+    self.uberAPI.serverToken = @"5VvEv7zOK6lEmQf0qRjPBA8ie7P8IIHb0X8pAF2r";
+    self.uberAPI.clientID = @"pVt5YyjIQIB5gcZHzz_SgyG2Z6lcJRWT";
+    self.uberAPI.clientSecret = @"7pJruVcbjQQPZNHRAscuArs2I3Ip3Y-MvVDj_Sw5";
+    self.uberAPI.redirectURL = @"personaldriver://localhost";
+    self.uberAPI.applicationName = @"Personal Driver";
 
     [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:(0/255.0) green:(0/255.0) blue:(0/255.0) alpha:1]];
 
@@ -47,12 +57,6 @@
     [application registerUserNotificationSettings:settings];
     [application registerForRemoteNotifications];
 
-    // Associate the device with a user
-    PFInstallation *installation = [PFInstallation currentInstallation];
-    installation[@"user"] = [User currentUser];
-    [installation saveInBackground];
-
-
     return YES;
 
 
@@ -61,15 +65,32 @@
 //Allow redirect from Safari back to App after oauth authentication
 - (BOOL) application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-    if([[UberKit sharedInstance] handleLoginRedirectFromUrl:url sourceApplication:sourceApplication])
+
+    NSArray *urlArray = [url.query componentsSeparatedByString:@"="];
+    NSString *authCode = [urlArray objectAtIndex:1];
+    if (authCode)
     {
-        NSLog(@"%@",[[UberKit sharedInstance] getStoredAuthToken]);
+        //use AuthCode to get token
+        NSString *data = [NSString stringWithFormat:@"code=%@&client_id=%@&client_secret=%@&redirect_uri=%@&grant_type=authorization_code", authCode, self.uberAPI.clientID, self.uberAPI.clientSecret, self.uberAPI.redirectURL];
+        NSString *urlString = [NSString stringWithFormat:@"https://login.uber.com/oauth/token"];
+        NSURL *urlForAuth = [NSURL URLWithString:urlString];
+        NSMutableURLRequest* requestForAuth = [NSMutableURLRequest requestWithURL:urlForAuth];
+        [requestForAuth setHTTPMethod:@"POST"];
+        [requestForAuth setHTTPBody:[data dataUsingEncoding:NSUTF8StringEncoding]];
+
+        [NSURLConnection sendAsynchronousRequest:requestForAuth queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+            NSDictionary *authDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+            NSString *authToken = [authDictionary objectForKey:@"access_token"];
+            [Token setToken:authToken];
+            NSLog(@"Token saved in Keychain");
+
+        }];
         return YES;
-    }
-    else
-    {
+
+    }else {
         return NO;
     }
+
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
