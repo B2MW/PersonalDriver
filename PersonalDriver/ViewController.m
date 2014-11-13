@@ -38,7 +38,7 @@
                 [self performSegueWithIdentifier:@"showLogin" sender:self];
             }else if (![User currentUser])//Perform login if no current user
             {
-                [self loginUserWithUberProfile];
+                [self loginOrSignUpUserWithUberProfile];
 
             }else if (self.currentUser.isDriver == YES)//Check if they are a Driver
             {
@@ -74,7 +74,7 @@
                 [self performSegueWithIdentifier:@"showLogin" sender:self];
             }else if (![User currentUser])//Perform login if no current user
             {
-                [self loginUserWithUberProfile];
+                [self loginOrSignUpUserWithUberProfile];
 
             }else if (self.currentUser.isDriver == YES)//Check if they are a Driver
             {
@@ -117,15 +117,46 @@
 
 #pragma mark - Helper Methods
 
--(void)loginUserWithUberProfile {
+-(void)loginOrSignUpUserWithUberProfile
+{
 
-    [UberAPI getUserProfileWithCompletionHandler:^(UberProfile *profile) {
-        [User logInWithUsername:profile.email password:profile.promo_code];
-        NSLog(@"You are logged in");
+    [UberAPI getUserProfileWithCompletionHandler:^(UberProfile *profile)
+    {
+        self.profile = profile;
+        PFQuery *queryUsers = [User query];
+        [queryUsers whereKey:@"username" equalTo:self.profile.email];
+        [queryUsers findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+        {
+            if (objects.count == 0)
+            {
+                User *user = [User new];
+
+                user.username = self.profile.email;
+                user.password = self.profile.promo_code;
+                user.email = self.profile.email;
+                [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    if (succeeded) {
+                        NSLog(@"User account created");
+                    } else {
+                        NSLog(@"%@",[error description]);
+                    }
+                }];
+            }else
+            {
+                NSError *error;
+                [User logInWithUsername:self.profile.email password:self.profile.promo_code error:&error];
+                if (error)
+                {
+                    NSLog(@"%@", [error description]);
+                }else
+                {
+                    NSLog(@"Logged in successfully");
+                }
+            }
+        }];
+
     }];
-
 }
-
 
 
 -(void)associateUserToDeviceForPush
