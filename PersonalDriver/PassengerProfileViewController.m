@@ -15,11 +15,6 @@
 @property NSArray *rides;
 @property NSArray *requestedRides;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
-
-
-
-
 @end
 
 @implementation PassengerProfileViewController
@@ -27,7 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Current Rides";
-    self.rides = [[NSMutableArray alloc]init];
+    self.requestedRides = [[NSArray alloc]init];
     [self getAvailableRides];
 }
 
@@ -43,15 +38,13 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RideCell" forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RideCell"];
 
 
     Ride *ride = [self.requestedRides objectAtIndex:indexPath.row];
-    cell.textLabel.text = ride.pickUpLocation;
+    cell.textLabel.text = ride.objectId;
+    NSLog(@"cell object ID = %@", cell.textLabel.text);
     cell.detailTextLabel.text = ride.destination;
-
-
-
     return cell;
 }
 
@@ -63,11 +56,14 @@
     [queryAvailableRides findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if(!error){
             self.requestedRides = [NSArray arrayWithArray:objects];
+            NSLog(@"request rides = %@", self.requestedRides);
+            [self.tableView reloadData];
         }else{
             NSLog(@"Error: %@",error);
         }
         NSLog(@"Parse for available %@",queryAvailableRides);
     }];
+
 }
 
 -(void)getScheduledRides

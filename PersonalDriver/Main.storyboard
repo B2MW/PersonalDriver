@@ -955,6 +955,8 @@
                                     <constraint firstAttribute="width" constant="281" id="H9y-RL-eai"/>
                                     <constraint firstAttribute="height" constant="30" id="NpS-WN-pRR"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="PXb-ms-BLX"/>
+                                    <constraint firstAttribute="width" constant="281" id="PiG-oc-Nel"/>
+                                    <constraint firstAttribute="height" constant="30" id="jle-rB-QUK"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="281" id="rsd-bL-MQI"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -962,26 +964,56 @@
                                     <color key="titleColor" red="0.98530040890000004" green="0.9906451235" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="H9y-RL-eai"/>
+                                        <exclude reference="NpS-WN-pRR"/>
+                                        <exclude reference="PXb-ms-BLX"/>
+                                        <exclude reference="rsd-bL-MQI"/>
+                                    </mask>
+                                </variation>
                                 <connections>
                                     <segue destination="IiP-x5-xJs" kind="show" id="b7c-ns-gzO"/>
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="vue-sB-EdF">
-                                <rect key="frame" x="0.0" y="64" width="600" height="463"/>
+                                <rect key="frame" x="135" y="64" width="328" height="436"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstAttribute="height" constant="436" id="1Mn-NR-mRb"/>
                                     <constraint firstAttribute="height" constant="463" id="MMQ-Gh-QAI"/>
                                     <constraint firstAttribute="width" constant="600" id="cX6-0L-cdy"/>
+                                    <constraint firstAttribute="width" constant="328" id="kOm-WW-bZw"/>
                                 </constraints>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RideCell" id="uL0-IQ-JPM">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RideCell" textLabel="7Cj-Fo-YAO" detailTextLabel="O8a-nT-4xV" style="IBUITableViewCellStyleSubtitle" id="uL0-IQ-JPM">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uL0-IQ-JPM" id="0yH-mZ-FEz">
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7Cj-Fo-YAO">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="O8a-nT-4xV">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="MMQ-Gh-QAI"/>
+                                        <exclude reference="cX6-0L-cdy"/>
+                                    </mask>
+                                </variation>
                                 <connections>
                                     <outlet property="dataSource" destination="P1u-y9-US2" id="Rhm-04-8vA"/>
                                     <outlet property="delegate" destination="P1u-y9-US2" id="CVN-Jw-BnJ"/>
@@ -990,12 +1022,33 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="NjG-TH-PhQ" firstAttribute="top" secondItem="vue-sB-EdF" secondAttribute="bottom" constant="35" id="09L-DG-GX0"/>
+                            <constraint firstAttribute="centerY" secondItem="vue-sB-EdF" secondAttribute="centerY" id="80Y-55-hHI"/>
+                            <constraint firstItem="vue-sB-EdF" firstAttribute="top" secondItem="HbP-dY-xdu" secondAttribute="bottom" id="DtH-lO-SSE"/>
+                            <constraint firstItem="vue-sB-EdF" firstAttribute="leading" secondItem="EQS-s9-5bm" secondAttribute="leading" id="GoE-mn-wXn"/>
+                            <constraint firstAttribute="centerX" secondItem="vue-sB-EdF" secondAttribute="centerX" id="Hee-bJ-1T3"/>
                             <constraint firstItem="vue-sB-EdF" firstAttribute="top" secondItem="HbP-dY-xdu" secondAttribute="bottom" id="KUM-Le-P80"/>
+                            <constraint firstAttribute="centerX" secondItem="NjG-TH-PhQ" secondAttribute="centerX" id="Ref-LU-CdU"/>
+                            <constraint firstAttribute="centerX" secondItem="vue-sB-EdF" secondAttribute="centerX" constant="1" id="aA9-na-zSz"/>
                             <constraint firstItem="NjG-TH-PhQ" firstAttribute="top" secondItem="vue-sB-EdF" secondAttribute="bottom" constant="8" id="ay7-ir-hix"/>
+                            <constraint firstItem="vue-sB-EdF" firstAttribute="top" secondItem="HbP-dY-xdu" secondAttribute="bottom" id="fb8-dj-5EC"/>
                             <constraint firstAttribute="centerX" secondItem="NjG-TH-PhQ" secondAttribute="centerX" id="jQN-zK-kLR"/>
                             <constraint firstAttribute="centerX" secondItem="NjG-TH-PhQ" secondAttribute="centerX" id="jrK-K5-5H8"/>
                             <constraint firstAttribute="centerX" secondItem="vue-sB-EdF" secondAttribute="centerX" id="zxG-7K-gOe"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="80Y-55-hHI"/>
+                                <exclude reference="DtH-lO-SSE"/>
+                                <exclude reference="GoE-mn-wXn"/>
+                                <exclude reference="Hee-bJ-1T3"/>
+                                <exclude reference="KUM-Le-P80"/>
+                                <exclude reference="zxG-7K-gOe"/>
+                                <exclude reference="ay7-ir-hix"/>
+                                <exclude reference="jQN-zK-kLR"/>
+                                <exclude reference="jrK-K5-5H8"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="tableView" destination="vue-sB-EdF" id="3RF-sI-CoD"/>
