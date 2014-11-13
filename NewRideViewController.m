@@ -237,7 +237,7 @@
             // subscribe the passenger to the ride channel
             PFQuery *rideQuery = [PFQuery queryWithClassName:@"Ride"];
             [rideQuery whereKey:@"passenger" equalTo:[User currentUser]];
-            [rideQuery orderByAscending:@"createdAt"];
+            [rideQuery orderByDescending:@"createdAt"];
             [rideQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
                 //take the first object since that's the most recent???
                 Ride *newRide = [objects objectAtIndex:0];
