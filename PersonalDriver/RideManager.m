@@ -58,7 +58,7 @@
     [geocode reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error)
      {
          CLPlacemark *placemark = placemarks.firstObject;
-         NSString *address = [NSString stringWithFormat:@"%@ %@ \n%@, %@",
+         NSString *address = [NSString stringWithFormat:@"%@ %@ \n%@",
                               placemark.subThoroughfare,
                               placemark.thoroughfare,
                               placemark.locality];
