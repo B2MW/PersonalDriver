@@ -49,7 +49,7 @@
 
     // Register for Push Notitications
 
-<<<<<<< HEAD
+
     UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
                                                     UIUserNotificationTypeBadge |
                                                     UIUserNotificationTypeSound);
@@ -57,21 +57,6 @@
                                                                              categories:nil];
     [application registerUserNotificationSettings:settings];
     [application registerForRemoteNotifications];
-=======
-//    UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
-//                                                    UIUserNotificationTypeBadge |
-//                                                    UIUserNotificationTypeSound);
-//    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes
-//                                                                             categories:nil];
-//    [application registerUserNotificationSettings:settings];
-//    [application registerForRemoteNotifications];
-
-//    // Associate the device with a user
-//    PFInstallation *installation = [PFInstallation currentInstallation];
-//    installation[@"user"] = [User currentUser];
-//    [installation saveInBackground];
-
->>>>>>> e617290b7f4a4963a1af0762168f6d40a5adeb17
 
     return YES;
 
