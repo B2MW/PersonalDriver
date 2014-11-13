@@ -15,10 +15,16 @@
 
 @interface UberAPI : NSObject
 
-+ (void)getUberActivitiesWithToken:(NSString *)token completionHandler:(void(^)(NSMutableArray *))complete;
+@property (strong, nonatomic) NSString *serverToken;
+@property (strong, nonatomic) NSString *clientID;
+@property (strong, nonatomic) NSString *clientSecret;
+@property (strong, nonatomic) NSString *redirectURL;
+@property (strong, nonatomic) NSString *applicationName;
 
-+ (void)getUserProfileWithToken:(NSString *)token completionHandler:(void(^)(UberProfile *))complete;
++ (void)getUberActivitiesWithCompletionHandler:(void(^)(NSMutableArray *))complete;
 
-+ (void)getPriceEstimateWithToken:(NSString *)token fromPickup:(CLLocation *)pickup toDestination:(CLLocation *)destination completionHandler:(void(^)(UberPrice *))complete;
++ (void)getUserProfileWithCompletionHandler:(void(^)(UberProfile *))complete;
+
++ (void)getPriceEstimateFromPickup:(CLLocation *)pickup toDestination:(CLLocation *)destination completionHandler:(void(^)(UberPrice *))complete;
 
 @end

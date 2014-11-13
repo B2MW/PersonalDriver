@@ -228,11 +228,28 @@
 
     ride.rideDateTime = dateFromString;
 
-    [ride saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+
+    [ride saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+    {
+
+        if (succeeded)
+        {
+            // subscribe the passenger to the ride channel
+            PFQuery *rideQuery = [PFQuery queryWithClassName:@"Ride"];
+            [rideQuery whereKey:@"passenger" equalTo:[User currentUser]];
+            [rideQuery orderByAscending:@"createdAt"];
+            [rideQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                //take the first object since that's the most recent???
+                Ride *newRide = [objects objectAtIndex:0];
+                NSString *channelName = [NSString stringWithFormat:@"R%@",newRide.objectId];
+                PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+                [currentInstallation addUniqueObject:channelName forKey:@"channels"];
+                [currentInstallation saveInBackground];
+
+            }];
+        }
+
     }];
-
-    
-
 }
 
 /*

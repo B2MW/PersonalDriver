@@ -17,12 +17,19 @@
 
 
 + (NSString *)getToken {
-    NSString *service = @"personaldriver";
-    NSArray *keychainArray = [SSKeychain accountsForService:service];
-    NSDictionary *keychainDict = [keychainArray firstObject];
-    NSString *account = [keychainDict objectForKey:@"acct"];
-    NSString *token = [SSKeychain passwordForService:service account:account];
+    NSString *token = [SSKeychain passwordForService:@"rot" account:@"rot"];
     return token;
+}
+
++ (void)setToken:(NSString *)token {
+    [SSKeychain setPassword:token forService:@"rot" account:@"rot"];
+}
+
++(void)eraseToken {
+    [SSKeychain deletePasswordForService:@"rot" account:@"rot"];
+    if ([Token getToken] == nil) {
+        NSLog(@"Token deleted");
+    }
 }
 
 

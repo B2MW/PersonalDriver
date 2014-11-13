@@ -21,21 +21,12 @@
 }
 - (IBAction)onStartPressed:(UIButton *)sender {
     self.ride.driverEnRoute = YES;
-//    //Create push notification for passenger
-//    PFInstallation *installation = [PFInstallation currentInstallation];
-//    installation[@"passenger"] = self.ride.passenger;
-//    [installation saveInBackground];
-//
-//    // Create query for ride
-//    PFQuery *pushQuery = [PFInstallation query];
-//    [pushQuery whereKey:@"channels" equalTo:@"global"]; // Set channel
-//    [pushQuery whereKey:@"ride" equalTo:self.ride];
-//
-//    // Send push notification to query
-//    PFPush *push = [[PFPush alloc] init];
-//    [push setQuery:pushQuery];
-//    [push setMessage:@"Your ride is on the way"];
-//    [push sendPushInBackground];
+    // Send a notification to all devices subscribed to this Ride Channel
+    PFPush *push = [[PFPush alloc] init];
+    NSString *channelName = [NSString stringWithFormat:@"R%@",self.ride.objectId];
+    [push setChannel:channelName];
+    [push setMessage:@"Your driver is enroute. Estimated time of arrival is x minutes"];
+    [push sendPushInBackground];
 }
 
 - (IBAction)onDirectionPressed:(UIButton *)sender {
