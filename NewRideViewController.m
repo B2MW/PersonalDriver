@@ -129,7 +129,12 @@
     self.dateLabelSeven.text = self.dateSevenString;
 
 
+    self.dateButtonOne.tag = 1;
+    [self.dateButtonOne setImage:[UIImage imageNamed:@"Oval 9"] forState:UIControlStateNormal];
 
+    self.passengerLabelOne.tag = 1;
+    self.passengerLabelOne.textColor = [UIColor blackColor];
+    self.passengerLabelOne.backgroundColor = [UIColor colorWithRed:226/255.0 green:219/255.0 blue:140/255.0 alpha:1.0];
 
 
 
