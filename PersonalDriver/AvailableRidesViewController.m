@@ -16,26 +16,24 @@
 #import <Parse/Parse.h>
 
 
-@interface AvailableRidesViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface AvailableRidesViewController () <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate>
 @property (weak, nonatomic) IBOutlet AvailableRidesTableView *availableTableView;
 @property (weak, nonatomic) IBOutlet ScheduledTableView *scheduledTableView;
-
-
-
-@property NSArray *availableRides;
-@property NSArray *scheduledRides;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 
-
-
+@property CLLocationManager *locationManager;
+@property NSArray *availableRides;
+@property NSArray *scheduledRides;
 @end
 
 @implementation AvailableRidesViewController
 - (void)viewWillAppear:(BOOL)animated
 {
     [self refreshDisplay];
+    self.locationManager = [CLLocationManager new];
+    [self.locationManager requestWhenInUseAuthorization];
+    [self.locationManager startUpdatingLocation];
 }
-
 
 - (void)viewDidLoad
 {
@@ -81,9 +79,18 @@
         AvailableRideTableViewCell *cell = [self.availableTableView dequeueReusableCellWithIdentifier:@"RideCell"];
         Ride *availableRide = [self.availableRides objectAtIndex:indexPath.row];
         cell.pickupDateTimeLabel.text = [rideManager formatRideDate:availableRide];
-        cell.rideOrigin.text = availableRide.pickUpLocation;
-        cell.rideDestination.text = availableRide.destination;
         cell.fareEstimate.text = [rideManager formatRideFareEstimate:availableRide.fareEstimateMin fareEstimateMax:availableRide.fareEstimateMax];
+
+        [rideManager retrieveRideDistanceAndBearing:availableRide :self.locationManager :^(NSArray *rideBearingAndDistance)
+        {
+            cell.rideOrigin.text = [NSString stringWithFormat:@"Pickup is %@ miles %@",[rideBearingAndDistance objectAtIndex:0], [rideBearingAndDistance objectAtIndex:1]];
+        }];
+
+        [rideManager retrivedRideTripDistance:availableRide :^(NSNumber *tripDistance)
+        {
+            cell.rideDestination.text = [NSString stringWithFormat:@"%@ mile trip", tripDistance];
+        }];
+
         //load image file with placeholder first
         User *passenger = availableRide.passenger;
         cell.userImage.image = [UIImage imageNamed:@"profilePicPlaceholder"];
@@ -143,6 +150,17 @@
         scheduledVC.ride = [self.scheduledRides objectAtIndex:indexPath.row];
     }
 
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    for (CLLocation *location in locations) {
+        if (location.verticalAccuracy < 1000 && location.horizontalAccuracy < 1000)
+        {
+            [self.locationManager stopUpdatingLocation];
+            break;
+        }
+    }
 }
 
 

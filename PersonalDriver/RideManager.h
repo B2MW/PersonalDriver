@@ -19,5 +19,6 @@
 -(NSString *)formatRideDate:(Ride *)ride;
 -(NSString *)formatRideFareEstimate:(NSNumber *)fareEstimateMin fareEstimateMax:(NSNumber *)fareEstimateMax;
 -(void)retrieveGeoPointAddress:(PFGeoPoint *)rideGeoPoint completionHandler:(void(^)(NSString *))completionHandler;
--(void)retrieveRideDistanceAndBearing:(Ride *)ride;
+-(void)retrieveRideDistanceAndBearing:(Ride *)ride:(CLLocationManager *)locationManager:(void(^)(NSArray *))completionHandler;
+-(void)retrivedRideTripDistance:(Ride *)ride:(void(^)(NSNumber *))completionHandler;
 @end

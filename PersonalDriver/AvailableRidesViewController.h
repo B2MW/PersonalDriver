@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
+#import <CoreLocation/CoreLocation.h>
 #import "Ride.h"
 #import "RideManager.h"
 #import "AvailableRideTableViewCell.h"

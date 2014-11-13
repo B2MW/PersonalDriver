@@ -8,7 +8,6 @@
 
 #import "RideManager.h"
 
-
 @implementation RideManager
 
 -(void)getAvailableRides:(void(^)(NSArray *))completionHandler
@@ -68,9 +67,102 @@
      }];
 }
 
--(void)retrieveRideDistanceAndBearing:(Ride *)ride
+-(void)retrieveRideDistanceAndBearing:(Ride *)ride:(CLLocationManager *)locationManager:(void(^)(NSArray *))completionHandler
 {
+    NSMutableArray *distanceAndBearing = [NSMutableArray array];
+    NSNumber *distance;
+    NSNumber *bearing;
+    NSString *direction;
 
+    //find distance between pickup & dropoff GeoPoints
+    CLLocation *pickupLocation = [[CLLocation alloc] initWithLatitude:ride.pickupGeoPoint.latitude longitude:ride.pickupGeoPoint.longitude];
+    CLLocation *driverLocation = locationManager.location;
+    distance = [NSNumber numberWithDouble:(round([pickupLocation distanceFromLocation:driverLocation] / 1609.34))];
+
+    NSNumber *driverLat = [self convertDegreesToRadians:driverLocation.coordinate.latitude];
+    NSNumber *driverLong = [self convertDegreesToRadians:driverLocation.coordinate.longitude];
+    NSNumber *pickupLat = [self convertDegreesToRadians:pickupLocation.coordinate.latitude];
+    NSNumber *pickupLong = [self convertDegreesToRadians:pickupLocation.coordinate.longitude];
+
+    NSNumber *degree = [self convertRadiansToDegrees:(atan2(sin(pickupLong.doubleValue-driverLong.doubleValue)*cos(pickupLat.doubleValue), cos(driverLat.doubleValue)*sin(pickupLat.doubleValue)-sin(driverLat.doubleValue)*cos(pickupLat.doubleValue)*cos(pickupLong.doubleValue-driverLong.doubleValue)))];
+
+    if (degree.doubleValue >= 0.0)
+    {
+        bearing = degree;
+    }
+    else
+    {
+        bearing = @(360.0 + degree.doubleValue);
+    }
+
+    direction = [self convertBearingToDirection:bearing];
+    [distanceAndBearing addObject:distance];
+    [distanceAndBearing addObject:direction];
+    completionHandler(distanceAndBearing);
 }
+
+-(void)retrivedRideTripDistance:(Ride *)ride:(void(^)(NSNumber *))completionHandler
+{
+    CLLocation *pickupLocation = [[CLLocation alloc] initWithLatitude:ride.pickupGeoPoint.latitude longitude:ride.pickupGeoPoint.longitude];
+    CLLocation *driverLocation = [[CLLocation alloc] initWithLatitude:ride.dropoffGeoPoint.latitude longitude:ride.dropoffGeoPoint.longitude];
+    NSNumber *distance = [NSNumber numberWithDouble:(round([pickupLocation distanceFromLocation:driverLocation] / 1609.34))];
+    completionHandler(distance);
+}
+
+-(NSNumber *)convertDegreesToRadians:(double)valueInDegrees
+{
+    NSNumber *radianValue = [NSNumber numberWithDouble:(M_PI * valueInDegrees / 180.0)];
+    return radianValue;
+}
+
+-(NSNumber *)convertRadiansToDegrees:(double )valueInRadians
+{
+    NSNumber *degreeValue = [NSNumber numberWithDouble:(valueInRadians * 180.0 / M_PI)];
+    return degreeValue;
+}
+
+-(NSString *)convertBearingToDirection:(NSNumber *)bearing
+{
+//    bearing = @(fabs(bearing.doubleValue));
+    NSString *direction = [NSString new];
+    if (bearing.doubleValue > 337.5 && bearing.doubleValue <= 360)
+    {
+        direction = @"North";
+    }
+    else if (bearing.doubleValue >= 0 && bearing.doubleValue <= 22.5)
+    {
+        direction = @"North";
+    }
+    else if (bearing.doubleValue > 22.5 && bearing.doubleValue <= 67.5)
+    {
+        direction = @"Northeast";
+    }
+    else if (bearing.doubleValue > 67.5 && bearing.doubleValue <= 112.5)
+    {
+        direction = @"East";
+    }
+    else if (bearing.doubleValue > 112.5 && bearing.doubleValue <= 157.5)
+    {
+        direction = @"Southeast";
+    }
+    else if (bearing.doubleValue > 157.5 && bearing.doubleValue <= 202.5)
+    {
+        direction = @"South";
+    }
+    else if (bearing.doubleValue > 202.5 && bearing.doubleValue <= 247.5)
+    {
+        direction = @"Southwest";
+    }
+    else if (bearing.doubleValue > 247.5 && bearing.doubleValue <= 292.5)
+    {
+        direction = @"West";
+    }
+    else if (bearing.doubleValue > 292.5 && bearing.doubleValue <= 337.5)
+    {
+        direction = @"Northwest";
+    }
+    return direction;
+}
+
 
 @end
