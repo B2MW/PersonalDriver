@@ -66,7 +66,9 @@
 @property NSMutableArray *passengerAmounts;
 @property NSDate *selectedDay;
 @property NSDate *selectedTime;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
 
+@property (weak, nonatomic) IBOutlet UILabel *pickupTimeLabel;
 
 
 
@@ -129,9 +131,22 @@
     self.dateLabelSeven.text = self.dateSevenString;
 
 
+    self.dateButtonOne.tag = 1;
+    [self.dateButtonOne setImage:[UIImage imageNamed:@"Oval 9"] forState:UIControlStateNormal];
 
+    self.passengerLabelOne.tag = 1;
+    self.passengerLabelOne.textColor = [UIColor blackColor];
+    self.passengerLabelOne.backgroundColor = [UIColor colorWithRed:226/255.0 green:219/255.0 blue:140/255.0 alpha:1.0];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
 
 }
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -152,11 +167,13 @@
     ride.passenger = user;
     ride.rideDateTime = self.datePicker.date;
     ride.specialInstructions = self.specialComments.text;
-//    ride.passengerCount = [NSString stringWithFormat:@"%.0f", self.passengerSlider.value];
     ride.pickupGeoPoint = self.pickupGeopoint;
     ride.dropoffGeoPoint = self.destinationGeopoint;
     ride.fareEstimateMax = fareEstimateMax;
     ride.fareEstimateMin = fareEstimateMin;
+    ride.destination = self.destinationAddress;
+    ride.destination = self.pickupAddress;
+
 
 
     if (self.dateButtonOne.tag ==1)
@@ -252,12 +269,6 @@
     }];
 }
 
-/*
- - (IBAction)onPassengerUpdateSliderMoved:(id)sender {
-    self.passengerTotalLabel.text = [NSString stringWithFormat:@"%.0f", self.passengerSlider.value];
-}
- */
-
 
 
 
@@ -290,6 +301,36 @@
 
 }
 
+
+
+-(void)keyboardWillShow:(NSNotification*)notification {
+
+
+    NSDictionary* keyboardInfo = [notification userInfo];
+    NSValue* keyboardFrameBegin = [keyboardInfo valueForKey:UIKeyboardFrameBeginUserInfoKey];
+
+    CGRect keyboardFrameBeginRect = [keyboardFrameBegin CGRectValue];
+    keyboardFrameBeginRect = [self.view convertRect:keyboardFrameBeginRect fromView:nil];
+
+    NSLog(@"%@", NSStringFromCGRect(keyboardFrameBeginRect));
+    [UIView animateWithDuration:0.3f animations:^ {
+        self.view.frame = CGRectMake(0, -(keyboardFrameBeginRect.size.height - 20), self.view.frame.size.width, self.view.frame.size.height);
+
+        self.topConstraint.constant = (keyboardFrameBeginRect.size.height - 10);
+        self.pickupTimeLabel.hidden = YES;
+
+    }];
+}
+-(void)keyboardWillHide {
+    // Animate the current view back to its original position
+    [UIView animateWithDuration:0.3f animations:^ {
+
+        self.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+
+        self.topConstraint.constant = 17;
+        self.pickupTimeLabel.hidden = NO;
+    }];
+}
 @end
 
 

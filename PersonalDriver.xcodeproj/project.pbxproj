@@ -267,8 +267,6 @@
 		4C7175131A081334002AC734 /* PersonalDriver */ = {
 			isa = PBXGroup;
 			children = (
-				22E952CE1A13DE1500096E2D /* PassengerLabel.h */,
-				22E952CF1A13DE1500096E2D /* PassengerLabel.m */,
 				CE1A353D1A0AD473004A6CCC /* Main.storyboard */,
 				4C7175181A081334002AC734 /* AppDelegate.h */,
 				4C7175191A081334002AC734 /* AppDelegate.m */,
@@ -282,8 +280,6 @@
 				CEB8D1CA1A0A83CB00A74FA6 /* SelectLocationForRideViewController.m */,
 				2236D9421A082A4200F19EA5 /* NewRideViewController.h */,
 				2236D9431A082A4200F19EA5 /* NewRideViewController.m */,
-				22E4A86F1A12714F00A5225A /* Date.h */,
-				22E4A8701A12714F00A5225A /* Date.m */,
 				CE19D9EC1A09E44700874F56 /* UberAPI.h */,
 				CE19D9ED1A09E44700874F56 /* UberAPI.m */,
 				CE19D9E61A09BEF900874F56 /* UberAPIDemo.h */,
@@ -430,6 +426,10 @@
 		CEB8D1BC1A0A7D5C00A74FA6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				22E4A86F1A12714F00A5225A /* Date.h */,
+				22E4A8701A12714F00A5225A /* Date.m */,
+				22E952CE1A13DE1500096E2D /* PassengerLabel.h */,
+				22E952CF1A13DE1500096E2D /* PassengerLabel.m */,
 				4CA06B9A1A14159F00D33AA0 /* DriverProfile.h */,
 				4CA06B9B1A14159F00D33AA0 /* DriverProfile.m */,
 				CE19D9451A092D2700874F56 /* UberActivity.h */,
