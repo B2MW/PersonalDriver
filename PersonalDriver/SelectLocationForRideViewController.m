@@ -78,11 +78,8 @@
 
     self.nextButton.hidden = YES;
 
-
-
-
-
 }
+
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -112,7 +109,6 @@
         }
 
     }];
-
 
 }
 
