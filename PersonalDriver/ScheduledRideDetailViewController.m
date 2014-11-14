@@ -22,7 +22,7 @@
 }
 - (IBAction)onStartPressed:(UIButton *)sender {
     self.ride.driverEnRoute = YES;
-    [PushNotification sendEnrouteNotificationForRide:self.ride];
+    [PushNotification sendPassengerEnrouteNotificationForRide:self.ride];
 
 }
 
