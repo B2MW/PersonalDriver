@@ -13,8 +13,6 @@
 
 
 
-
-
 +(void)subscribePassengerToRide:(Ride *)ride {
 
     // subscribe the passenger to the ride channel
@@ -37,7 +35,7 @@
 {
 
     PFPush *push = [[PFPush alloc] init];
-    NSString *channelName = [NSString stringWithFormat:@"R%@",ride.objectId];
+    NSString *channelName = [NSString stringWithFormat:@"P%@",ride.objectId];
     [push setChannel:channelName];
     [push setMessage:@"Your driver is enroute and will arrive shortly."];
     [push sendPushInBackground];
