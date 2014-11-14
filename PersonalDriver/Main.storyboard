@@ -634,6 +634,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WXF-ah-iud">
+                                <rect key="frame" x="180" y="550" width="240" height="30"/>
+                                <color key="backgroundColor" red="0.21057840089999999" green="0.73959772099999999" blue="0.12685070279999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="U2W-Di-26c"/>
+                                    <constraint firstAttribute="width" constant="240" id="Ytc-LQ-SEn"/>
+                                </constraints>
+                                <state key="normal" title="Done">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="xMc-9A-Uh9" kind="unwind" unwindAction="unwindFromScheduledRide:" id="RlG-um-jQe"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WBZ-NF-geY">
                                 <rect key="frame" x="180" y="550" width="240" height="30"/>
                                 <color key="backgroundColor" red="0.19582507290000001" green="0.87744417760000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -772,12 +787,14 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="centerX" secondItem="WXF-ah-iud" secondAttribute="centerX" id="06A-sd-H8F"/>
                             <constraint firstItem="PY0-Tg-BRy" firstAttribute="leading" secondItem="XZ7-Sz-1Q2" secondAttribute="leading" id="0Dq-iW-oJW"/>
                             <constraint firstItem="ffB-ta-O5e" firstAttribute="leading" secondItem="UkD-TA-AFT" secondAttribute="leading" id="0ME-ZB-l1t"/>
                             <constraint firstItem="OMh-oG-raK" firstAttribute="top" secondItem="ChH-9w-uV8" secondAttribute="bottom" constant="1" id="60i-T0-21f"/>
                             <constraint firstItem="jjE-Xi-hxZ" firstAttribute="top" secondItem="Rze-Ha-PtY" secondAttribute="bottom" constant="8" id="7lm-s8-war"/>
                             <constraint firstItem="ChH-9w-uV8" firstAttribute="leading" secondItem="jjE-Xi-hxZ" secondAttribute="leading" constant="-6" id="AGW-oi-eik"/>
                             <constraint firstItem="OMh-oG-raK" firstAttribute="leading" secondItem="jjE-Xi-hxZ" secondAttribute="leading" id="Akk-wc-Lam"/>
+                            <constraint firstItem="NeU-sY-HPX" firstAttribute="top" secondItem="WXF-ah-iud" secondAttribute="bottom" constant="20" id="Ar1-0V-fDY"/>
                             <constraint firstItem="PY0-Tg-BRy" firstAttribute="top" secondItem="daV-Ht-jjk" secondAttribute="bottom" constant="-2" id="Dzc-O9-n4a"/>
                             <constraint firstAttribute="centerX" secondItem="WBZ-NF-geY" secondAttribute="centerX" id="ETY-pT-IKY"/>
                             <constraint firstItem="XZ7-Sz-1Q2" firstAttribute="leading" secondItem="GAr-ad-QmF" secondAttribute="leading" id="Eng-Yh-cbt"/>
@@ -801,6 +818,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="doneButton" destination="WXF-ah-iud" id="9rg-tk-vy1"/>
                         <outlet property="dropoffAddress" destination="ffB-ta-O5e" id="FvS-Sr-X2u"/>
                         <outlet property="dropoffAddressLabel" destination="OMh-oG-raK" id="3Op-Io-KhR"/>
                         <outlet property="estimatedFare" destination="PY0-Tg-BRy" id="99Y-Vb-6Td"/>
@@ -814,6 +832,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G4Q-kC-YQ8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="xMc-9A-Uh9" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2502" y="1808"/>
         </scene>
