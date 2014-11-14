@@ -99,9 +99,6 @@
             cell.rideDestination.text = [NSString stringWithFormat:@"%@ mile trip", tripDistance];
         }];
 
-        //load image file with placeholder first
-        User *passenger = availableRide.passenger;
-
         return cell;
 
     }else
@@ -167,5 +164,9 @@
     }
 }
 
+-(IBAction)unwindFromScheduledRide:(UIStoryboardSegue *)sender
+{
+
+}
 
 @end

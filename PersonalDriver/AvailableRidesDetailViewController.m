@@ -19,6 +19,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *specialInstructionsLabel;
 @property (strong, nonatomic) IBOutlet UITextView *specialInstructions;
 @property (strong, nonatomic) IBOutlet UIButton *scheduleRideButton;
+@property (strong, nonatomic) IBOutlet UIButton *doneButton;
 @end
 
 @implementation AvailableRidesDetailViewController
@@ -27,6 +28,8 @@
 {
     [self retrieveAvailableRidesData];
     [self hideRideDetails];
+    [self.doneButton setHidden:YES];
+    [self.doneButton setUserInteractionEnabled:NO];
 }
 
 - (void)viewDidLoad {
@@ -78,10 +81,10 @@
     [queryRideAvailability whereKey:@"objectId" equalTo:self.ride.objectId];
     [queryRideAvailability findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
     {
-        if (self.ride.driver == nil)
+        Ride *ride = objects.firstObject;
+        if (ride.driver == nil)
         {
             //Update Ride Record
-            Ride *ride = self.ride;
             ride.driver = [User currentUser];
             [ride saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
              {
@@ -96,11 +99,6 @@
             [rideAvailabilityAlert setTitle:@"Ride Scheduled!"];
             [rideAvailabilityAlert setMessage:@"Thank you. You have been designated as the driver for this ride."];
             [rideAvailabilityAlert show];
-
-            //Update button appearance and behavior
-            [self.scheduleRideButton setTitle:@"Ride Confirmed" forState:UIControlStateNormal];
-            self.scheduleRideButton.backgroundColor = [UIColor colorWithRed:(99.0/255.0) green:(193.0/255.0) blue:(43.0/255.0) alpha:0.65];
-            self.scheduleRideButton.enabled = NO;
         }
         else
         {
@@ -110,6 +108,8 @@
             [rideAvailabilityAlert setMessage:@"We're sorry. Another driver has scheduled this ride."];
             [rideAvailabilityAlert show];
         }
+
+        [self showDoneButton];
     }];
 }
 
@@ -133,9 +133,17 @@
     self.specialInstructions.hidden = YES;
 }
 
-- (IBAction)onScheduleRideButtonPressed:(id)sender
+- (IBAction)onScheduleRideButtonPressed:(UIButton *)sender
 {
     [self confirmRideAvailability];
+}
+
+-(void)showDoneButton
+{
+    [self.doneButton setHidden:NO];
+    [self.doneButton setUserInteractionEnabled:YES];
+    [self.scheduleRideButton setHidden:YES];
+    [self.scheduleRideButton setUserInteractionEnabled:NO];
 }
 
 @end
