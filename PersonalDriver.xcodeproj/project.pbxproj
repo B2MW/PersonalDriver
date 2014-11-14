@@ -64,6 +64,7 @@
 		CE5C34461A154C8700DAA0B1 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE5C34451A154C8700DAA0B1 /* Parse.framework */; };
 		CE5C34481A154D2A00DAA0B1 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE5C34471A154D2A00DAA0B1 /* Bolts.framework */; };
 		CE5C344A1A154D5E00DAA0B1 /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE5C34491A154D5E00DAA0B1 /* ParseUI.framework */; };
+		CE5C344D1A15818600DAA0B1 /* PushNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5C344C1A15818600DAA0B1 /* PushNotification.m */; };
 		CEB8D1BB1A0A7D3B00A74FA6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEB8D1BA1A0A7D3B00A74FA6 /* MapKit.framework */; };
 		CEB8D1BF1A0A7D7900A74FA6 /* Ride.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB8D1BE1A0A7D7900A74FA6 /* Ride.m */; };
 		CEB8D1C21A0A7D9100A74FA6 /* RideManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB8D1C11A0A7D9100A74FA6 /* RideManager.m */; };
@@ -190,6 +191,8 @@
 		CE5C34451A154C8700DAA0B1 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = UberKit/Parse.framework; sourceTree = "<group>"; };
 		CE5C34471A154D2A00DAA0B1 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		CE5C34491A154D5E00DAA0B1 /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
+		CE5C344B1A15818600DAA0B1 /* PushNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PushNotification.h; path = ../PushNotification.h; sourceTree = "<group>"; };
+		CE5C344C1A15818600DAA0B1 /* PushNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PushNotification.m; path = ../PushNotification.m; sourceTree = "<group>"; };
 		CEB8D1BA1A0A7D3B00A74FA6 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		CEB8D1BD1A0A7D7900A74FA6 /* Ride.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ride.h; sourceTree = "<group>"; };
 		CEB8D1BE1A0A7D7900A74FA6 /* Ride.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ride.m; sourceTree = "<group>"; };
@@ -287,6 +290,8 @@
 				CE19D9ED1A09E44700874F56 /* UberAPI.m */,
 				CE19D9E61A09BEF900874F56 /* UberAPIDemo.h */,
 				CE19D9E71A09BEF900874F56 /* UberAPIDemo.m */,
+				CE5C344B1A15818600DAA0B1 /* PushNotification.h */,
+				CE5C344C1A15818600DAA0B1 /* PushNotification.m */,
 				CE1A353A1A0AC339004A6CCC /* Token.h */,
 				CE1A353B1A0AC339004A6CCC /* Token.m */,
 				4C7175851A08FDE4002AC734 /* Driver UX */,
@@ -617,6 +622,7 @@
 				CEB8D1C71A0A809E00A74FA6 /* AvailableRidesViewController.m in Sources */,
 				CE1A35471A0F1A10004A6CCC /* AvailableRidesTableView.m in Sources */,
 				CE19D9791A092D2700874F56 /* NSURL+NXOAuth2.m in Sources */,
+				CE5C344D1A15818600DAA0B1 /* PushNotification.m in Sources */,
 				CEB8D1CB1A0A83CB00A74FA6 /* SelectLocationForRideViewController.m in Sources */,
 				CE1A353C1A0AC339004A6CCC /* Token.m in Sources */,
 				CE19D97D1A092D2700874F56 /* NXOAuth2Client.m in Sources */,

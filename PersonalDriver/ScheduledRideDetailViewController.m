@@ -7,6 +7,7 @@
 //
 
 #import "ScheduledRideDetailViewController.h"
+#import "PushNotification.h"
 
 @interface ScheduledRideDetailViewController ()
 
@@ -21,12 +22,8 @@
 }
 - (IBAction)onStartPressed:(UIButton *)sender {
     self.ride.driverEnRoute = YES;
-    // Send a notification to all devices subscribed to this Ride Channel
-    PFPush *push = [[PFPush alloc] init];
-    NSString *channelName = [NSString stringWithFormat:@"R%@",self.ride.objectId];
-    [push setChannel:channelName];
-    [push setMessage:@"Your driver is enroute. Estimated time of arrival is x minutes"];
-    [push sendPushInBackground];
+    [PushNotification sendEnrouteNotificationForRide:self.ride];
+
 }
 
 - (IBAction)onDirectionPressed:(UIButton *)sender {
