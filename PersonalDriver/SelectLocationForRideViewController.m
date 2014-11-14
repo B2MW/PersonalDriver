@@ -191,26 +191,26 @@
 
 #pragma pin color
 
-/*
- - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
+
+ - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(MKPointAnnotation<MKAnnotation>*)annotation
  {
- MKPinAnnotationView *pin = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"MyPinID"];
- if([annotation.title isEqualToString:@"pickup"])
- {
- pin.pinColor = MKPinAnnotationColorGreen;
+
+    if ([annotation.title isEqualToString:@"pickupLocation"])
+      {
+          MKPinAnnotationView *pin = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"MyPinID"];
+          pin.pinColor = MKPinAnnotationColorGreen;
+           return pin;
+      }
+
+    else
+    {
+        MKPinAnnotationView *pin = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"MyPinID"];
+        pin.pinColor = MKPinAnnotationColorRed;
+         return pin;
+    }
 
  }
 
- else if([annotation.title isEqualToString:@"destination"])
- {
- pin.pinColor = MKPinAnnotationColorRed;
- }
-
-
- return pin;
-
- }
-*/
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     if (textField == self.pickupLocationTextField)
@@ -232,13 +232,17 @@
             CLPlacemark *placemark= placemarks.firstObject;
             self.startPointAnnotation = [[MKPointAnnotation alloc]init];
             self.startPointAnnotation.coordinate = placemark.location.coordinate;
-            self.startPointAnnotation.title = @"pickup";
+            self.startPointAnnotation.title = @"pickupLocation";
+
+
             self.pickupLocation = placemark.location;
 
             //creating pin
-            self.startPinAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:self.startPointAnnotation reuseIdentifier:@"startpin"];
+           // self.startPinAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:self.startPointAnnotation reuseIdentifier:@"startpin"];
             //set tag to identify later (if the user adds a new pin ill want to be able to remove this one)
-            [self.startPinAnnotation setTag:1];
+           // [self.startPinAnnotation setTag:1];
+
+
 
             self.pickupGeopoint.latitude = placemark.location.coordinate.latitude;
             self.pickupGeopoint.longitude = placemark.location.coordinate.longitude;
@@ -246,7 +250,7 @@
 
             //add location/pin to map and locations array
             [self.mapView addAnnotation:self.startPointAnnotation];
-            [self.locations addObject:self.startPinAnnotation];
+            //[self.locations addObject:self.startPinAnnotation];
 
             //zoom map to show all pins
             [self.mapView showAnnotations:self.locations animated:YES];
@@ -321,17 +325,17 @@
             self.destinationGeopoint.longitude = placemark.location.coordinate.longitude;
 
 
-            self.endPinAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:self.endPointAnnotation reuseIdentifier:@"endpin"];
+           // self.endPinAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:self.endPointAnnotation reuseIdentifier:@"endpin"];
             self.endPinAnnotation.pinColor = MKPinAnnotationColorPurple;
             self.endPinAnnotation.animatesDrop = YES;
             [self.mapView addAnnotation:self.endPointAnnotation];
-            [self.endPinAnnotation setTag:2];
-            [self.locations addObject:self.endPinAnnotation];
+          //  [self.endPinAnnotation setTag:2];
+          //  [self.locations addObject:self.endPinAnnotation];
 
 
 
             [self.mapView addAnnotation:self.endPointAnnotation];
-            [self.locations addObject:self.endPinAnnotation];
+          //  [self.locations addObject:self.endPinAnnotation];
 
             [UberAPI getPriceEstimateFromPickup:self.pickupLocation toDestination:self.destinationLocation completionHandler:^(UberPrice *price) {
                 self.price = price;
