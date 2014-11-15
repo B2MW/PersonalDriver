@@ -42,6 +42,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *timeImage;
 
+@property NSArray *pins;
+
 
 @end
 
@@ -52,7 +54,7 @@
 
     self.destinationGeopoint = [[PFGeoPoint alloc]init];
     self.pickupGeopoint = [[PFGeoPoint alloc]init];
-
+    self.pins = [[NSArray alloc]init];
     self.locationManager = [[CLLocationManager alloc]init];
     [self.locationManager requestWhenInUseAuthorization];
     self.locationManager.delegate = self;
@@ -100,15 +102,12 @@
                  self.pickupGeopoint.longitude = placemark.location.coordinate.longitude;
                  //^^To pass the lat and long to the PFGeo point on the next page. Could we switched to CLPlacemark if we send it over on the segue instead.
 
-                 //add location/pin to map and locations array
-                 [self.mapView addAnnotation:self.startPointAnnotation];
-                 //[self.locations addObject:self.startPinAnnotation];
+          //       [self.mapView addAnnotation:self.startPointAnnotation];
 
-                 //zoom map to show all pins
-                 [self.mapView showAnnotations:self.locations animated:YES];
+
+
+            //     [self.mapView showAnnotations:self.locations animated:YES];
                 }];
-                 //code to possibly use later
-                 //self.mapView.region = MKCoordinateRegionMakeWithDistance(placemark.location.coordinate, 10000, 10000);
 
         }
         else
@@ -233,11 +232,8 @@
         //if the user already added a location, remove it from map and array
         if(self.startPinAnnotation.tag == 1)
         {
-
             [self.locations removeObject:self.startPinAnnotation];
             [self.mapView removeAnnotation:self.startPointAnnotation];
-            //***why isn't the pin actually removing on the map?***
-
         }
 
         //creating location
@@ -251,11 +247,6 @@
             self.startPointAnnotation.title = @"pickupLocation";
             self.pickupLocation = placemark.location;
 
-            //creating pin
-           // self.startPinAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:self.startPointAnnotation reuseIdentifier:@"startpin"];
-            //set tag to identify later (if the user adds a new pin ill want to be able to remove this one)
-           // [self.startPinAnnotation setTag:1];
-
             self.pickupGeopoint.latitude = placemark.location.coordinate.latitude;
             self.pickupGeopoint.longitude = placemark.location.coordinate.longitude;
             //^^To pass the lat and long to the PFGeo point on the next page. Could we switched to CLPlacemark if we send it over on the segue instead.
@@ -267,12 +258,8 @@
             //zoom map to show all pins
             [self.mapView showAnnotations:self.locations animated:YES];
 
-            //code to possibly use later
-            //self.mapView.region = MKCoordinateRegionMakeWithDistance(placemark.location.coordinate, 10000, 10000);
-
             if(self.hasUserAddedPickupLocation == YES)
                 {
-
                 [self.mapView removeOverlays:self.mapView.overlays];
 
                 [UberAPI getPriceEstimateFromPickup:self.pickupLocation toDestination:self.destinationLocation completionHandler:^(UberPrice *price)
@@ -295,11 +282,13 @@
                         self.currentRoute = [response.routes firstObject];
                         [self plotRouteOnMap:self.currentRoute];
                         [self.mapView showAnnotations:self.locations animated:YES];
-                        NSLog(@"ETA = %f", self.currentRoute.expectedTravelTime);
 
                         self.timeLabel.text = [NSString stringWithFormat:@"%0.f min",self.currentRoute.expectedTravelTime/60];
                         self.dollarLabel.text = [NSString stringWithFormat:@"$%d",self.price.avgEstimateWithoutSurge];
 
+                        self.pins = self.mapView.annotations;
+                        [self.mapView showAnnotations:self.pins animated:YES];
+                   //     self.mapView.camera.altitude *= 1.4;
                     }];
                 }];
                 
@@ -330,16 +319,11 @@
             self.endPointAnnotation.title = @"destination";
             self.destinationLocation = placemark.location;
 
-
             self.destinationGeopoint.latitude = placemark.location.coordinate.latitude;
             self.destinationGeopoint.longitude = placemark.location.coordinate.longitude;
 
-
-           // self.endPinAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:self.endPointAnnotation reuseIdentifier:@"endpin"];
-
-
             [self.mapView addAnnotation:self.endPointAnnotation];
-          //  [self.locations addObject:self.endPinAnnotation];
+
 
             [UberAPI getPriceEstimateFromPickup:self.pickupLocation toDestination:self.destinationLocation completionHandler:^(UberPrice *price) {
                 self.price = price;
@@ -372,6 +356,10 @@
                 self.dollarLabel.hidden = NO;
                 self.timeImage.hidden = NO;
                 self.timeLabel.hidden = NO;
+
+                self.pins = self.mapView.annotations;
+                [self.mapView showAnnotations:self.pins animated:YES];
+          //      self.mapView.camera.altitude *= 1.4;
 
             }];
         }];
