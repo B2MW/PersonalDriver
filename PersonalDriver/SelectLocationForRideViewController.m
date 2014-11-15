@@ -51,7 +51,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     self.destinationGeopoint = [[PFGeoPoint alloc]init];
     self.pickupGeopoint = [[PFGeoPoint alloc]init];
     self.locationManager = [[CLLocationManager alloc]init];
@@ -76,6 +76,7 @@
     self.title = @"New Ride";
 
     self.nextButton.hidden = YES;
+
 
 }
 
@@ -151,6 +152,7 @@
              //^^To pass the lat and long to the PFGeo point on the next page. Could we switched to CLPlacemark if we send it over on the segue instead.
 
              [self.mapView addAnnotation:self.startPointAnnotation];
+             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
          }];
     }];
     
@@ -209,6 +211,9 @@
 
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
+
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+
     if (textField == self.pickupLocationTextField)
     {
         [self.mapView removeAnnotations:self.mapView.annotations];
@@ -271,6 +276,7 @@
                         self.dollarLabel.text = [NSString stringWithFormat:@"$%d",self.price.avgEstimateWithoutSurge];
 
                     [self.mapView showAnnotations:self.mapView.annotations animated:YES];
+                    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 
                     }];
                 }];
@@ -340,6 +346,7 @@
                 self.timeLabel.hidden = NO;
 
                 [self.mapView showAnnotations:self.mapView.annotations animated:YES];
+                [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 
             }];
         }];
@@ -348,8 +355,10 @@
         self.nextButton.hidden = NO;
     }
 
+
     return YES;
 }
+
 
 
 
