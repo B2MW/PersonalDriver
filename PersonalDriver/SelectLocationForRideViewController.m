@@ -82,24 +82,36 @@
 {
     [super viewWillAppear:animated];
 
-    [UberAPI getUserProfileWithCompletionHandler:^(UberProfile *profile) {
-        if (profile) {
+    [UberAPI getUserProfileWithCompletionHandler:^(UberProfile *profile)
+    {
+        if (profile)
+        {
+            CLGeocoder *geocoder = [[CLGeocoder alloc]init];
+            self.pickupAddress = self.pickupLocationTextField.text;
+            [geocoder geocodeAddressString:self.pickupAddress completionHandler:^(NSArray *placemarks, NSError *error)
+                {
+                 CLPlacemark *placemark= placemarks.firstObject;
+                 self.startPointAnnotation = [[MKPointAnnotation alloc]init];
+                 self.startPointAnnotation.coordinate = placemark.location.coordinate;
+                 self.startPointAnnotation.title = @"pickupLocation";
+                 self.pickupLocation = placemark.location;
 
-            self.destinationGeopoint = [[PFGeoPoint alloc]init];
-            self.pickupGeopoint = [[PFGeoPoint alloc]init];
+                 self.pickupGeopoint.latitude = placemark.location.coordinate.latitude;
+                 self.pickupGeopoint.longitude = placemark.location.coordinate.longitude;
+                 //^^To pass the lat and long to the PFGeo point on the next page. Could we switched to CLPlacemark if we send it over on the segue instead.
 
-            self.locationManager = [[CLLocationManager alloc]init];
-            self.locationManager.delegate = self;
-            [self.locationManager startUpdatingLocation];
-            self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-            self.locationManager.distanceFilter = kCLLocationAccuracyKilometer;
-            self.currentLocation = [[CLLocation alloc]init];
-            self.currentLocation = [self.locationManager location];
-            self.mapView.region = MKCoordinateRegionMakeWithDistance(self.currentLocation.coordinate, 10000, 10000);
-            self.locations = [[NSMutableArray alloc]init];
-            self.destinationLocation = [[CLLocation alloc] init];
-            self.pickupLocation = [[CLLocation alloc] init];
-        } else
+                 //add location/pin to map and locations array
+                 [self.mapView addAnnotation:self.startPointAnnotation];
+                 //[self.locations addObject:self.startPinAnnotation];
+
+                 //zoom map to show all pins
+                 [self.mapView showAnnotations:self.locations animated:YES];
+                }];
+                 //code to possibly use later
+                 //self.mapView.region = MKCoordinateRegionMakeWithDistance(placemark.location.coordinate, 10000, 10000);
+
+        }
+        else
         {
             [self dismissViewControllerAnimated:YES completion:nil];
         }
@@ -287,11 +299,7 @@
 
                         self.timeLabel.text = [NSString stringWithFormat:@"%0.f min",self.currentRoute.expectedTravelTime/60];
                         self.dollarLabel.text = [NSString stringWithFormat:@"$%d",self.price.avgEstimateWithoutSurge];
-                        
-                        
-                        
-                        //refactor this badly. PLEASE!
-                        
+
                     }];
                 }];
                 
@@ -328,12 +336,6 @@
 
 
            // self.endPinAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:self.endPointAnnotation reuseIdentifier:@"endpin"];
-            self.endPinAnnotation.pinColor = MKPinAnnotationColorPurple;
-            self.endPinAnnotation.animatesDrop = YES;
-            [self.mapView addAnnotation:self.endPointAnnotation];
-          //  [self.endPinAnnotation setTag:2];
-          //  [self.locations addObject:self.endPinAnnotation];
-
 
 
             [self.mapView addAnnotation:self.endPointAnnotation];
@@ -370,9 +372,7 @@
                 self.dollarLabel.hidden = NO;
                 self.timeImage.hidden = NO;
                 self.timeLabel.hidden = NO;
-                
-                //^^When I get the storyboard ball I'd like to move this to a label that I add
-                
+
             }];
         }];
         [self.view endEditing:YES];
