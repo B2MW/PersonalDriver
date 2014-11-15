@@ -51,6 +51,7 @@
     NSString *channelName = [NSString stringWithFormat:@"P%@",ride.objectId];
     [push setChannel:channelName];
     [push setMessage:@"Your driver is enroute and will arrive shortly."];
+    [push expireAtDate:ride.rideDateTime];
     [push sendPushInBackground];
 
 }
@@ -61,6 +62,7 @@
     NSString *channelName = [NSString stringWithFormat:@"P%@",ride.objectId];
     [push setChannel:channelName];
     [push setMessage:@"Your ride has been scheduled"];
+        [push expireAtDate:ride.rideDateTime];
     [push sendPushInBackground];
 
 }
@@ -68,9 +70,16 @@
 +(void)sendPassengerDriverArrived:(Ride *)ride
 {
     PFPush *push = [[PFPush alloc] init];
+    NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
+                          @"Your driver has arrived.  Please launch Uber and request the ride", @"alert",
+                          @"Increment", @"badge",
+                          //@"cheering.caf", @"sound", TODO: Add Custom Sound
+                          nil];
+
     NSString *channelName = [NSString stringWithFormat:@"P%@",ride.objectId];
     [push setChannel:channelName];
-    [push setMessage:@"Your driver has arrived.  Please launch Uber and request the ride"];
+    [push setData:data];
+    [push expireAtDate:ride.rideDateTime];
     [push sendPushInBackground];
 }
 
