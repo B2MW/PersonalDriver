@@ -24,7 +24,7 @@
 @property CLLocation *currentLocation;
 @property CLLocation *pickupLocation;
 @property CLLocation *destinationLocation;
-@property NSMutableArray *locations;
+//@property NSMutableArray *locations;
 @property UberPrice *price;
 
 @property MKPolyline *routeOverlay;
@@ -42,7 +42,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *timeImage;
 
-@property NSArray *pins;
+
 
 
 @end
@@ -54,7 +54,6 @@
 
     self.destinationGeopoint = [[PFGeoPoint alloc]init];
     self.pickupGeopoint = [[PFGeoPoint alloc]init];
-    self.pins = [[NSArray alloc]init];
     self.locationManager = [[CLLocationManager alloc]init];
     [self.locationManager requestWhenInUseAuthorization];
     self.locationManager.delegate = self;
@@ -63,10 +62,11 @@
     self.locationManager.distanceFilter = kCLLocationAccuracyKilometer;
     self.currentLocation = [[CLLocation alloc]init];
     self.currentLocation = [self.locationManager location];
-    self.mapView.region = MKCoordinateRegionMakeWithDistance(self.currentLocation.coordinate, 10000, 10000);
-    self.locations = [[NSMutableArray alloc]init];
+    self.mapView.region = MKCoordinateRegionMakeWithDistance(self.currentLocation.coordinate, 1000, 1000);
+    //^^sometimes the pin is a little off to the side, current not accurate (sometimes it finds two locations too)
     self.destinationLocation = [[CLLocation alloc] init];
     self.pickupLocation = [[CLLocation alloc] init];
+    self.pickupLocation = self.currentLocation;
     self.hasUserAddedPickupLocation = NO;
 
    self.dollarImage.hidden = YES;
@@ -83,40 +83,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-
-    [UberAPI getUserProfileWithCompletionHandler:^(UberProfile *profile)
-    {
-        if (profile)
-        {
-            CLGeocoder *geocoder = [[CLGeocoder alloc]init];
-            self.pickupAddress = self.pickupLocationTextField.text;
-            [geocoder geocodeAddressString:self.pickupAddress completionHandler:^(NSArray *placemarks, NSError *error)
-                {
-                 CLPlacemark *placemark= placemarks.firstObject;
-                 self.startPointAnnotation = [[MKPointAnnotation alloc]init];
-                 self.startPointAnnotation.coordinate = placemark.location.coordinate;
-                 self.startPointAnnotation.title = @"pickupLocation";
-                 self.pickupLocation = placemark.location;
-
-                 self.pickupGeopoint.latitude = placemark.location.coordinate.latitude;
-                 self.pickupGeopoint.longitude = placemark.location.coordinate.longitude;
-                 //^^To pass the lat and long to the PFGeo point on the next page. Could we switched to CLPlacemark if we send it over on the segue instead.
-
-          //       [self.mapView addAnnotation:self.startPointAnnotation];
-
-
-
-            //     [self.mapView showAnnotations:self.locations animated:YES];
-                }];
-
-        }
-        else
-        {
-            [self dismissViewControllerAnimated:YES completion:nil];
-        }
-
-    }];
-
 }
 
 
@@ -124,7 +90,6 @@
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [self.view endEditing:YES];
-
 }
 
 
@@ -169,8 +134,24 @@
                              placemark.subThoroughfare,
                              placemark.thoroughfare,
                              placemark.locality];
-
         self.pickupLocationTextField.text = address;
+
+        CLGeocoder *geocoder = [[CLGeocoder alloc]init];
+        self.pickupAddress = self.pickupLocationTextField.text;
+        [geocoder geocodeAddressString:self.pickupAddress completionHandler:^(NSArray *placemarks, NSError *error)
+         {
+             CLPlacemark *placemark= placemarks.firstObject;
+             self.startPointAnnotation = [[MKPointAnnotation alloc]init];
+             self.startPointAnnotation.coordinate = placemark.location.coordinate;
+             self.startPointAnnotation.title = @"pickupLocation";
+             self.pickupLocation = placemark.location;
+
+             self.pickupGeopoint.latitude = placemark.location.coordinate.latitude;
+             self.pickupGeopoint.longitude = placemark.location.coordinate.longitude;
+             //^^To pass the lat and long to the PFGeo point on the next page. Could we switched to CLPlacemark if we send it over on the segue instead.
+
+             [self.mapView addAnnotation:self.startPointAnnotation];
+         }];
     }];
     
 }
@@ -211,7 +192,8 @@
           self.startPinAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"MyPinID"];
           self.startPinAnnotation.pinColor = MKPinAnnotationColorGreen;
           self.startPinAnnotation.tag = 1;
-           return self.startPinAnnotation;
+          return self.startPinAnnotation;
+
       }
 
     else
@@ -219,7 +201,7 @@
         self.endPinAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"MyPinID"];
         self.endPinAnnotation.pinColor = MKPinAnnotationColorRed;
         self.endPinAnnotation.tag = 2;
-         return self.endPinAnnotation;
+        return self.endPinAnnotation;
 
     }
 
@@ -229,12 +211,8 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     if (textField == self.pickupLocationTextField)
     {
-        //if the user already added a location, remove it from map and array
-        if(self.startPinAnnotation.tag == 1)
-        {
-            [self.locations removeObject:self.startPinAnnotation];
-            [self.mapView removeAnnotation:self.startPointAnnotation];
-        }
+        [self.mapView removeAnnotations:self.mapView.annotations];
+        [self.mapView addAnnotation:self.endPointAnnotation];
 
         //creating location
         CLGeocoder *geocoder = [[CLGeocoder alloc]init];
@@ -253,10 +231,18 @@
 
             //add location/pin to map and locations array
             [self.mapView addAnnotation:self.startPointAnnotation];
-            //[self.locations addObject:self.startPinAnnotation];
 
-            //zoom map to show all pins
-            [self.mapView showAnnotations:self.locations animated:YES];
+
+             if(self.endPinAnnotation.tag == 2)
+             {
+                 [self.mapView showAnnotations:self.mapView.annotations animated:YES];
+
+             }
+
+             else
+             {
+                 self.mapView.region = MKCoordinateRegionMakeWithDistance(self.pickupLocation.coordinate, 1000, 1000);
+             }
 
             if(self.hasUserAddedPickupLocation == YES)
                 {
@@ -281,14 +267,11 @@
                     [directions calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse *response, NSError *error) {
                         self.currentRoute = [response.routes firstObject];
                         [self plotRouteOnMap:self.currentRoute];
-                        [self.mapView showAnnotations:self.locations animated:YES];
-
                         self.timeLabel.text = [NSString stringWithFormat:@"%0.f min",self.currentRoute.expectedTravelTime/60];
                         self.dollarLabel.text = [NSString stringWithFormat:@"$%d",self.price.avgEstimateWithoutSurge];
 
-                        self.pins = self.mapView.annotations;
-                        [self.mapView showAnnotations:self.pins animated:YES];
-                   //     self.mapView.camera.altitude *= 1.4;
+                    [self.mapView showAnnotations:self.mapView.annotations animated:YES];
+
                     }];
                 }];
                 
@@ -304,10 +287,10 @@
     else if (textField == self.destinationTextField)
     {
         if(self.endPinAnnotation.tag == 2){
-
-            [self.locations removeObject:self.endPinAnnotation];
             [self.mapView removeAnnotation:self.endPointAnnotation];
         }
+
+        self.hasUserAddedPickupLocation = YES;
 
         CLGeocoder *geocoder = [[CLGeocoder alloc]init];
         self.destinationAddress = self.destinationTextField.text;
@@ -346,7 +329,6 @@
             [directions calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse *response, NSError *error) {
                 self.currentRoute = [response.routes firstObject];
                 [self plotRouteOnMap:self.currentRoute];
-                [self.mapView showAnnotations:self.locations animated:YES];
                 NSLog(@"ETA = %f", self.currentRoute.expectedTravelTime);
                 self.timeLabel.text = [NSString stringWithFormat:@"%0.f min",self.currentRoute.expectedTravelTime/60];
                 self.dollarLabel.text = [NSString stringWithFormat:@"$%d",self.price.avgEstimateWithoutSurge];
@@ -357,9 +339,7 @@
                 self.timeImage.hidden = NO;
                 self.timeLabel.hidden = NO;
 
-                self.pins = self.mapView.annotations;
-                [self.mapView showAnnotations:self.pins animated:YES];
-          //      self.mapView.camera.altitude *= 1.4;
+                [self.mapView showAnnotations:self.mapView.annotations animated:YES];
 
             }];
         }];
