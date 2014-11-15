@@ -30,10 +30,10 @@
     {
         //check to make sure the token is still valid and they can use the UberAPI
 
-        [UberAPI getUserProfileWithCompletionHandler:^(UberProfile *profile) {
+        [UberAPI getUserProfileWithCompletionHandler:^(UberProfile *profile, NSError *error) {
             self.profile = profile;
 
-            if (!self.profile.first_name)
+            if (error)
             {
                 [self performSegueWithIdentifier:@"showLogin" sender:self];
             }else if (![User currentUser])//Perform login if no current user
@@ -66,10 +66,10 @@
     {
         //check to make sure the token is still valid and they can use the UberAPI
 
-        [UberAPI getUserProfileWithCompletionHandler:^(UberProfile *profile) {
+        [UberAPI getUserProfileWithCompletionHandler:^(UberProfile *profile, NSError *error) {
             self.profile = profile;
 
-            if (!self.profile.first_name)
+            if (error)
             {
                 [self performSegueWithIdentifier:@"showLogin" sender:self];
             }else if (![User currentUser])//Perform login if no current user
@@ -120,7 +120,7 @@
 -(void)loginOrSignUpUserWithUberProfile
 {
 
-    [UberAPI getUserProfileWithCompletionHandler:^(UberProfile *profile)
+    [UberAPI getUserProfileWithCompletionHandler:^(UberProfile *profile, NSError *error)
     {
         self.profile = profile;
         PFQuery *queryUsers = [User query];

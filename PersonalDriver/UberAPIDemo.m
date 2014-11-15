@@ -36,7 +36,7 @@
 
 }
 - (IBAction)queryUser:(id)sender {
-    [UberAPI getUserProfileWithCompletionHandler:^(UberProfile *profile) {
+    [UberAPI getUserProfileWithCompletionHandler:^(UberProfile *profile, NSError *error) {
         NSLog(@"Name:%@ %@",profile.first_name,profile.last_name);
         NSLog(@"Email:%@",profile.email);
         NSLog(@"Picture: %@", profile.picture);

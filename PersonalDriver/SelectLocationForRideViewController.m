@@ -82,8 +82,8 @@
 {
     [super viewWillAppear:animated];
 
-    [UberAPI getUserProfileWithCompletionHandler:^(UberProfile *profile) {
-        if (profile) {
+    [UberAPI getUserProfileWithCompletionHandler:^(UberProfile *profile, NSError *error) {
+        if (!error) {
 
             self.destinationGeopoint = [[PFGeoPoint alloc]init];
             self.pickupGeopoint = [[PFGeoPoint alloc]init];

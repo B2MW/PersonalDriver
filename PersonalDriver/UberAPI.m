@@ -45,7 +45,7 @@
     }
 }
 
-+ (void)getUserProfileWithCompletionHandler:(void(^)(UberProfile *))complete
++ (void)getUserProfileWithCompletionHandler:(void(^)(UberProfile *, NSError *))complete
 {
     //GET /v1/me
     NSString *token = [Token getToken];
@@ -62,12 +62,15 @@
             if (!error) {
                 NSDictionary *profile = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
                 UberProfile *uberProfile = [[UberProfile alloc]initWithDictionary:profile];
-                complete(uberProfile);
+                complete(uberProfile, error);
             } else
             {
+                UberProfile *uberProfile = nil;
                 NSLog(@"Error:%@",[error description]);
+                complete(uberProfile, error);
+
             }
-            
+
         }];
 
     }

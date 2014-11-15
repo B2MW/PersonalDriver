@@ -49,10 +49,6 @@
 
     // Register for Push Notitications
 
-
-
-    
-
     if ([application respondsToSelector:@selector(registerUserNotificationSettings:)])
     {
         UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
@@ -92,6 +88,7 @@
             NSLog(@"Token saved in Keychain");
 
         }];
+
         return YES;
 
     }else {
@@ -131,6 +128,12 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     [PFPush handlePush:userInfo];
+    NSLog(@"Remote Notification");
+}
+
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
+    NSLog(@"Local Alert");
 }
 
 #pragma mark - Core Data stack

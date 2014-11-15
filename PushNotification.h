@@ -19,4 +19,6 @@
 +(void)sendPassengerEnrouteNotificationForRide:(Ride *)ride;
 +(void)sendPassengerRideConfirmed:(Ride *)ride;
 
++(void)sendDriverReminderForRide:(Ride *)ride;
+
 @end

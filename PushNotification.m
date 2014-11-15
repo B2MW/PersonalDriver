@@ -65,5 +65,20 @@
 
 }
 
+#pragma mark - Local Notifications
+
++(void)sendDriverReminderForRide:(Ride *)ride
+{
+    UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+    NSDate *alertTime = [ride.rideDateTime dateByAddingTimeInterval:-60*15];
+    localNotification.fireDate = alertTime;
+    localNotification.alertAction = @"Ride Scheduled";
+    localNotification.alertBody = [NSString stringWithFormat:@"Pickup at %@",ride.rideDateTime];
+    localNotification.timeZone = [NSTimeZone defaultTimeZone];
+    localNotification.applicationIconBadgeNumber = [[UIApplication sharedApplication] applicationIconBadgeNumber] + 1;
+
+    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+}
+
 
 @end

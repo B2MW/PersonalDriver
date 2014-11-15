@@ -23,7 +23,7 @@
 
 + (void)getUberActivitiesWithCompletionHandler:(void(^)(NSMutableArray *))complete;
 
-+ (void)getUserProfileWithCompletionHandler:(void(^)(UberProfile *))complete;
++ (void)getUserProfileWithCompletionHandler:(void(^)(UberProfile *, NSError *))complete;
 
 + (void)getPriceEstimateFromPickup:(CLLocation *)pickup toDestination:(CLLocation *)destination completionHandler:(void(^)(UberPrice *))complete;
 

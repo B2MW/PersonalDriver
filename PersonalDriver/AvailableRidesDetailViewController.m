@@ -101,6 +101,7 @@
             [rideAvailabilityAlert setMessage:@"Thank you. You have been designated as the driver for this ride."];
             [rideAvailabilityAlert show];
             [PushNotification subscribeDriverToRide:ride];
+            [PushNotification sendDriverReminderForRide:ride];
             [PushNotification sendPassengerRideConfirmed:ride];
             
             

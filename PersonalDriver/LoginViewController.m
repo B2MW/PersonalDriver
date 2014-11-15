@@ -59,7 +59,7 @@
 
 -(void)signUpUserWithUberProfile
 {
-    [UberAPI getUserProfileWithCompletionHandler:^(UberProfile *profile) {
+    [UberAPI getUserProfileWithCompletionHandler:^(UberProfile *profile, NSError *error) {
 
         User *user = [User new];
 
