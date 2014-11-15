@@ -197,16 +197,19 @@
 
     if ([annotation.title isEqualToString:@"pickupLocation"])
       {
-          MKPinAnnotationView *pin = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"MyPinID"];
-          pin.pinColor = MKPinAnnotationColorGreen;
-           return pin;
+          self.startPinAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"MyPinID"];
+          self.startPinAnnotation.pinColor = MKPinAnnotationColorGreen;
+          self.startPinAnnotation.tag = 1;
+           return self.startPinAnnotation;
       }
 
     else
     {
-        MKPinAnnotationView *pin = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"MyPinID"];
-        pin.pinColor = MKPinAnnotationColorRed;
-         return pin;
+        self.endPinAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"MyPinID"];
+        self.endPinAnnotation.pinColor = MKPinAnnotationColorRed;
+        self.endPinAnnotation.tag = 2;
+         return self.endPinAnnotation;
+
     }
 
  }
@@ -216,7 +219,8 @@
     if (textField == self.pickupLocationTextField)
     {
         //if the user already added a location, remove it from map and array
-        if(self.startPinAnnotation.tag == 1){
+        if(self.startPinAnnotation.tag == 1)
+        {
 
             [self.locations removeObject:self.startPinAnnotation];
             [self.mapView removeAnnotation:self.startPointAnnotation];
@@ -224,25 +228,21 @@
 
         }
 
-
         //creating location
         CLGeocoder *geocoder = [[CLGeocoder alloc]init];
         self.pickupAddress = self.pickupLocationTextField.text;
-        [geocoder geocodeAddressString:self.pickupAddress completionHandler:^(NSArray *placemarks, NSError *error) {
+        [geocoder geocodeAddressString:self.pickupAddress completionHandler:^(NSArray *placemarks, NSError *error)
+         {
             CLPlacemark *placemark= placemarks.firstObject;
             self.startPointAnnotation = [[MKPointAnnotation alloc]init];
             self.startPointAnnotation.coordinate = placemark.location.coordinate;
             self.startPointAnnotation.title = @"pickupLocation";
-
-
             self.pickupLocation = placemark.location;
 
             //creating pin
            // self.startPinAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:self.startPointAnnotation reuseIdentifier:@"startpin"];
             //set tag to identify later (if the user adds a new pin ill want to be able to remove this one)
            // [self.startPinAnnotation setTag:1];
-
-
 
             self.pickupGeopoint.latitude = placemark.location.coordinate.latitude;
             self.pickupGeopoint.longitude = placemark.location.coordinate.longitude;
@@ -258,11 +258,13 @@
             //code to possibly use later
             //self.mapView.region = MKCoordinateRegionMakeWithDistance(placemark.location.coordinate, 10000, 10000);
 
-            if(self.hasUserAddedPickupLocation == YES){
+            if(self.hasUserAddedPickupLocation == YES)
+                {
 
                 [self.mapView removeOverlays:self.mapView.overlays];
 
-                [UberAPI getPriceEstimateFromPickup:self.pickupLocation toDestination:self.destinationLocation completionHandler:^(UberPrice *price) {
+                [UberAPI getPriceEstimateFromPickup:self.pickupLocation toDestination:self.destinationLocation completionHandler:^(UberPrice *price)
+                    {
                     self.price = price;
 
                     // Make a directions request
