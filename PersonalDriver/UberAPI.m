@@ -8,6 +8,7 @@
 
 #import "UberAPI.h"
 #import "Token.h"
+#import <UIKit/UIKit.h>
 
 
 
@@ -17,9 +18,8 @@
 {
     //GET /v1.1/history
     NSString *token = [Token getToken];
-    if (!token) {
-        NSLog(@"You have no token");
-        //Make alertview to take to login screen
+    if (token) {
+
     } else
     {
         NSString *urlString = [NSString stringWithFormat:@"https://api.uber.com/v1.1/history?access_token=%@&scope=history_lite", token];
@@ -51,7 +51,8 @@
     NSString *token = [Token getToken];
     if (!token) {
         NSLog(@"You have no token");
-        //Make alertview to take to login screen
+
+
     } else
     {
         NSString *urlString = [NSString stringWithFormat:@"https://api.uber.com/v1/me?access_token=%@", token];
@@ -72,6 +73,8 @@
             }
 
         }];
+
+
 
     }
 

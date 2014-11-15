@@ -82,30 +82,20 @@
 {
     [super viewWillAppear:animated];
 
-    [UberAPI getUserProfileWithCompletionHandler:^(UberProfile *profile, NSError *error) {
-        if (!error) {
+    self.destinationGeopoint = [[PFGeoPoint alloc]init];
+    self.pickupGeopoint = [[PFGeoPoint alloc]init];
 
-            self.destinationGeopoint = [[PFGeoPoint alloc]init];
-            self.pickupGeopoint = [[PFGeoPoint alloc]init];
-
-            self.locationManager = [[CLLocationManager alloc]init];
-            self.locationManager.delegate = self;
-            [self.locationManager startUpdatingLocation];
-            self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-            self.locationManager.distanceFilter = kCLLocationAccuracyKilometer;
-            self.currentLocation = [[CLLocation alloc]init];
-            self.currentLocation = [self.locationManager location];
-            self.mapView.region = MKCoordinateRegionMakeWithDistance(self.currentLocation.coordinate, 10000, 10000);
-            self.locations = [[NSMutableArray alloc]init];
-            self.destinationLocation = [[CLLocation alloc] init];
-            self.pickupLocation = [[CLLocation alloc] init];
-        } else
-        {
-            [self dismissViewControllerAnimated:YES completion:nil];
-        }
-
-    }];
-
+    self.locationManager = [[CLLocationManager alloc]init];
+    self.locationManager.delegate = self;
+    [self.locationManager startUpdatingLocation];
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    self.locationManager.distanceFilter = kCLLocationAccuracyKilometer;
+    self.currentLocation = [[CLLocation alloc]init];
+    self.currentLocation = [self.locationManager location];
+    self.mapView.region = MKCoordinateRegionMakeWithDistance(self.currentLocation.coordinate, 10000, 10000);
+    self.locations = [[NSMutableArray alloc]init];
+    self.destinationLocation = [[CLLocation alloc] init];
+    self.pickupLocation = [[CLLocation alloc] init];
 }
 
 

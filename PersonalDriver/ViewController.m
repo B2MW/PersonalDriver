@@ -10,11 +10,13 @@
 #import "Token.h"
 #import "UberAPI.h"
 #import "User.h"
+#import "UberKit.h"
 
-@interface ViewController ()
+@interface ViewController () <UIAlertViewDelegate>
 @property NSString *token;
 @property User *currentUser;
 @property UberProfile *profile;
+
 
 @end
 
@@ -23,12 +25,27 @@
 - (void)viewDidLoad {
 
     [super viewDidLoad];
+
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+
+    [super viewWillAppear:animated];
+
+    //check to make sure the token is still valid and they can use the UberAPI
     NSString *token = [Token getToken];
-    if (!token) {
-        [self performSegueWithIdentifier:@"showLogin" sender:self];
-    }else
+    if (!token)
     {
-        //check to make sure the token is still valid and they can use the UberAPI
+        NSLog(@"You have no token");
+        UIAlertView *loginAlert = [[UIAlertView alloc]initWithTitle:@"Unable to Login" message:@"Please login to Uber" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Login", nil];
+        loginAlert.delegate = self;
+        [loginAlert show];
+
+    }else
+
+    {
+        [self fareEstimate];
+        [self queryUser];
 
         [UberAPI getUserProfileWithCompletionHandler:^(UberProfile *profile, NSError *error) {
             self.profile = profile;
@@ -56,42 +73,13 @@
     }
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
+    if ([title isEqualToString:@"Login"]) {
 
-    [super viewWillAppear:animated];
-    NSString *token = [Token getToken];
-    if (!token) {
-        [self performSegueWithIdentifier:@"showLogin" sender:self];
-    }else
-    {
-        //check to make sure the token is still valid and they can use the UberAPI
-
-        [UberAPI getUserProfileWithCompletionHandler:^(UberProfile *profile, NSError *error) {
-            self.profile = profile;
-
-            if (error)
-            {
-                [self performSegueWithIdentifier:@"showLogin" sender:self];
-            }else if (![User currentUser])//Perform login if no current user
-            {
-                [self loginOrSignUpUserWithUberProfile];
-
-            }else if (self.currentUser.isDriver == YES)//Check if they are a Driver
-            {
-                [self associateUserToDeviceForPush];
-            //    [self performSegueWithIdentifier:@"showDriver" sender:self];
-            }else if (self.currentUser.isDriver == NO)//Check if they are a passenger
-            {
-                [self associateUserToDeviceForPush];
-             //   [self performSegueWithIdentifier:@"showPassenger" sender:self];
-            }else
-            {
-                //do nothing.  Have the user select Driver or Passenger from current screen.
-            }
-        }];
+        [[UberKit sharedInstance] startLogin];
     }
 }
-
 
 
 - (IBAction)onPassengerPressed:(UIButton *)sender {
@@ -175,6 +163,49 @@
     installation[@"user"] = [User currentUser];
     [installation saveInBackground];
 }
+
+- (void)eraseToken {
+
+    [Token eraseToken];
+}
+
+- (void)logoutCurrentUser {
+    [User logOut];
+    if ([User currentUser] == nil)
+    {
+        NSLog(@"You are logged out");
+    }
+}
+
+- (void)fareEstimate {
+
+    CLLocation *pickupLocation = [[CLLocation alloc] initWithLatitude:37.7833 longitude:-122.4167];
+    CLLocation *destinationLocation = [[CLLocation alloc] initWithLatitude:37.9 longitude:-122.43];
+
+    [UberAPI getPriceEstimateFromPickup:pickupLocation toDestination:destinationLocation completionHandler:^(UberPrice *price) {
+        NSLog(@"Estimate for Average Fare: $%d",price.avgEstimateWithoutSurge);
+    }];
+    
+}
+
+- (void)queryUser {
+    [UberAPI getUserProfileWithCompletionHandler:^(UberProfile *profile, NSError *error) {
+        NSLog(@"Name:%@ %@",profile.first_name,profile.last_name);
+        NSLog(@"Email:%@",profile.email);
+        NSLog(@"Picture: %@", profile.picture);
+        NSLog(@"Promo Code:%@",profile.promo_code);
+    }];
+
+}
+
+- (void)queryActivity {
+    [UberAPI getUberActivitiesWithCompletionHandler:^(NSMutableArray *activities) {
+        NSLog(@"Activities:%@",activities);
+    }];
+
+}
+
+
 
 
 
