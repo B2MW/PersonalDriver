@@ -37,38 +37,24 @@
     if (!token)
     {
         NSLog(@"You have no token");
-        UIAlertView *loginAlert = [[UIAlertView alloc]initWithTitle:@"Unable to Login" message:@"Please login to Uber" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Login", nil];
-        loginAlert.delegate = self;
-        [loginAlert show];
+        [self loginAlert];
 
     }else
 
     {
         [self fareEstimate];
-        [self queryUser];
+        [self queryProfile];
+
 
         [UberAPI getUserProfileWithCompletionHandler:^(UberProfile *profile, NSError *error) {
-            self.profile = profile;
-
-            if (error)
-            {
-                [self performSegueWithIdentifier:@"showLogin" sender:self];
-            }else if (![User currentUser])//Perform login if no current user
-            {
+            if (!error) {
                 [self loginOrSignUpUserWithUberProfile];
-
-            }else if (self.currentUser.isDriver == YES)//Check if they are a Driver
-            {
-                [self associateUserToDeviceForPush];
-                [self performSegueWithIdentifier:@"showDriver" sender:self];
-            }else if (self.currentUser.isDriver == NO)//Check if they are a passenger
-            {
-                [self associateUserToDeviceForPush];
-                [self performSegueWithIdentifier:@"showPassenger" sender:self];
-            }else
-            {
-                //do nothing.  Have the user select Driver or Passenger from current screen.
+            }else {
+                [Token eraseToken];
+                [self loginAlert];
             }
+
+
         }];
     }
 }
@@ -78,6 +64,13 @@
     if ([title isEqualToString:@"Login"]) {
 
         [[UberKit sharedInstance] startLogin];
+    }
+    if ([title isEqualToString:@"Erase Token"]) {
+        [self eraseToken];
+    }
+
+    if ([title isEqualToString:@"Logout User"]) {
+        [self logoutCurrentUser];
     }
 }
 
@@ -147,6 +140,16 @@
                     NSLog(@"%@", [error description]);
                 }else
                 {
+                    User *currentUser = [User currentUser];
+                    if (currentUser.isDriver == YES)//Check if they are a Driver
+                    {
+                        [self associateUserToDeviceForPush];
+//                        [self performSegueWithIdentifier:@"showDriver" sender:self];
+                    }else if (currentUser.isDriver == NO)//Check if they are a passenger
+                    {
+                        [self associateUserToDeviceForPush];
+//                        [self performSegueWithIdentifier:@"showPassenger" sender:self];
+                    }
                     NSLog(@"Logged in successfully");
                 }
             }
@@ -188,7 +191,7 @@
     
 }
 
-- (void)queryUser {
+- (void)queryProfile {
     [UberAPI getUserProfileWithCompletionHandler:^(UberProfile *profile, NSError *error) {
         NSLog(@"Name:%@ %@",profile.first_name,profile.last_name);
         NSLog(@"Email:%@",profile.email);
@@ -203,6 +206,12 @@
         NSLog(@"Activities:%@",activities);
     }];
 
+}
+
+- (void)loginAlert {
+    UIAlertView *loginAlert = [[UIAlertView alloc]initWithTitle:@"Please Login to Uber" message:@"You will be redirected to Uber" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Login", nil];
+    loginAlert.delegate = self;
+    [loginAlert show];
 }
 
 

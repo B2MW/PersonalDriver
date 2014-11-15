@@ -29,6 +29,7 @@
 @implementation AvailableRidesViewController
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
     [self refreshDisplay];
     self.locationManager = [CLLocationManager new];
     [self.locationManager requestWhenInUseAuthorization];

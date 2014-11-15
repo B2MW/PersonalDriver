@@ -65,6 +65,15 @@
 
 }
 
++(void)sendPassengerDriverArrived:(Ride *)ride
+{
+    PFPush *push = [[PFPush alloc] init];
+    NSString *channelName = [NSString stringWithFormat:@"P%@",ride.objectId];
+    [push setChannel:channelName];
+    [push setMessage:@"Your driver has arrived.  Please launch Uber and request the ride"];
+    [push sendPushInBackground];
+}
+
 #pragma mark - Local Notifications
 
 +(void)sendDriverReminderForRide:(Ride *)ride

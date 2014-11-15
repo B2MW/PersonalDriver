@@ -33,6 +33,7 @@
 
 }
 - (IBAction)onArrivedPressed:(id)sender {
+    [PushNotification sendPassengerDriverArrived:self.ride];
 }
 
 - (IBAction)onDirectionPressed:(UIButton *)sender {
