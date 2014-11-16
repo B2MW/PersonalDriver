@@ -12,10 +12,12 @@
 #import "User.h"
 #import "Token.h"
 #import "UberAPI.h"
+#import "Ride.h"
 #import <SBAPNSPusher.h>
 
 @interface AppDelegate ()
 @property UberAPI *uberAPI;
+@property Ride *nextRide;
 
 @end
 
@@ -74,7 +76,18 @@
     [application registerForRemoteNotifications];
 
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    //Store passengers next ride
+    User *currentUser = [User currentUser];
+    if (currentUser) {
+        PFQuery *nextRide = [PFQuery queryWithClassName:@"Ride"];
+        [nextRide whereKey:@"Passenger" equalTo:currentUser];
+        [nextRide orderByAscending:@"rideDateTime"];
+        [nextRide findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            self.nextRide = [objects objectAtIndex:0];
+        }];
+    }
 
+    //Used to send test push notifications
     [SBAPNSPusher start];
 
 
@@ -151,27 +164,33 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     [PFPush handlePush:userInfo];
 
-
-}
-
-
-
-
--(void) application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void (^)())completionHandler {
-    [PFPush handlePush:userInfo];
-
-    if ([identifier isEqualToString:@"Request"])
-    {
-        NSLog(@"Make Request");
+    NSDictionary *payLoad = [userInfo objectForKey:@"aps"];
+        if ([[payLoad objectForKey:@"category"] isEqualToString:@"Request"]) {
+        [self requestRideWithUber];
     }
 
-    completionHandler();
-    
 }
+
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
 {
     
+}
+
+#pragma mark - Method Helpers
+
+-(void)requestRideWithUber
+{
+    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"uber://"]]) {
+//        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"uber://?client_id=YOUR_CLIENT_ID&action=setPickup&pickup[latitude]=37.775818&pickup[longitude]=-122.418028&pickup[nickname]=UberHQ&pickup[formatted_address]=1455%20Market%20St%2C%20San%20Francisco%2C%20CA%2094103&dropoff[latitude]=37.802374&dropoff[longitude]=-122.405818&dropoff[nickname]=Coit%20Tower&dropoff[formatted_address]=1%20Telegraph%20Hill%20Blvd%2C%20San%20Francisco%2C%20CA%2094133&product_id=a1111c8c-c720-46c3-8534-2fcdd730040d"]];
+
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"uber://?action=setPickup&pickup=my_location"]];
+
+
+    }
+    else {
+        // No Uber app! Open Mobile Website.
+    }
 }
 
 #pragma mark - Core Data stack
@@ -253,5 +272,7 @@
         }
     }
 }
+
+
 
 @end
