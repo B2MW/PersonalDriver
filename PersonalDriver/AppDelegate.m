@@ -70,6 +70,9 @@
     [application registerUserNotificationSettings:settings];
     [application registerForRemoteNotifications];
 
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+
+
     return YES;
 
 
