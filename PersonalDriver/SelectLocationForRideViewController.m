@@ -16,7 +16,7 @@
 
 
 
-@interface SelectLocationForRideViewController () <MKMapViewDelegate, CLLocationManagerDelegate, UITextFieldDelegate>
+@interface SelectLocationForRideViewController () <MKMapViewDelegate, CLLocationManagerDelegate, UITextFieldDelegate, UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *pickupLocationTextField;
 @property (weak, nonatomic) IBOutlet UITextField *destinationTextField;
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
@@ -126,7 +126,7 @@
     }
 }
 
--(void)reverseGeocode:(CLLocation *)location{
+/* -(void)reverseGeocode:(CLLocation *)location{
     CLGeocoder *geocoder = [CLGeocoder new];
 
     [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
@@ -139,6 +139,7 @@
 
         CLGeocoder *geocoder = [[CLGeocoder alloc]init];
         self.pickupAddress = self.pickupLocationTextField.text;
+
         [geocoder geocodeAddressString:self.pickupAddress completionHandler:^(NSArray *placemarks, NSError *error)
          {
              CLPlacemark *placemark= placemarks.firstObject;
@@ -156,6 +157,30 @@
          }];
     }];
     
+}
+ */
+
+-(void)reverseGeocode:(CLLocation *)location{
+    CLGeocoder *geocoder = [CLGeocoder new];
+
+    [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
+        CLPlacemark *placemark = placemarks.firstObject;
+        NSString *address = [NSString stringWithFormat:@"%@ %@ \n%@",
+                             placemark.subThoroughfare,
+                             placemark.thoroughfare,
+                             placemark.locality];
+        self.pickupLocationTextField.text = address;
+        self.pickupAddress = self.pickupLocationTextField.text;
+        self.startPointAnnotation = [[MKPointAnnotation alloc]init];
+        self.startPointAnnotation.coordinate = placemark.location.coordinate;
+        self.startPointAnnotation.title = @"pickupLocation";
+        self.pickupLocation = placemark.location;
+        self.pickupGeopoint.latitude = placemark.location.coordinate.latitude;
+        self.pickupGeopoint.longitude = placemark.location.coordinate.longitude;
+        //^^To pass the lat and long to the PFGeo point on the next page. Could we switched to CLPlacemark if we send it over on the segue instead.
+        [self.mapView addAnnotation:self.startPointAnnotation];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+         }];
 }
 
 
@@ -195,7 +220,6 @@
           self.startPinAnnotation.pinColor = MKPinAnnotationColorGreen;
           self.startPinAnnotation.tag = 1;
           return self.startPinAnnotation;
-
       }
 
     else
@@ -204,11 +228,8 @@
         self.endPinAnnotation.pinColor = MKPinAnnotationColorRed;
         self.endPinAnnotation.tag = 2;
         return self.endPinAnnotation;
-
     }
-
  }
-
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 
@@ -224,6 +245,16 @@
         self.pickupAddress = self.pickupLocationTextField.text;
         [geocoder geocodeAddressString:self.pickupAddress completionHandler:^(NSArray *placemarks, NSError *error)
          {
+             if(error)
+             {
+                 UIAlertView *alertView = [[UIAlertView alloc] init];
+                 alertView.delegate = self;
+                 alertView.title = @"Please try using this format: Street Address, City, State. If you don't know the address, please try: Location Name, City, State";
+                 [alertView addButtonWithTitle: @"Dismiss"];
+                 [alertView show];
+             }
+
+        else{
             CLPlacemark *placemark= placemarks.firstObject;
             self.startPointAnnotation = [[MKPointAnnotation alloc]init];
             self.startPointAnnotation.coordinate = placemark.location.coordinate;
@@ -280,8 +311,8 @@
 
                     }];
                 }];
-                
             }
+        }
             
             self.hasUserAddedPickupLocation = YES;
             [self.view endEditing:YES];
@@ -290,9 +321,11 @@
 
     }
 
+
     else if (textField == self.destinationTextField)
     {
-        if(self.endPinAnnotation.tag == 2){
+        if(self.endPinAnnotation.tag == 2)
+        {
             [self.mapView removeAnnotation:self.endPointAnnotation];
         }
 
@@ -300,7 +333,19 @@
 
         CLGeocoder *geocoder = [[CLGeocoder alloc]init];
         self.destinationAddress = self.destinationTextField.text;
-        [geocoder geocodeAddressString:self.destinationAddress completionHandler:^(NSArray *placemarks, NSError *error) {
+        [geocoder geocodeAddressString:self.destinationAddress completionHandler:^(NSArray *placemarks, NSError *error)
+        {
+            if(error)
+            {
+                UIAlertView *alertView = [[UIAlertView alloc] init];
+                alertView.delegate = self;
+                alertView.title = @"Please try using this format: Street Address, City, State. If you don't know the address, please try: Location Name, City, State";
+                [alertView addButtonWithTitle: @"Dismiss"];
+                [alertView show];
+            }
+
+            else
+            {
 
             CLPlacemark *placemark = placemarks.firstObject;
             self.endPointAnnotation = [[MKPointAnnotation alloc]init];
@@ -317,8 +362,7 @@
             [UberAPI getPriceEstimateFromPickup:self.pickupLocation toDestination:self.destinationLocation completionHandler:^(UberPrice *price) {
                 self.price = price;
 
-            }];
-
+                }];
 
             // Make a directions request
             MKDirectionsRequest *directionsRequest = [[MKDirectionsRequest alloc]init];;
@@ -332,30 +376,28 @@
             [directionsRequest setDestination:destination];
 
             MKDirections *directions = [[MKDirections alloc] initWithRequest:directionsRequest];
-            [directions calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse *response, NSError *error) {
+            [directions calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse *response, NSError *error)
+            {
                 self.currentRoute = [response.routes firstObject];
                 [self plotRouteOnMap:self.currentRoute];
                 NSLog(@"ETA = %f", self.currentRoute.expectedTravelTime);
                 self.timeLabel.text = [NSString stringWithFormat:@"%0.f min",self.currentRoute.expectedTravelTime/60];
                 self.dollarLabel.text = [NSString stringWithFormat:@"$%d",self.price.avgEstimateWithoutSurge];
-                
-                
+
                 self.dollarImage.hidden = NO;
                 self.dollarLabel.hidden = NO;
                 self.timeImage.hidden = NO;
                 self.timeLabel.hidden = NO;
 
                 [self.mapView showAnnotations:self.mapView.annotations animated:YES];
+                self.nextButton.hidden = NO;
                 [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 
             }];
+            }
         }];
         [self.view endEditing:YES];
-        
-        self.nextButton.hidden = NO;
-    }
-
-
+            }
     return YES;
 }
 
