@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Ride.h"
 #import <Parse/Parse.h>
+#import <ParseUI/ParseUI.h>
 
 @interface AvailableRideTableViewCell : UITableViewCell
 @property Ride *ride;
