@@ -12,6 +12,7 @@
 #import "User.h"
 #import "Token.h"
 #import "UberAPI.h"
+#import <SBAPNSPusher.h>
 
 @interface AppDelegate ()
 @property UberAPI *uberAPI;
@@ -50,14 +51,16 @@
     //Register Actions for Push Notifications
 
     UIMutableUserNotificationAction *requestUber = [[UIMutableUserNotificationAction alloc]init];
-    requestUber.title = @"Request Uber";
+    requestUber.title = @"Request Your Ride On Uber";
+    requestUber.identifier = @"Request";
     requestUber.activationMode = UIUserNotificationActivationModeForeground;
     requestUber.destructive = NO;
     requestUber.authenticationRequired = NO;
 
     //Create categories for Push Notifications
+
     UIMutableUserNotificationCategory *requestCategory = [[UIMutableUserNotificationCategory alloc]init];
-    requestCategory.identifier = @"REQUEST_CATEGORY";
+    requestCategory.identifier = @"Request";
     [requestCategory setActions:@[requestUber] forContext:UIUserNotificationActionContextDefault];
     //Register categories
     NSSet *categories = [NSSet setWithObjects:requestCategory, nil];
@@ -71,6 +74,8 @@
     [application registerForRemoteNotifications];
 
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+
+    [SBAPNSPusher start];
 
 
     return YES;
@@ -145,10 +150,11 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     [PFPush handlePush:userInfo];
+
 }
 
--(void) application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void (^)())completionHandler {
 
+-(void) application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void (^)())completionHandler {
     [PFPush handlePush:userInfo];
 }
 

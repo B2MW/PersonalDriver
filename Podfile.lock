@@ -1,13 +1,16 @@
 PODS:
   - MZDayPicker (0.0.5)
+  - SBAPNSPusher (2.2.1)
   - SSKeychain (1.2.2)
 
 DEPENDENCIES:
   - MZDayPicker
+  - SBAPNSPusher
   - SSKeychain
 
 SPEC CHECKSUMS:
   MZDayPicker: 764a603e74918cca830323ebb4e016aab1f40085
+  SBAPNSPusher: e4e0698116bacc13e3bbdf4bcbbbb47a438966c6
   SSKeychain: cc48bd3ad24fcd9125adb9e0d23dd50b8bbd08b9
 
 COCOAPODS: 0.34.4
