@@ -84,13 +84,13 @@
          [rideManager retrieveRideDistanceAndBearing:self.ride :self.locationManager :^(NSArray *locationAndBearing)
          {
              NSNumber *distance = locationAndBearing[0];
-             if (distance.doubleValue >= 1)
+             if (distance.doubleValue >= 2)
              {
                  self.distanceFromPickup.text = [NSString stringWithFormat:@"%@ miles %@",locationAndBearing[0], locationAndBearing[1]];
              }
              else
              {
-                 self.distanceFromPickup.text = @"Within 1 mile";
+                 self.distanceFromPickup.text = @"Within 2 miles";
              }
          }];
          self.numberOfPassengers.text = self.ride.passengerCount;

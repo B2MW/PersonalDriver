@@ -39,7 +39,7 @@
 @implementation AvailableRidesViewController
 - (void)viewWillAppear:(BOOL)animated
 {
-    self.locationManager = [CLLocationManager new];
+    [super viewWillAppear:animated];
     self.availableRides = [NSMutableArray new];
     self.arrayToCategorize = [NSArray array];
 }
@@ -48,10 +48,10 @@
 {
     [super viewDidLoad];
     self.scheduledTableView.hidden = YES;
-
-    [self refreshDisplay];
+    self.locationManager = [CLLocationManager new];
     [self.locationManager requestWhenInUseAuthorization];
     [self.locationManager startUpdatingLocation];
+    [self refreshDisplay];
 }
 
 - (IBAction)segmentedAction:(UISegmentedControl *)segmentedControl
@@ -105,13 +105,13 @@
         [rideManager retrieveRideDistanceAndBearing:ride :self.locationManager :^(NSArray *rideBearingAndDistance)
         {
             NSNumber *rideDistance = [rideBearingAndDistance objectAtIndex:0];
-            if ( rideDistance.doubleValue >= 1)
+            if (rideDistance.doubleValue >= 2)
             {
                 cell.rideOrigin.text = [NSString stringWithFormat:@"Pickup point is %@ miles %@",[rideBearingAndDistance objectAtIndex:0], [rideBearingAndDistance objectAtIndex:1]];
             }
             else
             {
-                cell.rideOrigin.text = @"Pickup point is within a mile";
+                cell.rideOrigin.text = @"Pickup is within a few miles";
             }
         }];
 
@@ -149,18 +149,18 @@
     RideManager *rideManager = [[RideManager alloc] init];
     [rideManager getAvailableRides:self.locationManager :^(NSArray *rideResults)
     {
-        for (Ride *ride in rideResults)
-        {
-            [rideManager retrieveRideDistanceAndBearing:ride:self.locationManager :^(NSArray *distanceAndBearing)
-            {
-                NSNumber *distance = distanceAndBearing[0];
-                if (distance.doubleValue > 15)
-                {
-                    [self.availableRides addObject:ride];
-                }
-            }];
-        }
-//        self.availableRides = rideResults;
+//        for (Ride *ride in rideResults)
+//        {
+//            [rideManager retrieveRideDistanceAndBearing:ride:self.locationManager :^(NSArray *distanceAndBearing)
+//            {
+//                NSNumber *distance = distanceAndBearing[0];
+//                if (distance.doubleValue > 15)
+//                {
+//                    [self.availableRides addObject:ride];
+//                }
+//            }];
+//        }
+        self.availableRides = rideResults;
         [self categorizeRidesByDay];
         [self.availableTableView reloadData];
     }];
