@@ -151,16 +151,27 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     [PFPush handlePush:userInfo];
 
+
 }
+
+
 
 
 -(void) application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void (^)())completionHandler {
     [PFPush handlePush:userInfo];
+
+    if ([identifier isEqualToString:@"Request"])
+    {
+        NSLog(@"Make Request");
+    }
+
+    completionHandler();
+    
 }
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
 {
-    NSLog(@"%@",notification);
+    
 }
 
 #pragma mark - Core Data stack
