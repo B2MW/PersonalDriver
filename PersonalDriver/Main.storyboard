@@ -1628,10 +1628,10 @@
             </objects>
             <point key="canvasLocation" x="4988" y="1046"/>
         </scene>
-        <!--View Controller-->
+        <!--Finished Ride Request View Controller-->
         <scene sceneID="Dke-ik-9nu">
             <objects>
-                <viewController id="h4G-8o-Khy" sceneMemberID="viewController">
+                <viewController id="h4G-8o-Khy" customClass="FinishedRideRequestViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jmA-oW-3vO"/>
                         <viewControllerLayoutGuide type="bottom" id="uId-hd-qQ6"/>

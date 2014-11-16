@@ -21,9 +21,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"Current Rides";
     self.requestedRides = [[NSArray alloc]init];
     [self getAvailableRides];
+    [self.navigationItem setHidesBackButton:YES animated:YES];
+    self.title = @"Current Rides";
+
+    UIBarButtonItem *newBackButton =
+    [[UIBarButtonItem alloc] initWithTitle:@""
+                                     style:UIBarButtonItemStylePlain
+                                    target:nil
+                                    action:nil];
+    [[self navigationItem] setBackBarButtonItem:newBackButton];
 }
 
 -(void)viewDidAppear:(BOOL)animated{

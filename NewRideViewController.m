@@ -81,6 +81,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.title = @"Ride Info";
 
     self.dates = [NSMutableArray arrayWithObjects: self.dateButtonOne, self.dateButtonTwo, self.dateButtonThree, self.dateButtonFour, self.dateButtonFive, self.dateButtonSix, self.dateButtonSeven, nil];
 

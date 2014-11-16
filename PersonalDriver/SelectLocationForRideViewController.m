@@ -52,6 +52,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+
+    self.title = @"Ride Locations";
+
+    UIBarButtonItem *newBackButton =
+    [[UIBarButtonItem alloc] initWithTitle:@""
+                                     style:UIBarButtonItemStylePlain
+                                    target:nil
+                                    action:nil];
+    [[self navigationItem] setBackBarButtonItem:newBackButton];
+
+
+
     self.destinationGeopoint = [[PFGeoPoint alloc]init];
     self.pickupGeopoint = [[PFGeoPoint alloc]init];
     self.locationManager = [[CLLocationManager alloc]init];
@@ -76,6 +88,9 @@
     self.title = @"New Ride";
 
     self.nextButton.hidden = YES;
+
+
+
 
 
 }

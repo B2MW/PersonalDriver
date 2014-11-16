@@ -45,7 +45,10 @@
     [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
                                                            [UIColor colorWithRed:54.0/255.0 green:173.0/255.0 blue:201.0/255.0 alpha:1.0], NSForegroundColorAttributeName,
                                                            [UIFont fontWithName:@"System Bold" size:20.0], NSFontAttributeName, nil]];
-    
+
+    self.window.tintColor = [UIColor colorWithRed:(54.0/255.0) green:(173.0/255.0) blue:(201.0/255.0) alpha:1];
+
+
     //Register Actions for Push Notifications
 
     UIMutableUserNotificationAction *requestUber = [[UIMutableUserNotificationAction alloc]init];
