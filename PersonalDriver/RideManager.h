@@ -14,7 +14,7 @@
 #import "User.h"
 
 @interface RideManager : NSObject
--(void)getAvailableRides:(void(^)(NSArray *))completionHandler;
+-(void)getAvailableRides:(CLLocationManager *)locationManager:(void(^)(NSArray *))completionHandler;
 -(void)getScheduledRides:(void(^)(NSArray *))complete;
 -(NSString *)formatRideDate:(Ride *)ride;
 -(NSString *)formatRideFareEstimate:(NSNumber *)fareEstimateMin fareEstimateMax:(NSNumber *)fareEstimateMax;

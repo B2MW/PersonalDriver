@@ -10,16 +10,40 @@
 
 @implementation RideManager
 
--(void)getAvailableRides:(void(^)(NSArray *))completionHandler
+-(void)getAvailableRides:(CLLocationManager *)locationManager:(void(^)(NSArray *))completionHandler
 {
 
     PFQuery *queryAvailableRides = [Ride query];
     queryAvailableRides.cachePolicy = kPFCachePolicyCacheThenNetwork;
     [queryAvailableRides whereKeyDoesNotExist:@"driver"];
     [queryAvailableRides includeKey:@"passenger"];
-    [queryAvailableRides findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+    [queryAvailableRides findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+    {
+        for (Ride *ride in objects)
+        {
+            NSNumber *distance = 0;
+            CLLocation *pickupLocation = [[CLLocation alloc] initWithLatitude:ride.pickupGeoPoint.latitude longitude:ride.pickupGeoPoint.longitude];
+            CLLocation *driverLocation = locationManager.location;
+            distance = [NSNumber numberWithDouble:(round([pickupLocation distanceFromLocation:driverLocation] / 1609.34))];
+//            ride.rideDateTime = [self convertDateToLocalTimeZone:ride.rideDateTime];
+            NSLog(@"%@",ride.rideDateTime);
+        }
         completionHandler(objects);
     }];
+}
+
+-(NSDate *)convertDateToLocalTimeZone:(NSDate *)serverRideDateTime
+{
+    NSTimeZone *currentTimeZone = [NSTimeZone localTimeZone];
+    NSTimeZone *utcTimeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
+    NSInteger currentGMTOffset = [currentTimeZone secondsFromGMTForDate:serverRideDateTime];
+    NSInteger gmtOffset = [utcTimeZone secondsFromGMTForDate:serverRideDateTime];
+    NSTimeInterval gmtInterval = currentGMTOffset - gmtOffset;
+    NSDate *localRideDateTime = [[NSDate alloc] initWithTimeInterval:gmtInterval sinceDate:serverRideDateTime];
+
+    NSLog(@"%@", serverRideDateTime);
+    NSLog(@"%@", localRideDateTime);
+    return localRideDateTime;
 }
 
 -(void)getScheduledRides:(void(^)(NSArray *))complete
@@ -39,7 +63,7 @@
 -(NSString *)formatRideDate:(Ride *)ride
 {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"EEE' at 'h:mm a"];
+    [formatter setDateFormat:@"hh:mm a'"];
     NSString *formattedRideDate = [formatter stringFromDate:ride.rideDateTime];
     return formattedRideDate;
 }
