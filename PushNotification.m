@@ -73,6 +73,7 @@
     NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
                           @"Your driver has arrived.  Please launch Uber and request the ride", @"alert",
                           @"Increment", @"badge",
+                          @"REQUEST_CATEGORY",@"category",
                           //@"cheering.caf", @"sound", TODO: Add Custom Sound
                           nil];
 

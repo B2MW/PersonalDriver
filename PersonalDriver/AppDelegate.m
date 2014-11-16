@@ -47,13 +47,26 @@
                                                            [UIFont fontWithName:@"System Bold" size:20.0], NSFontAttributeName, nil]];
     [[UIToolbar appearance] setTintColor:[UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:1.0]];
 
-    // Register for Push Notifications
+    //Register Actions for Push Notifications
 
+    UIMutableUserNotificationAction *requestUber = [[UIMutableUserNotificationAction alloc]init];
+    requestUber.title = @"Request Uber";
+    requestUber.activationMode = UIUserNotificationActivationModeForeground;
+    requestUber.destructive = NO;
+    requestUber.authenticationRequired = NO;
+
+    //Create categories for Push Notifications
+    UIMutableUserNotificationCategory *requestCategory = [[UIMutableUserNotificationCategory alloc]init];
+    requestCategory.identifier = @"REQUEST_CATEGORY";
+    [requestCategory setActions:@[requestUber] forContext:UIUserNotificationActionContextDefault];
+    //Register categories
+    NSSet *categories = [NSSet setWithObjects:requestCategory, nil];
+    // Register for Push Notifications
     UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
                                                     UIUserNotificationTypeBadge |
                                                     UIUserNotificationTypeSound);
     UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes
-                                                                             categories:nil];
+                                                                             categories:categories];
     [application registerUserNotificationSettings:settings];
     [application registerForRemoteNotifications];
 
@@ -128,6 +141,11 @@
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    [PFPush handlePush:userInfo];
+}
+
+-(void) application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void (^)())completionHandler {
+
     [PFPush handlePush:userInfo];
 }
 
