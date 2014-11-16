@@ -39,14 +39,13 @@
     self.uberAPI.redirectURL = @"personaldriver://localhost";
     self.uberAPI.applicationName = @"Personal Driver";
 
-    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:(0/255.0) green:(0/255.0) blue:(0/255.0) alpha:1]];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:(10.0/255.0) green:(9.0/255.0) blue:(26.0/255.0) alpha:1]];
 
 
     [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
-                                                           [UIColor colorWithRed:226.0/255.0 green:219.0/255.0 blue:140.0/255.0 alpha:1.0], NSForegroundColorAttributeName,
+                                                           [UIColor colorWithRed:54.0/255.0 green:173.0/255.0 blue:201.0/255.0 alpha:1.0], NSForegroundColorAttributeName,
                                                            [UIFont fontWithName:@"System Bold" size:20.0], NSFontAttributeName, nil]];
-    [[UIToolbar appearance] setTintColor:[UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:1.0]];
-
+    
     //Register Actions for Push Notifications
 
     UIMutableUserNotificationAction *requestUber = [[UIMutableUserNotificationAction alloc]init];
