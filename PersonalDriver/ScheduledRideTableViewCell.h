@@ -13,7 +13,6 @@
 @interface ScheduledRideTableViewCell : UITableViewCell
 
 @property Ride *ride;
-@property IBOutlet PFImageView *userImage;
 @property (strong, nonatomic) IBOutlet UILabel *pickupDateTimeLabel;
 @property (strong, nonatomic) IBOutlet UILabel *rideOrigin;
 @property (strong, nonatomic) IBOutlet UILabel *rideDestination;
