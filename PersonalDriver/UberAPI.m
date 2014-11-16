@@ -8,6 +8,7 @@
 
 #import "UberAPI.h"
 #import "Token.h"
+#import <UIKit/UIKit.h>
 
 
 
@@ -17,9 +18,8 @@
 {
     //GET /v1.1/history
     NSString *token = [Token getToken];
-    if (!token) {
-        NSLog(@"You have no token");
-        //Make alertview to take to login screen
+    if (token) {
+
     } else
     {
         NSString *urlString = [NSString stringWithFormat:@"https://api.uber.com/v1.1/history?access_token=%@&scope=history_lite", token];
@@ -45,13 +45,14 @@
     }
 }
 
-+ (void)getUserProfileWithCompletionHandler:(void(^)(UberProfile *))complete
++ (void)getUserProfileWithCompletionHandler:(void(^)(UberProfile *, NSError *))complete
 {
     //GET /v1/me
     NSString *token = [Token getToken];
     if (!token) {
         NSLog(@"You have no token");
-        //Make alertview to take to login screen
+
+
     } else
     {
         NSString *urlString = [NSString stringWithFormat:@"https://api.uber.com/v1/me?access_token=%@", token];
@@ -62,13 +63,18 @@
             if (!error) {
                 NSDictionary *profile = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
                 UberProfile *uberProfile = [[UberProfile alloc]initWithDictionary:profile];
-                complete(uberProfile);
+                complete(uberProfile, error);
             } else
             {
+                UberProfile *uberProfile = nil;
                 NSLog(@"Error:%@",[error description]);
+                complete(uberProfile, error);
+
             }
-            
+
         }];
+
+
 
     }
 

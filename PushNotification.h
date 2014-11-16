@@ -14,6 +14,12 @@
 @interface PushNotification : NSObject
 
 +(void)subscribePassengerToRide:(Ride *)ride;
-+(void)sendEnrouteNotificationForRide:(Ride *)ride;
++(void)subscribeDriverToRide:(Ride *)ride;
+
++(void)sendPassengerEnrouteNotificationForRide:(Ride *)ride;
++(void)sendPassengerRideConfirmed:(Ride *)ride;
++(void)sendPassengerDriverArrived:(Ride *)ride;
+
++(void)sendDriverReminderForRide:(Ride *)ride;
 
 @end

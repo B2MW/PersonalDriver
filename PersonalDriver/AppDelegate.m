@@ -12,9 +12,12 @@
 #import "User.h"
 #import "Token.h"
 #import "UberAPI.h"
+#import "Ride.h"
+#import <SBAPNSPusher.h>
 
 @interface AppDelegate ()
 @property UberAPI *uberAPI;
+@property Ride *nextRide;
 
 @end
 
@@ -47,22 +50,46 @@
                                                            [UIFont fontWithName:@"System Bold" size:20.0], NSFontAttributeName, nil]];
     [[UIToolbar appearance] setTintColor:[UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:1.0]];
 
-    // Register for Push Notitications
+    //Register Actions for Push Notifications
 
+    UIMutableUserNotificationAction *requestUber = [[UIMutableUserNotificationAction alloc]init];
+    requestUber.title = @"Request Your Ride On Uber";
+    requestUber.identifier = @"Request";
+    requestUber.activationMode = UIUserNotificationActivationModeForeground;
+    requestUber.destructive = NO;
+    requestUber.authenticationRequired = NO;
 
+    //Create categories for Push Notifications
 
-    
+    UIMutableUserNotificationCategory *requestCategory = [[UIMutableUserNotificationCategory alloc]init];
+    requestCategory.identifier = @"Request";
+    [requestCategory setActions:@[requestUber] forContext:UIUserNotificationActionContextDefault];
+    //Register categories
+    NSSet *categories = [NSSet setWithObjects:requestCategory, nil];
+    // Register for Push Notifications
+    UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
+                                                    UIUserNotificationTypeBadge |
+                                                    UIUserNotificationTypeSound);
+    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes
+                                                                             categories:categories];
+    [application registerUserNotificationSettings:settings];
+    [application registerForRemoteNotifications];
 
-    if ([application respondsToSelector:@selector(registerUserNotificationSettings:)])
-    {
-        UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
-                                                        UIUserNotificationTypeBadge |
-                                                        UIUserNotificationTypeSound);
-        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes
-                                                                                 categories:nil];
-        [application registerUserNotificationSettings:settings];
-        [application registerForRemoteNotifications];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    //Store passengers next ride
+    User *currentUser = [User currentUser];
+    if (currentUser) {
+        PFQuery *nextRide = [PFQuery queryWithClassName:@"Ride"];
+        [nextRide whereKey:@"Passenger" equalTo:currentUser];
+        [nextRide orderByAscending:@"rideDateTime"];
+        [nextRide findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            self.nextRide = [objects objectAtIndex:0];
+        }];
     }
+
+    //Used to send test push notifications
+    [SBAPNSPusher start];
+
 
     return YES;
 
@@ -92,6 +119,7 @@
             NSLog(@"Token saved in Keychain");
 
         }];
+
         return YES;
 
     }else {
@@ -111,7 +139,11 @@
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    if (currentInstallation.badge != 0) {
+        currentInstallation.badge = 0;
+        [currentInstallation saveEventually];
+    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -131,6 +163,34 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     [PFPush handlePush:userInfo];
+
+    NSDictionary *payLoad = [userInfo objectForKey:@"aps"];
+        if ([[payLoad objectForKey:@"category"] isEqualToString:@"Request"]) {
+        [self requestRideWithUber];
+    }
+
+}
+
+
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
+    
+}
+
+#pragma mark - Method Helpers
+
+-(void)requestRideWithUber
+{
+    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"uber://"]]) {
+//        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"uber://?client_id=YOUR_CLIENT_ID&action=setPickup&pickup[latitude]=37.775818&pickup[longitude]=-122.418028&pickup[nickname]=UberHQ&pickup[formatted_address]=1455%20Market%20St%2C%20San%20Francisco%2C%20CA%2094103&dropoff[latitude]=37.802374&dropoff[longitude]=-122.405818&dropoff[nickname]=Coit%20Tower&dropoff[formatted_address]=1%20Telegraph%20Hill%20Blvd%2C%20San%20Francisco%2C%20CA%2094133&product_id=a1111c8c-c720-46c3-8534-2fcdd730040d"]];
+
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"uber://?action=setPickup&pickup=my_location"]];
+
+
+    }
+    else {
+        // No Uber app! Open Mobile Website.
+    }
 }
 
 #pragma mark - Core Data stack
@@ -212,5 +272,7 @@
         }
     }
 }
+
+
 
 @end
