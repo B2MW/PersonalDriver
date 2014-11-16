@@ -50,11 +50,21 @@
 
 
     Ride *ride = [self.requestedRides objectAtIndex:indexPath.row];
-    cell.textLabel.text = ride.destination;
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"MMM dd, HH:mm"];
-    NSString *dateString = [formatter stringFromDate:ride.rideDateTime];
-    cell.detailTextLabel.text = dateString;
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    NSDateFormatter *timeFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MMM dd"];
+    [timeFormatter setDateFormat:@"hh:mm a"];
+    NSString *dateString = [dateFormatter stringFromDate:ride.rideDateTime];
+    NSString *timeString = [timeFormatter stringFromDate:ride.rideDateTime];
+    cell.textLabel.text = dateString;
+    cell.detailTextLabel.text = timeString;
+
+    if (ride.driverConfirmed == YES) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    } else {
+        cell.accessoryType = UITableViewCellAccessoryNone;;
+    }
+
     return cell;
 }
 
