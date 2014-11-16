@@ -24,25 +24,36 @@
 @property CLLocationManager *locationManager;
 @property NSArray *availableRides;
 @property NSArray *scheduledRides;
+@property NSArray *weekdaysSectionTitles;
+@property NSDictionary *weekdays;
+@property NSMutableArray *mondayRides;
+@property NSMutableArray *tuesdayRides;
+@property NSMutableArray *wednesdayRides;
+@property NSMutableArray *thursdayRides;
+@property NSMutableArray *fridayRides;
+@property NSMutableArray *saturdayRides;
+@property NSMutableArray *sundayRides;
 @end
 
 @implementation AvailableRidesViewController
 - (void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
-    [self refreshDisplay];
     self.locationManager = [CLLocationManager new];
-    [self.locationManager requestWhenInUseAuthorization];
-    [self.locationManager startUpdatingLocation];
+
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.scheduledTableView.hidden = YES;
+
+    [self refreshDisplay];
+    [self.locationManager requestWhenInUseAuthorization];
+    [self.locationManager startUpdatingLocation];
 }
 
-- (IBAction)segmentedAction:(UISegmentedControl *)segmentedControl {
+- (IBAction)segmentedAction:(UISegmentedControl *)segmentedControl
+{
 
     if (segmentedControl.selectedSegmentIndex == 0)
     {
@@ -63,8 +74,12 @@
 {
     if (self.scheduledTableView.isHidden == YES)//Show Available Rides
     {
-        return self.availableRides.count;
-    } else //Show Schduled Rides
+        // Return the number of rows in the section.
+        NSString *sectionTitle = [self.weekdaysSectionTitles objectAtIndex:section];
+        NSArray *sectionWeekdays = [self.weekdays objectForKey:sectionTitle];
+        return [sectionWeekdays count];
+    }
+    else //Show Schduled Rides
     {
         return self.scheduledRides.count;
     }
@@ -77,8 +92,11 @@
 
     if (self.scheduledTableView.isHidden == YES)//Show Available Rides
     {
-        AvailableRideTableViewCell *cell = [self.availableTableView dequeueReusableCellWithIdentifier:@"RideCell"];
-        Ride *availableRide = [self.availableRides objectAtIndex:indexPath.row];
+        AvailableRideTableViewCell *cell = [self.availableTableView dequeueReusableCellWithIdentifier:@"RideCell" forIndexPath:indexPath];
+        NSString *sectionTitle = [self.weekdaysSectionTitles objectAtIndex:indexPath.section];
+        NSArray *sectionWeekdays = [self.weekdays objectForKey:sectionTitle];
+        Ride *availableRide = [sectionWeekdays objectAtIndex:indexPath.row];
+
         cell.pickupDateTimeLabel.text = [rideManager formatRideDate:availableRide];
         cell.fareEstimate.text = [rideManager formatRideFareEstimate:availableRide.fareEstimateMin fareEstimateMax:availableRide.fareEstimateMax];
 
@@ -118,20 +136,30 @@
         [cell.userImage loadInBackground];
         return cell;
     }
-
-
 }
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    // Return the number of sections.
+    return [self.weekdaysSectionTitles count];
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    return [self.weekdaysSectionTitles objectAtIndex:section];
+}
 
 -(void)refreshDisplay
 {
     RideManager *rideManager = [[RideManager alloc] init];
-    [rideManager getAvailableRides:^(NSArray *rideResults)
+    [rideManager getAvailableRides:self.locationManager :^(NSArray *rideResults)
     {
         self.availableRides = rideResults;
+        [self categorizeRidesByDay];
         [self.availableTableView reloadData];
     }];
-    [rideManager getScheduledRides:^(NSArray *scheduledrides) {
+    [rideManager getScheduledRides:^(NSArray *scheduledrides)
+    {
         self.scheduledRides = scheduledrides;
         [self.scheduledTableView reloadData];
     }];
@@ -165,9 +193,65 @@
     }
 }
 
+-(void)categorizeRidesByDay
+{
+    self.mondayRides = [NSMutableArray array];
+    self.tuesdayRides = [NSMutableArray array];
+    self.wednesdayRides = [NSMutableArray array];
+    self.thursdayRides = [NSMutableArray array];
+    self.fridayRides = [NSMutableArray array];
+    self.saturdayRides = [NSMutableArray array];
+    self.sundayRides = [NSMutableArray array];
+
+    for (Ride *ride in self.availableRides)
+    {
+        NSLog(@"%td",[[[NSCalendar currentCalendar] components:NSCalendarUnitWeekday fromDate:[NSDate date]] weekday]);
+        NSLog(@"%td",[[[NSCalendar currentCalendar] components:NSCalendarUnitWeekday fromDate:ride.rideDateTime] weekday]);
+
+        NSInteger weekday = [[[NSCalendar currentCalendar] components:NSCalendarUnitWeekday fromDate:ride.rideDateTime] weekday];
+        if (weekday == 1)
+        {
+            [self.sundayRides addObject:ride];
+        }
+        else if (weekday == 2)
+        {
+            [self.mondayRides addObject:ride];
+        }
+        else if (weekday == 3)
+        {
+            [self.tuesdayRides addObject:ride];
+        }
+        else if (weekday == 4)
+        {
+            [self.wednesdayRides addObject:ride];
+        }
+        else if (weekday == 5)
+        {
+            [self.thursdayRides addObject:ride];
+        }
+        else if (weekday == 6)
+        {
+            [self.fridayRides addObject:ride];
+        }
+        else if (weekday == 7)
+        {
+            [self.saturdayRides addObject:ride];
+        }
+    }
+    NSInteger index = 0;
+    self.weekdaysSectionTitles = @[@"Sunday", @"Monday", @"Tuesday", @"Wednesday", @"Thursday", @"Friday", @"Saturday"];
+    self.weekdays = @{self.weekdaysSectionTitles[0] : self.sundayRides,
+                      self.weekdaysSectionTitles[1] : self.mondayRides,
+                      self.weekdaysSectionTitles[2] : self.tuesdayRides,
+                      self.weekdaysSectionTitles[3] : self.wednesdayRides,
+                      self.weekdaysSectionTitles[4] : self.thursdayRides,
+                      self.weekdaysSectionTitles[5] : self.fridayRides,
+                      self.weekdaysSectionTitles[6] : self.saturdayRides};
+}
+
 -(IBAction)unwindFromScheduledRide:(UIStoryboardSegue *)sender
 {
-
+    [self refreshDisplay];
 }
 
 @end
