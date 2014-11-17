@@ -11,10 +11,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Driver Icon 2" translatesAutoresizingMaskIntoConstraints="NO" id="7UH-BV-1ja">
-                    <rect key="frame" x="215" y="223" width="51" height="34"/>
+                    <rect key="frame" x="210" y="223" width="61" height="34"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="34" id="R6M-yi-ikP"/>
-                        <constraint firstAttribute="width" constant="51" id="eeb-S1-utP"/>
+                        <constraint firstAttribute="width" constant="61" id="eeb-S1-utP"/>
                     </constraints>
                 </imageView>
             </subviews>

@@ -102,7 +102,32 @@
 
 }
 
+-(NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
 
+    UITableViewRowAction *deleteButton = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"cancel ride" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath)
+                                     {
+                                         [self.tableView setEditing:YES];
+                                         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                                         [self.tableView reloadData];;
+                                     }];
+    deleteButton.backgroundColor = [UIColor colorWithRed:(54/255.0) green:(173/255.0) blue:(201/255.0) alpha:1]; //delete color
+
+
+
+    return @[deleteButton]; //array with all the buttons you want. 1,2,3, etc...
+}
+
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES; //tableview must be editable or nothing will work...
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableView reloadData];
+}
 
 
 
