@@ -315,7 +315,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZpP-dN-0d7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1802" y="1795"/>
-			80893c30f885040553e28031fe17f031f32ba2af
         </scene>
         <!--Scheduled Ride Detail View Controller-->
         <scene sceneID="0JO-Z5-gFr">
@@ -736,7 +735,6 @@
                 <exit id="xMc-9A-Uh9" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2486" y="1795"/>
-			80893c30f885040553e28031fe17f031f32ba2af
         </scene>
         <!--Passenger Story Board-->
         <scene sceneID="Sfo-Mz-ufs">

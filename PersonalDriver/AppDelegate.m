@@ -85,7 +85,10 @@
         [nextRide whereKey:@"rideDateTime" greaterThan:nowMinusOneHour];
         [nextRide orderByAscending:@"rideDateTime"];
         [nextRide findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            if (objects.count != 0)
+            {
             self.nextRide = [objects objectAtIndex:0];
+            }
         }];
     }
 
