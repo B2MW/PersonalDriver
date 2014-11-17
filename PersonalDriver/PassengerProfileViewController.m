@@ -32,6 +32,9 @@
                                     target:nil
                                     action:nil];
     [[self navigationItem] setBackBarButtonItem:newBackButton];
+
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tools3"]]];
+    self.navigationItem.leftBarButtonItem = item;
 }
 
 -(void)viewDidAppear:(BOOL)animated{
