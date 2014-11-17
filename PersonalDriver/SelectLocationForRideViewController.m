@@ -183,7 +183,6 @@
          }];
 }
 
-
 #pragma adding in route line
 - (void)plotRouteOnMap:(MKRoute *)route
 {
@@ -231,7 +230,8 @@
     }
  }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
 
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 
@@ -252,83 +252,73 @@
                  alertView.title = @"Please try using this format: Street Address, City, State. If you don't know the address, please try: Location Name, City, State";
                  [alertView addButtonWithTitle: @"Dismiss"];
                  [alertView show];
-             }
-
-        else{
-            CLPlacemark *placemark= placemarks.firstObject;
-            self.startPointAnnotation = [[MKPointAnnotation alloc]init];
-            self.startPointAnnotation.coordinate = placemark.location.coordinate;
-            self.startPointAnnotation.title = @"pickupLocation";
-            self.pickupLocation = placemark.location;
-
-            self.pickupGeopoint.latitude = placemark.location.coordinate.latitude;
-            self.pickupGeopoint.longitude = placemark.location.coordinate.longitude;
-            //^^To pass the lat and long to the PFGeo point on the next page. Could we switched to CLPlacemark if we send it over on the segue instead.
-
-            //add location/pin to map and locations array
-            [self.mapView addAnnotation:self.startPointAnnotation];
-
-
-             if(self.endPinAnnotation.tag == 2)
+             }else
              {
-                 [self.mapView showAnnotations:self.mapView.annotations animated:YES];
+                CLPlacemark *placemark= placemarks.firstObject;
+                self.startPointAnnotation = [[MKPointAnnotation alloc]init];
+                self.startPointAnnotation.coordinate = placemark.location.coordinate;
+                self.startPointAnnotation.title = @"pickupLocation";
+                self.pickupLocation = placemark.location;
 
+                self.pickupGeopoint.latitude = placemark.location.coordinate.latitude;
+                self.pickupGeopoint.longitude = placemark.location.coordinate.longitude;
+                //^^To pass the lat and long to the PFGeo point on the next page. Could we switched to CLPlacemark if we send it over on the segue instead.
+
+                //add location/pin to map and locations array
+                [self.mapView addAnnotation:self.startPointAnnotation];
+
+
+                 if(self.endPinAnnotation.tag == 2)
+                 {
+                     [self.mapView showAnnotations:self.mapView.annotations animated:YES];
+
+                 }else
+                 {
+                     self.mapView.region = MKCoordinateRegionMakeWithDistance(self.pickupLocation.coordinate, 1000, 1000);
+                 }
+
+                 if(self.hasUserAddedPickupLocation == YES)
+                 {
+                    [self.mapView removeOverlays:self.mapView.overlays];
+
+                    [UberAPI getPriceEstimateFromPickup:self.pickupLocation toDestination:self.destinationLocation distance:0 time:0 completionHandler:^(UberPrice *price)
+                     {
+                        self.price = price;
+
+                        // Make a directions request
+                        MKDirectionsRequest *directionsRequest = [[MKDirectionsRequest alloc]init];;
+                        // Start at our current location
+                        MKPlacemark *startPlacemark = [[MKPlacemark alloc] initWithCoordinate:self.pickupLocation.coordinate addressDictionary:nil];
+                        MKMapItem *source = [[MKMapItem alloc]initWithPlacemark:startPlacemark];
+                        [directionsRequest setSource:source];
+                        // Make the destination
+                        MKPlacemark *destinationPlacemark = [[MKPlacemark alloc] initWithCoordinate:self.destinationLocation.coordinate addressDictionary:nil];
+                        MKMapItem *destination = [[MKMapItem alloc] initWithPlacemark:destinationPlacemark];
+                        [directionsRequest setDestination:destination];
+
+                        MKDirections *directions = [[MKDirections alloc] initWithRequest:directionsRequest];
+                        [directions calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse *response, NSError *error)
+                         {
+                            self.currentRoute = [response.routes firstObject];
+                            [self plotRouteOnMap:self.currentRoute];
+                            self.timeLabel.text = [NSString stringWithFormat:@"%0.f min",self.currentRoute.expectedTravelTime/60];
+                            self.dollarLabel.text = [NSString stringWithFormat:@"$%@",self.price.avgEstimateWithoutSurge];
+
+                            [self.mapView showAnnotations:self.mapView.annotations animated:YES];
+                            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+                         }];
+                     }];
+                 }
              }
-
-             else
-             {
-                 self.mapView.region = MKCoordinateRegionMakeWithDistance(self.pickupLocation.coordinate, 1000, 1000);
-             }
-
-            if(self.hasUserAddedPickupLocation == YES)
-                {
-                [self.mapView removeOverlays:self.mapView.overlays];
-
-                [UberAPI getPriceEstimateFromPickup:self.pickupLocation toDestination:self.destinationLocation completionHandler:^(UberPrice *price)
-                    {
-                    self.price = price;
-
-                    // Make a directions request
-                    MKDirectionsRequest *directionsRequest = [[MKDirectionsRequest alloc]init];;
-                    // Start at our current location
-                    MKPlacemark *startPlacemark = [[MKPlacemark alloc] initWithCoordinate:self.pickupLocation.coordinate addressDictionary:nil];
-                    MKMapItem *source = [[MKMapItem alloc]initWithPlacemark:startPlacemark];
-                    [directionsRequest setSource:source];
-                    // Make the destination
-                    MKPlacemark *destinationPlacemark = [[MKPlacemark alloc] initWithCoordinate:self.destinationLocation.coordinate addressDictionary:nil];
-                    MKMapItem *destination = [[MKMapItem alloc] initWithPlacemark:destinationPlacemark];
-                    [directionsRequest setDestination:destination];
-
-                    MKDirections *directions = [[MKDirections alloc] initWithRequest:directionsRequest];
-                    [directions calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse *response, NSError *error) {
-                        self.currentRoute = [response.routes firstObject];
-                        [self plotRouteOnMap:self.currentRoute];
-                        self.timeLabel.text = [NSString stringWithFormat:@"%0.f min",self.currentRoute.expectedTravelTime/60];
-                        self.dollarLabel.text = [NSString stringWithFormat:@"$%@",self.price.avgEstimateWithoutSurge];
-
-                    [self.mapView showAnnotations:self.mapView.annotations animated:YES];
-                    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-
-                    }];
-                }];
-            }
-        }
-            
             self.hasUserAddedPickupLocation = YES;
             [self.view endEditing:YES];
-            
         }];
-
-    }
-
-
-    else if (textField == self.destinationTextField)
+    }else if (textField == self.destinationTextField)
     {
         if(self.endPinAnnotation.tag == 2)
         {
             [self.mapView removeAnnotation:self.endPointAnnotation];
         }
-
         self.hasUserAddedPickupLocation = YES;
 
         CLGeocoder *geocoder = [[CLGeocoder alloc]init];
@@ -342,11 +332,8 @@
                 alertView.title = @"Please try using this format: Street Address, City, State. If you don't know the address, please try: Location Name, City, State";
                 [alertView addButtonWithTitle: @"Dismiss"];
                 [alertView show];
-            }
-
-            else
+            }else
             {
-
             CLPlacemark *placemark = placemarks.firstObject;
             self.endPointAnnotation = [[MKPointAnnotation alloc]init];
             self.endPointAnnotation.coordinate = placemark.location.coordinate;
@@ -358,10 +345,9 @@
 
             [self.mapView addAnnotation:self.endPointAnnotation];
 
-
-            [UberAPI getPriceEstimateFromPickup:self.pickupLocation toDestination:self.destinationLocation completionHandler:^(UberPrice *price) {
-                self.price = price;
-
+            [UberAPI getPriceEstimateFromPickup:self.pickupLocation toDestination:self.destinationLocation distance:0 time:0 completionHandler:^(UberPrice *price)
+                {
+                    self.price = price;
                 }];
 
             // Make a directions request
@@ -392,12 +378,11 @@
                 [self.mapView showAnnotations:self.mapView.annotations animated:YES];
                 self.nextButton.hidden = NO;
                 [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-
             }];
-            }
+        }
         }];
         [self.view endEditing:YES];
-            }
+    }
     return YES;
 }
 

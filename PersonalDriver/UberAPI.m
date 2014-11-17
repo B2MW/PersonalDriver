@@ -71,16 +71,13 @@
                 complete(uberProfile, error);
 
             }
-
         }];
-
-
 
     }
 
 }
 
-+(void)getPriceEstimateFromPickup:(CLLocation *)pickup toDestination:(CLLocation *)destination completionHandler:(void(^)(UberPrice *))complete
++(void)getPriceEstimateFromPickup:(CLLocation *)pickup toDestination:(CLLocation *)destination distance:(float)distance time:(float)time completionHandler:(void(^)(UberPrice *))complete
 {
     NSString *token = [Token getToken];
     if (!token) {
@@ -100,11 +97,11 @@
                 NSMutableArray *prices = [NSMutableArray new];
                 for (NSDictionary *estimate in allEstimates) {
 
-                    UberPrice *price = [[UberPrice alloc] initWithDictionary:estimate];
+                    UberPrice *price = [[UberPrice alloc] initWithDictionary:estimate distance:distance time:time];
                     [prices addObject:price];
 
                     if ([[estimate objectForKey:@"display_name"]  isEqualToString:@"uberX"]) {
-                        UberPrice *uberPrice = [[UberPrice alloc] initWithDictionary:estimate];
+                        UberPrice *uberPrice = [[UberPrice alloc] initWithDictionary:estimate distance:distance time:time];
                         complete(uberPrice);
                     }
                 }

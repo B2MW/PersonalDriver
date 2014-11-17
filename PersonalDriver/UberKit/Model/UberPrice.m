@@ -27,7 +27,7 @@
 
 @implementation UberPrice
 
-- (instancetype) initWithDictionary:(NSDictionary *)dictionary
+- (instancetype) initWithDictionary:(NSDictionary *)dictionary distance:(float)distance time:(float)time
 {
     self = [super init];
     
@@ -49,7 +49,13 @@
             self.avgEstimateWithoutSurge = [NSString stringWithFormat:@"%.f",((_highEstimate + _lowEstimate)/2)/_surgeMultiplier];
         } else
         {
-            self.avgEstimateWithoutSurge = @"N/A";
+            //calculate fare with distance and time
+            float baseFare = 2.00;
+            float safeRideFee = 1.00;
+            float pricePerMile = 1.25;
+            float pricePerMinute = 0.20;
+            float total = (pricePerMile * distance) + (pricePerMinute * time) + baseFare + safeRideFee;
+            self.avgEstimateWithoutSurge = [NSString stringWithFormat:@"%.2f", total];
         }
 
 

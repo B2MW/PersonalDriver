@@ -25,6 +25,6 @@
 
 + (void)getUserProfileWithCompletionHandler:(void(^)(UberProfile *, NSError *))complete;
 
-+ (void)getPriceEstimateFromPickup:(CLLocation *)pickup toDestination:(CLLocation *)destination completionHandler:(void(^)(UberPrice *))complete;
++(void)getPriceEstimateFromPickup:(CLLocation *)pickup toDestination:(CLLocation *)destination distance:(float)distance time:(float)time completionHandler:(void(^)(UberPrice *))complete;
 
 @end

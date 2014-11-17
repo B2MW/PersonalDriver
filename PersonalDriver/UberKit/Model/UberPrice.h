@@ -37,6 +37,6 @@
 @property NSString *avgEstimateWithoutSurge;
 @property (nonatomic) float surgeMultiplier;
 
-- (instancetype) initWithDictionary: (NSDictionary *) dictionary;
+- (instancetype) initWithDictionary:(NSDictionary *)dictionary distance:(float)distance time:(float)time;
 
 @end
