@@ -17,6 +17,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.navigationItem setHidesBackButton:YES animated:YES];
+    UIBarButtonItem *newBackButton =
+    [[UIBarButtonItem alloc] initWithTitle:@""
+                                     style:UIBarButtonItemStylePlain
+                                    target:nil
+                                    action:nil];
+    [[self navigationItem] setBackBarButtonItem:newBackButton];
     // Do any additional setup after loading the view.
 }
 

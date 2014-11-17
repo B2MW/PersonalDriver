@@ -323,7 +323,7 @@
                         if (self.price == 0) {
                             self.dollarLabel.text = @"$NA";
                         } else {
-                            self.dollarLabel.text = [NSString stringWithFormat:@"$%d",self.price.avgEstimateWithoutSurge];
+                            self.dollarLabel.text = [NSString stringWithFormat:@"$%@",self.price.avgEstimateWithoutSurge];
                         }
 
                     [self.mapView showAnnotations:self.mapView.annotations animated:YES];
@@ -406,7 +406,7 @@
                 if (self.price == 0) {
                     self.dollarLabel.text = @"$NA";
                 } else {
-                    self.dollarLabel.text = [NSString stringWithFormat:@"$%d",self.price.avgEstimateWithoutSurge];
+                    self.dollarLabel.text = [NSString stringWithFormat:@"$%@",self.price.avgEstimateWithoutSurge];
                 }
 
                 self.dollarImage.hidden = NO;

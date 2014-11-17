@@ -26,6 +26,7 @@
     [self.navigationItem setHidesBackButton:YES animated:YES];
     self.title = @"Current Rides";
 
+
     UIBarButtonItem *newBackButton =
     [[UIBarButtonItem alloc] initWithTitle:@""
                                      style:UIBarButtonItemStylePlain
