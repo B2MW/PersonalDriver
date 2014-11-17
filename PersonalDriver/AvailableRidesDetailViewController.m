@@ -76,12 +76,12 @@
 
          self.estimatedFare.text = [rideManager formatRideFareEstimate:self.ride.fareEstimateMin fareEstimateMax:self.ride.fareEstimateMax];
          self.estimatedFareInitialState.text = self.estimatedFare.text;
-         [rideManager retrivedRideTripDistance:self.ride :^(NSNumber *rideDistance) {
+         [rideManager retrivedRideTripDistance:self.ride completionHandler:^(NSNumber *rideDistance) {
              self.tripDistance.text = [NSString stringWithFormat:@"%@ miles", rideDistance.stringValue];
          }];
          self.rideDate.text = [rideManager formatRideDate:self.ride];
          self.rideDateInitialState.text = self.rideDate.text;
-         [rideManager retrieveRideDistanceAndBearing:self.ride :self.locationManager :^(NSArray *locationAndBearing)
+         [rideManager retrieveRideDistanceAndBearing:self.ride locationManager:self.locationManager completionHandler:^(NSArray *locationAndBearing)
          {
              NSNumber *distance = locationAndBearing[0];
              if (distance.doubleValue >= 2)
