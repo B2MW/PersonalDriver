@@ -11,7 +11,7 @@
 #import "Ride.h"
 #import "User.h"
 
-@interface PassengerProfileViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface PassengerProfileViewController () <UITableViewDataSource, UITableViewDelegate,UIAlertViewDelegate>
 @property NSArray *rides;
 @property NSArray *requestedRides;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -104,17 +104,34 @@
 
 -(NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    UITableViewRowAction *deleteButton = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"cancel ride" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath)
+    Ride *ride = [self.requestedRides objectAtIndex:indexPath.row];
+
+    UITableViewRowAction *deleteButton = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"X" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath)
                                      {
-                                         [self.tableView setEditing:YES];
-                                         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-                                         [self.tableView reloadData];;
+                                         UIAlertView *alertView = [[UIAlertView alloc] init];
+                                         alertView.delegate = self;
+                                         alertView.title = @"Are you sure you want to cancel this ride?";
+                                         [alertView addButtonWithTitle: @"Yes"];
+                                         [alertView addButtonWithTitle: @"No"];
+                                         [alertView show];
+
+                                       //  [self.tableView setEditing:YES];
+                                        // [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                                       //  [self.tableView reloadData];;
                                      }];
+
     deleteButton.backgroundColor = [UIColor colorWithRed:(54/255.0) green:(173/255.0) blue:(201/255.0) alpha:1]; //delete color
 
+    UITableViewRowAction *button = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:ride.destination handler:^(UITableViewRowAction *action, NSIndexPath *indexPath)
+                                     {
+
+                                     }];
+    button.backgroundColor = [UIColor colorWithRed:(10.0/255.0) green:(9.0/255.0) blue:(26.0/255.0) alpha:1];
 
 
-    return @[deleteButton]; //array with all the buttons you want. 1,2,3, etc...
+
+
+    return @[deleteButton, button]; //array with all the buttons you want. 1,2,3, etc...
 }
 
 
@@ -127,6 +144,20 @@
 {
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         [self.tableView reloadData];
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1)
+    {
+
+    }
+
+    else if (buttonIndex == 2)
+    {
+       // [self.tableView setEditing:YES];
+       // [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+       // [self.tableView reloadData];;
+    }
 }
 
 
