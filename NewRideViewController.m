@@ -81,6 +81,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.title = @"Ride Info";
 
     self.dates = [NSMutableArray arrayWithObjects: self.dateButtonOne, self.dateButtonTwo, self.dateButtonThree, self.dateButtonFour, self.dateButtonFive, self.dateButtonSix, self.dateButtonSeven, nil];
 
@@ -136,8 +137,7 @@
     [self.dateButtonOne setImage:[UIImage imageNamed:@"Oval 9"] forState:UIControlStateNormal];
 
     self.passengerLabelOne.tag = 1;
-    self.passengerLabelOne.textColor = [UIColor blackColor];
-    self.passengerLabelOne.backgroundColor = [UIColor colorWithRed:226/255.0 green:219/255.0 blue:140/255.0 alpha:1.0];
+    self.passengerLabelOne.backgroundColor = [UIColor colorWithRed:45.0/255.0 green:44.0/255.0 blue:58.0/255.0 alpha:1.0];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
@@ -279,13 +279,12 @@
 
     for (UILabel *label in labels) {
         label.tag = 0;
-        label.textColor = [UIColor colorWithRed:226/255.0 green:219/255.0 blue:140/255.0 alpha:1.0];
-        label.backgroundColor = [UIColor blackColor];
+        label.backgroundColor = [UIColor colorWithRed:54.0/255.0 green:173.0/255.0 blue:201.0/255.0 alpha:1.0];
     }
 
     sender.tag = 1;
-    sender.textColor = [UIColor blackColor];
-    sender.backgroundColor = [UIColor colorWithRed:226/255.0 green:219/255.0 blue:140/255.0 alpha:1.0];
+    sender.backgroundColor = [UIColor colorWithRed:(45.0/255.0) green:(44.0/255.0) blue:(58.0/255.0) alpha:1];
+    ;
 
 }
 

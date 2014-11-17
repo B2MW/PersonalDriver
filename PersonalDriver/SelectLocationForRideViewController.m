@@ -52,6 +52,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+
+    self.title = @"Ride Locations";
+
+    UIBarButtonItem *newBackButton =
+    [[UIBarButtonItem alloc] initWithTitle:@""
+                                     style:UIBarButtonItemStylePlain
+                                    target:nil
+                                    action:nil];
+    [[self navigationItem] setBackBarButtonItem:newBackButton];
+
+
+
     self.destinationGeopoint = [[PFGeoPoint alloc]init];
     self.pickupGeopoint = [[PFGeoPoint alloc]init];
     self.locationManager = [[CLLocationManager alloc]init];
@@ -76,6 +88,9 @@
     self.title = @"New Ride";
 
     self.nextButton.hidden = YES;
+
+
+
 
 
 }
@@ -201,7 +216,7 @@
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay
 {
     MKPolylineRenderer *renderer = [[MKPolylineRenderer alloc] initWithPolyline:overlay];
-    renderer.strokeColor = [UIColor redColor];
+    renderer.strokeColor = [UIColor colorWithRed:54.0/255.0 green:173.0/255.0 blue:201.0/255.0 alpha:1.0];
     renderer.lineWidth = 4.0;
     return  renderer;
 }
@@ -304,7 +319,12 @@
                         self.currentRoute = [response.routes firstObject];
                         [self plotRouteOnMap:self.currentRoute];
                         self.timeLabel.text = [NSString stringWithFormat:@"%0.f min",self.currentRoute.expectedTravelTime/60];
-                        self.dollarLabel.text = [NSString stringWithFormat:@"$%@",self.price.avgEstimateWithoutSurge];
+
+                        if (self.price == 0) {
+                            self.dollarLabel.text = @"$NA";
+                        } else {
+                            self.dollarLabel.text = [NSString stringWithFormat:@"$%d",self.price.avgEstimateWithoutSurge];
+                        }
 
                     [self.mapView showAnnotations:self.mapView.annotations animated:YES];
                     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -382,7 +402,12 @@
                 [self plotRouteOnMap:self.currentRoute];
                 NSLog(@"ETA = %f", self.currentRoute.expectedTravelTime);
                 self.timeLabel.text = [NSString stringWithFormat:@"%0.f min",self.currentRoute.expectedTravelTime/60];
-                self.dollarLabel.text = [NSString stringWithFormat:@"$%@",self.price.avgEstimateWithoutSurge];
+
+                if (self.price == 0) {
+                    self.dollarLabel.text = @"$NA";
+                } else {
+                    self.dollarLabel.text = [NSString stringWithFormat:@"$%d",self.price.avgEstimateWithoutSurge];
+                }
 
                 self.dollarImage.hidden = NO;
                 self.dollarLabel.hidden = NO;
