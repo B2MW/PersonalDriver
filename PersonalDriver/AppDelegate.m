@@ -119,12 +119,16 @@
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+
 
 
 
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
     if (currentInstallation.badge != 0) {
         currentInstallation.badge = 0;
