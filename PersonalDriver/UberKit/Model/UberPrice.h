@@ -34,7 +34,7 @@
 @property (nonatomic) NSString *estimate;
 @property (nonatomic) int lowEstimate;
 @property (nonatomic) int highEstimate;
-@property int avgEstimateWithoutSurge;
+@property NSString *avgEstimateWithoutSurge;
 @property (nonatomic) float surgeMultiplier;
 
 - (instancetype) initWithDictionary: (NSDictionary *) dictionary;
