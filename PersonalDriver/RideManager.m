@@ -17,6 +17,7 @@
     queryAvailableRides.cachePolicy = kPFCachePolicyCacheThenNetwork;
     [queryAvailableRides whereKeyDoesNotExist:@"driver"];
     [queryAvailableRides includeKey:@"passenger"];
+    [queryAvailableRides whereKey:@"rideDateTime" greaterThanOrEqualTo:[self convertDateToLocalTimeZone:[NSDate date]]];
     [queryAvailableRides findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
     {
         for (Ride *ride in objects)
@@ -25,7 +26,6 @@
             CLLocation *pickupLocation = [[CLLocation alloc] initWithLatitude:ride.pickupGeoPoint.latitude longitude:ride.pickupGeoPoint.longitude];
             CLLocation *driverLocation = locationManager.location;
             distance = [NSNumber numberWithDouble:(round([pickupLocation distanceFromLocation:driverLocation] / 1609.34))];
-//            ride.rideDateTime = [self convertDateToLocalTimeZone:ride.rideDateTime];
             NSLog(@"%@",ride.rideDateTime);
         }
         completionHandler(objects);
@@ -54,6 +54,7 @@
     [queryScheduledRides whereKey:@"driver" equalTo:currentUser];
     [queryScheduledRides includeKey:@"passenger"];
     [queryScheduledRides includeKey:@"driver"];
+    [queryScheduledRides whereKey:@"rideDateTime" greaterThanOrEqualTo:[self convertDateToLocalTimeZone:[NSDate date]]];
     [queryScheduledRides findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         complete(objects);
     }];

@@ -11,8 +11,19 @@
 
 @interface AvailableRidesDetailViewController ()
 @property (strong, nonatomic) IBOutlet UILabel *estimatedFare;
+@property (strong, nonatomic) IBOutlet UILabel *estimatedFareLabel;
+@property (strong, nonatomic) IBOutlet UILabel *estimatedFareInitialStateLabel;
+@property (strong, nonatomic) IBOutlet UILabel *estimatedFareInitialState;
 @property (strong, nonatomic) IBOutlet UILabel *rideDate;
+@property (strong, nonatomic) IBOutlet UILabel *rideDateLabel;
+@property (strong, nonatomic) IBOutlet UILabel *rideDateInitialState;
+@property (strong, nonatomic) IBOutlet UILabel *rideDateInitialStateLabel;
+@property (strong, nonatomic) IBOutlet UILabel *distanceFromPickup;
+@property (strong, nonatomic) IBOutlet UILabel *distanceFromPickupInitialStateLabel;
+@property (strong, nonatomic) IBOutlet UILabel *tripDistance;
+@property (strong, nonatomic) IBOutlet UILabel *tripDistanceInitialStateLabel;
 @property (strong, nonatomic) IBOutlet UILabel *numberOfPassengers;
+@property (strong, nonatomic) IBOutlet UILabel *numberOfPassengersLabel;
 @property (strong, nonatomic) IBOutlet UIView *pickupAddressLabel;
 @property (strong, nonatomic) IBOutlet UITextView *pickupAddress;
 @property (strong, nonatomic) IBOutlet UILabel *dropoffAddressLabel;
@@ -27,6 +38,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+//    [super viewWillAppear:animated];
     [self retrieveAvailableRidesData];
     [self hideRideDetails];
     [self.doneButton setHidden:YES];
@@ -42,7 +54,7 @@
     RideManager *rideManager = [[RideManager alloc] init];
 
     //Query Parse User class
-    PFQuery *queryForUserDetails = [PFQuery queryWithClassName:@"_User"];
+    PFQuery *queryForUserDetails = [PFQuery queryWithClassName:@"User"];
     [queryForUserDetails whereKey:@"objectId" equalTo:self.ride.passenger.objectId];
     [queryForUserDetails findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
      {
@@ -63,12 +75,31 @@
          }
 
          self.estimatedFare.text = [rideManager formatRideFareEstimate:self.ride.fareEstimateMin fareEstimateMax:self.ride.fareEstimateMax];
+         self.estimatedFareInitialState.text = self.estimatedFare.text;
+         [rideManager retrivedRideTripDistance:self.ride :^(NSNumber *rideDistance) {
+             self.tripDistance.text = [NSString stringWithFormat:@"%@ miles", rideDistance.stringValue];
+         }];
          self.rideDate.text = [rideManager formatRideDate:self.ride];
+         self.rideDateInitialState.text = self.rideDate.text;
+         [rideManager retrieveRideDistanceAndBearing:self.ride :self.locationManager :^(NSArray *locationAndBearing)
+         {
+             NSNumber *distance = locationAndBearing[0];
+             if (distance.doubleValue >= 2)
+             {
+                 self.distanceFromPickup.text = [NSString stringWithFormat:@"%@ miles %@",locationAndBearing[0], locationAndBearing[1]];
+             }
+             else
+             {
+                 self.distanceFromPickup.text = @"Within 2 miles";
+             }
+         }];
          self.numberOfPassengers.text = self.ride.passengerCount;
-         [rideManager retrieveGeoPointAddress:self.ride.pickupGeoPoint completionHandler:^(NSString *address) {
+         [rideManager retrieveGeoPointAddress:self.ride.pickupGeoPoint completionHandler:^(NSString *address)
+         {
              self.pickupAddress.text = address;
          }];
-         [rideManager retrieveGeoPointAddress:self.ride.dropoffGeoPoint completionHandler:^(NSString *address) {
+         [rideManager retrieveGeoPointAddress:self.ride.dropoffGeoPoint completionHandler:^(NSString *address)
+         {
              self.dropoffAddress.text = address;
          }];
          
@@ -121,16 +152,36 @@
 
 -(void)unhideRideDetails
 {
+    self.estimatedFare.hidden = NO;
+    self.estimatedFareLabel.hidden = NO;
+    self.numberOfPassengers.hidden = NO;
+    self.numberOfPassengersLabel.hidden = NO;
+    self.rideDate.hidden = NO;
+    self.rideDateLabel.hidden = NO;
     self.pickupAddressLabel.hidden = NO;
     self.pickupAddress.hidden = NO;
     self.dropoffAddressLabel.hidden = NO;
     self.dropoffAddress.hidden = NO;
     self.specialInstructionsLabel.hidden = NO;
     self.specialInstructions.hidden = NO;
+    self.estimatedFareInitialState.hidden = YES;
+    self.estimatedFareInitialStateLabel.hidden = YES;
+    self.distanceFromPickup.hidden = YES;
+    self.distanceFromPickupInitialStateLabel.hidden = YES;
+    self.rideDateInitialState.hidden = YES;
+    self.rideDateInitialStateLabel.hidden = YES;
+    self.tripDistance.hidden = YES;
+    self.tripDistanceInitialStateLabel.hidden = YES;
 }
 
 -(void)hideRideDetails
 {
+    self.estimatedFare.hidden = YES;
+    self.estimatedFareLabel.hidden = YES;
+    self.numberOfPassengers.hidden = YES;
+    self.numberOfPassengersLabel.hidden = YES;
+    self.rideDate.hidden = YES;
+    self.rideDateLabel.hidden = YES;
     self.pickupAddressLabel.hidden = YES;
     self.pickupAddress.hidden = YES;
     self.dropoffAddressLabel.hidden = YES;

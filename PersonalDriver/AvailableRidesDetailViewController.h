@@ -13,4 +13,5 @@
 
 @interface AvailableRidesDetailViewController : UIViewController
 @property Ride *ride;
+@property CLLocationManager *locationManager;
 @end

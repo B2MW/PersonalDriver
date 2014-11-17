@@ -22,8 +22,9 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 
 @property CLLocationManager *locationManager;
-@property NSArray *availableRides;
+@property NSMutableArray *availableRides;
 @property NSArray *scheduledRides;
+@property NSArray *arrayToCategorize;
 @property NSArray *weekdaysSectionTitles;
 @property NSDictionary *weekdays;
 @property NSMutableArray *mondayRides;
@@ -38,18 +39,19 @@
 @implementation AvailableRidesViewController
 - (void)viewWillAppear:(BOOL)animated
 {
-    self.locationManager = [CLLocationManager new];
-
+    [super viewWillAppear:animated];
+    self.availableRides = [NSMutableArray new];
+    self.arrayToCategorize = [NSArray array];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.scheduledTableView.hidden = YES;
-
-    [self refreshDisplay];
+    self.locationManager = [CLLocationManager new];
     [self.locationManager requestWhenInUseAuthorization];
     [self.locationManager startUpdatingLocation];
+    [self refreshDisplay];
 }
 
 - (IBAction)segmentedAction:(UISegmentedControl *)segmentedControl
@@ -74,14 +76,15 @@
 {
     if (self.scheduledTableView.isHidden == YES)//Show Available Rides
     {
-        // Return the number of rows in the section.
         NSString *sectionTitle = [self.weekdaysSectionTitles objectAtIndex:section];
         NSArray *sectionWeekdays = [self.weekdays objectForKey:sectionTitle];
         return [sectionWeekdays count];
     }
     else //Show Schduled Rides
     {
-        return self.scheduledRides.count;
+        NSString *sectionTitle = [self.weekdaysSectionTitles objectAtIndex:section];
+        NSArray *sectionWeekdays = [self.weekdays objectForKey:sectionTitle];
+        return [sectionWeekdays count];
     }
 }
 
@@ -89,58 +92,50 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     RideManager *rideManager = [[RideManager alloc] init];
+    NSString *sectionTitle = [self.weekdaysSectionTitles objectAtIndex:indexPath.section];
+    NSArray *sectionWeekdays = [self.weekdays objectForKey:sectionTitle];
+    Ride *ride = [sectionWeekdays objectAtIndex:indexPath.row];
 
     if (self.scheduledTableView.isHidden == YES)//Show Available Rides
     {
         AvailableRideTableViewCell *cell = [self.availableTableView dequeueReusableCellWithIdentifier:@"RideCell" forIndexPath:indexPath];
-        NSString *sectionTitle = [self.weekdaysSectionTitles objectAtIndex:indexPath.section];
-        NSArray *sectionWeekdays = [self.weekdays objectForKey:sectionTitle];
-        Ride *availableRide = [sectionWeekdays objectAtIndex:indexPath.row];
+        cell.pickupDateTimeLabel.text = [rideManager formatRideDate:ride];
+        cell.fareEstimate.text = [rideManager formatRideFareEstimate:ride.fareEstimateMin fareEstimateMax:ride.fareEstimateMax];
 
-        cell.pickupDateTimeLabel.text = [rideManager formatRideDate:availableRide];
-        cell.fareEstimate.text = [rideManager formatRideFareEstimate:availableRide.fareEstimateMin fareEstimateMax:availableRide.fareEstimateMax];
-
-        [rideManager retrieveRideDistanceAndBearing:availableRide :self.locationManager :^(NSArray *rideBearingAndDistance)
+        [rideManager retrieveRideDistanceAndBearing:ride :self.locationManager :^(NSArray *rideBearingAndDistance)
         {
             NSNumber *rideDistance = [rideBearingAndDistance objectAtIndex:0];
-            if ( rideDistance.doubleValue >= 1)
+            if (rideDistance.doubleValue >= 2)
             {
                 cell.rideOrigin.text = [NSString stringWithFormat:@"Pickup point is %@ miles %@",[rideBearingAndDistance objectAtIndex:0], [rideBearingAndDistance objectAtIndex:1]];
             }
             else
             {
-                cell.rideOrigin.text = @"Pickup point is within a mile";
+                cell.rideOrigin.text = @"Pickup is within a few miles";
             }
         }];
 
-        [rideManager retrivedRideTripDistance:availableRide :^(NSNumber *tripDistance)
+        [rideManager retrivedRideTripDistance:ride :^(NSNumber *tripDistance)
         {
             cell.rideDestination.text = [NSString stringWithFormat:@"%@ mile trip", tripDistance];
         }];
 
         return cell;
 
-    }else
+    }
+    else
     {
         ScheduledRideTableViewCell *cell = [self.scheduledTableView dequeueReusableCellWithIdentifier:@"ScheduledCell"];
-        Ride *scheduledRide = [self.scheduledRides objectAtIndex:indexPath.row];
-        cell.pickupDateTimeLabel.text = [rideManager formatRideDate:scheduledRide];
-        cell.rideOrigin.text = scheduledRide.pickUpLocation;
-        cell.rideDestination.text = scheduledRide.destination;
-        cell.fareEstimate.text = [rideManager formatRideFareEstimate:scheduledRide.fareEstimateMin fareEstimateMax:scheduledRide.fareEstimateMax];
-        //load image file with placeholder first
-        User *passenger = scheduledRide.passenger;
-        cell.userImage.image = [UIImage imageNamed:@"profilePicPlaceholder"];
-        PFFile *pictureFile = [passenger objectForKey:@"picture"];
-        cell.userImage.file = pictureFile;
-        [cell.userImage loadInBackground];
+        cell.pickupDateTimeLabel.text = [rideManager formatRideDate:ride];
+        cell.rideOrigin.text = ride.pickUpLocation;
+        cell.rideDestination.text = ride.destination;
+        cell.fareEstimate.text = [NSString stringWithFormat:@"%@ Fare", [rideManager formatRideFareEstimate:ride.fareEstimateMin fareEstimateMax:ride.fareEstimateMax]];
         return cell;
     }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Return the number of sections.
     return [self.weekdaysSectionTitles count];
 }
 
@@ -154,6 +149,17 @@
     RideManager *rideManager = [[RideManager alloc] init];
     [rideManager getAvailableRides:self.locationManager :^(NSArray *rideResults)
     {
+//        for (Ride *ride in rideResults)
+//        {
+//            [rideManager retrieveRideDistanceAndBearing:ride:self.locationManager :^(NSArray *distanceAndBearing)
+//            {
+//                NSNumber *distance = distanceAndBearing[0];
+//                if (distance.doubleValue > 15)
+//                {
+//                    [self.availableRides addObject:ride];
+//                }
+//            }];
+//        }
         self.availableRides = rideResults;
         [self categorizeRidesByDay];
         [self.availableTableView reloadData];
@@ -161,6 +167,7 @@
     [rideManager getScheduledRides:^(NSArray *scheduledrides)
     {
         self.scheduledRides = scheduledrides;
+        [self categorizeRidesByDay];
         [self.scheduledTableView reloadData];
     }];
 }
@@ -171,13 +178,18 @@
     if ([[segue identifier] isEqualToString:@"showAvailable"])
     {
         AvailableRidesDetailViewController *viewController = [segue destinationViewController];
-        viewController.ride = [self.availableRides objectAtIndex:[self.availableTableView indexPathForSelectedRow].row];
+        NSInteger selectedSection = [self.availableTableView indexPathForSelectedRow].section;
+        NSArray *weekdayArray = [self.weekdays objectForKey:[self.weekdaysSectionTitles objectAtIndex:selectedSection]];
+        viewController.ride = [weekdayArray objectAtIndex:[self.availableTableView indexPathForSelectedRow].row];
+        viewController.locationManager = self.locationManager;
     }
     else if ([[segue identifier] isEqualToString:@"showScheduled"])
     {
         ScheduledRideDetailViewController *scheduledVC = [segue destinationViewController];
-        NSIndexPath *indexPath = [self.scheduledTableView indexPathForCell:cell];
-        scheduledVC.ride = [self.scheduledRides objectAtIndex:indexPath.row];
+        NSInteger selectedSection = [self.scheduledTableView indexPathForSelectedRow].section;
+        NSArray *weekdayArray = [self.weekdays objectForKey:[self.weekdaysSectionTitles objectAtIndex:selectedSection]];
+        scheduledVC.ride = [weekdayArray objectAtIndex:[self.availableTableView indexPathForSelectedRow].row];
+        //scheduledVC.ride = [self.scheduledRides objectAtIndex:indexPath.row];
     }
 
 }
@@ -203,11 +215,17 @@
     self.saturdayRides = [NSMutableArray array];
     self.sundayRides = [NSMutableArray array];
 
-    for (Ride *ride in self.availableRides)
+    if (self.scheduledTableView.isHidden == NO)
     {
-        NSLog(@"%td",[[[NSCalendar currentCalendar] components:NSCalendarUnitWeekday fromDate:[NSDate date]] weekday]);
-        NSLog(@"%td",[[[NSCalendar currentCalendar] components:NSCalendarUnitWeekday fromDate:ride.rideDateTime] weekday]);
+        self.arrayToCategorize = self.scheduledRides;
+    }
+    else
+    {
+        self.arrayToCategorize = self.availableRides;
+    }
 
+    for (Ride *ride in self.arrayToCategorize)
+    {
         NSInteger weekday = [[[NSCalendar currentCalendar] components:NSCalendarUnitWeekday fromDate:ride.rideDateTime] weekday];
         if (weekday == 1)
         {
@@ -238,7 +256,6 @@
             [self.saturdayRides addObject:ride];
         }
     }
-    NSInteger index = 0;
     self.weekdaysSectionTitles = @[@"Sunday", @"Monday", @"Tuesday", @"Wednesday", @"Thursday", @"Friday", @"Saturday"];
     self.weekdays = @{self.weekdaysSectionTitles[0] : self.sundayRides,
                       self.weekdaysSectionTitles[1] : self.mondayRides,
