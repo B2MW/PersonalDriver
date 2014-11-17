@@ -177,6 +177,7 @@
     self.rideDateInitialStateLabel.hidden = YES;
     self.tripDistance.hidden = YES;
     self.tripDistanceInitialStateLabel.hidden = YES;
+    self.mapView.hidden = YES;
 }
 
 -(void)hideRideDetails
