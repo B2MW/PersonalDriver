@@ -10,7 +10,7 @@
 
 @implementation RideManager
 
--(void)getAvailableRides:(CLLocationManager *)locationManager:(void(^)(NSArray *))completionHandler
+-(void)getAvailableRideWithlocationManager:(CLLocationManager *)locationManager completionHandler:(void(^)(NSArray *))completionHandler
 {
 
     PFQuery *queryAvailableRides = [Ride query];
@@ -92,7 +92,7 @@
      }];
 }
 
--(void)retrieveRideDistanceAndBearing:(Ride *)ride:(CLLocationManager *)locationManager:(void(^)(NSArray *))completionHandler
+-(void)retrieveRideDistanceAndBearing:(Ride *)ride locationManager:(CLLocationManager *)locationManager completionHandler:(void(^)(NSArray *))completionHandler
 {
     NSMutableArray *distanceAndBearing = [NSMutableArray array];
     NSNumber *distance;
@@ -126,7 +126,7 @@
     completionHandler(distanceAndBearing);
 }
 
--(void)retrivedRideTripDistance:(Ride *)ride:(void(^)(NSNumber *))completionHandler
+-(void)retrivedRideTripDistance:(Ride *)ride completionHandler:(void(^)(NSNumber *))completionHandler
 {
     CLLocation *pickupLocation = [[CLLocation alloc] initWithLatitude:ride.pickupGeoPoint.latitude longitude:ride.pickupGeoPoint.longitude];
     CLLocation *driverLocation = [[CLLocation alloc] initWithLatitude:ride.dropoffGeoPoint.latitude longitude:ride.dropoffGeoPoint.longitude];

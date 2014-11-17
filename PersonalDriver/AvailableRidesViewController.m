@@ -102,7 +102,7 @@
         cell.pickupDateTimeLabel.text = [rideManager formatRideDate:ride];
         cell.fareEstimate.text = [rideManager formatRideFareEstimate:ride.fareEstimateMin fareEstimateMax:ride.fareEstimateMax];
 
-        [rideManager retrieveRideDistanceAndBearing:ride :self.locationManager :^(NSArray *rideBearingAndDistance)
+        [rideManager retrieveRideDistanceAndBearing:ride locationManager:self.locationManager completionHandler:^(NSArray *rideBearingAndDistance)
         {
             NSNumber *rideDistance = [rideBearingAndDistance objectAtIndex:0];
             if (rideDistance.doubleValue >= 2)
@@ -115,7 +115,7 @@
             }
         }];
 
-        [rideManager retrivedRideTripDistance:ride :^(NSNumber *tripDistance)
+        [rideManager retrivedRideTripDistance:ride completionHandler:^(NSNumber *tripDistance)
         {
             cell.rideDestination.text = [NSString stringWithFormat:@"%@ mile trip", tripDistance];
         }];
@@ -147,8 +147,9 @@
 -(void)refreshDisplay
 {
     RideManager *rideManager = [[RideManager alloc] init];
-    [rideManager getAvailableRides:self.locationManager :^(NSArray *rideResults)
+    [rideManager getAvailableRideWithlocationManager:self.locationManager completionHandler:^(NSArray *rideResults)
     {
+
 //        for (Ride *ride in rideResults)
 //        {
 //            [rideManager retrieveRideDistanceAndBearing:ride:self.locationManager :^(NSArray *distanceAndBearing)
@@ -160,7 +161,7 @@
 //                }
 //            }];
 //        }
-        self.availableRides = rideResults;
+        self.availableRides = [NSMutableArray arrayWithArray:rideResults];
         [self categorizeRidesByDay];
         [self.availableTableView reloadData];
     }];

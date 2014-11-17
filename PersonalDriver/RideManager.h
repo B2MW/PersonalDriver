@@ -14,11 +14,11 @@
 #import "User.h"
 
 @interface RideManager : NSObject
--(void)getAvailableRides:(CLLocationManager *)locationManager:(void(^)(NSArray *))completionHandler;
+-(void)getAvailableRideWithlocationManager:(CLLocationManager *)locationManager completionHandler:(void(^)(NSArray *))completionHandler;
 -(void)getScheduledRides:(void(^)(NSArray *))complete;
 -(NSString *)formatRideDate:(Ride *)ride;
 -(NSString *)formatRideFareEstimate:(NSNumber *)fareEstimateMin fareEstimateMax:(NSNumber *)fareEstimateMax;
 -(void)retrieveGeoPointAddress:(PFGeoPoint *)rideGeoPoint completionHandler:(void(^)(NSString *))completionHandler;
--(void)retrieveRideDistanceAndBearing:(Ride *)ride:(CLLocationManager *)locationManager:(void(^)(NSArray *))completionHandler;
--(void)retrivedRideTripDistance:(Ride *)ride:(void(^)(NSNumber *))completionHandler;
+-(void)retrieveRideDistanceAndBearing:(Ride *)ride locationManager:(CLLocationManager *)locationManager completionHandler:(void(^)(NSArray *))completionHandler;
+-(void)retrivedRideTripDistance:(Ride *)ride completionHandler:(void(^)(NSNumber *))completionHandler;
 @end
