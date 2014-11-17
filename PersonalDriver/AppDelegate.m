@@ -29,18 +29,18 @@
     [Parse setApplicationId:@"TDRpDZRx0OnPYjIE2DPP5F78k7ykFa0njA9yyl6p" clientKey:@"dBZx7BTBidkeR2cUM32DFEJYwCMTUM1Wiy5SYUv5"];
 
     //setup UberKit
-    [[UberKit sharedInstance] setServerToken:@"5VvEv7zOK6lEmQf0qRjPBA8ie7P8IIHb0X8pAF2r"];
-    [[UberKit sharedInstance] setClientID:@"pVt5YyjIQIB5gcZHzz_SgyG2Z6lcJRWT"]; //Add your client id
-    [[UberKit sharedInstance] setClientSecret:@"7pJruVcbjQQPZNHRAscuArs2I3Ip3Y-MvVDj_Sw5"]; //Add your client secret
+    [[UberKit sharedInstance] setServerToken:@"fD73LyEkIU7K9NKXuhq23-Yr703QlwlafPYxDAfN"];
+    [[UberKit sharedInstance] setClientID:@"eEsKAGQUzCMhKv6faWTXnMr4IS69BuNu"]; //Add your client id
+    [[UberKit sharedInstance] setClientSecret:@"zUigzHaBAd0sp8gQOes6KDUM0dLqAvUlsSRNIH2v"]; //Add your client secret
     [[UberKit sharedInstance] setRedirectURL:@"personaldriver://localhost"]; //Add your redirect url
-    [[UberKit sharedInstance] setApplicationName:@"Personal Driver"]; //Add your application name
+    [[UberKit sharedInstance] setApplicationName:@"RideOnTime"]; //Add your application name
 
     self.uberAPI = [UberAPI new];
-    self.uberAPI.serverToken = @"5VvEv7zOK6lEmQf0qRjPBA8ie7P8IIHb0X8pAF2r";
-    self.uberAPI.clientID = @"pVt5YyjIQIB5gcZHzz_SgyG2Z6lcJRWT";
-    self.uberAPI.clientSecret = @"7pJruVcbjQQPZNHRAscuArs2I3Ip3Y-MvVDj_Sw5";
+    self.uberAPI.serverToken = @"fD73LyEkIU7K9NKXuhq23-Yr703QlwlafPYxDAfN";
+    self.uberAPI.clientID = @"eEsKAGQUzCMhKv6faWTXnMr4IS69BuNu";
+    self.uberAPI.clientSecret = @"zUigzHaBAd0sp8gQOes6KDUM0dLqAvUlsSRNIH2v";
     self.uberAPI.redirectURL = @"personaldriver://localhost";
-    self.uberAPI.applicationName = @"Personal Driver";
+    self.uberAPI.applicationName = @"RideOnTime";
 
     [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:(0/255.0) green:(0/255.0) blue:(0/255.0) alpha:1]];
 
