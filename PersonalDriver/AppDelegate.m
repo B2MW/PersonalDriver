@@ -79,8 +79,10 @@
     //Store passengers next ride
     User *currentUser = [User currentUser];
     if (currentUser) {
+        NSDate *nowMinusOneHour = [[NSDate alloc] initWithTimeIntervalSinceNow:-3600];
         PFQuery *nextRide = [PFQuery queryWithClassName:@"Ride"];
-        [nextRide whereKey:@"Passenger" equalTo:currentUser];
+        [nextRide whereKey:@"passenger" equalTo:currentUser];
+        [nextRide whereKey:@"rideDateTime" greaterThan:nowMinusOneHour];
         [nextRide orderByAscending:@"rideDateTime"];
         [nextRide findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             self.nextRide = [objects objectAtIndex:0];
@@ -164,11 +166,14 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     [PFPush handlePush:userInfo];
 
-    NSDictionary *payLoad = [userInfo objectForKey:@"aps"];
-        if ([[payLoad objectForKey:@"category"] isEqualToString:@"Request"]) {
+}
+
+-(void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void (^)())completionHandler {
+    if ([identifier isEqualToString:@"Request"])
+    {
         [self requestRideWithUber];
     }
-
+    completionHandler();
 }
 
 
@@ -182,11 +187,13 @@
 -(void)requestRideWithUber
 {
     if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"uber://"]]) {
-//        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"uber://?client_id=YOUR_CLIENT_ID&action=setPickup&pickup[latitude]=37.775818&pickup[longitude]=-122.418028&pickup[nickname]=UberHQ&pickup[formatted_address]=1455%20Market%20St%2C%20San%20Francisco%2C%20CA%2094103&dropoff[latitude]=37.802374&dropoff[longitude]=-122.405818&dropoff[nickname]=Coit%20Tower&dropoff[formatted_address]=1%20Telegraph%20Hill%20Blvd%2C%20San%20Francisco%2C%20CA%2094133&product_id=a1111c8c-c720-46c3-8534-2fcdd730040d"]];
+        NSString *pickupLatitude = [NSString stringWithFormat:@"%f",self.nextRide.dropoffGeoPoint.latitude];
+        NSString *pickupLongitude = [NSString stringWithFormat:@"%f",self.nextRide.dropoffGeoPoint.longitude];
 
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"uber://?action=setPickup&pickup=my_location"]];
+//        NSString *dropoffLatitude = [NSString stringWithFormat:@"%f",self.nextRide.pickupGeoPoint.latitude];
+//        NSString *dropoffLongitude = [NSString stringWithFormat:@"%f",self.nextRide.pickupGeoPoint.longitude];
 
-
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"uber://?client_id=%@&action=setPickup&pickup[latitude]=%@&pickup[longitude]=%@",self.uberAPI.clientID,pickupLatitude,pickupLongitude]]];
     }
     else {
         // No Uber app! Open Mobile Website.
