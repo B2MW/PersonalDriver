@@ -35,6 +35,7 @@
 
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tools3"]]];
     self.navigationItem.leftBarButtonItem = item;
+    [self.tableView setTintColor:[UIColor colorWithRed:(54/255.0) green:(173/255.0) blue:(201/255.0) alpha:1]];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -62,8 +63,10 @@
     cell.textLabel.text = dateString;
     cell.detailTextLabel.text = timeString;
 
+
     if (ride.driverConfirmed == YES) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
+
     } else {
         cell.accessoryType = UITableViewCellAccessoryNone;;
     }
