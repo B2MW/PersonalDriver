@@ -9,7 +9,7 @@
 #import "AvailableRidesDetailViewController.h"
 #import "PushNotification.h"
 
-@interface AvailableRidesDetailViewController ()
+@interface AvailableRidesDetailViewController () <MKMapViewDelegate>
 @property (strong, nonatomic) IBOutlet UILabel *estimatedFare;
 @property (strong, nonatomic) IBOutlet UILabel *estimatedFareLabel;
 @property (strong, nonatomic) IBOutlet UILabel *estimatedFareInitialStateLabel;
@@ -32,17 +32,22 @@
 @property (strong, nonatomic) IBOutlet UITextView *specialInstructions;
 @property (strong, nonatomic) IBOutlet UIButton *scheduleRideButton;
 @property (strong, nonatomic) IBOutlet UIButton *doneButton;
+@property IBOutlet MKMapView *mapView;
 @end
 
 @implementation AvailableRidesDetailViewController
 
 - (void)viewWillAppear:(BOOL)animated
 {
-//    [super viewWillAppear:animated];
+    [super viewWillAppear:animated];
     [self retrieveAvailableRidesData];
     [self hideRideDetails];
     [self.doneButton setHidden:YES];
     [self.doneButton setUserInteractionEnabled:NO];
+
+    self.mapView.delegate = self;
+    [self.mapView setUserInteractionEnabled:NO];
+    [self displayPinsOnMap];
 }
 
 - (void)viewDidLoad {
@@ -201,6 +206,81 @@
     [self.doneButton setUserInteractionEnabled:YES];
     [self.scheduleRideButton setHidden:YES];
     [self.scheduleRideButton setUserInteractionEnabled:NO];
+}
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
+{
+
+    if (annotation == mapView.userLocation)
+    {
+        return nil;
+    }
+
+    MKPinAnnotationView *pin = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"MyPinID"];
+    pin.canShowCallout = YES;
+    pin.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+
+    return pin;
+}
+
+- (void)displayPinsOnMap
+{
+    CLLocationCoordinate2D pickupPoint;
+    CLLocationCoordinate2D dropoffPoint;
+    NSDictionary *addressDictionary;
+    pickupPoint.latitude = self.ride.pickupGeoPoint.latitude;
+    pickupPoint.longitude = self.ride.pickupGeoPoint.longitude;
+    dropoffPoint.latitude = self.ride.dropoffGeoPoint.latitude;
+    dropoffPoint.longitude = self.ride.dropoffGeoPoint.longitude;
+
+    MKPointAnnotation *pickupAnnotation = [MKPointAnnotation new];
+    MKPointAnnotation *dropoffAnnotation = [MKPointAnnotation new];
+    MKPinAnnotationView *pickupPin = [[MKPinAnnotationView alloc] initWithAnnotation:pickupAnnotation reuseIdentifier:@"MyPinID"];
+    MKPinAnnotationView *dropoffPin = [[MKPinAnnotationView alloc] initWithAnnotation:dropoffAnnotation reuseIdentifier:@"MyPinID"];
+    pickupPin.pinColor = MKPinAnnotationColorRed;
+    dropoffPin.pinColor = MKPinAnnotationColorGreen;
+
+    pickupAnnotation.coordinate = pickupPoint;
+    dropoffAnnotation.coordinate = dropoffPoint;
+    [self.mapView addAnnotations:@[pickupAnnotation, dropoffAnnotation]];
+    [self.mapView showAnnotations:self.mapView.annotations animated:YES];
+
+//    CLPlacemark *pickupCLPlacemark = ;
+//    CLPlacemark *dropoffCLPlacemark = ;
+    MKPlacemark *pickupMKPlacemark = [[MKPlacemark alloc] initWithCoordinate:pickupPoint addressDictionary:addressDictionary];
+    MKPlacemark *dropoffMKPlacemark = [[MKPlacemark alloc] initWithCoordinate:dropoffPoint addressDictionary:addressDictionary];
+    MKMapItem *pickupMapItem = [[MKMapItem alloc] initWithPlacemark:pickupMKPlacemark];
+    MKMapItem *dropoffMapItem = [[MKMapItem alloc] initWithPlacemark:dropoffMKPlacemark];
+    MKDirectionsRequest *routeRequest = [MKDirectionsRequest new];
+    [routeRequest setSource:pickupMapItem];
+    [routeRequest setDestination:dropoffMapItem];
+    MKDirections *route = [[MKDirections alloc] initWithRequest:routeRequest];
+
+    [route calculateDirectionsWithCompletionHandler:
+     ^(MKDirectionsResponse *response, NSError *error) {
+         if (error) {
+             // Handle Error
+         } else {
+             [self showRoute:response];
+         }
+     }];
+}
+
+-(void)showRoute:(MKDirectionsResponse *)response
+{
+    for (MKRoute *route in response.routes)
+    {
+        [self.mapView addOverlay:route.polyline level:MKOverlayLevelAboveRoads];
+    }
+}
+
+- (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id < MKOverlay >)overlay
+{
+    MKPolylineRenderer *renderer =
+    [[MKPolylineRenderer alloc] initWithOverlay:overlay];
+    renderer.strokeColor = [UIColor colorWithRed:54.0/255.0 green:173.0/255.0 blue:201.0/255.0 alpha:1.0];
+    renderer.lineWidth = 4.0;
+    return renderer;
 }
 
 @end
