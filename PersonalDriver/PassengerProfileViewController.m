@@ -15,6 +15,7 @@
 @property NSArray *rides;
 @property NSArray *requestedRides;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+
 @end
 
 @implementation PassengerProfileViewController
@@ -33,10 +34,14 @@
                                     target:nil
                                     action:nil];
     [[self navigationItem] setBackBarButtonItem:newBackButton];
-
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tools3"]]];
-    self.navigationItem.leftBarButtonItem = item;
     [self.tableView setTintColor:[UIColor colorWithRed:(54/255.0) green:(173/255.0) blue:(201/255.0) alpha:1]];
+
+
+    UIButton *settings = [UIButton buttonWithType: UIButtonTypeInfoLight];
+    [settings addTarget:self action:@selector(onSettingsButtonTapped:) forControlEvents:UIControlEventTouchDown];
+    [settings setImage:[UIImage imageNamed:@"tools3"] forState:UIControlStateNormal];
+    UIBarButtonItem *item =[[UIBarButtonItem alloc]initWithCustomView:settings];
+    self.navigationItem.leftBarButtonItem = item;
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -167,7 +172,10 @@
     }
 }
 
-
+-(void)onSettingsButtonTapped:(UIBarButtonItem *)sender
+{
+    [self performSegueWithIdentifier:@"Settings" sender:self];
+}
 
 
 
