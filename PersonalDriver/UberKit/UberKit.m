@@ -187,34 +187,34 @@ NSString * const UBER_ACCESS_TOKEN_AVAILABLE = @"AccessTokenAvailable";
 
 #pragma mark - Price Estimates
 
-- (void) getPriceForTripWithStartLocation:(CLLocation *)startLocation endLocation:(CLLocation *)endLocation withCompletionHandler:(CompletionHandler)completion
-{
-    // GET /v1/estimates/price
-    
-    NSString *url = [NSString stringWithFormat:@"%@/v1/estimates/price?server_token=%@&start_latitude=%f&start_longitude=%f&end_latitude=%f&end_longitude=%f", baseURL, _serverToken, startLocation.coordinate.latitude, startLocation.coordinate.longitude, endLocation.coordinate.latitude, endLocation.coordinate.longitude];
-    [self performNetworkOperationWithURL:url completionHandler:^(NSDictionary *results, NSURLResponse *response, NSError *error)
-     {
-         if(!error)
-         {
-             NSArray *prices = [results objectForKey:@"prices"];
-             NSMutableArray *availablePrices = [[NSMutableArray alloc] init];
-             for(int i=0; i<prices.count; i++)
-             {
-                 UberPrice *price = [[UberPrice alloc] initWithDictionary:[prices objectAtIndex:i]];
-                 if(price.lowEstimate > -1)
-                 {
-                     [availablePrices addObject:price];
-                 }
-             }
-             completion(availablePrices, response, error);
-         }
-         else
-         {
-             NSLog(@"Error %@", error);
-             completion(nil, response, error);
-         }
-     }];
-}
+//- (void) getPriceForTripWithStartLocation:(CLLocation *)startLocation endLocation:(CLLocation *)endLocation withCompletionHandler:(CompletionHandler)completion
+//{
+//    // GET /v1/estimates/price
+//    
+//    NSString *url = [NSString stringWithFormat:@"%@/v1/estimates/price?server_token=%@&start_latitude=%f&start_longitude=%f&end_latitude=%f&end_longitude=%f", baseURL, _serverToken, startLocation.coordinate.latitude, startLocation.coordinate.longitude, endLocation.coordinate.latitude, endLocation.coordinate.longitude];
+//    [self performNetworkOperationWithURL:url completionHandler:^(NSDictionary *results, NSURLResponse *response, NSError *error)
+//     {
+//         if(!error)
+//         {
+//             NSArray *prices = [results objectForKey:@"prices"];
+//             NSMutableArray *availablePrices = [[NSMutableArray alloc] init];
+//             for(int i=0; i<prices.count; i++)
+//             {
+//                 UberPrice *price = [[UberPrice alloc] initWithDictionary:[prices objectAtIndex:i]];
+//                 if(price.lowEstimate > -1)
+//                 {
+//                     [availablePrices addObject:price];
+//                 }
+//             }
+//             completion(availablePrices, response, error);
+//         }
+//         else
+//         {
+//             NSLog(@"Error %@", error);
+//             completion(nil, response, error);
+//         }
+//     }];
+//}
 
 #pragma mark - Time Estimates
 

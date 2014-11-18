@@ -44,8 +44,6 @@
     {
         [self fareEstimate];
         [self queryProfile];
-
-
         [UberAPI getUserProfileWithCompletionHandler:^(UberProfile *profile, NSError *error) {
             if (!error) {
                 [self loginOrSignUpUserWithUberProfile];

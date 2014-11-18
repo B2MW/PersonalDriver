@@ -281,7 +281,7 @@
                  {
                     [self.mapView removeOverlays:self.mapView.overlays];
 
-                    [UberAPI getPriceEstimateFromPickup:self.pickupLocation toDestination:self.destinationLocation distance:0 time:0 completionHandler:^(UberPrice *price)
+                    [UberAPI getPriceEstimateFromPickup:self.pickupLocation toDestination:self.destinationLocation completionHandler:^(UberPrice *price)
                      {
                         self.price = price;
 
@@ -302,7 +302,21 @@
                             self.currentRoute = [response.routes firstObject];
                             [self plotRouteOnMap:self.currentRoute];
                             self.timeLabel.text = [NSString stringWithFormat:@"%0.f min",self.currentRoute.expectedTravelTime/60];
-                            self.dollarLabel.text = [NSString stringWithFormat:@"$%@",self.price.avgEstimateWithoutSurge];
+
+                             if (!self.price.avgEstimateWithoutSurge)
+                             {
+                                 NSString *calculatedPrice = [self calculatePriceWithDistance:self.currentRoute.distance time:self.currentRoute.expectedTravelTime];
+                                 self.price.avgEstimateWithoutSurge = calculatedPrice;
+                                 float hiEstimate = [calculatedPrice floatValue] * 1.1;
+                                 self.price.highEstimate = [NSString stringWithFormat:@"%.f", hiEstimate];
+                                 float lowEstimate = [calculatedPrice floatValue] * 0.9;
+                                 self.price.lowEstimate = [NSString stringWithFormat:@"%.f", lowEstimate];
+                                 self.dollarLabel.text = [NSString stringWithFormat:@"$%@",calculatedPrice];
+
+                             } else
+                             {
+                                 self.dollarLabel.text = [NSString stringWithFormat:@"$%@",self.price.avgEstimateWithoutSurge];
+                             }
 
                             [self.mapView showAnnotations:self.mapView.annotations animated:YES];
                             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -345,7 +359,7 @@
 
             [self.mapView addAnnotation:self.endPointAnnotation];
 
-            [UberAPI getPriceEstimateFromPickup:self.pickupLocation toDestination:self.destinationLocation distance:0 time:0 completionHandler:^(UberPrice *price)
+            [UberAPI getPriceEstimateFromPickup:self.pickupLocation toDestination:self.destinationLocation completionHandler:^(UberPrice *price)
                 {
                     self.price = price;
                 }];
@@ -368,7 +382,24 @@
                 [self plotRouteOnMap:self.currentRoute];
                 NSLog(@"ETA = %f", self.currentRoute.expectedTravelTime);
                 self.timeLabel.text = [NSString stringWithFormat:@"%0.f min",self.currentRoute.expectedTravelTime/60];
-                self.dollarLabel.text = [NSString stringWithFormat:@"$%@",self.price.avgEstimateWithoutSurge];
+
+                if (!self.price.avgEstimateWithoutSurge)
+                {
+
+                    NSString *calculatedPrice = [self calculatePriceWithDistance:self.currentRoute.distance time:self.currentRoute.expectedTravelTime];
+                    self.price.avgEstimateWithoutSurge = calculatedPrice;
+                    float hiEstimate = [calculatedPrice floatValue] * 1.1;
+                    self.price.highEstimate = [NSString stringWithFormat:@"%.f", hiEstimate];
+                    float lowEstimate = [calculatedPrice floatValue] * 0.9;
+                    self.price.lowEstimate = [NSString stringWithFormat:@"%.f", lowEstimate];
+                    self.dollarLabel.text = [NSString stringWithFormat:@"$%@",calculatedPrice];
+
+
+                }else
+                {
+                    self.dollarLabel.text = [NSString stringWithFormat:@"$%@",self.price.avgEstimateWithoutSurge];
+                }
+
 
                 self.dollarImage.hidden = NO;
                 self.dollarLabel.hidden = NO;
@@ -384,6 +415,25 @@
         [self.view endEditing:YES];
     }
     return YES;
+}
+
+#pragma mark - Helper Methods
+
+-(NSString *)calculatePriceWithDistance:(CLLocationDistance)distance time:(NSTimeInterval)time
+{
+
+    float baseFare = 2.00;
+    float safeRideFee = 1.00;
+    float pricePerMile = 1.25;
+    float pricePerMinute = 0.20;
+    float distanceInMiles = (float)(distance/1609.34);
+    float timeinMinutes = (float)(time/60);
+    float total = (pricePerMile * distanceInMiles) + (pricePerMinute * timeinMinutes) + baseFare + safeRideFee;
+
+    NSString *calculatedPrice = [NSString stringWithFormat:@"%.f", total];
+
+    return calculatedPrice;
+
 }
 
 

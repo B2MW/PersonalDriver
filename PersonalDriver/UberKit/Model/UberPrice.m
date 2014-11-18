@@ -27,7 +27,7 @@
 
 @implementation UberPrice
 
-- (instancetype) initWithDictionary:(NSDictionary *)dictionary distance:(float)distance time:(float)time
+- (instancetype) initWithDictionary:(NSDictionary *)dictionary
 {
     self = [super init];
     
@@ -43,19 +43,17 @@
         NSString *highE = [dictionary objectForKey:@"high_estimate"];
         if (![lowE isKindOfClass:[NSNull class]] || ![highE isKindOfClass:[NSNull class]])
         {
-            _lowEstimate = ([lowE floatValue])/_surgeMultiplier;
-            _highEstimate = ([highE floatValue])/_surgeMultiplier;
+            float lowWithoutSurge = [lowE floatValue]/_surgeMultiplier;
+            _lowEstimate = [NSString stringWithFormat:@"%.2f",lowWithoutSurge];
+            float hiWithoutSurge = [highE floatValue]/_surgeMultiplier;
+            _highEstimate = [NSString stringWithFormat:@"%.2f",hiWithoutSurge];
             //factor out the surge pricing
-            self.avgEstimateWithoutSurge = [NSString stringWithFormat:@"%.f",((_highEstimate + _lowEstimate)/2)/_surgeMultiplier];
+            self.avgEstimateWithoutSurge = [NSString stringWithFormat:@"%.f",((hiWithoutSurge + lowWithoutSurge)/2)];
         } else
         {
-            //calculate fare with distance and time
-            float baseFare = 2.00;
-            float safeRideFee = 1.00;
-            float pricePerMile = 1.25;
-            float pricePerMinute = 0.20;
-            float total = (pricePerMile * distance) + (pricePerMinute * time) + baseFare + safeRideFee;
-            self.avgEstimateWithoutSurge = [NSString stringWithFormat:@"%.2f", total];
+            //no value returned from Uber
+
+            self.avgEstimateWithoutSurge = @"n/a";
         }
 
 

@@ -32,11 +32,11 @@
 @property (nonatomic) NSString *currencyCode;
 @property (nonatomic) NSString *displayName;
 @property (nonatomic) NSString *estimate;
-@property (nonatomic) int lowEstimate;
-@property (nonatomic) int highEstimate;
+@property (nonatomic) NSString *lowEstimate;
+@property (nonatomic) NSString *highEstimate;
 @property NSString *avgEstimateWithoutSurge;
 @property (nonatomic) float surgeMultiplier;
 
-- (instancetype) initWithDictionary:(NSDictionary *)dictionary distance:(float)distance time:(float)time;
+- (instancetype) initWithDictionary:(NSDictionary *)dictionary;
 
 @end

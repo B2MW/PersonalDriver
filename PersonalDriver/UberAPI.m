@@ -77,7 +77,7 @@
 
 }
 
-+(void)getPriceEstimateFromPickup:(CLLocation *)pickup toDestination:(CLLocation *)destination distance:(float)distance time:(float)time completionHandler:(void(^)(UberPrice *))complete
++(void)getPriceEstimateFromPickup:(CLLocation *)pickup toDestination:(CLLocation *)destination completionHandler:(void(^)(UberPrice *))complete
 {
     NSString *token = [Token getToken];
     if (!token) {
@@ -97,11 +97,11 @@
                 NSMutableArray *prices = [NSMutableArray new];
                 for (NSDictionary *estimate in allEstimates) {
 
-                    UberPrice *price = [[UberPrice alloc] initWithDictionary:estimate distance:distance time:time];
+                    UberPrice *price = [[UberPrice alloc] initWithDictionary:estimate];
                     [prices addObject:price];
 
                     if ([[estimate objectForKey:@"display_name"]  isEqualToString:@"uberX"]) {
-                        UberPrice *uberPrice = [[UberPrice alloc] initWithDictionary:estimate distance:distance time:time];
+                        UberPrice *uberPrice = [[UberPrice alloc] initWithDictionary:estimate];
                         complete(uberPrice);
                     }
                 }
