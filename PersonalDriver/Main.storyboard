@@ -1803,6 +1803,7 @@
                                 </state>
                                 <connections>
                                     <action selector="onLogoutButtonTapped:" destination="Nbo-Gb-mbP" eventType="touchUpInside" id="njP-mH-lgw"/>
+                                    <segue destination="vXZ-lx-hvc" kind="show" id="s38-qE-J6b"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1816,7 +1817,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5UM-tZ-Z6T" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3329" y="345"/>
+            <point key="canvasLocation" x="1284" y="1022"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="4lD-Km-QhO">
