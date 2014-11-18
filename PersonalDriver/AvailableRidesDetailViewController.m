@@ -81,8 +81,17 @@
 
          self.estimatedFare.text = [rideManager formatRideFareEstimate:self.ride.fareEstimateMin fareEstimateMax:self.ride.fareEstimateMax];
          self.estimatedFareInitialState.text = self.estimatedFare.text;
-         [rideManager retrivedRideTripDistance:self.ride completionHandler:^(NSNumber *rideDistance) {
-             self.tripDistance.text = [NSString stringWithFormat:@"%@ miles", rideDistance.stringValue];
+         [rideManager retrivedRideTripDistance:self.ride completionHandler:^(NSNumber *rideDistance)
+         {
+             if (rideDistance.doubleValue >= 2)
+             {
+                 self.tripDistance.text = [NSString stringWithFormat:@"%@ miles", rideDistance.stringValue];
+
+             }
+             else
+             {
+                 self.tripDistance.text = [NSString stringWithFormat:@"%@ mile", rideDistance.stringValue];
+             }
          }];
          self.rideDate.text = [rideManager formatRideDate:self.ride];
          self.rideDateInitialState.text = self.rideDate.text;
@@ -236,18 +245,18 @@
 
     MKPointAnnotation *pickupAnnotation = [MKPointAnnotation new];
     MKPointAnnotation *dropoffAnnotation = [MKPointAnnotation new];
-    MKPinAnnotationView *pickupPin = [[MKPinAnnotationView alloc] initWithAnnotation:pickupAnnotation reuseIdentifier:@"MyPinID"];
-    MKPinAnnotationView *dropoffPin = [[MKPinAnnotationView alloc] initWithAnnotation:dropoffAnnotation reuseIdentifier:@"MyPinID"];
-    pickupPin.pinColor = MKPinAnnotationColorRed;
-    dropoffPin.pinColor = MKPinAnnotationColorGreen;
-
     pickupAnnotation.coordinate = pickupPoint;
     dropoffAnnotation.coordinate = dropoffPoint;
+
+    MKPinAnnotationView *pickupPin = [[MKPinAnnotationView alloc] initWithAnnotation:pickupAnnotation reuseIdentifier:@"MyPinID"];
+    MKPinAnnotationView *dropoffPin = [[MKPinAnnotationView alloc] initWithAnnotation:dropoffAnnotation reuseIdentifier:@"MyPinID"];
+
+    pickupPin.pinColor = MKPinAnnotationColorGreen;
+    dropoffPin.pinColor = MKPinAnnotationColorRed;
+
     [self.mapView addAnnotations:@[pickupAnnotation, dropoffAnnotation]];
     [self.mapView showAnnotations:self.mapView.annotations animated:YES];
 
-//    CLPlacemark *pickupCLPlacemark = ;
-//    CLPlacemark *dropoffCLPlacemark = ;
     MKPlacemark *pickupMKPlacemark = [[MKPlacemark alloc] initWithCoordinate:pickupPoint addressDictionary:addressDictionary];
     MKPlacemark *dropoffMKPlacemark = [[MKPlacemark alloc] initWithCoordinate:dropoffPoint addressDictionary:addressDictionary];
     MKMapItem *pickupMapItem = [[MKMapItem alloc] initWithPlacemark:pickupMKPlacemark];
