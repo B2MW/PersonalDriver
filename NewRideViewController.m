@@ -161,8 +161,11 @@
     User *user = [User currentUser];
     Ride *ride = [Ride object];
 
-    NSNumber *fareEstimateMax = [NSNumber numberWithInt:self.price.highEstimate];
-    NSNumber *fareEstimateMin = [NSNumber numberWithInt:self.price.lowEstimate];
+    NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
+    [f setNumberStyle:NSNumberFormatterNoStyle];
+
+    NSNumber *fareEstimateMax = [f numberFromString:self.price.highEstimate];
+    NSNumber *fareEstimateMin = [f numberFromString:self.price.lowEstimate];
 
 
     ride.passenger = user;

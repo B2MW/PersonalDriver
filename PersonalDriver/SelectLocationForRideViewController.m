@@ -321,6 +321,7 @@
                              if (!self.price.avgEstimateWithoutSurge)
                              {
                                  NSString *calculatedPrice = [self calculatePriceWithDistance:self.currentRoute.distance time:self.currentRoute.expectedTravelTime];
+                                 self.price = [[UberPrice alloc]init];
                                  self.price.avgEstimateWithoutSurge = calculatedPrice;
                                  float hiEstimate = [calculatedPrice floatValue] * 1.1;
                                  self.price.highEstimate = [NSString stringWithFormat:@"%.f", hiEstimate];
@@ -402,6 +403,7 @@
                 {
 
                     NSString *calculatedPrice = [self calculatePriceWithDistance:self.currentRoute.distance time:self.currentRoute.expectedTravelTime];
+                    self.price = [[UberPrice alloc]init];
                     self.price.avgEstimateWithoutSurge = calculatedPrice;
                     float hiEstimate = [calculatedPrice floatValue] * 1.1;
                     self.price.highEstimate = [NSString stringWithFormat:@"%.f", hiEstimate];
