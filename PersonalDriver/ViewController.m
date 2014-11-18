@@ -25,6 +25,7 @@
 - (void)viewDidLoad {
 
     [super viewDidLoad];
+      [self.navigationItem setHidesBackButton:YES animated:YES];
 
 }
 

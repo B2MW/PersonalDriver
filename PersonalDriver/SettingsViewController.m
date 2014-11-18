@@ -10,6 +10,7 @@
 #import "Token.h"
 
 @interface SettingsViewController ()
+@property (weak, nonatomic) IBOutlet UIButton *passengerOrDriverButton;
 
 @end
 
@@ -38,6 +39,8 @@
 
 -(void)onBackButtonTapped:(id)sender {
   [self dismissViewControllerAnimated:YES completion:nil];
+}
+- (IBAction)onPassengerOrDriverButtonTapped:(id)sender {
 }
 
 @end
