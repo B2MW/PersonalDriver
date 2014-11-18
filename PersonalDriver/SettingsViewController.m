@@ -18,12 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    UIButton *settings = [UIButton buttonWithType: UIButtonTypeDetailDisclosure];
-    [settings addTarget:self action:@selector(onBackButtonTapped:) forControlEvents:UIControlEventTouchDown];
-    UIBarButtonItem *item =[[UIBarButtonItem alloc]initWithCustomView:settings];
-    self.navigationItem.leftBarButtonItem = item;
-
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStyleDone target:self action:@selector(onBackButtonTapped:)];
     self.title = @"Settings";
 
 }
