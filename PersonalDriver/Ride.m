@@ -16,6 +16,7 @@
 @dynamic dropoffGeoPoint;
 @dynamic rideDateTime;
 @dynamic specialInstructions;
+@dynamic isCancelled;
 @dynamic driverConfirmed;
 @dynamic driverEnRoute;
 @dynamic fareEstimateMin;

@@ -8,23 +8,26 @@
 
 #import "PassengerProfileViewController.h"
 #import <Parse/Parse.h>
-#import "Ride.h"
 #import "User.h"
+#import "PushNotification.h"
 
 @interface PassengerProfileViewController () <UITableViewDataSource, UITableViewDelegate,UIAlertViewDelegate>
-@property NSArray *rides;
-@property NSArray *requestedRides;
+@property NSMutableArray *rides;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @end
 
 @implementation PassengerProfileViewController
 
 - (void)viewDidLoad {
+    NSLog(@"NEW");
+
     [super viewDidLoad];
-    self.requestedRides = [[NSArray alloc]init];
-    [self getAvailableRides];
+    self.rides = [[NSMutableArray alloc]init];
+    [self getRides];
+
     [self.navigationItem setHidesBackButton:YES animated:YES];
     self.title = @"Current Rides";
+
 
 
     UIBarButtonItem *newBackButton =
@@ -39,13 +42,22 @@
     [self.tableView setTintColor:[UIColor colorWithRed:(54/255.0) green:(173/255.0) blue:(201/255.0) alpha:1]];
 }
 
--(void)viewDidAppear:(BOOL)animated{
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if (self.ride)
+    {
+        [self.rides addObject:self.ride];
+    }
     [self.tableView reloadData];
+
 }
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.requestedRides.count;
+    return self.rides.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -54,7 +66,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RideCell"];
 
 
-    Ride *ride = [self.requestedRides objectAtIndex:indexPath.row];
+    Ride *ride = [self.rides objectAtIndex:indexPath.row];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     NSDateFormatter *timeFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"MMM dd"];
@@ -75,56 +87,18 @@
     return cell;
 }
 
--(void)getAvailableRides
-{
-    PFQuery *queryAvailableRides = [Ride query];
-    [queryAvailableRides whereKeyDoesNotExist:@"driver"];
-    [queryAvailableRides whereKey:@"passenger"equalTo:[PFUser currentUser]];
-    [queryAvailableRides findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if(!error){
-            self.requestedRides = [NSArray arrayWithArray:objects];
-            NSLog(@"request rides = %@", self.requestedRides);
-            [self.tableView reloadData];
-        }else{
-            NSLog(@"Error: %@",error);
-        }
-        NSLog(@"Parse for available %@",queryAvailableRides);
-    }];
-
-}
-
--(void)getScheduledRides
-{
-    PFQuery *queryScheduledRides= [Ride query];
-    [queryScheduledRides whereKey:@"passenger" equalTo:[PFUser currentUser]];
-    [queryScheduledRides whereKey:@"driver" notEqualTo:nil];
-    [queryScheduledRides findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if(!error){
-            self.rides = [NSArray arrayWithArray:objects];
-        }else{
-            NSLog(@"Error: %@",error);
-        }
-        NSLog(@"Parse for available %@",queryScheduledRides);
-    }];
-
-}
 
 -(NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    Ride *ride = [self.requestedRides objectAtIndex:indexPath.row];
+    Ride *ride = [self.rides objectAtIndex:indexPath.row];
 
     UITableViewRowAction *deleteButton = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"X" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath)
                                      {
-                                         UIAlertView *alertView = [[UIAlertView alloc] init];
-                                         alertView.delegate = self;
-                                         alertView.title = @"Are you sure you want to cancel this ride?";
-                                         [alertView addButtonWithTitle: @"Yes"];
-                                         [alertView addButtonWithTitle: @"No"];
-                                         [alertView show];
 
-                                       //  [self.tableView setEditing:YES];
-                                        // [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-                                       //  [self.tableView reloadData];;
+                                         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Cancel Ride" message:@"Are you sure you want to cancel this ride?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+                                         self.ride = ride;
+                                         [alert show];
+
                                      }];
 
     deleteButton.backgroundColor = [UIColor colorWithRed:(54/255.0) green:(173/255.0) blue:(201/255.0) alpha:1]; //delete color
@@ -134,9 +108,6 @@
 
                                      }];
     button.backgroundColor = [UIColor colorWithRed:(10.0/255.0) green:(9.0/255.0) blue:(26.0/255.0) alpha:1];
-
-
-
 
     return @[deleteButton, button]; //array with all the buttons you want. 1,2,3, etc...
 }
@@ -153,19 +124,51 @@
         [self.tableView reloadData];
 }
 
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 1)
-    {
+#pragma mark - alertView Delegate Methods
 
-    }
-
-    else if (buttonIndex == 2)
-    {
-       // [self.tableView setEditing:YES];
-       // [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-       // [self.tableView reloadData];;
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == [alertView cancelButtonIndex]){
+        //NO is clicked do nothing
+    }else{  //Yes is clicked. Delete
+        self.ride.isCancelled = YES;
+        [self.rides removeObject:self.ride];
+        [self.ride saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                [PushNotification sendDriverCancellationNoticeForRide:self.ride];
+            } else {
+                //TODO: Make alert telling them it did not cancel
+            }
+        }];
+        self.ride = nil;
+        [self.tableView reloadData];
     }
 }
+
+#pragma mark - Helper Methods
+
+-(void)getRides
+{
+    PFQuery *queryRides = [Ride query];
+    [queryRides whereKeyDoesNotExist:@"driver"];
+    [queryRides whereKey:@"passenger"equalTo:[PFUser currentUser]];
+    [queryRides whereKey:@"isCancelled" equalTo:[NSNumber numberWithBool:NO]];
+    [queryRides findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if(!error){
+            self.rides = [NSMutableArray arrayWithArray:objects];
+            [self.tableView reloadData];
+
+        }else{
+            NSLog(@"Error: %@",error);
+        }
+        NSLog(@"Parse for available %@",queryRides);
+    }];
+    
+}
+
+-(IBAction)unwindFromFinished:(UIStoryboardSegue *)sender {
+
+}
+
 
 
 

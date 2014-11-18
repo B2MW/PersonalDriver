@@ -18,6 +18,7 @@
 @property PFGeoPoint *dropoffGeoPoint;
 @property NSDate *rideDateTime;
 @property NSString *specialInstructions;
+@property BOOL isCancelled;
 @property BOOL driverConfirmed;
 @property BOOL driverEnRoute;
 @property NSString *pickUpLocation;
