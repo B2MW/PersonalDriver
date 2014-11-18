@@ -52,6 +52,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+
+    self.title = @"Ride Locations";
+
+    UIBarButtonItem *newBackButton =
+    [[UIBarButtonItem alloc] initWithTitle:@""
+                                     style:UIBarButtonItemStylePlain
+                                    target:nil
+                                    action:nil];
+    [[self navigationItem] setBackBarButtonItem:newBackButton];
+
+
+
     self.destinationGeopoint = [[PFGeoPoint alloc]init];
     self.pickupGeopoint = [[PFGeoPoint alloc]init];
     self.locationManager = [[CLLocationManager alloc]init];
@@ -76,6 +88,9 @@
     self.title = @"New Ride";
 
     self.nextButton.hidden = YES;
+
+
+
 
 
 }
@@ -200,7 +215,7 @@
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay
 {
     MKPolylineRenderer *renderer = [[MKPolylineRenderer alloc] initWithPolyline:overlay];
-    renderer.strokeColor = [UIColor redColor];
+    renderer.strokeColor = [UIColor colorWithRed:54.0/255.0 green:173.0/255.0 blue:201.0/255.0 alpha:1.0];
     renderer.lineWidth = 4.0;
     return  renderer;
 }

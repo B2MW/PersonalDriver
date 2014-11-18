@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2236D93E1A08234B00F19EA5 /* PassengerProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2236D93D1A08234B00F19EA5 /* PassengerProfileViewController.m */; };
 		2236D9441A082A4200F19EA5 /* NewRideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2236D9431A082A4200F19EA5 /* NewRideViewController.m */; };
+		227C34961A19581D00D690E1 /* FinishedRideRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 227C34951A19581D00D690E1 /* FinishedRideRequestViewController.m */; };
+		227C34991A198F7800D690E1 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 227C34981A198F7800D690E1 /* SettingsViewController.m */; };
 		22E4A8711A12714F00A5225A /* Date.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E4A8701A12714F00A5225A /* Date.m */; };
 		22E952D01A13DE1500096E2D /* PassengerLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E952CF1A13DE1500096E2D /* PassengerLabel.m */; };
 		4C7175171A081334002AC734 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7175161A081334002AC734 /* main.m */; };
@@ -88,6 +90,10 @@
 		2236D93D1A08234B00F19EA5 /* PassengerProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassengerProfileViewController.m; sourceTree = "<group>"; };
 		2236D9421A082A4200F19EA5 /* NewRideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewRideViewController.h; path = ../NewRideViewController.h; sourceTree = "<group>"; };
 		2236D9431A082A4200F19EA5 /* NewRideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewRideViewController.m; path = ../NewRideViewController.m; sourceTree = "<group>"; };
+		227C34941A19581D00D690E1 /* FinishedRideRequestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FinishedRideRequestViewController.h; sourceTree = "<group>"; };
+		227C34951A19581D00D690E1 /* FinishedRideRequestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FinishedRideRequestViewController.m; sourceTree = "<group>"; };
+		227C34971A198F7800D690E1 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		227C34981A198F7800D690E1 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		22E4A86F1A12714F00A5225A /* Date.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Date.h; sourceTree = "<group>"; };
 		22E4A8701A12714F00A5225A /* Date.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Date.m; sourceTree = "<group>"; };
 		22E952CE1A13DE1500096E2D /* PassengerLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassengerLabel.h; sourceTree = "<group>"; };
@@ -278,6 +284,10 @@
 				CEB8D1CA1A0A83CB00A74FA6 /* SelectLocationForRideViewController.m */,
 				2236D9421A082A4200F19EA5 /* NewRideViewController.h */,
 				2236D9431A082A4200F19EA5 /* NewRideViewController.m */,
+				227C34941A19581D00D690E1 /* FinishedRideRequestViewController.h */,
+				227C34951A19581D00D690E1 /* FinishedRideRequestViewController.m */,
+				227C34971A198F7800D690E1 /* SettingsViewController.h */,
+				227C34981A198F7800D690E1 /* SettingsViewController.m */,
 				CE19D9EC1A09E44700874F56 /* UberAPI.h */,
 				CE19D9ED1A09E44700874F56 /* UberAPI.m */,
 				CE5C344B1A15818600DAA0B1 /* PushNotification.h */,
@@ -591,6 +601,7 @@
 				CE0B18951A104A0600D046B8 /* User.m in Sources */,
 				CEB8D1C81A0A809E00A74FA6 /* AvailableRideTableViewCell.m in Sources */,
 				CE19D9721A092D2700874F56 /* UberActivity.m in Sources */,
+				227C34961A19581D00D690E1 /* FinishedRideRequestViewController.m in Sources */,
 				4C71751A1A081334002AC734 /* AppDelegate.m in Sources */,
 				4C7175171A081334002AC734 /* main.m in Sources */,
 				CE19D9741A092D2700874F56 /* UberProduct.m in Sources */,
@@ -606,6 +617,7 @@
 				2236D9441A082A4200F19EA5 /* NewRideViewController.m in Sources */,
 				4C7175201A081334002AC734 /* ViewController.m in Sources */,
 				CE19D9761A092D2700874F56 /* UberTime.m in Sources */,
+				227C34991A198F7800D690E1 /* SettingsViewController.m in Sources */,
 				CE19D9781A092D2700874F56 /* NSString+NXOAuth2.m in Sources */,
 				CE19D9821A092D2700874F56 /* NXOAuth2PostBodyStream.m in Sources */,
 				CEB8D1C71A0A809E00A74FA6 /* AvailableRidesViewController.m in Sources */,
