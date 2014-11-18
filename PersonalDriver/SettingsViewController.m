@@ -18,15 +18,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    UIButton *settings = [UIButton buttonWithType: UIButtonTypeInfoLight];
+    UIButton *settings = [UIButton buttonWithType: UIButtonTypeDetailDisclosure];
     [settings addTarget:self action:@selector(onBackButtonTapped:) forControlEvents:UIControlEventTouchDown];
-    [settings setImage:[UIImage imageNamed:@"tools3"] forState:UIControlStateNormal];
-    [settings setTitle:@"Back" forState:UIControlStateNormal];
     UIBarButtonItem *item =[[UIBarButtonItem alloc]initWithCustomView:settings];
     self.navigationItem.leftBarButtonItem = item;
-
-
-
 
     self.title = @"Settings";
 
