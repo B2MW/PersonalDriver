@@ -854,7 +854,7 @@
                     <navigationItem key="navigationItem" id="ONR-MP-ZiS"/>
                     <connections>
                         <outlet property="tableView" destination="vue-sB-EdF" id="3RF-sI-CoD"/>
-                        <segue destination="Nbo-Gb-mbP" kind="presentation" id="qQ4-1V-L3D"/>
+                        <segue destination="yGa-ET-pHp" kind="presentation" identifier="Settings" id="qQ4-1V-L3D"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qNE-pg-mPq" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1792,30 +1792,31 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3cH-Nz-Ytx">
                                 <rect key="frame" x="247" y="285" width="107" height="30"/>
-                                <color key="backgroundColor" red="0.21176470589999999" green="0.67450980390000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.1764705882" green="0.17254901959999999" blue="0.2274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="107" id="EMM-we-HEC"/>
                                     <constraint firstAttribute="height" constant="30" id="wkh-As-gH7"/>
                                 </constraints>
                                 <state key="normal" title="Logout">
-                                    <color key="titleColor" red="0.1764705882" green="0.17254901959999999" blue="0.2274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <color key="titleShadowColor" red="0.1764705882" green="0.17254901959999999" blue="0.2274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" red="0.98530040890000004" green="0.9906451235" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" red="0.98530040890000004" green="0.9906451235" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="onLogoutButtonTapped:" destination="Nbo-Gb-mbP" eventType="touchUpInside" id="njP-mH-lgw"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.1764705882" green="0.17254901959999999" blue="0.2274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.21176470589999999" green="0.67450980390000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="3cH-Nz-Ytx" secondAttribute="centerX" id="SqG-ny-nIc"/>
                             <constraint firstAttribute="centerY" secondItem="3cH-Nz-Ytx" secondAttribute="centerY" id="kh4-H0-fWr"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="BMg-FU-IFe"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5UM-tZ-Z6T" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2517" y="345"/>
+            <point key="canvasLocation" x="3329" y="345"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="4lD-Km-QhO">
@@ -1852,6 +1853,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d4h-Ci-Gbu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2147" y="1808"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="GlY-bO-chA">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="yGa-ET-pHp" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="c2l-Ri-pVh">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Nbo-Gb-mbP" kind="relationship" relationship="rootViewController" id="dP4-M1-klU"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dH5-fH-SxO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2517" y="345"/>
         </scene>
     </scenes>
     <resources>
