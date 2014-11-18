@@ -20,14 +20,26 @@
     [queryAvailableRides whereKey:@"rideDateTime" greaterThanOrEqualTo:[self convertDateToLocalTimeZone:[NSDate date]]];
     [queryAvailableRides findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
     {
+        NSMutableArray *newObjectArray = [NSMutableArray arrayWithArray:objects];
         for (Ride *ride in objects)
         {
-            NSNumber *distance = 0;
-            CLLocation *pickupLocation = [[CLLocation alloc] initWithLatitude:ride.pickupGeoPoint.latitude longitude:ride.pickupGeoPoint.longitude];
-            CLLocation *driverLocation = locationManager.location;
-            distance = [NSNumber numberWithDouble:(round([pickupLocation distanceFromLocation:driverLocation] / 1609.34))];
-            NSLog(@"%@",ride.rideDateTime);
+            [self retrieveRideDistanceAndBearing:ride locationManager:locationManager completionHandler:^(NSArray *distanceAndBearing)
+            {
+                NSNumber *driverDistance = distanceAndBearing[0];
+                if (driverDistance.doubleValue <= 15)
+                {
+                    NSNumber *tripDistance = 0;
+                    CLLocation *pickupLocation = [[CLLocation alloc] initWithLatitude:ride.pickupGeoPoint.latitude longitude:ride.pickupGeoPoint.longitude];
+                    CLLocation *driverLocation = locationManager.location;
+                    tripDistance = [NSNumber numberWithDouble:(round([pickupLocation distanceFromLocation:driverLocation] / 1609.34))];
+                }
+                else
+                {
+                    [newObjectArray removeObjectIdenticalTo:ride];
+                }
+            }];
         }
+        objects = newObjectArray;
         completionHandler(objects);
     }];
 }
@@ -88,6 +100,8 @@
                               placemark.thoroughfare,
                               placemark.locality];
 
+         address = [address stringByReplacingOccurrencesOfString:@"(null) " withString:@""];
+         address = [address stringByReplacingOccurrencesOfString:@"(null)" withString:@""];
          completionHandler(address);
      }];
 }

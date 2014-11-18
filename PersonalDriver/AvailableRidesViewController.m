@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet AvailableRidesTableView *availableTableView;
 @property (weak, nonatomic) IBOutlet ScheduledTableView *scheduledTableView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
+@property IBOutlet MKMapView *mapView;
 
 @property CLLocationManager *locationManager;
 @property NSMutableArray *availableRides;
@@ -42,6 +43,7 @@
     [super viewWillAppear:animated];
     self.availableRides = [NSMutableArray new];
     self.arrayToCategorize = [NSArray array];
+
 }
 
 - (void)viewDidLoad
