@@ -84,8 +84,8 @@
 
 - (IBAction)onCancelledPressed:(UIButton *)sender {
 
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Cancel Ride" message:@"Are you sure you want to cancel this ride?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
-    [alert show];
+    UIAlertView *cancelAlert = [[UIAlertView alloc]initWithTitle:@"Cancel Ride" message:@"Are you sure you want to cancel this ride?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+    [cancelAlert show];
 
 }
 
