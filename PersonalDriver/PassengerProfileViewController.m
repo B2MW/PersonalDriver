@@ -137,10 +137,10 @@
     }else{  //Yes is clicked. Delete
         self.ride.isCancelled = YES;
         [self.rides removeObject:self.ride];
+        [PushNotification sendDriverCancellationNoticeForRide:self.ride];
         [self.ride saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (succeeded) {
-                [PushNotification sendDriverCancellationNoticeForRide:self.ride];
-            } else {
+                            } else {
                 //TODO: Make alert telling them it did not cancel
             }
         }];
