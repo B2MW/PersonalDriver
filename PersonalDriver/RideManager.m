@@ -17,6 +17,7 @@
     queryAvailableRides.cachePolicy = kPFCachePolicyCacheThenNetwork;
     [queryAvailableRides whereKeyDoesNotExist:@"driver"];
     [queryAvailableRides includeKey:@"passenger"];
+    [queryAvailableRides whereKey:@"isCancelled" equalTo:[NSNumber numberWithBool:NO]];
     [queryAvailableRides whereKey:@"rideDateTime" greaterThanOrEqualTo:[self convertDateToLocalTimeZone:[NSDate date]]];
     [queryAvailableRides findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
     {
@@ -64,6 +65,7 @@
     PFQuery *queryScheduledRides= [Ride query];
     queryScheduledRides.cachePolicy = kPFCachePolicyCacheThenNetwork;
     [queryScheduledRides whereKey:@"driver" equalTo:currentUser];
+    [queryScheduledRides whereKey:@"isCancelled" equalTo:[NSNumber numberWithBool:NO]];
     [queryScheduledRides includeKey:@"passenger"];
     [queryScheduledRides includeKey:@"driver"];
     [queryScheduledRides whereKey:@"rideDateTime" greaterThanOrEqualTo:[self convertDateToLocalTimeZone:[NSDate date]]];
