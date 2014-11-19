@@ -65,7 +65,7 @@ extern NSString * const UBER_ACCESS_TOKEN_AVAILABLE;
 
 #pragma mark - Price Estimates
 
-- (void) getPriceForTripWithStartLocation: (CLLocation *) startLocation endLocation:(CLLocation *) endLocation withCompletionHandler: (CompletionHandler) completion;
+//- (void) getPriceForTripWithStartLocation: (CLLocation *) startLocation endLocation:(CLLocation *) endLocation withCompletionHandler: (CompletionHandler) completion;
 
 #pragma mark - Time Estimates
 
