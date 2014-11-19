@@ -436,7 +436,7 @@
         <!--Scheduled Ride Detail View Controller-->
         <scene sceneID="0JO-Z5-gFr">
             <objects>
-                <viewController title="Scheduled Ride Detail View Controller" id="eYy-Ow-1I6" customClass="ScheduledRideDetailViewController" sceneMemberID="viewController">
+                <viewController id="eYy-Ow-1I6" customClass="ScheduledRideDetailViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Y3N-Az-Huv"/>
                         <viewControllerLayoutGuide type="bottom" id="3LB-tO-mfv"/>

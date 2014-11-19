@@ -32,10 +32,10 @@
     [super viewDidLoad];
 //    self.title = self.ride.passenger.name;
     self.arrivedButton.hidden = YES;
-
 }
 
 - (void)viewWillAppear:(BOOL)animated
+
 {
     RideManager *rideManager = [[RideManager alloc] init];
     self.estimatedFare.text = [NSString stringWithFormat:@"$%@-%@",self.ride.fareEstimateMin, self.ride.fareEstimateMax];
