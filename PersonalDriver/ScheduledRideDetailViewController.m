@@ -30,7 +30,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = self.ride.passenger.name;
+//    self.title = self.ride.passenger.name;
     self.arrivedButton.hidden = YES;
 
 }
