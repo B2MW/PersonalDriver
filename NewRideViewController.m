@@ -126,7 +126,7 @@
     self.dateSixString = [self.formatter stringFromDate:self.daySix];
     self.dateSevenString = [self.formatter stringFromDate:self.daySeven];
 
-    self.dateLabelOne.text = self.dateString;
+    self.dateLabelOne.text = @"Today";
     self.dateLabelTwo.text = self.dateTwoString;
     self.dateLabelThree.text = self.dateThreeString;
     self.dateLabelFour.text = self.dateFourString;

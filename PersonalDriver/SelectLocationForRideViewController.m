@@ -141,40 +141,6 @@
     }
 }
 
-/* -(void)reverseGeocode:(CLLocation *)location{
-    CLGeocoder *geocoder = [CLGeocoder new];
-
-    [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
-        CLPlacemark *placemark = placemarks.firstObject;
-        NSString *address = [NSString stringWithFormat:@"%@ %@ \n%@",
-                             placemark.subThoroughfare,
-                             placemark.thoroughfare,
-                             placemark.locality];
-        self.pickupLocationTextField.text = address;
-
-        CLGeocoder *geocoder = [[CLGeocoder alloc]init];
-        self.pickupAddress = self.pickupLocationTextField.text;
-
-        [geocoder geocodeAddressString:self.pickupAddress completionHandler:^(NSArray *placemarks, NSError *error)
-         {
-             CLPlacemark *placemark= placemarks.firstObject;
-             self.startPointAnnotation = [[MKPointAnnotation alloc]init];
-             self.startPointAnnotation.coordinate = placemark.location.coordinate;
-             self.startPointAnnotation.title = @"pickupLocation";
-             self.pickupLocation = placemark.location;
-
-             self.pickupGeopoint.latitude = placemark.location.coordinate.latitude;
-             self.pickupGeopoint.longitude = placemark.location.coordinate.longitude;
-             //^^To pass the lat and long to the PFGeo point on the next page. Could we switched to CLPlacemark if we send it over on the segue instead.
-
-             [self.mapView addAnnotation:self.startPointAnnotation];
-             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-         }];
-    }];
-    
-}
- */
-
 -(void)reverseGeocode:(CLLocation *)location{
     CLGeocoder *geocoder = [CLGeocoder new];
 
@@ -219,7 +185,6 @@
     renderer.lineWidth = 4.0;
     return  renderer;
 }
-
 
 
 #pragma pin color
