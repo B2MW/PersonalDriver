@@ -13,7 +13,7 @@
 
 @interface PassengerProfileViewController () <UITableViewDataSource, UITableViewDelegate,UIAlertViewDelegate>
 
-@property NSArray *requestedRides;
+@property NSMutableArray *rides;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
