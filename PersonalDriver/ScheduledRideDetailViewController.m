@@ -93,11 +93,15 @@
     if (buttonIndex == [alertView cancelButtonIndex]){
         //NO is clicked do nothing
     }else{  //Yes is clicked. Delete
-        self.ride.driver = nil;
+
         [PushNotification sendPassengerDriverCancelled:self.ride];
-        [self.ride saveInBackground];
+        self.ride.driver = nil;
+        [self.ride saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        }];
+        [self performSegueWithIdentifier:@"cancelRide" sender:self];
     }
 }
+
 
 
 

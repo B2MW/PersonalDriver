@@ -568,7 +568,7 @@
                                 </state>
                                 <connections>
                                     <action selector="onArrivedPressed:" destination="eYy-Ow-1I6" eventType="touchUpInside" id="NdU-bR-UKa"/>
-                                    <segue destination="tQT-GX-4UU" kind="show" id="Rux-up-j6k"/>
+                                    <segue destination="tQT-GX-4UU" kind="show" identifier="finishedRide" id="Rux-up-j6k"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wcr-io-FsI">
@@ -583,8 +583,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="onCancelledPressed:" destination="eYy-Ow-1I6" eventType="touchUpInside" id="0Hc-I2-kFU"/>
-                                    <segue destination="aHZ-uq-VGE" kind="unwind" unwindAction="unwindFromScheduledRide:" id="AIB-C0-m4R"/>
+                                    <action selector="onCancelledPressed:" destination="eYy-Ow-1I6" eventType="touchUpInside" id="oUl-xl-kyg"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Yu-9q-9QS">
@@ -657,7 +656,7 @@
                     </view>
                     <connections>
                         <outlet property="arrivedButton" destination="8Fn-YH-G1Z" id="YQB-s3-bLB"/>
-                        <outlet property="cancelButton" destination="wcr-io-FsI" id="Jmh-Jw-d44"/>
+                        <outlet property="cancelButton" destination="wcr-io-FsI" id="pOf-8c-QR7"/>
                         <outlet property="dropoffAddress" destination="Qce-gF-ilu" id="37f-DU-pBE"/>
                         <outlet property="estimatedFare" destination="oyF-l0-EQQ" id="NMq-hq-V5c"/>
                         <outlet property="numberOfRiders" destination="CgD-RK-KAx" id="BTd-cs-xRi"/>
@@ -665,6 +664,7 @@
                         <outlet property="rideTime" destination="YoS-yM-HYQ" id="OqE-4x-d9J"/>
                         <outlet property="specialInstructions" destination="Un2-MY-FOh" id="azN-3N-AON"/>
                         <outlet property="startButton" destination="9Yu-9q-9QS" id="jIa-4K-TsO"/>
+                        <segue destination="aHZ-uq-VGE" kind="unwind" identifier="cancelRide" unwindAction="unwindFromScheduledRide:" id="bwt-sc-f9w"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kgd-F7-BZf" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1145,7 +1145,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Owu-9p-mLB"/>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="o1Q-hc-UlX">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="o1Q-hc-UlX">
                                 <rect key="frame" x="0.0" y="138" width="600" height="466"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="600" id="3Jz-7W-ahI"/>
@@ -1179,7 +1179,7 @@
                                     <segue destination="cfi-RL-R0p" kind="show" identifier="locationToNewRide" id="uMA-hy-Djv"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Oval 8" translatesAutoresizingMaskIntoConstraints="NO" id="gQg-hS-yeQ">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Oval 8" translatesAutoresizingMaskIntoConstraints="NO" id="gQg-hS-yeQ">
                                 <rect key="frame" x="251" y="416" width="47" height="47"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="Erh-bX-aMX"/>
@@ -1249,7 +1249,7 @@
                                     </mask>
                                 </variation>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZFx-qn-THw">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZFx-qn-THw">
                                 <rect key="frame" x="0.0" y="64" width="351" height="38"/>
                                 <color key="backgroundColor" red="0.21176470589999999" green="0.67450980390000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="tintColor" red="0.21176470589999999" green="0.67450980390000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
@@ -1269,7 +1269,7 @@
                                     </mask>
                                 </variation>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gpv-XW-7UX">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gpv-XW-7UX">
                                 <rect key="frame" x="0.0" y="102" width="351" height="37"/>
                                 <color key="backgroundColor" red="0.21176470589999999" green="0.67450980390000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="tintColor" red="0.21176470589999999" green="0.67450980390000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
@@ -1289,7 +1289,7 @@
                                     </mask>
                                 </variation>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Destination" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="1qW-fI-CFl">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Destination" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="1qW-fI-CFl">
                                 <rect key="frame" x="4" y="103" width="235" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="314" id="Cfp-nY-9pO"/>
@@ -1307,7 +1307,7 @@
                                     <outlet property="delegate" destination="IiP-x5-xJs" id="K5o-PD-mnp"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Pickup Location" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="qSE-MC-61E">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Pickup Location" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="qSE-MC-61E">
                                 <rect key="frame" x="4" y="72" width="235" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="314" id="FsK-rc-N2l"/>
@@ -1325,7 +1325,7 @@
                                     <outlet property="delegate" destination="IiP-x5-xJs" id="Xa8-qp-JfU"/>
                                 </connections>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="foM-d6-Adf">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="foM-d6-Adf">
                                 <rect key="frame" x="249" y="72" width="102" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="102" id="ZCo-SO-PkM"/>
@@ -1340,7 +1340,7 @@
                                     <action selector="onSearchAddTapped:" destination="IiP-x5-xJs" eventType="touchUpInside" id="Nfk-4J-jd0"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uj6-IU-tmX">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uj6-IU-tmX">
                                 <rect key="frame" x="249" y="103" width="102" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="31" id="X5h-LC-ais"/>
