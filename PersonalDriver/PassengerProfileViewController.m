@@ -138,12 +138,7 @@
         self.ride.isCancelled = YES;
         [self.rides removeObject:self.ride];
         [PushNotification sendDriverCancellationNoticeForRide:self.ride];
-        [self.ride saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (succeeded) {
-                            } else {
-                //TODO: Make alert telling them it did not cancel
-            }
-        }];
+        [self.ride saveInBackground];
         self.ride = nil;
         [self.tableView reloadData];
     }

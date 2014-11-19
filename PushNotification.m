@@ -28,7 +28,6 @@
         PFInstallation *currentInstallation = [PFInstallation currentInstallation];
         [currentInstallation addUniqueObject:channelName forKey:@"channels"];
         [currentInstallation saveInBackground];
-
     }];
 
 }
@@ -82,6 +81,16 @@
     [push setData:data];
     [push expireAtDate:ride.rideDateTime];
     [push sendPushInBackground];
+}
+
++(void)sendPassengerDriverCancelled:(Ride *)ride
+{
+    PFPush *push = [[PFPush alloc] init];
+    NSString *channelName = [NSString stringWithFormat:@"P%@",ride.objectId];
+    [push setChannel:channelName];
+    [push setMessage:@"Your driver has cancelled and your ride will be relisted"];
+    [push sendPushInBackground];
+
 }
 
 +(void)sendDriverCancellationNoticeForRide:(Ride *)ride

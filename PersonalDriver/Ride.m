@@ -15,8 +15,10 @@
 @dynamic pickupGeoPoint;
 @dynamic dropoffGeoPoint;
 @dynamic rideDateTime;
+@dynamic rideCompleteTime;
 @dynamic specialInstructions;
 @dynamic isCancelled;
+@dynamic rideComplete;
 @dynamic driverConfirmed;
 @dynamic driverEnRoute;
 @dynamic fareEstimateMin;

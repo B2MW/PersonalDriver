@@ -17,10 +17,12 @@
 @property PFGeoPoint *pickupGeoPoint;
 @property PFGeoPoint *dropoffGeoPoint;
 @property NSDate *rideDateTime;
+@property NSDate *rideCompleteTime;
 @property NSString *specialInstructions;
 @property BOOL isCancelled;
 @property BOOL driverConfirmed;
 @property BOOL driverEnRoute;
+@property BOOL rideComplete;
 @property NSString *pickUpLocation;
 @property NSString *destination;
 @property NSNumber *fareEstimateMin;
