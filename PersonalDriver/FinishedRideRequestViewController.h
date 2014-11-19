@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Ride.h"
 
 @interface FinishedRideRequestViewController : UIViewController
+
+@property Ride *ride;
 
 @end

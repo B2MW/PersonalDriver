@@ -7,7 +7,10 @@
 //
 
 #import "ViewController.h"
+#import "Ride.h"
 
 @interface PassengerProfileViewController : UIViewController
+
+@property Ride *ride;
 
 @end

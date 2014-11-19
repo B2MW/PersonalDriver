@@ -13,6 +13,7 @@
 #import "Date.h"
 #import "PassengerLabel.h"
 #import "PushNotification.h"
+#import "FinishedRideRequestViewController.h"
 
 
 @interface NewRideViewController () <DateDelegate, PassengerDelegate>
@@ -67,6 +68,7 @@
 @property NSMutableArray *passengerAmounts;
 @property NSDate *selectedDay;
 @property NSDate *selectedTime;
+@property Ride *ride;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
 
 @property (weak, nonatomic) IBOutlet UILabel *pickupTimeLabel;
@@ -124,7 +126,7 @@
     self.dateSixString = [self.formatter stringFromDate:self.daySix];
     self.dateSevenString = [self.formatter stringFromDate:self.daySeven];
 
-    self.dateLabelOne.text = self.dateString;
+    self.dateLabelOne.text = @"Today";
     self.dateLabelTwo.text = self.dateTwoString;
     self.dateLabelThree.text = self.dateThreeString;
     self.dateLabelFour.text = self.dateFourString;
@@ -159,7 +161,7 @@
 - (IBAction)onRequestRideButtonPressed:(id)sender {
 
     User *user = [User currentUser];
-    Ride *ride = [Ride object];
+    self.ride = [Ride object];
 
     NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
     [f setNumberStyle:NSNumberFormatterNoStyle];
@@ -168,15 +170,16 @@
     NSNumber *fareEstimateMin = [f numberFromString:self.price.lowEstimate];
 
 
-    ride.passenger = user;
-    ride.rideDateTime = self.datePicker.date;
-    ride.specialInstructions = self.specialComments.text;
-    ride.pickupGeoPoint = self.pickupGeopoint;
-    ride.dropoffGeoPoint = self.destinationGeopoint;
-    ride.fareEstimateMax = fareEstimateMax;
-    ride.fareEstimateMin = fareEstimateMin;
-    ride.destination = self.destinationAddress;
-    ride.destination = self.pickupAddress;
+    self.ride.passenger = user;
+    self.ride.rideDateTime = self.datePicker.date;
+    self.ride.specialInstructions = self.specialComments.text;
+    self.ride.pickupGeoPoint = self.pickupGeopoint;
+    self.ride.dropoffGeoPoint = self.destinationGeopoint;
+    self.ride.fareEstimateMax = fareEstimateMax;
+    self.ride.fareEstimateMin = fareEstimateMin;
+    self.ride.destination = self.destinationAddress;
+    self.ride.destination = self.pickupAddress;
+    self.ride.isCancelled = NO;
 
 
 
@@ -218,22 +221,22 @@
 
     if(self.passengerLabelOne.tag ==1)
     {
-        ride.passengerCount = self.passengerLabelOne.text;
+        self.ride.passengerCount = self.passengerLabelOne.text;
     }
 
     else if (self.passengerLabelTwo.tag ==1)
     {
-        ride.passengerCount = self.passengerLabelTwo.text;
+        self.ride.passengerCount = self.passengerLabelTwo.text;
     }
 
     else if (self.passengerLabelThree.tag ==1)
     {
-        ride.passengerCount = self.passengerLabelThree.text;
+        self.ride.passengerCount = self.passengerLabelThree.text;
     }
 
     else if (self.passengerLabelFour.tag ==1)
     {
-        ride.passengerCount = self.passengerLabelFour.text;
+        self.ride.passengerCount = self.passengerLabelFour.text;
     }
 
     self.selectedTime = self.datePicker.date;
@@ -247,14 +250,14 @@
 
     NSDate *dateFromString = [self.parseFormatter dateFromString:newDate];
 
-    ride.rideDateTime = dateFromString;
+    self.ride.rideDateTime = dateFromString;
 
 
-    [ride saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+    [self.ride saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
     {
          if (succeeded)
 
-             [PushNotification subscribePassengerToRide:ride];
+             [PushNotification subscribePassengerToRide:self.ride];
 
     }];
 
@@ -320,6 +323,12 @@
         self.topConstraint.constant = 17;
         self.pickupTimeLabel.hidden = NO;
     }];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    FinishedRideRequestViewController *finishedVC = [segue destinationViewController];
+    finishedVC.ride = self.ride;
 }
 @end
 

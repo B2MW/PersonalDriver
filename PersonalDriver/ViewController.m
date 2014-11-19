@@ -25,6 +25,7 @@
 - (void)viewDidLoad {
 
     [super viewDidLoad];
+      [self.navigationItem setHidesBackButton:YES animated:YES];
 
 }
 
@@ -74,8 +75,8 @@
 
 
 - (IBAction)onPassengerPressed:(UIButton *)sender {
-
-    self.currentUser.isDriver = NO;
+    [self loginOrSignUpUserWithUberProfile];
+//    self.currentUser.isDriver = NO;
     [self.currentUser saveInBackground];
     [self performSegueWithIdentifier:@"showPassenger" sender:self];
     NSLog(@"You are a Passenger");
@@ -84,7 +85,7 @@
 
 - (IBAction)onDriverPressed:(UIButton *)sender {
     [self loginOrSignUpUserWithUberProfile];
-    self.currentUser.isDriver = YES;
+//    self.currentUser.isDriver = YES;
     [self.currentUser saveInBackground];
     [self performSegueWithIdentifier:@"showDriver" sender:self];
     NSLog(@"You are a Driver");
@@ -141,15 +142,15 @@
                   }else
                   {
                       self.currentUser = [User currentUser];
-                      if (self.currentUser.isDriver == YES)//Check if they are a Driver
-                      {
-                          [self associateUserToDeviceForPush];
+//                      if (self.currentUser.isDriver == YES)//Check if they are a Driver
+//                      {
+//                          [self associateUserToDeviceForPush];
                           //                        [self performSegueWithIdentifier:@"showDriver" sender:self];
-                      }else if (self.currentUser.isDriver == NO)//Check if they are a passenger
-                      {
+//                      }else if (self.currentUser.isDriver == NO)//Check if they are a passenger
+//                      {
                           [self associateUserToDeviceForPush];
                           //                        [self performSegueWithIdentifier:@"showPassenger" sender:self];
-                      }
+//                      }
                       NSLog(@"Logged in successfully");
                   }
               }

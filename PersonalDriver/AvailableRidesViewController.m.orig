@@ -37,7 +37,7 @@
 @end
 
 @implementation AvailableRidesViewController
-
+<<<<<<< HEAD
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -46,6 +46,8 @@
 
 
 }
+=======
+>>>>>>> bradley
 
 - (void)viewDidLoad
 {

@@ -84,6 +84,17 @@
     [push sendPushInBackground];
 }
 
++(void)sendDriverCancellationNoticeForRide:(Ride *)ride
+{
+    PFPush *push = [[PFPush alloc] init];
+    NSString *channelName = [NSString stringWithFormat:@"D%@",ride.objectId];
+    [push setChannel:channelName];
+    [push setMessage:[NSString stringWithFormat:@"Ride on %@ has been cancelled", ride.rideDateTime]];
+    [push expireAtDate:ride.rideDateTime];
+    [push sendPushInBackground];
+
+}
+
 #pragma mark - Local Notifications
 
 +(void)sendDriverReminderForRide:(Ride *)ride
@@ -98,6 +109,8 @@
 
     [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
 }
+
+
 
 
 @end

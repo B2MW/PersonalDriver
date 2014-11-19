@@ -21,5 +21,6 @@
 +(void)sendPassengerDriverArrived:(Ride *)ride;
 
 +(void)sendDriverReminderForRide:(Ride *)ride;
++(void)sendDriverCancellationNoticeForRide:(Ride *)ride;
 
 @end
