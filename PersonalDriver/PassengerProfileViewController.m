@@ -173,7 +173,7 @@
     [queryRides whereKey:@"passenger"equalTo:[PFUser currentUser]];
     [queryRides whereKey:@"isCancelled" equalTo:[NSNumber numberWithBool:NO]];
     [queryRides whereKey:@"driverConfirmed" equalTo:[NSNumber numberWithBool:YES]];
-    [queryRides orderByDescending:@"rideDateTime"];
+    [queryRides orderByAscending:@"rideDateTime"];
     [queryRides findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if(!error){
             self.rides = [NSMutableArray arrayWithArray:objects];
@@ -193,7 +193,7 @@
     [queryRides whereKey:@"passenger"equalTo:[PFUser currentUser]];
     [queryRides whereKey:@"isCancelled" equalTo:[NSNumber numberWithBool:NO]];
     [queryRides whereKey:@"driverConfirmed" equalTo:[NSNumber numberWithBool:NO]];
-    [queryRides orderByDescending:@"rideDateTime"];
+    [queryRides orderByAscending:@"rideDateTime"];
     [queryRides findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if(!error){
             self.ridesUnconfirmed = [NSMutableArray arrayWithArray:objects];
