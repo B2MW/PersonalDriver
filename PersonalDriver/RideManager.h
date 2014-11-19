@@ -15,7 +15,7 @@
 
 @interface RideManager : NSObject
 -(void)getAvailableRideWithlocationManager:(CLLocationManager *)locationManager completionHandler:(void(^)(NSArray *))completionHandler;
--(void)getScheduledRides:(void(^)(NSArray *))complete;
+-(void)getScheduledRides:(User *)currentUser completionHandler:(void(^)(NSArray *))complete;
 -(NSString *)formatRideDate:(Ride *)ride;
 -(NSString *)formatRideFareEstimate:(NSNumber *)fareEstimateMin fareEstimateMax:(NSNumber *)fareEstimateMax;
 -(void)retrieveGeoPointAddress:(PFGeoPoint *)rideGeoPoint completionHandler:(void(^)(NSString *))completionHandler;

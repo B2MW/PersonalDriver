@@ -64,7 +64,7 @@
 
         [[UberKit sharedInstance] startLogin];
     }
-    if ([title isEqualToString:@"Erase Token"]) {
+    if ([title isEqualToString:@"Efrase Token"]) {
         [self eraseToken];
     }
 
@@ -75,8 +75,8 @@
 
 
 - (IBAction)onPassengerPressed:(UIButton *)sender {
-
-    self.currentUser.isDriver = NO;
+    [self loginOrSignUpUserWithUberProfile];
+//    self.currentUser.isDriver = NO;
     [self.currentUser saveInBackground];
     [self performSegueWithIdentifier:@"showPassenger" sender:self];
     NSLog(@"You are a Passenger");
@@ -84,7 +84,8 @@
 }
 
 - (IBAction)onDriverPressed:(UIButton *)sender {
-    self.currentUser.isDriver = YES;
+    [self loginOrSignUpUserWithUberProfile];
+//    self.currentUser.isDriver = YES;
     [self.currentUser saveInBackground];
     [self performSegueWithIdentifier:@"showDriver" sender:self];
     NSLog(@"You are a Driver");
@@ -101,60 +102,61 @@
 {
 
     [UberAPI getUserProfileWithCompletionHandler:^(UberProfile *profile, NSError *error)
-    {
-        self.profile = profile;
-        PFQuery *queryUsers = [User query];
-        [queryUsers whereKey:@"username" equalTo:self.profile.email];
-        [queryUsers findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
-        {
-            if (objects.count == 0)
-            {
-                User *user = [User new];
+     {
+         self.profile = profile;
+         PFQuery *queryUsers = [User query];
+         [queryUsers whereKey:@"username" containsString:self.profile.email];
+         //        [queryUsers whereKey:@"username" equalTo:self.profile.email];
+         [queryUsers findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+          {
+              if (objects == nil)
+              {
+                  User *user = [User new];
 
-                user.username = self.profile.email;
-                user.password = self.profile.promo_code;
-                user.email = self.profile.email;
+                  user.username = self.profile.email;
+                  user.password = self.profile.promo_code;
+                  user.email = self.profile.email;
 
-                NSString *name = [NSString stringWithFormat:@"%@ %@",profile.first_name, profile.last_name];
-                user.name = name;
-                //Save photo to Parse
-                NSURL *url = [NSURL URLWithString:profile.picture];
-                NSData *pictureData = [NSData dataWithContentsOfURL:url];
-                PFFile *imageFile = [PFFile fileWithName:@"ProfilePic.jpg" data:pictureData];
-                user.picture =imageFile;
+                  NSString *name = [NSString stringWithFormat:@"%@ %@",profile.first_name, profile.last_name];
+                  user.name = name;
+                  //Save photo to Parse
+                  NSURL *url = [NSURL URLWithString:profile.picture];
+                  NSData *pictureData = [NSData dataWithContentsOfURL:url];
+                  PFFile *imageFile = [PFFile fileWithName:@"ProfilePic.jpg" data:pictureData];
+                  user.picture =imageFile;
 
-                [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                    if (succeeded) {
-                        NSLog(@"User account created");
-                    } else {
-                        NSLog(@"%@",[error description]);
-                    }
-                }];
-            }else
-            {
-                NSError *error;
-                [User logInWithUsername:self.profile.email password:self.profile.promo_code error:&error];
-                if (error)
-                {
-                    NSLog(@"%@", [error description]);
-                }else
-                {
-                    User *currentUser = [User currentUser];
-                    if (currentUser.isDriver == YES)//Check if they are a Driver
-                    {
-                        [self associateUserToDeviceForPush];
-//                        [self performSegueWithIdentifier:@"showDriver" sender:self];
-                    }else if (currentUser.isDriver == NO)//Check if they are a passenger
-                    {
-                        [self associateUserToDeviceForPush];
-//                        [self performSegueWithIdentifier:@"showPassenger" sender:self];
-                    }
-                    NSLog(@"Logged in successfully");
-                }
-            }
-        }];
-
-    }];
+                  [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                      if (succeeded) {
+                          NSLog(@"User account created");
+                      } else {
+                          NSLog(@"%@",[error description]);
+                      }
+                  }];
+              }else
+              {
+                  NSError *error;
+                  [User logInWithUsername:self.profile.email password:self.profile.promo_code error:&error];
+                  if (error)
+                  {
+                      NSLog(@"%@", [error description]);
+                  }else
+                  {
+                      self.currentUser = [User currentUser];
+//                      if (self.currentUser.isDriver == YES)//Check if they are a Driver
+//                      {
+//                          [self associateUserToDeviceForPush];
+                          //                        [self performSegueWithIdentifier:@"showDriver" sender:self];
+//                      }else if (self.currentUser.isDriver == NO)//Check if they are a passenger
+//                      {
+                          [self associateUserToDeviceForPush];
+                          //                        [self performSegueWithIdentifier:@"showPassenger" sender:self];
+//                      }
+                      NSLog(@"Logged in successfully");
+                  }
+              }
+          }];
+         
+     }];
 }
 
 

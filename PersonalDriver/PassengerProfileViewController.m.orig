@@ -92,6 +92,8 @@
     return cell;
 }
 
+<<<<<<< HEAD
+=======
 -(void)getAvailableRides
 {
     PFQuery *queryAvailableRides = [Ride query];
@@ -99,8 +101,8 @@
     [queryAvailableRides whereKey:@"passenger"equalTo:[User currentUser]];
     [queryAvailableRides findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if(!error){
-            self.rides = [NSMutableArray arrayWithArray:objects];
-            NSLog(@"request rides = %@", self.rides);
+            self.requestedRides = [NSArray arrayWithArray:objects];
+            NSLog(@"request rides = %@", self.requestedRides);
             [self.tableView reloadData];
         }else{
             NSLog(@"Error: %@",error);
@@ -117,7 +119,7 @@
     [queryScheduledRides whereKey:@"driver" notEqualTo:nil];
     [queryScheduledRides findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if(!error){
-            self.rides = [NSMutableArray arrayWithArray:objects];
+            self.rides = [NSArray arrayWithArray:objects];
         }else{
             NSLog(@"Error: %@",error);
         }
@@ -125,6 +127,7 @@
     }];
 
 }
+>>>>>>> bradley
 
 -(NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
 
@@ -171,7 +174,12 @@
         self.ride.isCancelled = YES;
         [self.rides removeObject:self.ride];
         [PushNotification sendDriverCancellationNoticeForRide:self.ride];
-        [self.ride saveInBackground];
+        [self.ride saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                            } else {
+                //TODO: Make alert telling them it did not cancel
+            }
+        }];
         self.ride = nil;
         [self.tableView reloadData];
     }
