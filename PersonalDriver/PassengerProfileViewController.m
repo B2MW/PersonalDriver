@@ -12,7 +12,7 @@
 #import "User.h"
 
 @interface PassengerProfileViewController () <UITableViewDataSource, UITableViewDelegate,UIAlertViewDelegate>
-@property NSArray *rides;
+
 @property NSArray *requestedRides;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -98,21 +98,6 @@
 
 }
 
--(void)getScheduledRides
-{
-    PFQuery *queryScheduledRides= [Ride query];
-    [queryScheduledRides whereKey:@"passenger" equalTo:[PFUser currentUser]];
-    [queryScheduledRides whereKey:@"driver" notEqualTo:nil];
-    [queryScheduledRides findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if(!error){
-            self.rides = [NSArray arrayWithArray:objects];
-        }else{
-            NSLog(@"Error: %@",error);
-        }
-        NSLog(@"Parse for available %@",queryScheduledRides);
-    }];
-
-}
 
 -(NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
 
@@ -127,9 +112,6 @@
                                          [alertView addButtonWithTitle: @"No"];
                                          [alertView show];
 
-                                       //  [self.tableView setEditing:YES];
-                                        // [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-                                       //  [self.tableView reloadData];;
                                      }];
 
     deleteButton.backgroundColor = [UIColor colorWithRed:(54/255.0) green:(173/255.0) blue:(201/255.0) alpha:1]; //delete color
@@ -166,9 +148,7 @@
 
     else if (buttonIndex == 2)
     {
-       // [self.tableView setEditing:YES];
-       // [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-       // [self.tableView reloadData];;
+
     }
 }
 
