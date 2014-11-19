@@ -14,6 +14,7 @@
 @interface PassengerProfileViewController () <UITableViewDataSource, UITableViewDelegate,UIAlertViewDelegate>
 
 @property NSMutableArray *rides;
+@property NSMutableArray *ridesUnconfirmed;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
@@ -26,6 +27,7 @@
     [super viewDidLoad];
     self.rides = [[NSMutableArray alloc]init];
     [self getRides];
+    [self getUnconfirmedRides];
 
     [self.navigationItem setHidesBackButton:YES animated:YES];
     self.title = @"Current Rides";
@@ -168,12 +170,34 @@
 -(void)getRides
 {
     PFQuery *queryRides = [Ride query];
-    [queryRides whereKeyDoesNotExist:@"driver"];
-    [queryRides whereKey:@"passenger"equalTo:[User currentUser]];
+    [queryRides whereKey:@"passenger"equalTo:[PFUser currentUser]];
     [queryRides whereKey:@"isCancelled" equalTo:[NSNumber numberWithBool:NO]];
+    [queryRides whereKey:@"driverConfirmed" equalTo:[NSNumber numberWithBool:YES]];
+    [queryRides orderByAscending:@"rideDateTime"];
     [queryRides findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if(!error){
             self.rides = [NSMutableArray arrayWithArray:objects];
+            [self.tableView reloadData];
+
+        }else{
+            NSLog(@"Error: %@",error);
+        }
+        NSLog(@"Parse for available %@",queryRides);
+    }];
+    
+}
+
+-(void)getUnconfirmedRides
+{
+    PFQuery *queryRides = [Ride query];
+    [queryRides whereKey:@"passenger"equalTo:[PFUser currentUser]];
+    [queryRides whereKey:@"isCancelled" equalTo:[NSNumber numberWithBool:NO]];
+    [queryRides whereKey:@"driverConfirmed" equalTo:[NSNumber numberWithBool:NO]];
+    [queryRides orderByAscending:@"rideDateTime"];
+    [queryRides findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if(!error){
+            self.ridesUnconfirmed = [NSMutableArray arrayWithArray:objects];
+            [self.rides addObjectsFromArray:self.ridesUnconfirmed];
             [self.tableView reloadData];
 
         }else{
