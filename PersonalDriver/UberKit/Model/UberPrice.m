@@ -44,9 +44,9 @@
         if (![lowE isKindOfClass:[NSNull class]] || ![highE isKindOfClass:[NSNull class]])
         {
             float lowWithoutSurge = [lowE floatValue]/_surgeMultiplier;
-            _lowEstimate = [NSString stringWithFormat:@"%.2f",lowWithoutSurge];
+            _lowEstimate = [NSString stringWithFormat:@"%.f",lowWithoutSurge];
             float hiWithoutSurge = [highE floatValue]/_surgeMultiplier;
-            _highEstimate = [NSString stringWithFormat:@"%.2f",hiWithoutSurge];
+            _highEstimate = [NSString stringWithFormat:@"%.f",hiWithoutSurge];
             //factor out the surge pricing
             self.avgEstimateWithoutSurge = [NSString stringWithFormat:@"%.f",((hiWithoutSurge + lowWithoutSurge)/2)];
         } else
