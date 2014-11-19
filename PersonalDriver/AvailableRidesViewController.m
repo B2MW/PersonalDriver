@@ -20,11 +20,10 @@
 @property (weak, nonatomic) IBOutlet AvailableRidesTableView *availableTableView;
 @property (weak, nonatomic) IBOutlet ScheduledTableView *scheduledTableView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
-@property IBOutlet MKMapView *mapView;
 
 @property CLLocationManager *locationManager;
 @property NSMutableArray *availableRides;
-@property NSArray *scheduledRides;
+@property NSMutableArray *scheduledRides;
 @property NSArray *arrayToCategorize;
 @property NSArray *weekdaysSectionTitles;
 @property NSDictionary *weekdays;
@@ -38,38 +37,41 @@
 @end
 
 @implementation AvailableRidesViewController
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    self.availableRides = [NSMutableArray new];
-    self.arrayToCategorize = [NSArray array];
-
-}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.scheduledTableView.hidden = YES;
     self.locationManager = [CLLocationManager new];
-    [self.locationManager requestWhenInUseAuthorization];
-    [self.locationManager startUpdatingLocation];
-    [self refreshDisplay];
+    self.locationManager.delegate = self;
+    self.availableRides = [NSMutableArray new];
+    self.scheduledRides = [NSMutableArray new];
+    self.arrayToCategorize = [NSArray array];
+    self.scheduledTableView.hidden = YES;
+
+    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse)
+    {
+        [self.locationManager startUpdatingLocation];
+    }
+    else
+    {
+        [self.locationManager requestWhenInUseAuthorization];
+    }
 }
 
 - (IBAction)segmentedAction:(UISegmentedControl *)segmentedControl
 {
-
     if (segmentedControl.selectedSegmentIndex == 0)
     {
         self.scheduledTableView.hidden = YES;
         self.availableTableView.hidden = NO;
-    }else
+        [self refreshDisplay];
+    }
+    else
     {
         self.availableTableView.hidden = YES;
         self.scheduledTableView.hidden = NO;
+        [self refreshDisplay];
     }
-    [self refreshDisplay];
-
 }
 
 #pragma mark -  Table View
@@ -98,32 +100,31 @@
     NSArray *sectionWeekdays = [self.weekdays objectForKey:sectionTitle];
     Ride *ride = [sectionWeekdays objectAtIndex:indexPath.row];
 
-    if (self.scheduledTableView.isHidden == YES)//Show Available Rides
+    if (self.segmentedControl.selectedSegmentIndex == 0)//Show Available Rides
     {
         AvailableRideTableViewCell *cell = [self.availableTableView dequeueReusableCellWithIdentifier:@"RideCell" forIndexPath:indexPath];
         cell.pickupDateTimeLabel.text = [rideManager formatRideDate:ride];
         cell.fareEstimate.text = [rideManager formatRideFareEstimate:ride.fareEstimateMin fareEstimateMax:ride.fareEstimateMax];
 
         [rideManager retrieveRideDistanceAndBearing:ride locationManager:self.locationManager completionHandler:^(NSArray *rideBearingAndDistance)
-        {
-            NSNumber *rideDistance = [rideBearingAndDistance objectAtIndex:0];
-            if (rideDistance.doubleValue >= 2)
-            {
-                cell.rideOrigin.text = [NSString stringWithFormat:@"Pickup point is %@ miles %@",[rideBearingAndDistance objectAtIndex:0], [rideBearingAndDistance objectAtIndex:1]];
-            }
-            else
-            {
-                cell.rideOrigin.text = @"Pickup is within a few miles";
-            }
-        }];
+         {
+             NSNumber *rideDistance = [rideBearingAndDistance objectAtIndex:0];
+             if (rideDistance.doubleValue >= 2)
+             {
+                 cell.rideOrigin.text = [NSString stringWithFormat:@"Pickup point is %@ miles %@",[rideBearingAndDistance objectAtIndex:0], [rideBearingAndDistance objectAtIndex:1]];
+             }
+             else
+             {
+                 cell.rideOrigin.text = @"Pickup is within a few miles";
+             }
+         }];
 
         [rideManager retrivedRideTripDistance:ride completionHandler:^(NSNumber *tripDistance)
-        {
-            cell.rideDestination.text = [NSString stringWithFormat:@"%@ mile trip", tripDistance];
-        }];
+         {
+             cell.rideDestination.text = [NSString stringWithFormat:@"%@ mile trip", tripDistance];
+         }];
 
         return cell;
-
     }
     else
     {
@@ -149,30 +150,24 @@
 -(void)refreshDisplay
 {
     RideManager *rideManager = [[RideManager alloc] init];
-    [rideManager getAvailableRideWithlocationManager:self.locationManager completionHandler:^(NSArray *rideResults)
+    if (self.segmentedControl.selectedSegmentIndex == 0)
     {
-
-//        for (Ride *ride in rideResults)
-//        {
-//            [rideManager retrieveRideDistanceAndBearing:ride:self.locationManager :^(NSArray *distanceAndBearing)
-//            {
-//                NSNumber *distance = distanceAndBearing[0];
-//                if (distance.doubleValue > 15)
-//                {
-//                    [self.availableRides addObject:ride];
-//                }
-//            }];
-//        }
-        self.availableRides = [NSMutableArray arrayWithArray:rideResults];
-        [self categorizeRidesByDay];
-        [self.availableTableView reloadData];
-    }];
-    [rideManager getScheduledRides:^(NSArray *scheduledrides)
+        [rideManager getAvailableRideWithlocationManager:self.locationManager completionHandler:^(NSArray *rideResults)
+         {
+             self.availableRides = [NSMutableArray arrayWithArray:rideResults];
+             [self categorizeRidesByDay];
+             [self.availableTableView reloadData];
+         }];
+    }
+    else
     {
-        self.scheduledRides = scheduledrides;
-        [self categorizeRidesByDay];
-        [self.scheduledTableView reloadData];
-    }];
+        [rideManager getScheduledRides:[User currentUser] completionHandler:^(NSArray *scheduledrides)
+        {
+             self.scheduledRides = [NSMutableArray arrayWithArray:scheduledrides];
+             [self categorizeRidesByDay];
+             [self.scheduledTableView reloadData];
+         }];
+    }
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(UITableViewCell *)cell
@@ -199,13 +194,25 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
-    for (CLLocation *location in locations) {
+    for (CLLocation *location in locations)
+    {
         if (location.verticalAccuracy < 1000 && location.horizontalAccuracy < 1000)
         {
             [self.locationManager stopUpdatingLocation];
+            [self refreshDisplay];
             break;
         }
     }
+}
+
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
+{
+    [self.locationManager startUpdatingLocation];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    NSLog(@"%@", error);
 }
 
 -(void)categorizeRidesByDay

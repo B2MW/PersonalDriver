@@ -79,7 +79,7 @@
 {
     PFQuery *queryAvailableRides = [Ride query];
     [queryAvailableRides whereKeyDoesNotExist:@"driver"];
-    [queryAvailableRides whereKey:@"passenger"equalTo:[PFUser currentUser]];
+    [queryAvailableRides whereKey:@"passenger"equalTo:[User currentUser]];
     [queryAvailableRides findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if(!error){
             self.requestedRides = [NSArray arrayWithArray:objects];
@@ -96,7 +96,7 @@
 -(void)getScheduledRides
 {
     PFQuery *queryScheduledRides= [Ride query];
-    [queryScheduledRides whereKey:@"passenger" equalTo:[PFUser currentUser]];
+    [queryScheduledRides whereKey:@"passenger" equalTo:[User currentUser]];
     [queryScheduledRides whereKey:@"driver" notEqualTo:nil];
     [queryScheduledRides findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if(!error){

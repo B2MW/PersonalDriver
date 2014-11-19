@@ -12,7 +12,6 @@
 
 -(void)getAvailableRideWithlocationManager:(CLLocationManager *)locationManager completionHandler:(void(^)(NSArray *))completionHandler
 {
-
     PFQuery *queryAvailableRides = [Ride query];
     queryAvailableRides.cachePolicy = kPFCachePolicyCacheThenNetwork;
     [queryAvailableRides whereKeyDoesNotExist:@"driver"];
@@ -52,20 +51,15 @@
     NSInteger gmtOffset = [utcTimeZone secondsFromGMTForDate:serverRideDateTime];
     NSTimeInterval gmtInterval = currentGMTOffset - gmtOffset;
     NSDate *localRideDateTime = [[NSDate alloc] initWithTimeInterval:gmtInterval sinceDate:serverRideDateTime];
-
-    NSLog(@"%@", serverRideDateTime);
-    NSLog(@"%@", localRideDateTime);
     return localRideDateTime;
 }
 
--(void)getScheduledRides:(void(^)(NSArray *))complete
+-(void)getScheduledRides:(User *)currentUser completionHandler:(void(^)(NSArray *))complete
 {
-    User *currentUser = [User currentUser];
     PFQuery *queryScheduledRides= [Ride query];
     queryScheduledRides.cachePolicy = kPFCachePolicyCacheThenNetwork;
-    [queryScheduledRides whereKey:@"driver" equalTo:currentUser];
+    [queryScheduledRides whereKey:@"driver" equalTo:currentUser.objectId];
     [queryScheduledRides includeKey:@"passenger"];
-    [queryScheduledRides includeKey:@"driver"];
     [queryScheduledRides whereKey:@"rideDateTime" greaterThanOrEqualTo:[self convertDateToLocalTimeZone:[NSDate date]]];
     [queryScheduledRides findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         complete(objects);
