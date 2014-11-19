@@ -125,6 +125,8 @@
             [Token setToken:authToken];
             NSLog(@"Token saved in Keychain");
 
+            [self loginOrSignUpUserWithUberProfile];
+
         }];
 
         return YES;
@@ -143,9 +145,6 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-
-
-
 
 }
 
@@ -290,6 +289,76 @@
             abort();
         }
     }
+}
+
+#pragma mark - Helper Methods
+
+-(void)loginOrSignUpUserWithUberProfile
+{
+
+    [UberAPI getUserProfileWithCompletionHandler:^(UberProfile *profile, NSError *error)
+     {
+         PFQuery *queryUsers = [User query];
+         [queryUsers whereKey:@"username" containsString:profile.email];
+         //        [queryUsers whereKey:@"username" equalTo:self.profile.email];
+         [queryUsers findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+          {
+              if (objects == nil)
+              {
+                  User *user = [User new];
+
+                  user.username = profile.email;
+                  user.password = profile.promo_code;
+                  user.email = profile.email;
+
+                  NSString *name = [NSString stringWithFormat:@"%@ %@",profile.first_name, profile.last_name];
+                  user.name = name;
+                  //Save photo to Parse
+                  NSURL *url = [NSURL URLWithString:profile.picture];
+                  NSData *pictureData = [NSData dataWithContentsOfURL:url];
+                  PFFile *imageFile = [PFFile fileWithName:@"ProfilePic.jpg" data:pictureData];
+                  user.picture =imageFile;
+
+                  [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                      if (succeeded) {
+                          NSLog(@"User account created");
+                      } else {
+                          NSLog(@"%@",[error description]);
+                      }
+                  }];
+              }else
+              {
+                  NSError *error;
+                  [User logInWithUsername:profile.email password:profile.promo_code error:&error];
+                  if (error)
+                  {
+                      NSLog(@"%@", [error description]);
+                  }else
+                  {
+                      //User *currentUser = [User currentUser];
+                      //                      if (self.currentUser.isDriver == YES)//Check if they are a Driver
+                      //                      {
+                      //                          [self associateUserToDeviceForPush];
+                      //                        [self performSegueWithIdentifier:@"showDriver" sender:self];
+                      //                      }else if (self.currentUser.isDriver == NO)//Check if they are a passenger
+                      //                      {
+                      [self associateUserToDeviceForPush];
+                      //                        [self performSegueWithIdentifier:@"showPassenger" sender:self];
+                      //                      }
+                      NSLog(@"Logged in successfully");
+                  }
+              }
+          }];
+         
+     }];
+}
+
+-(void)associateUserToDeviceForPush
+{
+    // Associate the device with a user
+    PFInstallation *installation = [PFInstallation currentInstallation];
+    installation[@"user"] = [User currentUser];
+    [installation saveInBackground];
 }
 
 

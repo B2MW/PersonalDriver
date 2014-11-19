@@ -77,7 +77,7 @@
 
 
 - (IBAction)onPassengerPressed:(UIButton *)sender {
-    [self loginOrSignUpUserWithUberProfile];
+//    [self loginOrSignUpUserWithUberProfile];
 //    self.currentUser.isDriver = NO;
     [self.currentUser saveInBackground];
     [self performSegueWithIdentifier:@"showPassenger" sender:self];
@@ -86,7 +86,7 @@
 }
 
 - (IBAction)onDriverPressed:(UIButton *)sender {
-    [self loginOrSignUpUserWithUberProfile];
+//    [self loginOrSignUpUserWithUberProfile];
 //    self.currentUser.isDriver = YES;
     [self.currentUser saveInBackground];
     [self performSegueWithIdentifier:@"showDriver" sender:self];
