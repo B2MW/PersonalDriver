@@ -74,7 +74,8 @@
 - (IBAction)onArrivedPressed:(id)sender {
     self.ride.rideComplete = YES;
     self.ride.rideCompleteTime = [NSDate date];
-    [self.ride saveInBackground];
+    [self.ride saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    }];
     [PushNotification sendPassengerDriverArrived:self.ride];
 }
 

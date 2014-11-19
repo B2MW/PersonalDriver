@@ -71,6 +71,7 @@
 		CEB8D1C71A0A809E00A74FA6 /* AvailableRidesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB8D1C41A0A809E00A74FA6 /* AvailableRidesViewController.m */; };
 		CEB8D1C81A0A809E00A74FA6 /* AvailableRideTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB8D1C61A0A809E00A74FA6 /* AvailableRideTableViewCell.m */; };
 		CEB8D1CB1A0A83CB00A74FA6 /* SelectLocationForRideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB8D1CA1A0A83CB00A74FA6 /* SelectLocationForRideViewController.m */; };
+		CEE923F71A1C6121005F74D7 /* FinishedRideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE923F61A1C6121005F74D7 /* FinishedRideViewController.m */; };
 		FDD60E392AD01E939AF6F573 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 53761B501441D0844B94902B /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -204,6 +205,8 @@
 		CEB8D1C61A0A809E00A74FA6 /* AvailableRideTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvailableRideTableViewCell.m; sourceTree = "<group>"; };
 		CEB8D1C91A0A83CB00A74FA6 /* SelectLocationForRideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectLocationForRideViewController.h; sourceTree = "<group>"; };
 		CEB8D1CA1A0A83CB00A74FA6 /* SelectLocationForRideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectLocationForRideViewController.m; sourceTree = "<group>"; };
+		CEE923F51A1C6121005F74D7 /* FinishedRideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FinishedRideViewController.h; sourceTree = "<group>"; };
+		CEE923F61A1C6121005F74D7 /* FinishedRideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FinishedRideViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -362,6 +365,8 @@
 				CE1A35431A0EEB8D004A6CCC /* ScheduledRideTableViewCell.m */,
 				CE1A353F1A0E87FE004A6CCC /* ScheduledRideDetailViewController.h */,
 				CE1A35401A0E87FE004A6CCC /* ScheduledRideDetailViewController.m */,
+				CEE923F51A1C6121005F74D7 /* FinishedRideViewController.h */,
+				CEE923F61A1C6121005F74D7 /* FinishedRideViewController.m */,
 			);
 			name = "Driver UX";
 			sourceTree = "<group>";
@@ -633,6 +638,7 @@
 				CE19D9841A092D2700874F56 /* UberKit.m in Sources */,
 				CE1A35411A0E87FE004A6CCC /* ScheduledRideDetailViewController.m in Sources */,
 				CE19D97F1A092D2700874F56 /* NXOAuth2Constants.m in Sources */,
+				CEE923F71A1C6121005F74D7 /* FinishedRideViewController.m in Sources */,
 				4C7175841A08FDCC002AC734 /* AvailableRidesDetailViewController.m in Sources */,
 				CE19D9EE1A09E44700874F56 /* UberAPI.m in Sources */,
 				CE19D9831A092D2700874F56 /* NXOAuth2Request.m in Sources */,

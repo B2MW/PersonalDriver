@@ -60,6 +60,7 @@
     PFQuery *queryScheduledRides= [Ride query];
     queryScheduledRides.cachePolicy = kPFCachePolicyCacheThenNetwork;
     [queryScheduledRides whereKey:@"driver" equalTo:currentUser];
+    [queryScheduledRides whereKey:@"rideComplete" notEqualTo:[NSNumber numberWithBool:YES]];
     [queryScheduledRides whereKey:@"isCancelled" equalTo:[NSNumber numberWithBool:NO]];
     [queryScheduledRides includeKey:@"passenger"];
     [queryScheduledRides whereKey:@"rideDateTime" greaterThanOrEqualTo:[self convertDateToLocalTimeZone:[NSDate date]]];
