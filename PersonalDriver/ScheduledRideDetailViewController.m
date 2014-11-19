@@ -40,6 +40,8 @@
     RideManager *rideManager = [[RideManager alloc] init];
     self.estimatedFare.text = [NSString stringWithFormat:@"$%@-%@",self.ride.fareEstimateMin, self.ride.fareEstimateMax];
 
+    self.rideTime.text = [rideManager formatRideDate:self.ride];
+
     self.numberOfRiders.text = self.ride.passengerCount;
     [rideManager retrieveGeoPointAddress:self.ride.pickupGeoPoint completionHandler:^(NSString *address)
      {
