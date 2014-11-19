@@ -1014,8 +1014,8 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gpv-XW-7UX">
                                 <rect key="frame" x="0.0" y="102" width="351" height="37"/>
-                                <color key="backgroundColor" red="0.1764705882" green="0.17254901959999999" blue="0.2274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="tintColor" red="0.1764705882" green="0.17254901959999999" blue="0.2274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.21176470589999999" green="0.67450980390000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="0.21176470589999999" green="0.67450980390000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="37" id="1l5-WE-KSA"/>
                                     <constraint firstAttribute="width" constant="351" id="NwG-gK-IMk"/>
@@ -1023,7 +1023,7 @@
                                     <constraint firstAttribute="width" constant="351" id="mdY-Cx-xkb"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.1764705882" green="0.17254901959999999" blue="0.2274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" red="0.21176470589999999" green="0.67450980390000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -1079,6 +1079,9 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="onSearchAddTapped:" destination="IiP-x5-xJs" eventType="touchUpInside" id="Nfk-4J-jd0"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uj6-IU-tmX">
                                 <rect key="frame" x="249" y="105" width="102" height="31"/>
@@ -1086,10 +1089,13 @@
                                     <constraint firstAttribute="height" constant="31" id="X5h-LC-ais"/>
                                     <constraint firstAttribute="width" constant="102" id="YIf-R1-q5N"/>
                                 </constraints>
-                                <state key="normal" title="   Add">
+                                <state key="normal" title="    Add">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="onSearchAddTwoTapped:" destination="IiP-x5-xJs" eventType="touchUpInside" id="411-tJ-hA7"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
