@@ -43,8 +43,6 @@
     }else
 
     {
-        [self fareEstimate];
-        [self queryProfile];
         [UberAPI getUserProfileWithCompletionHandler:^(UberProfile *profile, NSError *error) {
             if (!error) {
                 [self loginOrSignUpUserWithUberProfile];
@@ -56,6 +54,10 @@
 
         }];
     }
+}
+
+-(void)viewDidDisappear:(BOOL)animated {
+
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {

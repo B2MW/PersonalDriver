@@ -183,7 +183,7 @@
 {
     PFQuery *queryRides = [Ride query];
     [queryRides whereKeyDoesNotExist:@"driver"];
-    [queryRides whereKey:@"passenger"equalTo:[PFUser currentUser]];
+    [queryRides whereKey:@"passenger"equalTo:[User currentUser]];
     [queryRides whereKey:@"isCancelled" equalTo:[NSNumber numberWithBool:NO]];
     [queryRides findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if(!error){
