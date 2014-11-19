@@ -12,7 +12,8 @@
 #import "PushNotification.h"
 
 @interface PassengerProfileViewController () <UITableViewDataSource, UITableViewDelegate,UIAlertViewDelegate>
-@property NSMutableArray *rides;
+
+@property NSArray *requestedRides;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
@@ -110,21 +111,6 @@
 
 }
 
--(void)getScheduledRides
-{
-    PFQuery *queryScheduledRides= [Ride query];
-    [queryScheduledRides whereKey:@"passenger" equalTo:[User currentUser]];
-    [queryScheduledRides whereKey:@"driver" notEqualTo:nil];
-    [queryScheduledRides findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if(!error){
-            self.rides = [NSMutableArray arrayWithArray:objects];
-        }else{
-            NSLog(@"Error: %@",error);
-        }
-        NSLog(@"Parse for available %@",queryScheduledRides);
-    }];
-
-}
 
 -(NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
 
