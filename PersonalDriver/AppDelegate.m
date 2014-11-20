@@ -27,6 +27,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //setup Parse
     [Parse setApplicationId:@"TDRpDZRx0OnPYjIE2DPP5F78k7ykFa0njA9yyl6p" clientKey:@"dBZx7BTBidkeR2cUM32DFEJYwCMTUM1Wiy5SYUv5"];
+    if (![User currentUser])
+    {
+        [self loginOrSignUpUserWithUberProfile];
+    }
 
     //setup UberKit
     [[UberKit sharedInstance] setServerToken:@"fD73LyEkIU7K9NKXuhq23-Yr703QlwlafPYxDAfN"];
@@ -311,7 +315,7 @@
          //        [queryUsers whereKey:@"username" equalTo:self.profile.email];
          [queryUsers findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
           {
-              if (objects == nil)
+              if (objects.count == 0)
               {
                   User *user = [User new];
 
@@ -334,7 +338,8 @@
                           NSLog(@"%@",[error description]);
                       }
                   }];
-              }else
+              }
+              else
               {
                   NSError *error;
                   [User logInWithUsername:profile.email password:profile.promo_code error:&error];
