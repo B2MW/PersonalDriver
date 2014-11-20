@@ -180,6 +180,7 @@
     self.ride.destination = self.destinationAddress;
     self.ride.destination = self.pickupAddress;
     self.ride.isCancelled = NO;
+    self.ride.rideComplete = NO;
 
 
 

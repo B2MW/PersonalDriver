@@ -52,19 +52,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.nextButton.hidden = YES;
+    self.dollarImage.hidden = YES;
+    self.dollarLabel.hidden = YES;
+    self.timeImage.hidden = YES;
+    self.timeLabel.hidden = YES;
 
-
-
-
-}
-
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-
-    self.title = @"Ride Locations";
 
     UIBarButtonItem *newBackButton =
     [[UIBarButtonItem alloc] initWithTitle:@""
@@ -91,13 +85,14 @@
     self.pickupLocation = [self.locationManager location];
     //self.mapView.region = MKCoordinateRegionMakeWithDistance(self.pickupLocation.coordinate, 1000, 1000);
 
-    self.dollarImage.hidden = YES;
-    self.dollarLabel.hidden = YES;
-    self.timeImage.hidden = YES;
-    self.timeLabel.hidden = YES;
     self.title = @"New Ride";
 
-    self.nextButton.hidden = YES;
+}
+
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
 
 }
 

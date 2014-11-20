@@ -65,6 +65,19 @@
     {
         [self.locationManager requestWhenInUseAuthorization];
     }
+
+    UIBarButtonItem *newBackButton =
+    [[UIBarButtonItem alloc] initWithTitle:@""
+                                     style:UIBarButtonItemStylePlain
+                                    target:nil
+                                    action:nil];
+    [[self navigationItem] setBackBarButtonItem:newBackButton];
+
+    UIButton *settings = [UIButton buttonWithType: UIButtonTypeInfoLight];
+    [settings addTarget:self action:@selector(onSettingsButtonTapped:) forControlEvents:UIControlEventTouchDown];
+    [settings setImage:[UIImage imageNamed:@"tools3"] forState:UIControlStateNormal];
+    UIBarButtonItem *item =[[UIBarButtonItem alloc]initWithCustomView:settings];
+    self.navigationItem.leftBarButtonItem = item;
 }
 
 - (IBAction)segmentedAction:(UISegmentedControl *)segmentedControl
@@ -288,6 +301,15 @@
 -(IBAction)unwindFromScheduledRide:(UIStoryboardSegue *)sender
 {
     [self refreshDisplay];
+}
+
+-(IBAction)unwindFromFinished:(UIStoryboardSegue *)sender {
+
+}
+
+-(void)onSettingsButtonTapped:(UIBarButtonItem *)sender
+{
+    [self performSegueWithIdentifier:@"Settings2" sender:self];
 }
 
 
