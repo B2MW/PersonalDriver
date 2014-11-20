@@ -103,14 +103,14 @@
          NSString *thoroughfareString = [NSString string];
          if ([placemark.subThoroughfare isEqualToString:@"(null)"] && [placemark.thoroughfare isEqualToString:@"(null)"])
          {
-             thoroughfareString = [NSString stringWithFormat:@"%@\n%@", placemark.subThoroughfare, placemark.thoroughfare];
+             thoroughfareString = [NSString stringWithFormat:@"%@, %@", placemark.subThoroughfare, placemark.thoroughfare];
          }
          else
          {
              thoroughfareString = placemark.name;
          }
 
-         NSString *address = [NSString stringWithFormat:@"%@, %@", thoroughfareString, placemark.locality];
+         NSString *address = [NSString stringWithFormat:@"%@\n%@", thoroughfareString, placemark.locality];
          address = [address stringByReplacingOccurrencesOfString:@"(null) " withString:@""];
          address = [address stringByReplacingOccurrencesOfString:@"(null)" withString:@""];
          completionHandler(address);

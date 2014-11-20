@@ -152,8 +152,16 @@
     {
         ScheduledRideTableViewCell *cell = [self.scheduledTableView dequeueReusableCellWithIdentifier:@"ScheduledCell"];
         cell.pickupDateTimeLabel.text = [rideManager formatRideDate:ride];
-        cell.rideOrigin.text = ride.pickUpLocation;
-        cell.rideDestination.text = ride.destination;
+        [rideManager retrieveSingleLineGeoPointAddress:ride.pickupGeoPoint completionHandler:^(NSString *address)
+         {
+             cell.rideOrigin.text = [NSString stringWithFormat:@"From: %@", address];
+         }];
+        [rideManager retrieveSingleLineGeoPointAddress:ride.dropoffGeoPoint completionHandler:^(NSString *address)
+         {
+             cell.rideDestination.text = [NSString stringWithFormat:@"To: %@", address];
+         }];
+//        cell.rideOrigin.text = ride.pickUpLocation;
+//        cell.rideDestination.text = ride.destination;
         cell.fareEstimate.text = [NSString stringWithFormat:@"%@ Fare", [rideManager formatRideFareEstimate:ride.fareEstimateMin fareEstimateMax:ride.fareEstimateMax]];
         return cell;
     }

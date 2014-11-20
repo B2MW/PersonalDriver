@@ -85,9 +85,9 @@
      }];
     [self.rideManager retrieveSingleLineGeoPointAddress:ride.dropoffGeoPoint completionHandler:^(NSString *address)
      {
-         cell.dropoffLocation.text = [NSString stringWithFormat:@"From:%@", address];
+         cell.dropoffLocation.text = [NSString stringWithFormat:@"To: %@", address];
      }];
-    cell.fareEstimate.text = [NSString stringWithFormat:@"$%ld",((ride.fareEstimateMin.integerValue + ride.fareEstimateMax.integerValue)/2)];
+    cell.fareEstimate.text = [NSString stringWithFormat:@"$%d",((ride.fareEstimateMin.integerValue + ride.fareEstimateMax.integerValue)/2)];
 
 
     if (ride.driverConfirmed)
