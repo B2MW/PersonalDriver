@@ -79,18 +79,23 @@
 - (IBAction)onPassengerPressed:(UIButton *)sender {
 //    [self loginOrSignUpUserWithUberProfile];
 //    self.currentUser.isDriver = NO;
-    [self.currentUser saveInBackground];
-    [self performSegueWithIdentifier:@"showPassenger" sender:self];
-    NSLog(@"You are a Passenger");
-
+    if ([User currentUser])
+    {
+        [self.currentUser saveInBackground];
+        [self performSegueWithIdentifier:@"showPassenger" sender:self];
+        NSLog(@"You are a Passenger");
+    }
 }
 
 - (IBAction)onDriverPressed:(UIButton *)sender {
 //    [self loginOrSignUpUserWithUberProfile];
 //    self.currentUser.isDriver = YES;
-    [self.currentUser saveInBackground];
-    [self performSegueWithIdentifier:@"showDriver" sender:self];
-    NSLog(@"You are a Driver");
+    if ([User currentUser])
+    {
+        [self.currentUser saveInBackground];
+        [self performSegueWithIdentifier:@"showDriver" sender:self];
+        NSLog(@"You are a Driver");
+    }
 }
 
 - (IBAction)login:(id)sender {

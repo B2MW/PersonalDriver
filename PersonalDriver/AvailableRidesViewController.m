@@ -44,7 +44,6 @@
     self.availableRides = [NSMutableArray new];
     self.arrayToCategorize = [NSArray array];
 
-
 }
 
 - (void)viewDidLoad
