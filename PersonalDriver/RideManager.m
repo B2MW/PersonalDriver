@@ -81,7 +81,7 @@
 -(NSString *)formatRideDateWithWeekday:(Ride *)ride
 {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"EEEE @ h:mm a'"];
+    [formatter setDateFormat:@"MMM d @ h:mm a'"];
     NSString *formattedRideDate = [formatter stringFromDate:ride.rideDateTime];
     return formattedRideDate;
 }
@@ -100,11 +100,17 @@
     [geocode reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error)
      {
          CLPlacemark *placemark = placemarks.firstObject;
-         NSString *address = [NSString stringWithFormat:@"%@ %@ \n%@",
-                              placemark.subThoroughfare,
-                              placemark.thoroughfare,
-                              placemark.locality];
+         NSString *thoroughfareString = [NSString string];
+         if ([placemark.subThoroughfare isEqualToString:@"(null)"] && [placemark.thoroughfare isEqualToString:@"(null)"])
+         {
+             thoroughfareString = [NSString stringWithFormat:@"%@\n%@", placemark.subThoroughfare, placemark.thoroughfare];
+         }
+         else
+         {
+             thoroughfareString = placemark.name;
+         }
 
+         NSString *address = [NSString stringWithFormat:@"%@, %@", thoroughfareString, placemark.locality];
          address = [address stringByReplacingOccurrencesOfString:@"(null) " withString:@""];
          address = [address stringByReplacingOccurrencesOfString:@"(null)" withString:@""];
          completionHandler(address);
@@ -119,11 +125,17 @@
     [geocode reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error)
      {
          CLPlacemark *placemark = placemarks.firstObject;
-         NSString *address = [NSString stringWithFormat:@"%@ %@, %@",
-                              placemark.subThoroughfare,
-                              placemark.thoroughfare,
-                              placemark.locality];
+         NSString *thoroughfareString = [NSString string];
+         if ([placemark.subThoroughfare isEqualToString:@"(null)"] && [placemark.thoroughfare isEqualToString:@"(null)"])
+         {
+             thoroughfareString = [NSString stringWithFormat:@"%@ %@", placemark.subThoroughfare, placemark.thoroughfare];
+         }
+         else
+         {
+             thoroughfareString = placemark.name;
+         }
 
+         NSString *address = [NSString stringWithFormat:@"%@, %@", thoroughfareString, placemark.locality];
          address = [address stringByReplacingOccurrencesOfString:@"(null) " withString:@""];
          address = [address stringByReplacingOccurrencesOfString:@"(null)" withString:@""];
          completionHandler(address);
