@@ -199,6 +199,7 @@
     PFQuery *queryRides = [Ride query];
     [queryRides whereKey:@"passenger"equalTo:[PFUser currentUser]];
     [queryRides whereKey:@"isCancelled" equalTo:[NSNumber numberWithBool:NO]];
+    [queryRides whereKey:@"rideComplete" equalTo:[NSNumber numberWithBool:NO]];
 //    [queryRides whereKey:@"driverConfirmed" equalTo:[NSNumber numberWithBool:YES]];
     [queryRides orderByAscending:@"rideDateTime"];
     [queryRides findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
