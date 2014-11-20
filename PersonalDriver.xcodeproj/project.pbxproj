@@ -279,9 +279,9 @@
 		4C7175131A081334002AC734 /* PersonalDriver */ = {
 			isa = PBXGroup;
 			children = (
+				CE1A353D1A0AD473004A6CCC /* Main.storyboard */,
 				4CE06AF41A1D9734004BCE06 /* PassengerRidesTableViewCell.h */,
 				4CE06AF51A1D9734004BCE06 /* PassengerRidesTableViewCell.m */,
-				CE1A353D1A0AD473004A6CCC /* Main.storyboard */,
 				4C7175181A081334002AC734 /* AppDelegate.h */,
 				4C7175191A081334002AC734 /* AppDelegate.m */,
 				4C71751E1A081334002AC734 /* ViewController.h */,

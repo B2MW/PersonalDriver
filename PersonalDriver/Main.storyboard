@@ -79,7 +79,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1269" y="1022"/>
+            <point key="canvasLocation" x="199" y="1336"/>
         </scene>
         <!--Available Rides View Controller-->
         <scene sceneID="YNI-vB-C5A">
@@ -310,11 +310,12 @@
                         <outlet property="availableTableView" destination="dfx-Il-jkG" id="1tW-LG-y0N"/>
                         <outlet property="scheduledTableView" destination="Sja-Yd-VmH" id="Xfq-FV-wgu"/>
                         <outlet property="segmentedControl" destination="Zd6-Ti-kTm" id="3i4-5R-5Tl"/>
+                        <segue destination="yGa-ET-pHp" kind="presentation" identifier="Settings2" id="keW-CT-0Kz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZpP-dN-0d7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2032" y="1827"/>
+            <point key="canvasLocation" x="2608" y="299"/>
         </scene>
         <!--Finished Ride View Controller-->
         <scene sceneID="utz-xb-MzW">
@@ -668,7 +669,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kgd-F7-BZf" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="aHZ-uq-VGE" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2032" y="2585"/>
+            <point key="canvasLocation" x="1940" y="2673"/>
         </scene>
         <!--Available Rides Detail View Controller-->
         <scene sceneID="kgn-yl-maN">
@@ -2237,7 +2238,7 @@
                                     <constraint firstAttribute="width" constant="107" id="LAd-gr-kRE"/>
                                     <constraint firstAttribute="height" constant="30" id="Ojs-ty-J1h"/>
                                 </constraints>
-                                <state key="normal" title="Driver Account">
+                                <state key="normal" title="Account Type">
                                     <color key="titleColor" red="0.98530040890000004" green="0.9906451235" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" red="0.98530040890000004" green="0.9906451235" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -2262,7 +2263,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5UM-tZ-Z6T" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1269" y="263"/>
+            <point key="canvasLocation" x="4321" y="263"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="4lD-Km-QhO">
@@ -2298,7 +2299,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d4h-Ci-Gbu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1264" y="1827"/>
+            <point key="canvasLocation" x="1088" y="1667"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="GlY-bO-chA">
@@ -2326,6 +2327,7 @@
         <image name="sedan2" width="256" height="256"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="QlJ-em-yWg"/>
+        <segue reference="Pht-H8-tPM"/>
+        <segue reference="keW-CT-0Kz"/>
     </inferredMetricsTieBreakers>
 </document>
