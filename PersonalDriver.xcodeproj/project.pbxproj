@@ -33,6 +33,7 @@
 		4C71757A1A08FAA0002AC734 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7175701A08FAA0002AC734 /* SystemConfiguration.framework */; };
 		4C7175841A08FDCC002AC734 /* AvailableRidesDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7175831A08FDCC002AC734 /* AvailableRidesDetailViewController.m */; };
 		4CA06B9C1A14159F00D33AA0 /* DriverProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA06B9B1A14159F00D33AA0 /* DriverProfile.m */; };
+		4CE06AF61A1D9734004BCE06 /* PassengerRidesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE06AF51A1D9734004BCE06 /* PassengerRidesTableViewCell.m */; };
 		CE0B18951A104A0600D046B8 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0B18941A104A0600D046B8 /* User.m */; };
 		CE19D9721A092D2700874F56 /* UberActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = CE19D9461A092D2700874F56 /* UberActivity.m */; };
 		CE19D9731A092D2700874F56 /* UberPrice.m in Sources */ = {isa = PBXBuildFile; fileRef = CE19D9481A092D2700874F56 /* UberPrice.m */; };
@@ -127,6 +128,8 @@
 		4C7175831A08FDCC002AC734 /* AvailableRidesDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvailableRidesDetailViewController.m; sourceTree = "<group>"; };
 		4CA06B9A1A14159F00D33AA0 /* DriverProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DriverProfile.h; sourceTree = "<group>"; };
 		4CA06B9B1A14159F00D33AA0 /* DriverProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DriverProfile.m; sourceTree = "<group>"; };
+		4CE06AF41A1D9734004BCE06 /* PassengerRidesTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassengerRidesTableViewCell.h; sourceTree = "<group>"; };
+		4CE06AF51A1D9734004BCE06 /* PassengerRidesTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassengerRidesTableViewCell.m; sourceTree = "<group>"; };
 		53761B501441D0844B94902B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FA98B5EB640F8B16A99CBF9 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		CE0B18931A104A0600D046B8 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
@@ -276,6 +279,8 @@
 		4C7175131A081334002AC734 /* PersonalDriver */ = {
 			isa = PBXGroup;
 			children = (
+				4CE06AF41A1D9734004BCE06 /* PassengerRidesTableViewCell.h */,
+				4CE06AF51A1D9734004BCE06 /* PassengerRidesTableViewCell.m */,
 				CE1A353D1A0AD473004A6CCC /* Main.storyboard */,
 				4C7175181A081334002AC734 /* AppDelegate.h */,
 				4C7175191A081334002AC734 /* AppDelegate.m */,
@@ -517,10 +522,11 @@
 				TargetAttributes = {
 					4C7175101A081334002AC734 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = X9H2FN6JAM;
+						DevelopmentTeam = KSMT4J6QVG;
 					};
 					4C71752C1A081334002AC734 = {
 						CreatedOnToolsVersion = 6.1;
+						DevelopmentTeam = KSMT4J6QVG;
 						TestTargetID = 4C7175101A081334002AC734;
 					};
 				};
@@ -639,6 +645,7 @@
 				CE1A35411A0E87FE004A6CCC /* ScheduledRideDetailViewController.m in Sources */,
 				CE19D97F1A092D2700874F56 /* NXOAuth2Constants.m in Sources */,
 				CEE923F71A1C6121005F74D7 /* FinishedRideViewController.m in Sources */,
+				4CE06AF61A1D9734004BCE06 /* PassengerRidesTableViewCell.m in Sources */,
 				4C7175841A08FDCC002AC734 /* AvailableRidesDetailViewController.m in Sources */,
 				CE19D9EE1A09E44700874F56 /* UberAPI.m in Sources */,
 				CE19D9831A092D2700874F56 /* NXOAuth2Request.m in Sources */,
@@ -698,6 +705,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -739,6 +747,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;

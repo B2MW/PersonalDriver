@@ -28,6 +28,7 @@
     NSLog(@"NEW");
 
     [super viewDidLoad];
+    self.rideManager = [RideManager new];
     self.rides = [[NSMutableArray alloc]init];
     [self getRides];
 //[self getUnconfirmedRides];
@@ -72,17 +73,17 @@
     return self.rides.count;
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+-(PassengerRidesTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     PassengerRidesTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RideCell"];
     Ride *ride = [self.rides objectAtIndex:indexPath.row];
-    cell.rideDate.text = [self.rideManager formatRideDate:ride];
+    cell.rideDate.text = [self.rideManager formatRideDateWithWeekday:ride];
 
-    [self.rideManager retrieveGeoPointAddress:ride.pickupGeoPoint completionHandler:^(NSString *address)
+    [self.rideManager retrieveSingleLineGeoPointAddress:ride.pickupGeoPoint completionHandler:^(NSString *address)
      {
          cell.pickupLocation.text = address;
      }];
-    [self.rideManager retrieveGeoPointAddress:ride.dropoffGeoPoint completionHandler:^(NSString *address)
+    [self.rideManager retrieveSingleLineGeoPointAddress:ride.dropoffGeoPoint completionHandler:^(NSString *address)
      {
          cell.dropoffLocation.text = address;
      }];
@@ -91,29 +92,26 @@
 
     if (ride.driverConfirmed)
     {
-        PFQuery *queryDriverRecord = [User query];
+        PFQuery *queryDriverRecord = [PFQuery queryWithClassName:@"User"];
         [queryDriverRecord whereKey:@"objectId" equalTo:ride.driver.objectId];
         [queryDriverRecord findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
         {
-            PFFile *parseFile = [objects.firstObject objectForKey:@"picture"];
-            [parseFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+            NSData *imageData = [objects.firstObject objectForKey:@"picture"];
+            UIImage *image = [UIImage imageWithData:imageData];
                 if (!error)
                 {
-                    UIImage *driverImage = [UIImage imageWithData:data];
-
-                    if (driverImage != nil)
+                    if (image == nil)
                     {
                         cell.driverImage.image = [UIImage imageNamed:@"driverConfirmedIcon"];
                     }
                     else
                     {
-                        cell.driverImage.image = driverImage;
+                        cell.driverImage.image = image;
                     }
 
                     cell.driverImage.hidden = NO;
                     cell.driverConfirmationLabel.hidden = NO;
                 }
-            }];
         }];
     }
     else

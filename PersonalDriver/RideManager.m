@@ -73,7 +73,15 @@
 -(NSString *)formatRideDate:(Ride *)ride
 {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"hh:mm a'"];
+    [formatter setDateFormat:@"h:mm a'"];
+    NSString *formattedRideDate = [formatter stringFromDate:ride.rideDateTime];
+    return formattedRideDate;
+}
+
+-(NSString *)formatRideDateWithWeekday:(Ride *)ride
+{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"EEEE @ h:mm a'"];
     NSString *formattedRideDate = [formatter stringFromDate:ride.rideDateTime];
     return formattedRideDate;
 }
@@ -93,6 +101,25 @@
      {
          CLPlacemark *placemark = placemarks.firstObject;
          NSString *address = [NSString stringWithFormat:@"%@ %@ \n%@",
+                              placemark.subThoroughfare,
+                              placemark.thoroughfare,
+                              placemark.locality];
+
+         address = [address stringByReplacingOccurrencesOfString:@"(null) " withString:@""];
+         address = [address stringByReplacingOccurrencesOfString:@"(null)" withString:@""];
+         completionHandler(address);
+     }];
+}
+
+-(void)retrieveSingleLineGeoPointAddress:(PFGeoPoint *)rideGeoPoint completionHandler:(void(^)(NSString *))completionHandler
+{
+    CLGeocoder *geocode = [[CLGeocoder alloc] init];
+    CLLocation *location = [[CLLocation alloc] initWithLatitude:rideGeoPoint.latitude longitude:rideGeoPoint.longitude];
+
+    [geocode reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error)
+     {
+         CLPlacemark *placemark = placemarks.firstObject;
+         NSString *address = [NSString stringWithFormat:@"%@ %@, %@",
                               placemark.subThoroughfare,
                               placemark.thoroughfare,
                               placemark.locality];

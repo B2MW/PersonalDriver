@@ -21,4 +21,6 @@
 -(void)retrieveGeoPointAddress:(PFGeoPoint *)rideGeoPoint completionHandler:(void(^)(NSString *))completionHandler;
 -(void)retrieveRideDistanceAndBearing:(Ride *)ride locationManager:(CLLocationManager *)locationManager completionHandler:(void(^)(NSArray *))completionHandler;
 -(void)retrivedRideTripDistance:(Ride *)ride completionHandler:(void(^)(NSNumber *))completionHandler;
+-(void)retrieveSingleLineGeoPointAddress:(PFGeoPoint *)rideGeoPoint completionHandler:(void(^)(NSString *))completionHandler;
+-(NSString *)formatRideDateWithWeekday:(Ride *)ride;
 @end
