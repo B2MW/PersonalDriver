@@ -162,6 +162,8 @@
          self.mapView.region = MKCoordinateRegionMakeWithDistance(self.pickupLocation.coordinate, 1000, 1000);
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 
+        //still some small map bugs on getting location
+
          }];
 }
 
@@ -262,9 +264,10 @@
                  {
                     [self.mapView removeOverlays:self.mapView.overlays];
 
-                    [UberAPI getPriceEstimateFromPickup:self.pickupLocation toDestination:self.destinationLocation completionHandler:^(UberPrice *price)
-                     {
-                        self.price = price;
+                     [UberAPI getPriceEstimateFromPickup:self.pickupLocation toDestination:self.destinationLocation completionHandler:^(UberPrice *price)
+                      {
+                          self.price = price;
+                      }];
 
                         // Make a directions request
                         MKDirectionsRequest *directionsRequest = [[MKDirectionsRequest alloc]init];;
@@ -303,7 +306,6 @@
                             [self.mapView showAnnotations:self.mapView.annotations animated:YES];
                             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
                          }];
-                     }];
                  }
              }
             self.hasUserAddedPickupLocation = YES;
@@ -470,6 +472,7 @@
                      [UberAPI getPriceEstimateFromPickup:self.pickupLocation toDestination:self.destinationLocation completionHandler:^(UberPrice *price)
                       {
                           self.price = price;
+                      }];
 
                           // Make a directions request
                           MKDirectionsRequest *directionsRequest = [[MKDirectionsRequest alloc]init];;
@@ -508,7 +511,6 @@
                                [self.mapView showAnnotations:self.mapView.annotations animated:YES];
                                [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
                            }];
-                      }];
                  }
              }
              self.hasUserAddedPickupLocation = YES;
