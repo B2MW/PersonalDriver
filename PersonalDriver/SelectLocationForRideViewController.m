@@ -89,7 +89,7 @@
     //self.pickupLocation = self.currentLocation;
     self.hasUserAddedPickupLocation = NO;
     self.pickupLocation = [self.locationManager location];
-    self.mapView.region = MKCoordinateRegionMakeWithDistance(self.pickupLocation.coordinate, 1000, 1000);
+    //self.mapView.region = MKCoordinateRegionMakeWithDistance(self.pickupLocation.coordinate, 1000, 1000);
 
     self.dollarImage.hidden = YES;
     self.dollarLabel.hidden = YES;
@@ -134,9 +134,8 @@
     for(CLLocation *location in locations) {
         if(location.verticalAccuracy < 1000 &&location.horizontalAccuracy <1000){
             [self reverseGeocode:location];
-
-            [self.locationManager stopUpdatingLocation];
-            break;
+          [self.locationManager stopUpdatingLocation];
+          break;
         }
     }
 }
@@ -160,7 +159,9 @@
         self.pickupGeopoint.longitude = placemark.location.coordinate.longitude;
         //^^To pass the lat and long to the PFGeo point on the next page. Could we switched to CLPlacemark if we send it over on the segue instead.
         [self.mapView addAnnotation:self.startPointAnnotation];
+         self.mapView.region = MKCoordinateRegionMakeWithDistance(self.pickupLocation.coordinate, 1000, 1000);
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
          }];
 }
 
