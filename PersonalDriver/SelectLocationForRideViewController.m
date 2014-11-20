@@ -51,6 +51,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+
+
+
+
+}
+
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 
     self.title = @"Ride Locations";
@@ -72,33 +83,22 @@
     [self.locationManager startUpdatingLocation];
     self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     self.locationManager.distanceFilter = kCLLocationAccuracyKilometer;
-    self.currentLocation = [[CLLocation alloc]init];
-    self.currentLocation = [self.locationManager location];
-    self.mapView.region = MKCoordinateRegionMakeWithDistance(self.currentLocation.coordinate, 1000, 1000);
-    //^^sometimes the pin is a little off to the side, current not accurate (sometimes it finds two locations too)
-    self.destinationLocation = [[CLLocation alloc] init];
+    //self.currentLocation = [[CLLocation alloc]init];
     self.pickupLocation = [[CLLocation alloc] init];
-    self.pickupLocation = self.currentLocation;
+    self.destinationLocation = [[CLLocation alloc] init];
+    //self.pickupLocation = self.currentLocation;
     self.hasUserAddedPickupLocation = NO;
+    self.pickupLocation = [self.locationManager location];
+    //self.mapView.region = MKCoordinateRegionMakeWithDistance(self.pickupLocation.coordinate, 1000, 1000);
 
-   self.dollarImage.hidden = YES;
-   self.dollarLabel.hidden = YES;
-   self.timeImage.hidden = YES;
-   self.timeLabel.hidden = YES;
+    self.dollarImage.hidden = YES;
+    self.dollarLabel.hidden = YES;
+    self.timeImage.hidden = YES;
+    self.timeLabel.hidden = YES;
     self.title = @"New Ride";
 
     self.nextButton.hidden = YES;
 
-
-
-
-
-}
-
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
 }
 
 
@@ -134,9 +134,8 @@
     for(CLLocation *location in locations) {
         if(location.verticalAccuracy < 1000 &&location.horizontalAccuracy <1000){
             [self reverseGeocode:location];
-
-            [self.locationManager stopUpdatingLocation];
-            break;
+          [self.locationManager stopUpdatingLocation];
+          break;
         }
     }
 }
@@ -160,7 +159,9 @@
         self.pickupGeopoint.longitude = placemark.location.coordinate.longitude;
         //^^To pass the lat and long to the PFGeo point on the next page. Could we switched to CLPlacemark if we send it over on the segue instead.
         [self.mapView addAnnotation:self.startPointAnnotation];
+         self.mapView.region = MKCoordinateRegionMakeWithDistance(self.pickupLocation.coordinate, 1000, 1000);
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
          }];
 }
 
