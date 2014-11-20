@@ -10,11 +10,14 @@
 #import <Parse/Parse.h>
 #import "User.h"
 #import "PushNotification.h"
+#import "PassengerRidesTableViewCell.h"
+#import "RideManager.h"
 
 @interface PassengerProfileViewController () <UITableViewDataSource, UITableViewDelegate,UIAlertViewDelegate>
 
 @property NSMutableArray *rides;
 @property NSMutableArray *ridesUnconfirmed;
+@property RideManager *rideManager;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
@@ -69,29 +72,54 @@
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RideCell"];
-
-
+    PassengerRidesTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RideCell"];
     Ride *ride = [self.rides objectAtIndex:indexPath.row];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    NSDateFormatter *timeFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"MMM dd"];
-    [timeFormatter setDateFormat:@"hh:mm a"];
-    NSString *dateString = [dateFormatter stringFromDate:ride.rideDateTime];
-    NSString *timeString = [timeFormatter stringFromDate:ride.rideDateTime];
-    cell.textLabel.text = dateString;
-    cell.detailTextLabel.text = timeString;
+    cell.rideDate.text = [self.rideManager formatRideDate:ride];
+
+    [self.rideManager retrieveGeoPointAddress:ride.pickupGeoPoint completionHandler:^(NSString *address)
+     {
+         cell.pickupLocation.text = address;
+     }];
+    [self.rideManager retrieveGeoPointAddress:ride.dropoffGeoPoint completionHandler:^(NSString *address)
+     {
+         cell.dropoffLocation.text = address;
+     }];
+    cell.fareEstimate.text = [NSString stringWithFormat:@"$%ld",((ride.fareEstimateMin.integerValue + ride.fareEstimateMax.integerValue)/2)];
 
 
-    if (ride.driverConfirmed == YES) {
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    if (ride.driverConfirmed)
+    {
+        PFQuery *queryDriverRecord = [User query];
+        [queryDriverRecord whereKey:@"objectId" equalTo:ride.driver.objectId];
+        [queryDriverRecord findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+        {
+            PFFile *parseFile = [objects.firstObject objectForKey:@"picture"];
+            [parseFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                if (!error)
+                {
+                    UIImage *driverImage = [UIImage imageWithData:data];
 
-    } else {
-        cell.accessoryType = UITableViewCellAccessoryNone;;
+                    if (driverImage != nil)
+                    {
+                        cell.driverImage.image = [UIImage imageNamed:@"driverConfirmedIcon"];
+                    }
+                    else
+                    {
+                        cell.driverImage.image = driverImage;
+                    }
+
+                    cell.driverImage.hidden = NO;
+                    cell.driverConfirmationLabel.hidden = NO;
+                }
+            }];
+        }];
     }
-
+    else
+    {
+        cell.driverImage.hidden = YES;
+        cell.driverConfirmationLabel.hidden = YES;
+    }
     return cell;
 }
 

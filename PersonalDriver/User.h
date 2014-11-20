@@ -16,5 +16,4 @@
 @property PFFile *picture;
 @property BOOL isDriver;
 
-
 @end
