@@ -69,7 +69,7 @@
     self.locationManager = [[CLLocationManager alloc]init];
     [self.locationManager requestWhenInUseAuthorization];
     self.locationManager.delegate = self;
-    [self.locationManager startUpdatingLocation];
+   // [self.locationManager startUpdatingLocation];
     self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     self.locationManager.distanceFilter = kCLLocationAccuracyKilometer;
     self.currentLocation = [[CLLocation alloc]init];
@@ -80,6 +80,8 @@
     self.pickupLocation = [[CLLocation alloc] init];
     self.pickupLocation = self.currentLocation;
     self.hasUserAddedPickupLocation = NO;
+
+    [self.locationManager startUpdatingLocation];
 
    self.dollarImage.hidden = YES;
    self.dollarLabel.hidden = YES;
