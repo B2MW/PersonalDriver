@@ -93,7 +93,7 @@
                  self.tripDistance.text = [NSString stringWithFormat:@"%@ mile", rideDistance.stringValue];
              }
          }];
-         self.rideDate.text = [rideManager formatRideDate:self.ride];
+         self.rideDate.text = [rideManager formatRideDateWithWeekday:self.ride];
          self.rideDateInitialState.text = self.rideDate.text;
          [rideManager retrieveRideDistanceAndBearing:self.ride locationManager:self.locationManager completionHandler:^(NSArray *locationAndBearing)
          {

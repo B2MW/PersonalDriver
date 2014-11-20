@@ -81,43 +81,47 @@
 
     [self.rideManager retrieveSingleLineGeoPointAddress:ride.pickupGeoPoint completionHandler:^(NSString *address)
      {
-         cell.pickupLocation.text = address;
+         cell.pickupLocation.text = [NSString stringWithFormat:@"From: %@", address];
      }];
     [self.rideManager retrieveSingleLineGeoPointAddress:ride.dropoffGeoPoint completionHandler:^(NSString *address)
      {
-         cell.dropoffLocation.text = address;
+         cell.dropoffLocation.text = [NSString stringWithFormat:@"From:%@", address];
      }];
     cell.fareEstimate.text = [NSString stringWithFormat:@"$%ld",((ride.fareEstimateMin.integerValue + ride.fareEstimateMax.integerValue)/2)];
 
 
     if (ride.driverConfirmed)
     {
-        PFQuery *queryDriverRecord = [PFQuery queryWithClassName:@"User"];
+        PFQuery *queryDriverRecord = [PFQuery queryWithClassName:@"_User"];
         [queryDriverRecord whereKey:@"objectId" equalTo:ride.driver.objectId];
         [queryDriverRecord findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
         {
-            NSData *imageData = [objects.firstObject objectForKey:@"picture"];
-            UIImage *image = [UIImage imageWithData:imageData];
-                if (!error)
-                {
-                    if (image == nil)
+            PFFile *parseFileData = [objects.firstObject objectForKey:@"picture"];
+            [parseFileData getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
+                if (!error) {
+                    if (imageData == nil)
                     {
                         cell.driverImage.image = [UIImage imageNamed:@"driverConfirmedIcon"];
                     }
                     else
                     {
-                        cell.driverImage.image = image;
+                        cell.driverImage.image = [UIImage imageWithData:imageData];
                     }
 
                     cell.driverImage.hidden = NO;
                     cell.driverConfirmationLabel.hidden = NO;
+                    cell.driverConfirmationLabelLine2.hidden = NO;
                 }
+            }];
+//            NSData *imageData = [NSData dataWithData:parseFileData];
+//            UIImage *image = [UIImage imageWithData:imageData];
         }];
     }
     else
     {
         cell.driverImage.hidden = YES;
         cell.driverConfirmationLabel.hidden = YES;
+        cell.driverConfirmationLabelLine2.hidden = YES;
     }
     return cell;
 }

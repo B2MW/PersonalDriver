@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Parse/Parse.h>
 
 @interface PassengerRidesTableViewCell : UITableViewCell
 @property IBOutlet UILabel *pickupLocation;
@@ -14,5 +15,6 @@
 @property IBOutlet UILabel *rideDate;
 @property IBOutlet UIImageView *driverImage;
 @property IBOutlet UILabel *driverConfirmationLabel;
+@property IBOutlet UILabel *driverConfirmationLabelLine2;
 @property IBOutlet UILabel *fareEstimate;
 @end

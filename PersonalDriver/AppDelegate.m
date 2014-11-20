@@ -24,7 +24,6 @@
 
 @implementation AppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //setup Parse
     [Parse setApplicationId:@"TDRpDZRx0OnPYjIE2DPP5F78k7ykFa0njA9yyl6p" clientKey:@"dBZx7BTBidkeR2cUM32DFEJYwCMTUM1Wiy5SYUv5"];
