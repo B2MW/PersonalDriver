@@ -14,7 +14,7 @@
 @interface PassengerProfileViewController () <UITableViewDataSource, UITableViewDelegate,UIAlertViewDelegate>
 
 @property NSMutableArray *rides;
-@property NSMutableArray *ridesUnconfirmed;
+//@property NSMutableArray *ridesUnconfirmed;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
@@ -27,7 +27,7 @@
     [super viewDidLoad];
     self.rides = [[NSMutableArray alloc]init];
     [self getRides];
-    [self getUnconfirmedRides];
+//[self getUnconfirmedRides];
 
     [self.navigationItem setHidesBackButton:YES animated:YES];
     self.title = @"Current Rides";
@@ -57,6 +57,7 @@
     if (self.ride)
     {
         [self.rides addObject:self.ride];
+        self.ride = nil;
     }
     [self.tableView reloadData];
 
@@ -95,23 +96,23 @@
     return cell;
 }
 
--(void)getAvailableRides
-{
-    PFQuery *queryAvailableRides = [Ride query];
-    [queryAvailableRides whereKeyDoesNotExist:@"driver"];
-    [queryAvailableRides whereKey:@"passenger"equalTo:[User currentUser]];
-    [queryAvailableRides findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if(!error){
-            self.rides = [NSMutableArray arrayWithArray:objects];
-            NSLog(@"request rides = %@", self.rides);
-            [self.tableView reloadData];
-        }else{
-            NSLog(@"Error: %@",error);
-        }
-        NSLog(@"Parse for available %@",queryAvailableRides);
-    }];
-
-}
+//-(void)getAvailableRides
+//{
+//    PFQuery *queryAvailableRides = [Ride query];
+//    [queryAvailableRides whereKeyDoesNotExist:@"driver"];
+//    [queryAvailableRides whereKey:@"passenger"equalTo:[User currentUser]];
+//    [queryAvailableRides findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+//        if(!error){
+//            self.rides = [NSMutableArray arrayWithArray:objects];
+//            NSLog(@"request rides = %@", self.rides);
+//            [self.tableView reloadData];
+//        }else{
+//            NSLog(@"Error: %@",error);
+//        }
+//        NSLog(@"Parse for available %@",queryAvailableRides);
+//    }];
+//
+//}
 
 
 -(NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -172,7 +173,7 @@
     PFQuery *queryRides = [Ride query];
     [queryRides whereKey:@"passenger"equalTo:[PFUser currentUser]];
     [queryRides whereKey:@"isCancelled" equalTo:[NSNumber numberWithBool:NO]];
-    [queryRides whereKey:@"driverConfirmed" equalTo:[NSNumber numberWithBool:YES]];
+//    [queryRides whereKey:@"driverConfirmed" equalTo:[NSNumber numberWithBool:YES]];
     [queryRides orderByAscending:@"rideDateTime"];
     [queryRides findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if(!error){
@@ -187,7 +188,7 @@
     
 }
 
--(void)getUnconfirmedRides
+/*-(void)getUnconfirmedRides
 {
     PFQuery *queryRides = [Ride query];
     [queryRides whereKey:@"passenger"equalTo:[PFUser currentUser]];
@@ -206,7 +207,7 @@
         NSLog(@"Parse for available %@",queryRides);
     }];
     
-}
+} */
 
 -(IBAction)unwindFromFinished:(UIStoryboardSegue *)sender {
 
