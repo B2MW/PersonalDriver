@@ -522,11 +522,11 @@
 				TargetAttributes = {
 					4C7175101A081334002AC734 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = KSMT4J6QVG;
+						DevelopmentTeam = X9H2FN6JAM;
 					};
 					4C71752C1A081334002AC734 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = KSMT4J6QVG;
+						DevelopmentTeam = X9H2FN6JAM;
 						TestTargetID = 4C7175101A081334002AC734;
 					};
 				};
@@ -748,8 +748,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Bradley Walker (KSMT4J6QVG)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Bradley Walker (KSMT4J6QVG)";
+				CODE_SIGN_IDENTITY = "iOS Distribution: Pete McCarthy";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iOS Distribution: Pete McCarthy";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -762,7 +762,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "86ac0396-3c98-4536-aa11-d5d20f29fa23";
+				PROVISIONING_PROFILE = "909672e0-112c-43bc-96b9-029de27a9932";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -790,7 +790,8 @@
 			baseConfigurationReference = 2173130ED3E5D01E966E8968 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iOS Distribution: Pete McCarthy";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iOS Distribution: Pete McCarthy";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/PersonalDriver",
 					"$(PROJECT_DIR)/PersonalDriver/UberKit",
@@ -798,7 +799,7 @@
 				INFOPLIST_FILE = PersonalDriver/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "909672e0-112c-43bc-96b9-029de27a9932";
 			};
 			name = Release;
 		};
@@ -806,6 +807,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -817,6 +820,7 @@
 				INFOPLIST_FILE = PersonalDriverTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PersonalDriver.app/PersonalDriver";
 			};
 			name = Debug;
@@ -825,6 +829,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -832,6 +838,7 @@
 				INFOPLIST_FILE = PersonalDriverTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PersonalDriver.app/PersonalDriver";
 			};
 			name = Release;
