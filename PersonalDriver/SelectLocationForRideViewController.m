@@ -259,7 +259,7 @@
                  {
                     [self.mapView removeOverlays:self.mapView.overlays];
 
-                     [UberAPI getPriceEstimateFromPickup:self.pickupLocation toDestination:self.destinationLocation completionHandler:^(UberPrice *price)
+                     [[UberAPI sharedInstance] getPriceEstimateFromPickup:self.pickupLocation toDestination:self.destinationLocation completionHandler:^(UberPrice *price)
                       {
                           self.price = price;
                       }];
@@ -338,7 +338,7 @@
 
             [self.mapView addAnnotation:self.endPointAnnotation];
 
-            [UberAPI getPriceEstimateFromPickup:self.pickupLocation toDestination:self.destinationLocation completionHandler:^(UberPrice *price)
+            [[UberAPI sharedInstance] getPriceEstimateFromPickup:self.pickupLocation toDestination:self.destinationLocation completionHandler:^(UberPrice *price)
                 {
                     self.price = price;
                 }];
@@ -464,7 +464,7 @@
                  {
                      [self.mapView removeOverlays:self.mapView.overlays];
 
-                     [UberAPI getPriceEstimateFromPickup:self.pickupLocation toDestination:self.destinationLocation completionHandler:^(UberPrice *price)
+                     [[UberAPI sharedInstance] getPriceEstimateFromPickup:self.pickupLocation toDestination:self.destinationLocation completionHandler:^(UberPrice *price)
                       {
                           self.price = price;
                       }];
@@ -546,7 +546,7 @@
 
              [self.mapView addAnnotation:self.endPointAnnotation];
 
-             [UberAPI getPriceEstimateFromPickup:self.pickupLocation toDestination:self.destinationLocation completionHandler:^(UberPrice *price)
+             [[UberAPI sharedInstance] getPriceEstimateFromPickup:self.pickupLocation toDestination:self.destinationLocation completionHandler:^(UberPrice *price)
               {
                   self.price = price;
               }];

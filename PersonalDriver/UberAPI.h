@@ -20,11 +20,17 @@
 @property (strong, nonatomic) NSString *clientSecret;
 @property (strong, nonatomic) NSString *redirectURL;
 @property (strong, nonatomic) NSString *applicationName;
+@property (strong, nonatomic) NSURL *baseURL;
 
-+ (void)getUberActivitiesWithCompletionHandler:(void(^)(NSMutableArray *))complete;
++ (UberAPI *) sharedInstance;
+- (instancetype) initWithServerToken: (NSString *) serverToken;
+- (instancetype) initWithClientID:(NSString *)clientId ClientSecret:(NSString *)clientSecret RedirectURL:(NSString *)redirectURL ApplicationName:(NSString *)applicationName BaseURL:(NSURL *)baseURL;
 
-+ (void)getUserProfileWithCompletionHandler:(void(^)(UberProfile *, NSError *))complete;
+- (void)getUberActivitiesWithCompletionHandler:(void(^)(NSMutableArray *))complete;
 
-+(void)getPriceEstimateFromPickup:(CLLocation *)pickup toDestination:(CLLocation *)destination completionHandler:(void(^)(UberPrice *))complete;
+- (void)getUserProfileWithCompletionHandler:(void(^)(UberProfile *, NSError *))complete;
+
+- (void)getPriceEstimateFromPickup:(CLLocation *)pickup toDestination:(CLLocation *)destination completionHandler:(void(^)(UberPrice *))complete;
+
 
 @end

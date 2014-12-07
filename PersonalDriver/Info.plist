@@ -25,7 +25,7 @@
 			<string>localhost</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>personaldriver</string>
+				<string>rideontime</string>
 			</array>
 		</dict>
 	</array>
@@ -34,7 +34,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>We apologize, but Personal Driver can't schedule rides without your location. </string>
+	<string>We apologize, but RideOnTime can&apos;t schedule rides without your location. </string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

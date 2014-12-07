@@ -10,28 +10,41 @@
 #import "Token.h"
 #import "UberAPI.h"
 #import "User.h"
-#import "UberKit.h"
+#import <NXOAuth2.h>
 
-@interface ViewController () <UIAlertViewDelegate>
+@interface ViewController () <UIAlertViewDelegate, UIWebViewDelegate>
 @property NSString *token;
 @property User *currentUser;
 @property UberProfile *profile;
+@property (weak, nonatomic) IBOutlet UIWebView *webView;
 
 
 @end
 
 @implementation ViewController
 
+static NSString * const clientID =@"pVt5YyjIQIB5gcZHzz_SgyG2Z6lcJRWT";
+static NSString * const clientSecret =@"7pJruVcbjQQPZNHRAscuArs2I3Ip3Y-MvVDj_Sw5";
+static NSString * const scope = @"profile history";
+static NSString * const accountType = @"Uber";
+static NSString * const authURL =@"https://login.uber.com/oauth/authorize";
+
 - (void)viewDidLoad {
 
     [super viewDidLoad];
       [self.navigationItem setHidesBackButton:YES animated:YES];
+
+    self.webView.delegate = self;
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideWebViewNotification:) name:@"tokenSaved" object:nil];
+
 
 }
 
 - (void)viewWillAppear:(BOOL)animated {
 
     [super viewWillAppear:animated];
+    self.webView.hidden = YES;
 
     //check to make sure the token is still valid and they can use the UberAPI
     NSString *token = [Token getToken];
@@ -43,7 +56,7 @@
     }else
 
     {
-        [UberAPI getUserProfileWithCompletionHandler:^(UberProfile *profile, NSError *error) {
+        [[UberAPI sharedInstance]  getUserProfileWithCompletionHandler:^(UberProfile *profile, NSError *error) {
             if (!error) {
                 [self loginOrSignUpUserWithUberProfile];
             }else {
@@ -56,29 +69,9 @@
     }
 }
 
--(void)viewDidDisappear:(BOOL)animated {
-
-}
-
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
-    if ([title isEqualToString:@"Login"]) {
-
-        [[UberKit sharedInstance] startLogin];
-    }
-    if ([title isEqualToString:@"Efrase Token"]) {
-        [self eraseToken];
-    }
-
-    if ([title isEqualToString:@"Logout User"]) {
-        [self logoutCurrentUser];
-    }
-}
-
 
 - (IBAction)onPassengerPressed:(UIButton *)sender {
-//    [self loginOrSignUpUserWithUberProfile];
-//    self.currentUser.isDriver = NO;
+
     if ([User currentUser])
     {
         [self.currentUser saveInBackground];
@@ -88,8 +81,7 @@
 }
 
 - (IBAction)onDriverPressed:(UIButton *)sender {
-//    [self loginOrSignUpUserWithUberProfile];
-//    self.currentUser.isDriver = YES;
+
     if ([User currentUser])
     {
         [self.currentUser saveInBackground];
@@ -108,12 +100,11 @@
 -(void)loginOrSignUpUserWithUberProfile
 {
 
-    [UberAPI getUserProfileWithCompletionHandler:^(UberProfile *profile, NSError *error)
+    [[UberAPI sharedInstance]  getUserProfileWithCompletionHandler:^(UberProfile *profile, NSError *error)
      {
          self.profile = profile;
          PFQuery *queryUsers = [User query];
          [queryUsers whereKey:@"username" containsString:self.profile.email];
-         //        [queryUsers whereKey:@"username" equalTo:self.profile.email];
          [queryUsers findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
           {
               if (objects == nil)
@@ -149,15 +140,7 @@
                   }else
                   {
                       self.currentUser = [User currentUser];
-//                      if (self.currentUser.isDriver == YES)//Check if they are a Driver
-//                      {
-//                          [self associateUserToDeviceForPush];
-                          //                        [self performSegueWithIdentifier:@"showDriver" sender:self];
-//                      }else if (self.currentUser.isDriver == NO)//Check if they are a passenger
-//                      {
-                          [self associateUserToDeviceForPush];
-                          //                        [self performSegueWithIdentifier:@"showPassenger" sender:self];
-//                      }
+                      [self associateUserToDeviceForPush];
                       NSLog(@"Logged in successfully");
                   }
               }
@@ -193,14 +176,14 @@
     CLLocation *pickupLocation = [[CLLocation alloc] initWithLatitude:37.7833 longitude:-122.4167];
     CLLocation *destinationLocation = [[CLLocation alloc] initWithLatitude:37.9 longitude:-122.43];
 
-    [UberAPI getPriceEstimateFromPickup:pickupLocation toDestination:destinationLocation completionHandler:^(UberPrice *price) {
+    [[UberAPI sharedInstance]  getPriceEstimateFromPickup:pickupLocation toDestination:destinationLocation completionHandler:^(UberPrice *price) {
         NSLog(@"Estimate for Average Fare: $%@",price.avgEstimateWithoutSurge);
     }];
     
 }
 
 - (void)queryProfile {
-    [UberAPI getUserProfileWithCompletionHandler:^(UberProfile *profile, NSError *error) {
+    [[UberAPI sharedInstance]  getUserProfileWithCompletionHandler:^(UberProfile *profile, NSError *error) {
         NSLog(@"Name:%@ %@",profile.first_name,profile.last_name);
         NSLog(@"Email:%@",profile.email);
         NSLog(@"Picture: %@", profile.picture);
@@ -210,7 +193,7 @@
 }
 
 - (void)queryActivity {
-    [UberAPI getUberActivitiesWithCompletionHandler:^(NSMutableArray *activities) {
+    [[UberAPI sharedInstance]  getUberActivitiesWithCompletionHandler:^(NSMutableArray *activities) {
         NSLog(@"Activities:%@",activities);
     }];
 
@@ -222,6 +205,76 @@
     [loginAlert show];
 }
 
+#pragma mark - alertView Delegate Methods
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
+    if ([title isEqualToString:@"Login"]) {
+
+        [self login];
+    }
+}
+
+-(void)login
+{
+    self.webView.hidden = NO;
+    [self setupOauthAccountStore];
+    [self requestOAuth2Access];
+
+
+}
+
+#pragma mark - Oauth2 Logic
+
+- (void)setupOauthAccountStore
+{
+    NSURL *authURL = [NSURL URLWithString:@"https://login.uber.com/oauth/authorize"];
+    NSURL *tokenUrl = [NSURL URLWithString:@"https://login.uber.com/oauth/token"];
+
+    [[NXOAuth2AccountStore sharedStore] setClientID:clientID secret:clientSecret authorizationURL:authURL tokenURL:tokenUrl redirectURL:nil forAccountType:accountType ];
+
+    [[NSNotificationCenter defaultCenter] addObserverForName:NXOAuth2AccountStoreAccountsDidChangeNotification
+                                                      object:[NXOAuth2AccountStore sharedStore]
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification *aNotification){
+
+                                                      if (aNotification.userInfo) {
+                                                          //account added, we have access
+                                                          //we can now request protected data
+                                                          NSLog(@"Success!! We have an access token.");
+                                                      } else {
+                                                          //account removed, we lost access
+                                                      }
+                                                  }];
+
+    [[NSNotificationCenter defaultCenter] addObserverForName:NXOAuth2AccountStoreDidFailToRequestAccessNotification
+                                                      object:[NXOAuth2AccountStore sharedStore]
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification *aNotification){
+
+                                                      NSError *error = [aNotification.userInfo objectForKey:NXOAuth2AccountStoreErrorKey];
+                                                      NSLog(@"Error!! %@", error.localizedDescription);
+                                                      
+                                                  }];
+}
+
+-(void)requestOAuth2Access
+{
+    [[NXOAuth2AccountStore sharedStore] requestAccessToAccountWithType:accountType withPreparedAuthorizationURLHandler:^(NSURL *preparedURL)
+     {
+         //navigate to the URL returned by NXOAuth2Client
+         [self.webView loadRequest:[NSURLRequest requestWithURL:preparedURL]];
+         
+     }];
+}
+
+-(void)hideWebViewNotification:(NSNotification *)notification
+{
+    if ([[notification name] isEqualToString:@"tokenSaved"]) {
+        self.webView.hidden = YES;
+    }
+
+}
 
 
 

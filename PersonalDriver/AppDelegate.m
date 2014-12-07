@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import <Parse/Parse.h>
-#import "UberKit.h"
 #import "User.h"
 #import "Token.h"
 #import "UberAPI.h"
@@ -16,8 +15,8 @@
 #import <SBAPNSPusher.h>
 #import <SVProgressHUD.h>
 
+
 @interface AppDelegate ()
-@property UberAPI *uberAPI;
 @property Ride *nextRide;
 
 @end
@@ -32,19 +31,14 @@
         [self loginOrSignUpUserWithUberProfile];
     }
 
-    //setup UberKit
-    [[UberKit sharedInstance] setServerToken:@"fD73LyEkIU7K9NKXuhq23-Yr703QlwlafPYxDAfN"];
-    [[UberKit sharedInstance] setClientID:@"eEsKAGQUzCMhKv6faWTXnMr4IS69BuNu"]; //Add your client id
-    [[UberKit sharedInstance] setClientSecret:@"zUigzHaBAd0sp8gQOes6KDUM0dLqAvUlsSRNIH2v"]; //Add your client secret
-    [[UberKit sharedInstance] setRedirectURL:@"personaldriver://localhost"]; //Add your redirect url
-    [[UberKit sharedInstance] setApplicationName:@"RideOnTime"]; //Add your application name
+    //setup UberAPI
+    [[UberAPI sharedInstance] setServerToken:@"5VvEv7zOK6lEmQf0qRjPBA8ie7P8IIHb0X8pAF2r"];
+    [[UberAPI sharedInstance] setClientID:@"pVt5YyjIQIB5gcZHzz_SgyG2Z6lcJRWT"]; //Add your client id
+    [[UberAPI sharedInstance] setClientSecret:@"7pJruVcbjQQPZNHRAscuArs2I3Ip3Y-MvVDj_Sw5"]; //Add your client secret
+    [[UberAPI sharedInstance] setRedirectURL:@"rideontime://localhost"]; //Add your redirect url
+    [[UberAPI sharedInstance] setApplicationName:@"RideOnTime!"]; //Add your application name
 
-    self.uberAPI = [UberAPI new];
-    self.uberAPI.serverToken = @"fD73LyEkIU7K9NKXuhq23-Yr703QlwlafPYxDAfN";
-    self.uberAPI.clientID = @"eEsKAGQUzCMhKv6faWTXnMr4IS69BuNu";
-    self.uberAPI.clientSecret = @"zUigzHaBAd0sp8gQOes6KDUM0dLqAvUlsSRNIH2v";
-    self.uberAPI.redirectURL = @"personaldriver://localhost";
-    self.uberAPI.applicationName = @"RideOnTime";
+
 
     [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:(10.0/255.0) green:(9.0/255.0) blue:(26.0/255.0) alpha:1]];
 
@@ -110,12 +104,14 @@
 - (BOOL) application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
     //Get the authCode before getting the token
+
+    NSLog(@"%@",url.query);
     NSArray *urlArray = [url.query componentsSeparatedByString:@"="];
     NSString *authCode = [urlArray objectAtIndex:1];
     if (authCode)
     {
         //use AuthCode to get token
-        NSString *data = [NSString stringWithFormat:@"code=%@&client_id=%@&client_secret=%@&redirect_uri=%@&grant_type=authorization_code", authCode, self.uberAPI.clientID, self.uberAPI.clientSecret, self.uberAPI.redirectURL];
+        NSString *data = [NSString stringWithFormat:@"code=%@&client_id=%@&client_secret=%@&redirect_uri=%@&grant_type=authorization_code", authCode, [UberAPI sharedInstance].clientID, [UberAPI sharedInstance].clientSecret, [UberAPI sharedInstance].redirectURL];
         NSString *urlString = [NSString stringWithFormat:@"https://login.uber.com/oauth/token"];
         NSURL *urlForAuth = [NSURL URLWithString:urlString];
         NSMutableURLRequest* requestForAuth = [NSMutableURLRequest requestWithURL:urlForAuth];
@@ -127,6 +123,8 @@
             NSString *authToken = [authDictionary objectForKey:@"access_token"];
             [Token setToken:authToken];
             NSLog(@"Token saved in Keychain");
+
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"tokenSaved" object:self];
 
             [self loginOrSignUpUserWithUberProfile];
 
@@ -141,10 +139,6 @@
 }
 
 
-- (void)applicationDidEnterBackground:(UIApplication *)application {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-}
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
@@ -210,7 +204,7 @@
 
         [SVProgressHUD show];
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"uber://?client_id=%@&action=setPickup&pickup[latitude]=41.8915&pickup[longitude]=-87.604055",self.uberAPI.clientID]]
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"uber://?client_id=%@&action=setPickup&pickup[latitude]=41.8915&pickup[longitude]=-87.604055",[UberAPI sharedInstance].clientID]]
              ];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [SVProgressHUD dismiss];
@@ -308,7 +302,7 @@
 -(void)loginOrSignUpUserWithUberProfile
 {
 
-    [UberAPI getUserProfileWithCompletionHandler:^(UberProfile *profile, NSError *error)
+    [[UberAPI sharedInstance] getUserProfileWithCompletionHandler:^(UberProfile *profile, NSError *error)
      {
          PFQuery *queryUsers = [User query];
          [queryUsers whereKey:@"username" containsString:profile.email];
@@ -348,16 +342,8 @@
                       NSLog(@"%@", [error description]);
                   }else
                   {
-                      //User *currentUser = [User currentUser];
-                      //                      if (self.currentUser.isDriver == YES)//Check if they are a Driver
-                      //                      {
-                      //                          [self associateUserToDeviceForPush];
-                      //                        [self performSegueWithIdentifier:@"showDriver" sender:self];
-                      //                      }else if (self.currentUser.isDriver == NO)//Check if they are a passenger
-                      //                      {
+
                       [self associateUserToDeviceForPush];
-                      //                        [self performSegueWithIdentifier:@"showPassenger" sender:self];
-                      //                      }
                       NSLog(@"Logged in successfully");
                   }
               }
@@ -373,8 +359,6 @@
     installation[@"user"] = [User currentUser];
     [installation saveInBackground];
 }
-
-
 
 
 

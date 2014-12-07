@@ -3,4 +3,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 pod 'SSKeychain'
 pod 'SBAPNSPusher'
 pod 'SVProgressHUD', :head
+pod 'AFNetworking', '~> 2.0'
+pod 'AFOAuth2Manager'
+pod 'NXOAuth2Client', '~> 1.2.8'
 

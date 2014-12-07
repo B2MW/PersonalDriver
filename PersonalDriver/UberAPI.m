@@ -9,12 +9,50 @@
 #import "UberAPI.h"
 #import "Token.h"
 #import <UIKit/UIKit.h>
-
-
+#import <AFOAuth2Manager.h> 
+#import <AFNetworking.h> 
 
 @implementation UberAPI
 
-+ (void)getUberActivitiesWithCompletionHandler:(void(^)(NSMutableArray *))complete
++ (UberAPI *) sharedInstance
+{
+    static UberAPI *_sharedInstance;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _sharedInstance = [[self alloc] init];
+    });
+
+    return _sharedInstance;
+}
+
+- (instancetype) initWithClientID:(NSString *)clientId ClientSecret:(NSString *)clientSecret RedirectURL:(NSString *)redirectURL ApplicationName:(NSString *)applicationName BaseURL:(NSURL *)baseURL;
+{
+    self = [super init];
+    if(self)
+    {
+        _clientID = clientId;
+        _clientSecret = clientSecret;
+        _redirectURL = redirectURL;
+        _applicationName = applicationName;
+        _baseURL = baseURL;
+    }
+
+    return self;
+}
+
+
+- (instancetype) initWithServerToken:(NSString *)serverToken
+{
+    self = [super init];
+    if(self)
+    {
+        _serverToken = serverToken;
+    }
+
+    return self;
+}
+
+- (void)getUberActivitiesWithCompletionHandler:(void(^)(NSMutableArray *))complete
 {
     //GET /v1.1/history
     NSString *token = [Token getToken];
@@ -45,7 +83,7 @@
     }
 }
 
-+ (void)getUserProfileWithCompletionHandler:(void(^)(UberProfile *, NSError *))complete
+- (void)getUserProfileWithCompletionHandler:(void(^)(UberProfile *, NSError *))complete
 {
     //GET /v1/me
     NSString *token = [Token getToken];
@@ -77,7 +115,7 @@
 
 }
 
-+(void)getPriceEstimateFromPickup:(CLLocation *)pickup toDestination:(CLLocation *)destination completionHandler:(void(^)(UberPrice *))complete
+-(void)getPriceEstimateFromPickup:(CLLocation *)pickup toDestination:(CLLocation *)destination completionHandler:(void(^)(UberPrice *))complete
 {
     NSString *token = [Token getToken];
     if (!token) {
@@ -114,6 +152,9 @@
     }
 
 }
+
+
+
 
 
 
