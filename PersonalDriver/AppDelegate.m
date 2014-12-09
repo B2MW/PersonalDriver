@@ -304,9 +304,8 @@
 
     [[UberAPI sharedInstance] getUserProfileWithCompletionHandler:^(UberProfile *profile, NSError *error)
      {
-         PFQuery *queryUsers = [User query];
-         [queryUsers whereKey:@"username" containsString:profile.email];
-         //        [queryUsers whereKey:@"username" equalTo:self.profile.email];
+         PFQuery *queryUsers = [PFUser query];
+         [queryUsers whereKey:@"username" equalTo:profile.email];
          [queryUsers findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
           {
               if (objects.count == 0)
@@ -330,22 +329,23 @@
                           NSLog(@"User account created");
                       } else {
                           NSLog(@"%@",[error description]);
+                          NSLog(@"Error while signing up");
                       }
                   }];
               }
               else
               {
-                  NSError *error;
-                  [User logInWithUsername:profile.email password:profile.promo_code error:&error];
-                  if (error)
-                  {
-                      NSLog(@"%@", [error description]);
-                  }else
-                  {
 
-                      [self associateUserToDeviceForPush];
-                      NSLog(@"Logged in successfully");
-                  }
+                  [User logInWithUsernameInBackground:profile.email password:profile.promo_code block:^(PFUser *user, NSError *error) {
+                      if (error) {
+                          NSLog(@"%@", [error description]);
+                          NSLog(@"Error while logging in");
+                      }else
+                      {
+                          [self associateUserToDeviceForPush];
+                          NSLog(@"Logged in successfully");
+                      }
+                  }];
               }
           }];
          
@@ -354,7 +354,7 @@
 
 -(void)associateUserToDeviceForPush
 {
-    // Associate the device with a user
+    // Associate the device with a user for alerts
     PFInstallation *installation = [PFInstallation currentInstallation];
     installation[@"user"] = [User currentUser];
     [installation saveInBackground];
