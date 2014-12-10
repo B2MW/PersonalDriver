@@ -37,6 +37,7 @@
 - (void)viewWillAppear:(BOOL)animated
 
 {
+    [super viewWillAppear:animated];
     RideManager *rideManager = [[RideManager alloc] init];
     self.estimatedFare.text = [NSString stringWithFormat:@"$%@-%@",self.ride.fareEstimateMin, self.ride.fareEstimateMax];
 
